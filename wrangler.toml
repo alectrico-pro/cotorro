@@ -1,0 +1,10 @@
+name = "cotorro"
+compatibility_date = "2025-08-01"
+compatibility_flags = ["python_workers"]
+main = "src/entry.py"
+
+vars = { GREETING = "Hola desde Python",  API_URL = "https://cotorro.alectrico.cl" }
+
+#kv_namespaces = [
+#  { binding = "MY_CACHE", id = "abcdef123456" }
+#]

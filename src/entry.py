@@ -4,6 +4,11 @@ from urllib.parse import urlparse, parse_qs
 import json
 from js import console
 
+import uuid
+import requests
+from dotenv import load_dotenv
+
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 

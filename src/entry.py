@@ -5,7 +5,7 @@ import json
 from js import console
 
 import uuid
-import requests
+#import requests
 from dotenv import load_dotenv
 
 

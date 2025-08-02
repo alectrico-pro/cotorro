@@ -15,6 +15,8 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
 
+    console.log("En console")
+
     if url.path == "/":
         msg = env.GREETING
         return Response(msg)

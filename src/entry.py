@@ -42,7 +42,7 @@ async def on_fetch(request, env):
         return Response.make(js_resp.body, status=js_resp.status, headers=dict(js_resp.headers))
     #--- wapp ----------------------------------------------
     if url.path.startswith("/create-flow"):
-        return Response("create-flow", status=404)
+        return Response("create-flow", status=200)
 
     if url.path.startswith("/webhook_get"):
         return Response("webhook_get", status=404)

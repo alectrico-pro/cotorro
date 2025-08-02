@@ -50,6 +50,8 @@ async def on_fetch(request, env):
            return make_response( params["hub"]["challenge"], 200)
         else:
            return make_response("Success", 403)
+    else:
+        return make_response("No se encontró hub", 404)
 
 
     return Response("Not Found", status=404)

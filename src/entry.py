@@ -84,6 +84,8 @@ def create_flow():
 
 #@app.route("/webhook", methods=["GET"])
 def webhook_get():
+    return Response("Web hook", status=404)
+
     if (
         request.args.get("hub.mode") == "subscribe"
         and request.args.get("hub.verify_token") == VERIFY_TOKEN

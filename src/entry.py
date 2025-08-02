@@ -40,6 +40,11 @@ async def on_fetch(request, env):
         upstream = f"{env.API_URL}/users/{body.get('id')}"
         js_resp = await request.fetch(upstream)
         return Response.make(js_resp.body, status=js_resp.status, headers=dict(js_resp.headers))
+    #--- wapp ----------------------------------------------
+    if url.path.startswith("/create-flow"):
+        create_flow()
+
+
 
     return Response("Not Found", status=404)
 

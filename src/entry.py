@@ -6,7 +6,7 @@ from js import console
 
 import uuid
 #import requests
-from dotenv import load_dotenv
+#from dotenv import load_dotenv #no lo acepta cloudflare
 
 
 logging.basicConfig(level=logging.INFO)

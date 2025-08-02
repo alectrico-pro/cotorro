@@ -45,8 +45,8 @@ async def on_fetch(request, env):
 
     if url.path.startswith("/webhook"):
         if (
-           request.args.get("hub.mode") == "subscribe"
-           and request.args.get("hub.verify_token") == VERIFY_TOKEN
+           console.log( request )
+           request.args.get("hub.mode") == "subscribe" and request.args.get("hub.verify_token") == VERIFY_TOKEN
         ):
            return make_response(request.args.get("hub.challenge"), 200)
         else:

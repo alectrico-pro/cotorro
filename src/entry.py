@@ -19,7 +19,7 @@ async def on_fetch(request, env):
     console.log(f"Handling request {url.path} with params {params}")
 
 
-    if url.path == "/webbook"
+    if url.path == "/webhook":
         msg = env.GREETING
         return Response(msg)
 

@@ -5,6 +5,7 @@ main = "src/entry.py"
 
 [vars]
 GREETING = "Hi desde Python"
+SOY_WEBHOOK= "Hola, soy endpoint /webhook"
 API_URL = "https://cotorro.alectrico.cl" 
 PHONE_NUMBER_ID = "PHONE_NUMBER_ID"
 VERIFY_TOKEN = "VERIFY_TOKEN"

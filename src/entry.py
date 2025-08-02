@@ -17,13 +17,13 @@ async def on_fetch(request, env):
 
 
     if url.path == "/webhook":
-        msg = env.GREETING
+        msg = env.SOY_WEBHOOK
         return Response(msg)
 
 
-    #if url.path == "/":
-    #    msg = env.GREETING
-    #    return Response(msg)
+    if url.path == "/":
+        msg = env.GREETING
+        return Response(msg)
 
     if url.path == "/cache":
         # use KV

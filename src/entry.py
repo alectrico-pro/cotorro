@@ -42,8 +42,16 @@ async def on_fetch(request, env):
         return Response.make(js_resp.body, status=js_resp.status, headers=dict(js_resp.headers))
     #--- wapp ----------------------------------------------
     if url.path.startswith("/create-flow"):
-        create_flow()
+        return Response("create-flow", status=404)
 
+    if url.path.startswith("/webhook_get"):
+        if (
+           request.args.get("hub.mode") == "subscribe"
+           and request.args.get("hub.verify_token") == VERIFY_TOKEN
+        ):
+           return make_response(request.args.get("hub.challenge"), 200)
+        else:
+           return make_response("Success", 403)
 
 
     return Response("Not Found", status=404)

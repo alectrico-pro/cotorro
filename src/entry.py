@@ -15,12 +15,6 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
 
-
-    if url.path == "/webhook":
-        msg = env.SOY_WEBHOOK
-        return Response(msg)
-
-
     if url.path == "/":
         msg = env.GREETING
         return Response(msg)
@@ -45,10 +39,10 @@ async def on_fetch(request, env):
         return Response.make(js_resp.body, status=js_resp.status, headers=dict(js_resp.headers))
     #--- wapp ----------------------------------------------
     if url.path.startswith("/create-flow"):
-        return Response("create-flow", status=404)
+        return Response("create-flow", status=200)
 
-    if url.path.startswith("/webhook_get"):
-        return Response("webhook_get", status=404)
+    if url.path.startswith("/webhook"):
+        return Response("webhook", status=200)
         if (
            request.args.get("hub.mode") == "subscribe"
            and request.args.get("hub.verify_token") == VERIFY_TOKEN

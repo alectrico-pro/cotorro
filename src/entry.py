@@ -15,8 +15,6 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
 
-    console.log("En console")
-
     if url.path == "/":
         msg = env.GREETING
         return Response(msg)
@@ -45,7 +43,6 @@ async def on_fetch(request, env):
 
     if url.path.startswith("/webhook"):
         if (
-           console.log( request )
            request.args.get("hub.mode") == "subscribe" and request.args.get("hub.verify_token") == VERIFY_TOKEN
         ):
            return make_response(request.args.get("hub.challenge"), 200)

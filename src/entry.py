@@ -44,8 +44,9 @@ async def on_fetch(request, env):
     return Response("Not Found", status=404)
 
 
+#routas -------------------------------------------------------------
 
-
+@app.route("/create-flow", methods=["POST"])
 def create_flow():
     flow_base_url = (
         f"https://graph.facebook.com/v18.0/{WHATSAPP_BUSINESS_ACCOUNT_ID}/flows"
@@ -180,7 +181,6 @@ def flow_reply_processor(request):
             tour_guides = "Neither of the two"
         case "4":
             tour_guides = "I didn’t interact with them"
-
 
     match aspects_enjoyed_id:
         case "0":

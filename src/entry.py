@@ -69,7 +69,7 @@ def create_flow():
         return make_response("ERROR", 500)
 
 
-
+#@app.route("/webhook", methods=["GET"])
 def webhook_get():
     if (
         request.args.get("hub.mode") == "subscribe"
@@ -81,7 +81,7 @@ def webhook_get():
 
 
 
-
+#@app.route("/webhook", methods=["POST"])
 def webhook_post():
     # checking if there is a messages body in the payload
     if (

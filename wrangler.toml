@@ -4,7 +4,7 @@ compatibility_flags = ["python_workers"]
 main = "src/entry.py"
 
 [vars]
-GREETING = "Hola desde Python"
+GREETING = "Hi desde Python"
 API_URL = "https://cotorro.alectrico.cl" 
 PHONE_NUMBER_ID = "PHONE_NUMBER_ID"
 VERIFY_TOKEN = "VERIFY_TOKEN"

@@ -3,7 +3,29 @@ compatibility_date = "2025-08-01"
 compatibility_flags = ["python_workers"]
 main = "src/entry.py"
 
-vars = { GREETING = "Hola desde Python",  API_URL = "https://cotorro.alectrico.cl" }
+[vars]
+GREETING = "Hola desde Python"
+API_URL = "https://cotorro.alectrico.cl" 
+PHONE_NUMBER_ID = "PHONE_NUMBER_ID"
+VERIFY_TOKEN = "VERIFY_TOKEN"
+ACCESS_TOKEN = "ACCESS_TOKEN"
+WHATSAPP_BUSINESS_ACCOUNT_ID = "WHATSAPP_BUSINESS_ACCOUNT_ID"
+created_flow_id = ""
+
+
+
+messaging_url = f"https://graph.facebook.com/v18.0/{PHONE_NUMBER_ID}/messages"
+
+auth_header = {"Authorization": f"Bearer {ACCESS_TOKEN}"}
+
+messaging_headers = {
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {ACCESS_TOKEN}",
+}
+
+
+
+#vars = { GREETING = "Hola desde Python",  API_URL = "https://cotorro.alectrico.cl" }
 
 #kv_namespaces = [
 #  { binding = "MY_CACHE", id = "abcdef123456" }

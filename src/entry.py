@@ -42,3 +42,29 @@ async def on_fetch(request, env):
         return Response.make(js_resp.body, status=js_resp.status, headers=dict(js_resp.headers))
 
     return Response("Not Found", status=404)
+
+
+
+
+def create_flow():
+    flow_base_url = (
+        f"https://graph.facebook.com/v18.0/{WHATSAPP_BUSINESS_ACCOUNT_ID}/flows"
+    )
+    flow_creation_payload = {"name": "<FLOW-NAME>", "categories": '["SURVEY"]'}
+    flow_create_response = requests.request(
+        "POST", flow_base_url, headers=auth_header, data=flow_creation_payload
+    )
+
+    try:
+        global created_flow_id
+        created_flow_id = flow_create_response.json()["id"]
+        graph_assets_url = f"https://graph.facebook.com/v18.0/{created_flow_id}/assets"
+
+        upload_flow_json(graph_assets_url)
+        publish_flow(created_flow_id)
+
+        print("FLOW CREATED!")
+        return make_response("FLOW CREATED", 200)
+    except:
+        return make_response("ERROR", 500)
+

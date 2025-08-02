@@ -42,7 +42,6 @@ async def on_fetch(request, env):
         return Response("create-flow", status=200)
 
     if url.path.startswith("/webhook"):
-        return Response("webhook", status=200)
         if (
            request.args.get("hub.mode") == "subscribe"
            and request.args.get("hub.verify_token") == VERIFY_TOKEN

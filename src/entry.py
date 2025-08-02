@@ -43,9 +43,9 @@ async def on_fetch(request, env):
 
     console.log(f"{params}")
 
-    if url.path.startswith("/webhook") and 'hub' in params:
+    if url.path.startswith("/webhook") and 'hub.mode' in params and 'hub.verify_token' in params:
         if (
-           params["hub"]["mode"] == "subscribe" and params["hub"]["verify_token"] == VERIFY_TOKEN
+           params["hub.mode"] == "subscribe" and params["hub.verify_token"] == VERIFY_TOKEN
         ):
            return Response(params["hub"]["challenge"], status=200)
         else:

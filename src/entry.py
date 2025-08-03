@@ -49,7 +49,7 @@ async def on_fetch(request, env):
 
     if url.path.startswith("/webhook") and method == 'POST':
         value = await request.json().entry[0].changes[0].value
-        if value is not None and if 'messages' in value:
+        if value is not None and 'messages' in value:
             console.log(f"Value {value}")
             return Response("Found Messages", status=200)
     return Response("Not Found", status=404)

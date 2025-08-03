@@ -53,6 +53,7 @@ async def on_fetch(request, env):
         entry = request_json.entry
         if entry is not None:
            value = entry[0]["changes"][0]["value"]
+           console.log( value )
            if value is not None:
              mensajes = value.get("messages") 
              if mensajes is not None:

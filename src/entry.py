@@ -53,8 +53,9 @@ async def on_fetch(request, env):
         if entry is not None:
            value = entry[0].changes[0].value
            if value is not None:
-             console.log(f"value {value}")
+             console.log( value )
              mensaje = value.messages[0]
+             console.log( mensaje )
              console.log(f"mensaje {mensaje}")
              if mensaje is not None:
                  return Response(mensaje, status=201)

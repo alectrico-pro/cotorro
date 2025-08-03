@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 async def on_fetch(request, env):
     url = urlparse(request.url)
     params = parse_qs(url.query)
+    method = request.method
 
     console.log(f"Handling request {url.path} with params {params}")
 
@@ -45,9 +46,9 @@ async def on_fetch(request, env):
 
     if url.path.startswith("/webhook") and 'hub.mode' in params and 'hub.verify_token' in params:
         if (
-           params["hub.mode"] == "subscribe" and params["hub.verify_token"] == VERIFY_TOKEN
+           params["hub.mode"] == ['subscribe'] #nd params['hub.verify_token'] == VERIFY_TOKEN
         ):
-           return Response(params["hub.challenge"], status=200)
+           return Response(params['hub.challenge'], status=200)
         else:
            return Response("Error", status=403)
     else:

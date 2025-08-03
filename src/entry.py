@@ -50,7 +50,7 @@ async def on_fetch(request, env):
     if url.path.startswith("/webhook") and method == 'POST':
 
         #   body = json.loads(request.body)['entry'][0]
-        body = (await request.json()).body
+        body = (await request.json())
         console.log( f"investigando body {body}" )
 
         webhook_post(body, env)

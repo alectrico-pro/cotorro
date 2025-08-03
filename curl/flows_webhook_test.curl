@@ -1,0 +1,15 @@
+curl -X  POST \
+ "https://cotorro.alectrico.workers.dev/webhook" \
+ -H "Authorization: Bearer $token" \
+ -H 'Content-Type: application/json' \
+ --data @/dev/stdin<<EOF
+{
+  "field": "flows",
+  "value": {
+    "event": "FLOW_STATUS_CHANGE",
+    "message": "Flow {FlowName} changed status from DRAFT to PUBLISHED",
+    "flow_id": "1000"
+  }
+}
+EOF
+

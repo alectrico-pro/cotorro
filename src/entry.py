@@ -42,6 +42,7 @@ async def on_fetch(request, env):
     if url.path.startswith("/create-flow"):
         return Response("create-flow", status=200)
 
+    console.log("params a seguir")
     console.log(f"{params}")
 
     if url.path.startswith("/webhook") and 'hub.mode' in params and 'hub.verify_token' in params:
@@ -50,7 +51,7 @@ async def on_fetch(request, env):
         else:
            return Response("Error", status=403)
     else:
-        return Response( params , status=200)
+        return Response( "ok" , status=200)
 
 
     return Response("Not Found", status=404)

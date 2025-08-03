@@ -48,7 +48,12 @@ async def on_fetch(request, env):
         webhook_get(request, env)
 
     if url.path.startswith("/webhook") and method == 'POST':
-        webhook_post(request, env)
+
+        #   body = json.loads(request.body)['entry'][0]
+        body = (await request.json()).body
+        console.log( f"investigando body {body}" )
+
+        webhook_post(body, env)
 
     return Response("Not Found", status=404)
 
@@ -88,13 +93,9 @@ def webhook_get(request, env):
         return Response("Error", status=403)
 
 #@app.route("/webhook", methods=["POST"])
-def webhook_post(request, env):
+def webhook_post(body, env):
     # checking if there is a messages body in the payload
     console.log("En webhook_post")
-
-    body = json.loads(request.body)['entry'][0]
-    body = (await request.json()).body
-    console.log( f"investigando body {body}" )
 
     if (
         json.loads(request.body)["entry"][0]["changes"][0]["value"].get("messages")) is not None:

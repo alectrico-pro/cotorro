@@ -49,8 +49,9 @@ async def on_fetch(request, env):
 
 
     if url.path.startswith("/webhook") and method == 'POST':
-        console.log( request.json() )
-        text = (await request.json()).entry[0].changes[0].value.messages[0].text
+        request_json = await request.json()
+        console.log( request_json )
+        text = request_json.entry[0].changes[0].value.messages[0].text
       
         if text is not None:
             console.log(f"Text {text}")

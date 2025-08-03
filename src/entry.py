@@ -53,8 +53,8 @@ async def on_fetch(request, env):
         entry = request_json.entry
         if entry is not None:
            console.log( entry[0] )
-           console.log( entry[0].changes )
-           value = entry[0]["changes"][0]["value"]
+           console.log( entry[0].changes[0].value )
+           value = entry[0].changes[0].value
            console.log( value )
            if value is not None:
              mensajes = value.get("messages") 

@@ -13,8 +13,11 @@ async def on_fetch(request, env):
     url = urlparse(request.url)
     params = parse_qs(url.query)
     method = request.method
+    body = request.body
 
     console.log(f"Handling request {url.path} with params {params}")
+    console.log(f"{body}")
+    console.log(f"{method}")
 
     if url.path == "/":
         msg = env.GREETING
@@ -50,9 +53,9 @@ async def on_fetch(request, env):
            return Response(params['hub.challenge'][0], status=200)
         else:
            return Response("Error", status=403)
-    else:
-        return Response( "ok" , status=200)
 
+    if url.path.startswith("/webhook") and method == 'POST':
+        webhook_post()
 
     return Response("Not Found", status=404)
 
@@ -83,8 +86,9 @@ def create_flow():
 
 
 #@app.route("/webhook", methods=["GET"])
+#no está adaptado, :no usa import request.no deja cloudflare
 def webhook_get():
-    return Response("Web hook", status=404)
+    return Response("Webhook get" , status=404)
 
     if (
         request.args.get("hub.mode") == "subscribe"
@@ -99,6 +103,7 @@ def webhook_get():
 #@app.route("/webhook", methods=["POST"])
 def webhook_post():
     # checking if there is a messages body in the payload
+    console.log("En webhook_post")
     if (
         json.loads(request.get_data())["entry"][0]["changes"][0]["value"].get(
             "messages"

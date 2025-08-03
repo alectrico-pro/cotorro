@@ -52,10 +52,8 @@ async def on_fetch(request, env):
         console.log( request_json )
         entry = request_json.entry
         if entry is not None:
-           console.log(f"entry {entry_json}")
            value = entry[0]["changes"][0]["value"]
            if value is not None:
-             console.log(f"value: {value}")
              mensajes = value.get("messages") 
              if mensajes is not None:
                  #ensaje = entry[0]["changes"][0]["value"].get("messages")

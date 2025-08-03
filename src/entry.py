@@ -48,12 +48,12 @@ async def on_fetch(request, env):
         webhook_get(request, env)
 
     if url.path.startswith("/webhook") and method == 'POST':
-
-        #   body = json.loads(request.body)['entry'][0]
-        field = (await request.json()).field
-        console.log( f"investigando body {field}" )
-
-        webhook_post(body, env)
+        entry = (await request.json()).entry
+        if (entry[0]["changes"][0]["value"].get("messages")) is not None:
+            mensaje = entry[0]["changes"][0]["value"].get("messages"))
+           return Response("Found Message", status=201)
+           #son.loads(request.body)["entry"][0]["changes"][0]["value"].get("messages")) is not None:
+           #ebhook_post(mensaje, env)
 
     return Response("Not Found", status=404)
 
@@ -61,6 +61,9 @@ async def on_fetch(request, env):
 #rutas -------------------------------------------------------------
 #@app.route("/create-flow", methods=["POST"])
 def create_flow():
+    #field = (await request.json()).field
+    #console.log( f"investigando body {field}" )
+
     flow_base_url = (
         f"https://graph.facebook.com/v18.0/{WHATSAPP_BUSINESS_ACCOUNT_ID}/flows"
     )

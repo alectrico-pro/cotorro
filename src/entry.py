@@ -16,7 +16,6 @@ async def on_fetch(request, env):
     body = request.body
 
     console.log(f"Handling request {url.path} with params {params}")
-    console.log(f"{body}")
     console.log(f"{method}")
 
     if url.path == "/":
@@ -49,10 +48,7 @@ async def on_fetch(request, env):
     console.log(f"{params}")
 
     if url.path.startswith("/webhook") and 'hub.mode' in params and 'hub.verify_token' in params:
-        if params["hub.mode"] == ['subscribe'] and params['hub.verify_token'] == VERIFY_TOKEN:
-           return Response(params['hub.challenge'][0], status=200)
-        else:
-           return Response("Error", status=403)
+        webhook_get()
 
     if url.path.startswith("/webhook") and method == 'POST':
         webhook_post()
@@ -88,43 +84,30 @@ def create_flow():
 #@app.route("/webhook", methods=["GET"])
 #no está adaptado, :no usa import request.no deja cloudflare
 def webhook_get():
-    return Response("Webhook get" , status=404)
-
-    if (
-        request.args.get("hub.mode") == "subscribe"
-        and request.args.get("hub.verify_token") == VERIFY_TOKEN
-    ):
-        return make_response(request.args.get("hub.challenge"), 200)
+    console.log("En webhook_get")
+    if params["hub.mode"] == ['subscribe'] and params['hub.verify_token'] == VERIFY_TOKEN:
+        return Response(params['hub.challenge'][0], status=200)
     else:
-        return make_response("Success", 403)
-
-
+        return Response("Error", status=403)
 
 #@app.route("/webhook", methods=["POST"])
 def webhook_post():
     # checking if there is a messages body in the payload
     console.log("En webhook_post")
     if (
-        json.loads(request.get_data())["entry"][0]["changes"][0]["value"].get(
-            "messages"
-        )
-    ) is not None:
+        json.loads(request.body)["entry"][0]["changes"][0]["value"].get("messages")) is not None:
         """
         checking if there is a text body in the messages payload so that the sender's phone number can be extracted from the message
         """
         if (
-            json.loads(request.get_data())["entry"][0]["changes"][0]["value"][
-                "messages"
-            ][0].get("text")
+            json.loads(request.body)["entry"][0]["changes"][0]["value"]["messages"][0].get("text")
         ) is not None:
-            user_phone_number = json.loads(request.get_data())["entry"][0]["changes"][
-                0
-            ]["value"]["contacts"][0]["wa_id"]
+            user_phone_number = json.loads(request.body)["entry"][0]["changes"][0]["value"]["contacts"][0]["wa_id"]
             send_flow(created_flow_id, user_phone_number)
         else:
             flow_reply_processor(request)
 
-    return make_response("PROCESSED", 200)
+    return Response("PROCESSED", status=200)
 
 
 

@@ -48,15 +48,17 @@ async def on_fetch(request, env):
         webhook_get(request, env)
 
 
+    #inspirado en def webhook_get (ejemplo de whatsapp flow)
     if url.path.startswith("/webhook") and method == 'POST':
         request_json = await request.json()
         console.log( request_json )
-        body = request_json.entry[0].changes[0].value.messages[0].text.body
-      
-        if body is not None:
+        try:
+          body = request_json.entry[0].changes[0].value.messages[0].text.body
+          if body is not None:
             console.log(f"Text {body}")
             return Response("Found {body}", status=200)
-    return Response("Not Found", status=404)
+        except:
+          return Response("Not Found", status=404)
 
 
 #rutas -------------------------------------------------------------
@@ -97,7 +99,7 @@ def webhook_get(request, env):
         return Response("Error", status=403)
 
 #@app.route("/webhook", methods=["POST"])
-def webhook_post(body, env):
+def webhook_post:
     # checking if there is a messages body in the payload
     console.log("En webhook_post")
 

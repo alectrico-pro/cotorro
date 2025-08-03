@@ -47,12 +47,14 @@ async def on_fetch(request, env):
     if url.path.startswith("/webhook") and 'hub.mode' in params and 'hub.verify_token' in params:
         webhook_get(request, env)
 
+
     if url.path.startswith("/webhook") and method == 'POST':
+        console.log( request.json() )
         text = (await request.json()).entry[0].changes[0].value.messages[0].text
       
         if text is not None:
             console.log(f"Text {text}")
-            return Response("Found Text", status=200)
+            return Response("Found {text}", status=200)
     return Response("Not Found", status=404)
 
 

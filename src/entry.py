@@ -50,7 +50,7 @@ async def on_fetch(request, env):
         else:
            return Response("Error", status=403)
     else:
-        return Response("No se encontró hub", status=404)
+        return Response( params , status=200)
 
 
     return Response("Not Found", status=404)

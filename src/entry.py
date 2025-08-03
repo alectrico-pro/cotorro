@@ -265,7 +265,7 @@ def send_message(message, phone_number):
             "text": {"preview_url": False, "body": message},
         }
     )
-    console.log("Payload : {payload}")
+    console.log(f"Payload : {payload}")
     requests.request("POST", messaging_url, headers=messaging_headers, data=payload)
     print("MESSAGE SENT")
 

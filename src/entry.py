@@ -16,7 +16,7 @@ async def on_fetch(request, env):
     body = request.body
 
     console.log(f"Handling request {url.path} with params {params}")
-    console.log(f"{method}")
+
 
     if url.path == "/":
         msg = env.GREETING
@@ -43,9 +43,6 @@ async def on_fetch(request, env):
     #--- wapp ----------------------------------------------
     if url.path.startswith("/create-flow"):
         return Response("create-flow", status=200)
-
-    console.log("params a seguir")
-    console.log(f"{params}")
 
     if url.path.startswith("/webhook") and 'hub.mode' in params and 'hub.verify_token' in params:
         webhook_get(request, env)

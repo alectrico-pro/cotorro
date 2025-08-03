@@ -256,6 +256,7 @@ def flow_reply_processor(request):
 
 
 def send_message(message, phone_number):
+    console.log( "En send_message" )
     payload = json.dumps(
         {
             "messaging_product": "whatsapp",
@@ -264,7 +265,7 @@ def send_message(message, phone_number):
             "text": {"preview_url": False, "body": message},
         }
     )
-
+    console.log("Payload : {payload}")
     requests.request("POST", messaging_url, headers=messaging_headers, data=payload)
     print("MESSAGE SENT")
 

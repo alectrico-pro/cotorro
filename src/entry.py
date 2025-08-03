@@ -48,8 +48,9 @@ async def on_fetch(request, env):
         webhook_get(request, env)
 
     if url.path.startswith("/webhook") and method == 'POST':
-        entry = (await request.json()).entry
-        entry_json = json.dumps( entry )
+        request_json = await request.json()
+        console.log( request_json )
+        entry = json.entry
         if entry is not None:
            console.log(f"entry {entry_json}")
            value = entry[0]["changes"][0]["value"]

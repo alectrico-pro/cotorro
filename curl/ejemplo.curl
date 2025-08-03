@@ -1,0 +1,20 @@
+#mensaje de ejemplo en 
+#https://developers.facebook.com/apps/860581905818440/whatsapp-business/wa-dev-console/?business_id=737782437638734
+token="EAAMOsdbL40gBPNjgfybCervW2878VSDW2AkB0lhaMMSlZBt90qPbukiZBkx1FLZCxtodZAkk5k1s1fx2NRW1NNj8NpTQgGtU1szhkZCzdefxxFK7gm3Cw3LufPBkZAk9sSaHHQARaECh5x8MYQLmkixZAg9Fk6BhuNqBPXdUKgTJHKl9ap1g7CDZBWny50ZBGE7vB9XU6Cftvd21jnWDruvs0DhLdalEyZCJWgoweXrHK70AZDZD"
+waba_id=113481378034034
+phone_id=109431835110338
+
+curl -X  POST \
+ https://graph.facebook.com/v22.0/109431835110338/messages \
+ -H "Authorization: Bearer $token" \
+ -H 'Content-Type: application/json' \
+ --data @/dev/stdin<<EOF
+{
+ 'messaging_product': 'whatsapp',
+ 'to': '56981370042',
+ 'type': 'template',
+ 'template': { 'name': 'hello_world',
+               'language': {'code': 'en_US'}
+ }
+}
+EOF

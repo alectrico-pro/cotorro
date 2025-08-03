@@ -49,9 +49,17 @@ async def on_fetch(request, env):
 
     if url.path.startswith("/webhook") and method == 'POST':
         entry = (await request.json()).entry
-        if (entry[0]["changes"][0]["value"].get("messages")) is not None:
-           mensaje = entry[0]["changes"][0]["value"].get("messages")
-           return Response("Found Message", status=201)
+        if entry is not None:
+           value = entry[0]["changes"][0]["value"]
+           if value is not None:
+             console.log(f"value: {value}")
+             mensajes = value.get("messages") 
+             if mensajes is not None:
+                 #ensaje = entry[0]["changes"][0]["value"].get("messages")
+                 return Response("Found Messages", status=201)
+             else:
+                 return Response("Not Found Messages", status=405)
+
            #son.loads(request.body)["entry"][0]["changes"][0]["value"].get("messages")) is not None:
            #ebhook_post(mensaje, env)
 

@@ -92,7 +92,8 @@ def webhook_post(request, env):
     # checking if there is a messages body in the payload
     console.log("En webhook_post")
 
-    body = json.loads(request.body)['entry']
+    body = json.loads(request.body)['entry'][0]
+    body = (await request.json()).body
     console.log( f"investigando body {body}" )
 
     if (

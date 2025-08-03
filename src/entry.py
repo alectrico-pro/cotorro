@@ -47,9 +47,9 @@ async def on_fetch(request, env):
         if (
            params["hub.mode"] == "subscribe" and params["hub.verify_token"] == VERIFY_TOKEN
         ):
-           return Response(params["hub"]["challenge"], status=200)
+           return Response(params["hub.challenge"], status=200)
         else:
-           return Response("Éxito", status=403)
+           return Response("Error", status=403)
     else:
         return Response("No se encontró hub", status=404)
 

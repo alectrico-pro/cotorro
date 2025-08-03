@@ -49,7 +49,7 @@ async def on_fetch(request, env):
 
     if url.path.startswith("/webhook") and method == 'POST':
         request_json = await request.json()
-        value = json.entry[0].changes[0].value
+        value = request_json.entry[0].changes[0].value
         if 'statuses' in value:
             return Response("Found Statuses", status=200)
         if 'messages' in value:

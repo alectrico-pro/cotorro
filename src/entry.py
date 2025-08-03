@@ -54,7 +54,7 @@ async def on_fetch(request, env):
            value = entry[0].changes[0].value
            if value is not None:
              console.log( value )
-             mensajes = value.message
+             mensajes = value.messages
              if mensajes is not None:
                  mensaje = mensajes[0]
                  console.log(f"mensaje {mensaje}")

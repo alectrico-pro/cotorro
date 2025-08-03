@@ -57,10 +57,9 @@ async def on_fetch(request, env):
            value = entry[0].changes[0].value
            console.log( value )
            if value is not None:
-             mensajes = value.get("messages") 
+             mensajes = value.messages
              if mensajes is not None:
-                 #ensaje = entry[0]["changes"][0]["value"].get("messages")
-                 return Response("Found Messages", status=201)
+                 return Response(mensajes, status=201)
              else:
                  return Response("Not Found Messages", status=405)
 

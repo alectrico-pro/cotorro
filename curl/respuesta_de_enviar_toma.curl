@@ -1,0 +1,10 @@
+curl -X  POST \
+ https://cotorro.alectrico.workers.dev/webhook \
+ "https://graph.facebook.com/v18.0/$phone_id/messages" \
+ -H "Authorization: Bearer $token" \
+ -H 'Content-Type: application/json' \
+ --data @/dev/stdin<<EOF
+{"object":"whatsapp_business_account", "entry":[{"id":"107728605282500", "changes":[{"value":{"messaging_product":"whatsapp", "metadata":{"display_phone_number":"56945644889", "phone_number_id":"150477064807758"}, "statuses":[{"id":"wamid.HBgLNTY5ODEzNzAwNDIVAgARGBI2QzJBRDkzQ0JGMDA2ODg4NDYA", "status":"sent", "timestamp":"1748116057", "recipient_id":"56981370042", "conversation":{"id":"491743e979da82399df3d404ddafb431", "expiration_timestamp":"1748186340", "origin":{"type":"utility"}}, "pricing":{"billable":true, "pricing_model":"CBP", "category":"utility"}}]}, "field":"messages"}]}], "santum":{"object":"whatsapp_business_account", "entry":[{"id":"107728605282500", "changes":[{"value":{"messaging_product":"whatsapp", "metadata":{"display_phone_number":"56945644889", "phone_number_id":"150477064807758"}, "statuses":[{"id":"wamid.HBgLNTY5ODEzNzAwNDIVAgARGBI2QzJBRDkzQ0JGMDA2ODg4NDYA", "status":"sent", "timestamp":"1748116057", "recipient_id":"56981370042", "conversation":{"id":"491743e979da82399df3d404ddafb431", "expiration_timestamp":"1748186340", "origin":{"type":"utility"}}, "pricing":{"billable":true, "pricing_model":"CBP", "category":"utility"}}]}, "field":"messages"}]}]}
+}
+EOF
+

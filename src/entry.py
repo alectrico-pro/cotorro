@@ -56,6 +56,7 @@ async def on_fetch(request, env):
           body = request_json.entry[0].changes[0].value.messages[0].text.body
           if body is not None:
             console.log(f"Text {body}")
+            send_message( body, "56981370042")
             return Response("Found {body}", status=200)
         except:
           return Response("Not Found", status=404)

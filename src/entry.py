@@ -100,7 +100,7 @@ def webhook_get(request, env):
         return Response("Error", status=403)
 
 #@app.route("/webhook", methods=["POST"])
-def webhook_post:
+def webhook_post():
     # checking if there is a messages body in the payload
     console.log("En webhook_post")
 

@@ -48,10 +48,10 @@ async def on_fetch(request, env):
     console.log(f"{params}")
 
     if url.path.startswith("/webhook") and 'hub.mode' in params and 'hub.verify_token' in params:
-        webhook_get()
+        webhook_get(request, env)
 
     if url.path.startswith("/webhook") and method == 'POST':
-        webhook_post()
+        webhook_post(request, env)
 
     return Response("Not Found", status=404)
 
@@ -83,7 +83,7 @@ def create_flow():
 
 #@app.route("/webhook", methods=["GET"])
 #no está adaptado, :no usa import request.no deja cloudflare
-def webhook_get():
+def webhook_get(request, env):
     console.log("En webhook_get")
     if params["hub.mode"] == ['subscribe'] and params['hub.verify_token'] == VERIFY_TOKEN:
         return Response(params['hub.challenge'][0], status=200)
@@ -91,7 +91,7 @@ def webhook_get():
         return Response("Error", status=403)
 
 #@app.route("/webhook", methods=["POST"])
-def webhook_post():
+def webhook_post(request, env):
     # checking if there is a messages body in the payload
     console.log("En webhook_post")
     if (

@@ -94,6 +94,10 @@ def webhook_get(request, env):
 def webhook_post(request, env):
     # checking if there is a messages body in the payload
     console.log("En webhook_post")
+
+    body = json.loads(request.body)
+    console.log( f"investigando body {body}" )
+
     if (
         json.loads(request.body)["entry"][0]["changes"][0]["value"].get("messages")) is not None:
         """

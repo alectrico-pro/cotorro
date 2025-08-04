@@ -5,12 +5,13 @@ import json
 from js import console
 import uuid
 
+
 created_flow_id = ""
-messaging_url = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
-auth_header = {"Authorization": f"Bearer {env.ACCESS_TOKEN}"}
+messaging_url = f"https://graph.facebook.com/v18.0/{PHONE_NUMBER_ID}/messages"
+auth_header = {"Authorization": f"Bearer {ACCESS_TOKEN}"}
 messaging_headers = {
     "Content-Type": "application/json",
-    "Authorization": f"Bearer {env.ACCESS_TOKEN}",
+    "Authorization": f"Bearer {ACCESS_TOKEN}",
 }
 
 logging.basicConfig(level=logging.INFO)
@@ -101,7 +102,7 @@ def create_flow():
 #no está adaptado, :no usa import request.no deja cloudflare
 def webhook_get(request, env):
     console.log("En webhook_get")
-    if params["hub.mode"] == ['subscribe'] and params['hub.verify_token'] == env.VERIFY_TOKEN:
+    if params["hub.mode"] == ['subscribe'] and params['hub.verify_token'] == VERIFY_TOKEN:
         return Response(params['hub.challenge'][0], status=200)
     else:
         return Response("Error", status=403)

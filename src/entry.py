@@ -1,6 +1,7 @@
 import logging
 from workers import Response
 from urllib.parse import urlparse, parse_qs
+import urllib.request
 import json
 from js import console
 import uuid
@@ -256,12 +257,12 @@ def flow_reply_processor(request):
 
 def send_message(message, phone_number, env):
 
-    messaging_url     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
+    url     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
     #    auth_header       = {"Authorization": f"Bearer {env.ACCESS_TOKEN}"}
-    messaging_headers = {
-      "Content-Type": "application/json",
-      "Authorization": f"Bearer {env.ACCESS_TOKEN}",
-    }
+    #eaders = {
+    # "Content-Type": "application/json",
+    # "Authorization": f"Bearer {env.ACCESS_TOKEN}",
+    #
 
     payload = json.dumps(
         {
@@ -271,7 +272,27 @@ def send_message(message, phone_number, env):
             "text": {"preview_url": False, "body": message},
         }
     )
-    requests.request("POST", messaging_url, headers=messaging_headers, data=payload)
+
+    encoded_data = urllib.parse.urlencode(payload).encode("utf-8")
+    req = urllib.request.Request(url, data=encoded_data, method="POST")
+    req.add_header("Content-Type", "application/json")
+    req.add_header("Authorization": f"Bearer {env.ACCESS_TOKEN}")
+
+
+    try:
+         # Open the URL and send the request
+         with urllib.request.urlopen(req) as response:
+           # Read the response
+           response_text = response.read().decode("utf-8")
+           print(f"Status Code: {response.status}")
+           print(f"Response: {response_text}")
+    except urllib.error.URLError as e:
+       print(f"Error: {e.reason}")
+    except urllib.error.HTTPError as e:
+       print(f"HTTP Error: {e.code} - {e.reason}")
+  
+
+  #requests.request("POST", messaging_url, headers=messaging_headers, data=payload)
 
 
 

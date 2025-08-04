@@ -33,7 +33,7 @@ async def on_fetch(request, env):
         }
         data = urllib.parse.urlencode(values)
         data = data.encode('ascii')
-        req  = await urllib.request.Request(uri, data=data, method="POST", headers = headers)
+        req  = urllib.request.Request(uri, data=data, method="POST", headers = headers)
         console.log(f"req {req}")
         try:
              # Open the URL and send the request
@@ -46,6 +46,7 @@ async def on_fetch(request, env):
            print(f"Error: {e.reason}")
         except urllib.error.HTTPError as e:
            print(f"HTTP Error: {e.code} - {e.reason}")
+        return Response("PROCESSED", status=200)
 
 
 

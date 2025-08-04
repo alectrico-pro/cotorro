@@ -1,7 +1,8 @@
 import logging
+
 from workers import Response
 from urllib.parse import urlparse, parse_qs
-import urllib3.request
+#import urllib3.request
 import json
 from js import console
 import uuid
@@ -34,25 +35,8 @@ async def on_fetch(request, env):
                            'language': {'code': 'en_US'}
              }
         }
+        requests.request("POST", uri, headers=header)
 
-        data = urllib.parse.urlencode(values)
-        data = data.encode('ascii')
-        req  = urllib.request.Request(uri, data=data, method="POST", headers = headers)
-        try:
-             # Open the URL and send the request
-           with urllib.request.urlopen(req) as response:
-               # Read the response
-               response_text = response.read().decode("utf-8")
-               console.log( f"Status Code: {response.status}")
-               #print(f"Status Code: {response.status}")
-               #print(f"Response: {response_text}")
-        except urllib.error.URLError as e:
-            console.log(f"Error: {e.reason}")
-            print(f"Error: {e.reason}")
-        except urllib.error.HTTPError as e:
-            console.log(f"HTTP Error: {e.code} - {e.reason}")
-            print(f"HTTP Error: {e.code} - {e.reason}")
-        return Response("PROCESSED", status=200)
 
 
 

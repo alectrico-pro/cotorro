@@ -31,6 +31,7 @@ async def on_fetch(request, env):
              'type': 'template',
              'template': { 'name': 'hello_world',
                            'language': {'code': 'en_US'}
+             }
         }
 
         data = urllib.parse.urlencode(values)

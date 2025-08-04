@@ -51,7 +51,7 @@ async def on_fetch(request, env):
     #inspirado en def webhook_get (ejemplo de whatsapp flow)
     if url.path.startswith("/webhook") and method == 'POST':
         request_json = await request.json()
-        console.log( request_json )
+        #console.log( request_json )
         #try:
         body = request_json.entry[0].changes[0].value.messages[0].text.body
         if body is not None:
@@ -281,8 +281,8 @@ def send_message(message, phone_number, env):
     }
 
     #encoded_data = urllib.parse.urlencode(payload).encode("utf-8")
-
-    req = urllib.request.Request(url, data=data, method="POST")
+    url_values = urllib.parse.urlencode(data)
+    req = urllib.request.Request(url, data=url_values, method="POST")
     req.add_header("Content-Type", "application/json")
     req.add_header("Authorization", f"Bearer {env.ACCESS_TOKEN}")
 

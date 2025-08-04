@@ -51,7 +51,7 @@ async def on_fetch(request, env):
     #inspirado en def webhook_get (ejemplo de whatsapp flow)
     if url.path.startswith("/webhook") and method == 'POST':
         request_json = await request.json()
-        #console.log( request_json )
+        console.log( request_json )
         #try:
         body = request_json.entry[0].changes[0].value.messages[0].text.body
         if body is not None:
@@ -253,31 +253,37 @@ def flow_reply_processor(request):
 
 
 def send_message(message, phone_number, env):
+
     url     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
-    data = {
+    #    auth_header       = {"Authorization": f"Bearer {env.ACCESS_TOKEN}"}
+    headers = {
+     "Content-Type": "application/json",
+     "Authorization": f"Bearer {env.ACCESS_TOKEN}"
+    }
+
+    payload = json.dumps(
+        {
             "messaging_product": "whatsapp",
             "to": str(phone_number),
             "type": "text",
             "text": {"preview_url": False, "body": message},
-    }
+        }
+    )
 
-    req = urllib.request.Request(url, data=data, method="POST")
-    req.add_header("Content-Type", "application/json")
-    req.add_header("Authorization", f"Bearer {env.ACCESS_TOKEN}")
-
+    encoded_data = urllib.parse.urlencode(payload).encode("utf-8")
+    req = urllib.request.Request(url, data=encoded_data, method="POST", header = headers)
 
     try:
          # Open the URL and send the request
          with urllib.request.urlopen(req) as response:
            # Read the response
            response_text = response.read().decode("utf-8")
-           console.log(f"response_text {response_text}")
-           console.log(f"Status Code: {response.status}")
-           console.log(f"Response: {response_text}")
+           print(f"Status Code: {response.status}")
+           print(f"Response: {response_text}")
     except urllib.error.URLError as e:
-       console.log(f"Error: {e.reason}")
+       print(f"Error: {e.reason}")
     except urllib.error.HTTPError as e:
-       console.log(f"HTTP Error: {e.code} - {e.reason}")
+       print(f"HTTP Error: {e.code} - {e.reason}")
   
 
   #requests.request("POST", messaging_url, headers=messaging_headers, data=payload)

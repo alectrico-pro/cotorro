@@ -292,6 +292,7 @@ def send_message(message, phone_number, env):
          with urllib.request.urlopen(req) as response:
            # Read the response
            response_text = response.read().decode("utf-8")
+           console.log( f"response_text {response_text}")
            print(f"Status Code: {response.status}")
            print(f"Response: {response_text}")
     except urllib.error.URLError as e:

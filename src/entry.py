@@ -57,10 +57,6 @@ async def on_fetch(request, env):
         if body is not None:
           console.log(f"Text {body}")
           send_message( body, "56981370042", env)
-          test( body, "56981370042", env)
-          #:wurn Response("Found {body}", status=200)
-          #except:
-          #  return Response("Not Found", status=404)
 
 
 #rutas -------------------------------------------------------------
@@ -256,50 +252,14 @@ def flow_reply_processor(request):
     send_message(reply, user_phone_number)
 
 
-def test( phone_number, message, env):
-    url   = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
-    values = {
-            "messaging_product": "whatsapp",
-            "to": str(phone_number),
-            "type": "text",
-            "text": {"preview_url": False, "body": message},
-    }
-    data = urllib.parse.urlencode(values)
-    data = data.encode('ascii') # data should be bytes
-    req = urllib.request.Request(url, data=data, method="POST")
-    req.add_header("Content-Type", "application/json")
-    req.add_header("Authorization", f"Bearer {env.ACCESS_TOKEN}")
-
-    with urllib.request.urlopen(req) as response:
-        the_page = response.read()
-
-
 def send_message(message, phone_number, env):
-
     url     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
-    #    auth_header       = {"Authorization": f"Bearer {env.ACCESS_TOKEN}"}
-    #eaders = {
-    # "Content-Type": "application/json",
-    # "Authorization": f"Bearer {env.ACCESS_TOKEN}",
-    #
-
-    payload = json.dumps(
-        {
-            "messaging_product": "whatsapp",
-            "to": str(phone_number),
-            "type": "text",
-            "text": {"preview_url": False, "body": message},
-        }
-    )
-
     data = {
             "messaging_product": "whatsapp",
             "to": str(phone_number),
             "type": "text",
             "text": {"preview_url": False, "body": message},
     }
-
-    #encoded_data = urllib.parse.urlencode(payload).encode("utf-8")
 
     req = urllib.request.Request(url, data=data, method="POST")
     req.add_header("Content-Type", "application/json")

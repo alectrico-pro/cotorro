@@ -25,7 +25,6 @@ async def on_fetch(request, env):
     message = "hola hola"
 
     console.log(f"Handling request {url.path} with params {params}")
-    return await fetch("https://www.alectrico.cl/webhook", headers={"X-Source": "Cloudflare-Workers"})
 
     if url.path == "/":
         #ri     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
@@ -42,8 +41,10 @@ async def on_fetch(request, env):
                            'language': {'code': 'en_US'}
              }
         }
+        data = urllib.parse.urlencode(values)
+        data = data.encode('ascii')
         requests.request("POST", uri, headers=header)
-
+        return await fetch("https://www.alectrico.cl/webhook", method='POST', data = data,  headers={"X-Source": "Cloudflare-Workers"})
 
 
 

@@ -25,14 +25,6 @@ async def on_fetch(request, env):
             "Content-Type": "application/json",
             "Authorization": f"Bearer {env.ACCESS_TOKEN}"
         }
-        payload = json.dumps(
-            {
-                "messaging_product": "whatsapp",
-                "to":  f"{env.PHONE_NUMBER_ID}",
-                "type": "text",
-                "text": {"preview_url": False, "body": message},
-            }
-        )
         values = {
                 "messaging_product": "whatsapp",
                 "to": f"{env.PHONE_NUMBER_ID}",
@@ -54,36 +46,7 @@ async def on_fetch(request, env):
            print(f"Error: {e.reason}")
         except urllib.error.HTTPError as e:
            print(f"HTTP Error: {e.code} - {e.reason}")
-           #sg = env.GREETING
-           #eturn Response(msg)
 
-    if url.path == "/cache":
-        # use KV
-        key = params.get("key", ["default"])[0]
-        cached = await env.MY_CACHE.get(key)
-        if cached:
-            return Response(f"From KV: {cached}")
-
-        # fallback compute
-        value = f"computed‑{key}"
-        await env.MY_CACHE.put(key, value)
-        return Response(f"Stored & returned {value}")
-
-    if url.path.startswith("/proxy"):
-        body = await request.json()
-        # Proxy to external API
-        upstream = f"{env.API_URL}/users/{body.get('id')}"
-        js_resp = await request.fetch(upstream)
-        return Response.make(js_resp.body, status=js_resp.status, headers=dict(js_resp.headers))
-    #--- wapp ----------------------------------------------
-    if url.path.startswith("/create-flow"):
-        return Response("create-flow", status=200)
-
-    if url.path.startswith("/webhook") and 'hub.mode' in params and 'hub.verify_token' in params:
-        webhook_get(request, env)
-
-
-    #inspirado en def webhook_get (ejemplo de whatsapp flow)
     if url.path.startswith("/webhook") and method == 'POST':
         request_json = await request.json()
         console.log( request_json )

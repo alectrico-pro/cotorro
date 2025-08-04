@@ -51,14 +51,14 @@ async def on_fetch(request, env):
     if url.path.startswith("/webhook") and method == 'POST':
         request_json = await request.json()
         console.log( request_json )
-        try:
-          body = request_json.entry[0].changes[0].value.messages[0].text.body
-          if body is not None:
-            console.log(f"Text {body}")
-            send_message( body, "56981370042", env)
-            return Response("Found {body}", status=200)
-        except:
-          return Response("Not Found", status=404)
+        #try:
+        body = request_json.entry[0].changes[0].value.messages[0].text.body
+        if body is not None:
+          console.log(f"Text {body}")
+          send_message( body, "56981370042", env)
+          #:wurn Response("Found {body}", status=200)
+        #except:
+        #  return Response("Not Found", status=404)
 
 
 #rutas -------------------------------------------------------------
@@ -256,9 +256,6 @@ def flow_reply_processor(request):
 
 def send_message(message, phone_number, env):
 
-    console.log( "En send_message" )
-
-
     messaging_url     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
     #    auth_header       = {"Authorization": f"Bearer {env.ACCESS_TOKEN}"}
     messaging_headers = {
@@ -274,11 +271,7 @@ def send_message(message, phone_number, env):
             "text": {"preview_url": False, "body": message},
         }
     )
-    console.log(f"Payload : {payload}")
-    console.log(f"messaging_url: {messaging_url}")
-    console.log(f"messaging_headers: {messaging_headers}")
     requests.request("POST", messaging_url, headers=messaging_headers, data=payload)
-    print("MESSAGE SENT")
 
 
 

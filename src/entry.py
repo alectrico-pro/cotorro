@@ -1,14 +1,21 @@
 import logging
-import requests
+from workers import fetch, handler
+
+#import requests no funciona en cloudflare workers
 from workers import Response
 from urllib.parse import urlparse, parse_qs
-#import urllib3.request
+#import urllib3.request no existe
+#import urllib.request generar error 46. Work in progress or so
 import json
 from js import console
 import uuid
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+#@handler
+#async def on_scheduled(controller, env, ctx):
+
 
 async def on_fetch(request, env):
     url = urlparse(request.url)
@@ -18,7 +25,7 @@ async def on_fetch(request, env):
     message = "hola hola"
 
     console.log(f"Handling request {url.path} with params {params}")
-
+    return await fetch("https://www.alectrico.cl/webhook", headers={"X-Source": "Cloudflare-Workers"})
 
     if url.path == "/":
         #ri     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"

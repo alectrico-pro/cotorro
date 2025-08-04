@@ -26,10 +26,11 @@ async def on_fetch(request, env):
             "Authorization": f"Bearer {env.ACCESS_TOKEN}"
         }
         values = {
-                "messaging_product": "whatsapp",
-                "to": "56981370042",
-                "type": "text",
-                "text": {"preview_url": False, "body": message},
+             'messaging_product': 'whatsapp',
+             'to': '56981370042',
+             'type': 'template',
+             'template': { 'name': 'hello_world',
+                           'language': {'code': 'en_US'}
         }
 
         data = urllib.parse.urlencode(values)

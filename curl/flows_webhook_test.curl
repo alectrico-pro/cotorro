@@ -1,3 +1,7 @@
+
+#ejempolo de lo que llegaŕa a un webhook
+
+
 curl -X  POST \
  "https://cotorro.alectrico.workers.dev/webhook" \
  -H "Authorization: Bearer $token" \

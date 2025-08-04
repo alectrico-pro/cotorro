@@ -19,8 +19,43 @@ async def on_fetch(request, env):
 
 
     if url.path == "/":
-        msg = env.GREETING
-        return Response(msg)
+        url     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
+        headers = {
+         "Content-Type": "application/json",
+         "Authorization": f"Bearer {env.ACCESS_TOKEN}"
+        }
+        payload = json.dumps(
+            {
+                "messaging_product": "whatsapp",
+                "to": str(phone_number),
+                "type": "text",
+                "text": {"preview_url": False, "body": message},
+            }
+        )
+        values = {
+                "messaging_product": "whatsapp",
+                "to": str(phone_number),
+                "type": "text",
+                "text": {"preview_url": False, "body": message},
+        }
+        data = urllib.parse.urlencode(values)
+        data = data.encode('ascii')
+
+        req = urllib.request.Request(url, data=data, method="POST", headers = headers)
+        console.log(f"req {req}")
+        try:
+             # Open the URL and send the request
+             with urllib.request.urlopen(req) as response:
+               # Read the response
+               response_text = response.read().decode("utf-8")
+               print(f"Status Code: {response.status}")
+               print(f"Response: {response_text}")
+        except urllib.error.URLError as e:
+           print(f"Error: {e.reason}")
+        except urllib.error.HTTPError as e:
+
+        #sg = env.GREETING
+        #eturn Response(msg)
 
     if url.path == "/cache":
         # use KV
@@ -253,14 +288,12 @@ def flow_reply_processor(request):
 
 
 def send_message(message, phone_number, env):
-
     url     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
     #    auth_header       = {"Authorization": f"Bearer {env.ACCESS_TOKEN}"}
     headers = {
      "Content-Type": "application/json",
      "Authorization": f"Bearer {env.ACCESS_TOKEN}"
     }
-
     payload = json.dumps(
         {
             "messaging_product": "whatsapp",
@@ -269,21 +302,16 @@ def send_message(message, phone_number, env):
             "text": {"preview_url": False, "body": message},
         }
     )
-
-
     values = {
             "messaging_product": "whatsapp",
             "to": str(phone_number),
             "type": "text",
             "text": {"preview_url": False, "body": message},
     }
-
     data = urllib.parse.urlencode(values)
     data = data.encode('ascii')
-
     req = urllib.request.Request(url, data=data, method="POST", headers = headers)
     console.log(f"req {req}")
-
     try:
          # Open the URL and send the request
          with urllib.request.urlopen(req) as response:

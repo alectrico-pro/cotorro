@@ -14,6 +14,7 @@ async def on_fetch(request, env):
     params = parse_qs(url.query)
     method = request.method
     body = request.body
+    message = "hola hola"
 
     console.log(f"Handling request {url.path} with params {params}")
 
@@ -27,14 +28,14 @@ async def on_fetch(request, env):
         payload = json.dumps(
             {
                 "messaging_product": "whatsapp",
-                "to": str(phone_number),
+                "to":  f"{env.PHONE_NUMBER_ID}",
                 "type": "text",
                 "text": {"preview_url": False, "body": message},
             }
         )
         values = {
                 "messaging_product": "whatsapp",
-                "to": str(phone_number),
+                "to": f"{env.PHONE_NUMBER_ID}",
                 "type": "text",
                 "text": {"preview_url": False, "body": message},
         }

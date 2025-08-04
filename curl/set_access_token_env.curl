@@ -1,0 +1,8 @@
+#El resultado del alargador anotarlo aquí
+#
+
+export token_cotorro=EAAMOsdbL40gBPF8TALKUFkNYJzlNXLSk5hrleyC7LFmnWZAi9ZCYZBzTuIN77ZBEB7hGjD0GSa636UwlxON18M7kYtFXry76fAZC6cKpWLMhahtxwdA7XRMj43j8ZBoRYtgvlGn5feIxCNFmQBDn55XakPT2PVd4Px5NBC4P9Xz9RgtFXDe2UgUZBWmtC2vq3y4
+
+echo {"token_cotorro": ""$token_cotorro""}
+
+

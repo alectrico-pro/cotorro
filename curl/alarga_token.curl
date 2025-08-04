@@ -1,0 +1,18 @@
+#Se debe solicitar un nuevo token en developer.facebook en applicación ae
+#Solo hay que actualizar la página y se tendrá un nuevo token
+#Seleccionar token de acceso de usuario
+#actualizar META_TOKEN_COTORRO en la app
+token_cotorro=EAAMOsdbL40gBPGSRgaU7TZAZCJiPC3i95WEyVOrKZAxxfOCGd1lWUq9fQcEEPgn7wZCPpdvrvwQZBC5OtFmwOuk8vPptQZACzFL2DNJdAQLH6uLQcAAnl6x98cunApF9uS1LERNTMFDMrg4Ye0SM5rmtZCIIwbOyT7PuBmZA7chNd2nlvrpzhd31CRIuvxS9OK3rOt7VeCT4GOHvk0GxyidvNvTePYVAxhpm4NUwAG8UzAZDZD
+
+ae_id=860581905818440
+ae_secret=29815b7d5a3a9fe48076f35a262bb253
+api_version=v23.0
+
+
+
+#url = "https://graph.facebook.com/$api_version/oauth/access_token?grant_type=fb_exchange_token&client_id=$ae_id&client_secret=$ae_secret&fb_exchange_token=$token_cotorro"
+
+mensaje="Alx: The Best Oz"
+curl -v -H "Content-Type: application/json" GET  \
+"https://graph.facebook.com/$api_version/oauth/access_token?grant_type=fb_exchange_token&client_id=$ae_id&client_secret=$ae_secret&fb_exchange_token=$token_cotorro"
+

@@ -4,7 +4,7 @@
 
 curl -X  POST \
  "https://cotorro.alectrico.workers.dev/webhook" \
- -H "Authorization: Bearer $token" \
+ -H "Authorization: Bearer $token_cotorro" \
  -H 'Content-Type: application/json' \
  --data @/dev/stdin<<EOF
 {

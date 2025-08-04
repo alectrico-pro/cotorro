@@ -282,6 +282,7 @@ def send_message(message, phone_number, env):
     data = data.encode('ascii')
 
     req = urllib.request.Request(url, data=data, method="POST", headers = headers)
+    console.log(f"req {req}")
 
     try:
          # Open the URL and send the request

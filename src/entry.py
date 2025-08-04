@@ -5,7 +5,7 @@ from workers import fetch, handler
 from workers import Response
 from urllib.parse import urlparse, parse_qs
 #import urllib3.request no existe
-#import urllib.request generar error 46. Work in progress or so
+import urllib.request
 import json
 from js import console
 import uuid

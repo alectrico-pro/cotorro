@@ -21,7 +21,7 @@ async def on_fetch(request, env):
 
     if url.path == "/":
         #ri     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
-        uri     = "https://www.alectrico.cl/webhook"
+        uri     = "https://www.alectrico.cl/api/v1/santum/webhook"
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {env.ACCESS_TOKEN}"

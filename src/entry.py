@@ -52,6 +52,7 @@ async def on_fetch(request, env):
         except urllib.error.URLError as e:
            print(f"Error: {e.reason}")
         except urllib.error.HTTPError as e:
+           print(f"HTTP Error: {e.code} - {e.reason}")
            #sg = env.GREETING
            #eturn Response(msg)
 

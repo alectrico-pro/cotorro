@@ -256,7 +256,7 @@ def flow_reply_processor(request):
     send_message(reply, user_phone_number)
 
 
-def test( phone_number, message, env)
+def test( phone_number, message, env):
     url   = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
     values = {
             "messaging_product": "whatsapp",

@@ -21,8 +21,8 @@ async def on_fetch(request, env):
     if url.path == "/":
         url     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
-         "Content-Type": "application/json",
-         "Authorization": f"Bearer {env.ACCESS_TOKEN}"
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {env.ACCESS_TOKEN}"
         }
         payload = json.dumps(
             {
@@ -40,12 +40,11 @@ async def on_fetch(request, env):
         }
         data = urllib.parse.urlencode(values)
         data = data.encode('ascii')
-
         req = urllib.request.Request(url, data=data, method="POST", headers = headers)
         console.log(f"req {req}")
         try:
              # Open the URL and send the request
-             with urllib.request.urlopen(req) as response:
+           with urllib.request.urlopen(req) as response:
                # Read the response
                response_text = response.read().decode("utf-8")
                print(f"Status Code: {response.status}")
@@ -53,7 +52,6 @@ async def on_fetch(request, env):
         except urllib.error.URLError as e:
            print(f"Error: {e.reason}")
         except urllib.error.HTTPError as e:
-
         #sg = env.GREETING
         #eturn Response(msg)
 

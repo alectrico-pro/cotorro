@@ -292,13 +292,13 @@ def send_message(message, phone_number, env):
          with urllib.request.urlopen(req) as response:
            # Read the response
            response_text = response.read().decode("utf-8")
-           console.log( f"response_text {response_text}")
-           print(f"Status Code: {response.status}")
-           print(f"Response: {response_text}")
+           console.log(f"response_text {response_text}")
+           console.log(f"Status Code: {response.status}")
+           console.log(f"Response: {response_text}")
     except urllib.error.URLError as e:
-       print(f"Error: {e.reason}")
+       console.log(f"Error: {e.reason}")
     except urllib.error.HTTPError as e:
-       print(f"HTTP Error: {e.code} - {e.reason}")
+       console.log(f"HTTP Error: {e.code} - {e.reason}")
   
 
   #requests.request("POST", messaging_url, headers=messaging_headers, data=payload)

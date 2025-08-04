@@ -270,7 +270,8 @@ def send_message(message, phone_number, env):
         }
     )
 
-    encoded_data = urllib.parse.urlencode(payload).encode("utf-8")
+    encoded_data = urllib.parse.urlencode(payload).encode("ascii")
+
     req = urllib.request.Request(url, data=encoded_data, method="POST", header = headers)
 
     try:

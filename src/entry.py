@@ -43,7 +43,6 @@ async def on_fetch(request, env):
         }
         data = urllib.parse.urlencode(values)
         data = data.encode('ascii')
-        requests.request("POST", uri, headers=header)
         return await fetch("https://www.alectrico.cl/webhook", method='POST', data = data,  headers={"X-Source": "Cloudflare-Workers"})
 
 

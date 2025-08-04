@@ -273,8 +273,9 @@ def send_message(message, phone_number, env):
         }
     )
 
-    encoded_data = urllib.parse.urlencode(payload).encode("utf-8")
-    req = urllib.request.Request(url, data=encoded_data, method="POST")
+    #encoded_data = urllib.parse.urlencode(payload).encode("utf-8")
+
+    req = urllib.request.Request(url, data=payload, method="POST")
     req.add_header("Content-Type", "application/json")
     req.add_header("Authorization", f"Bearer {env.ACCESS_TOKEN}")
 

@@ -6,6 +6,14 @@ from js import console
 import uuid
 
 
+created_flow_id = ""
+messaging_url = f"https://graph.facebook.com/v18.0/{PHONE_NUMBER_ID}/messages"
+auth_header = {"Authorization": f"Bearer {ACCESS_TOKEN}"}
+messaging_headers = {
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {ACCESS_TOKEN}",
+}
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 

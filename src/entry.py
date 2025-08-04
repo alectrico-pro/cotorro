@@ -43,13 +43,15 @@ async def on_fetch(request, env):
            with urllib.request.urlopen(req) as response:
                # Read the response
                response_text = response.read().decode("utf-8")
-               print(f"Status Code: {response.status}")
-               print(f"Response: {response_text}")
+               console.log( f"Status Code: {response.status}")
+               #print(f"Status Code: {response.status}")
+               #print(f"Response: {response_text}")
         except urllib.error.URLError as e:
-           print(f"Error: {e.reason}")
+            console.log(f"Error: {e.reason}")
+            #print(f"Error: {e.reason}")
         except urllib.error.HTTPError as e:
-           print(f"HTTP Error: {e.code} - {e.reason}")
-
+            console.log(f"HTTP Error: {e.code} - {e.reason}")
+            # print(f"HTTP Error: {e.code} - {e.reason}")
         return Response("PROCESSED", status=200)
 
 

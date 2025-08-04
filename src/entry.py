@@ -1,5 +1,5 @@
 import logging
-
+import requests
 from workers import Response
 from urllib.parse import urlparse, parse_qs
 #import urllib3.request

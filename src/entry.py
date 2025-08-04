@@ -260,7 +260,7 @@ def send_message(message, phone_number, env):
 
 
     messaging_url     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
-    auth_header       = {"Authorization": f"Bearer {env.ACCESS_TOKEN}"}
+    #    auth_header       = {"Authorization": f"Bearer {env.ACCESS_TOKEN}"}
     messaging_headers = {
       "Content-Type": "application/json",
       "Authorization": f"Bearer {env.ACCESS_TOKEN}",
@@ -275,6 +275,8 @@ def send_message(message, phone_number, env):
         }
     )
     console.log(f"Payload : {payload}")
+    console.log(f"messaging_url: {messaging_url}")
+    console.log(f"messaging_headers: {messaging_headers}")
     requests.request("POST", messaging_url, headers=messaging_headers, data=payload)
     print("MESSAGE SENT")
 

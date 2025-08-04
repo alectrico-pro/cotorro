@@ -27,7 +27,7 @@ async def on_fetch(request, env):
         }
         values = {
                 "messaging_product": "whatsapp",
-                "to": f"{env.PHONE_NUMBER_ID}",
+                "to": "56981370042",
                 "type": "text",
                 "text": {"preview_url": False, "body": message},
         }

@@ -20,7 +20,7 @@ async def on_fetch(request, env):
 
 
     if url.path == "/":
-        url     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
+        uri     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {env.ACCESS_TOKEN}"
@@ -33,7 +33,7 @@ async def on_fetch(request, env):
         }
         data = urllib.parse.urlencode(values)
         data = data.encode('ascii')
-        req = urllib.request.Request(url, data=data, method="POST", headers = headers)
+        req  = urllib.request.Request(uri, data=data, method="POST", headers = headers)
         console.log(f"req {req}")
         try:
              # Open the URL and send the request
@@ -46,6 +46,8 @@ async def on_fetch(request, env):
            print(f"Error: {e.reason}")
         except urllib.error.HTTPError as e:
            print(f"HTTP Error: {e.code} - {e.reason}")
+
+
 
     if url.path.startswith("/webhook") and method == 'POST':
         request_json = await request.json()

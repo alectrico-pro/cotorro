@@ -5,14 +5,6 @@ import json
 from js import console
 import uuid
 
-created_flow_id = ""
-messaging_url = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
-auth_header = {"Authorization": f"Bearer {env.ACCESS_TOKEN}"}
-messaging_headers = {
-    "Content-Type": "application/json",
-    "Authorization": f"Bearer {env.ACCESS_TOKEN}",
-}
-
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -63,7 +55,7 @@ async def on_fetch(request, env):
           body = request_json.entry[0].changes[0].value.messages[0].text.body
           if body is not None:
             console.log(f"Text {body}")
-            send_message( body, "56981370042")
+            send_message( body, "56981370042", env)
             return Response("Found {body}", status=200)
         except:
           return Response("Not Found", status=404)
@@ -262,8 +254,18 @@ def flow_reply_processor(request):
     send_message(reply, user_phone_number)
 
 
-def send_message(message, phone_number):
+def send_message(message, phone_number, env):
+
     console.log( "En send_message" )
+
+
+    messaging_url     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
+    auth_header       = {"Authorization": f"Bearer {env.ACCESS_TOKEN}"}
+    messaging_headers = {
+      "Content-Type": "application/json",
+      "Authorization": f"Bearer {env.ACCESS_TOKEN}",
+    }
+
     payload = json.dumps(
         {
             "messaging_product": "whatsapp",

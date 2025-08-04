@@ -33,7 +33,7 @@ async def on_fetch(request, env):
         }
         data = urllib.parse.urlencode(values)
         data = data.encode('ascii')
-        req  = urllib.request.Request(uri, data=data, method="POST", headers = headers)
+        req  = await urllib.request.Request(uri, data=data, method="POST", headers = headers)
         console.log(f"req {req}")
         try:
              # Open the URL and send the request

@@ -270,9 +270,18 @@ def send_message(message, phone_number, env):
         }
     )
 
-    encoded_data = urllib.parse.urlencode(payload).encode("ascii")
 
-    req = urllib.request.Request(url, data=encoded_data, method="POST", header = headers)
+    values = {
+            "messaging_product": "whatsapp",
+            "to": str(phone_number),
+            "type": "text",
+            "text": {"preview_url": False, "body": message},
+    }
+
+    data = urllib.parse.urlencode(values)
+    data = data.encode('ascii')
+
+    req = urllib.request.Request(url, data=data, method="POST", headers = headers)
 
     try:
          # Open the URL and send the request

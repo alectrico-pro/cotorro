@@ -266,7 +266,10 @@ def test( phone_number, message, env):
     }
     data = urllib.parse.urlencode(values)
     data = data.encode('ascii') # data should be bytes
-    req  = urllib.request.Request(url, data)
+    req = urllib.request.Request(url, data=data, method="POST")
+    req.add_header("Content-Type", "application/json")
+    req.add_header("Authorization", f"Bearer {env.ACCESS_TOKEN}")
+
     with urllib.request.urlopen(req) as response:
         the_page = response.read()
 

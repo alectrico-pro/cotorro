@@ -1,7 +1,7 @@
 import logging
 from workers import Response
 from urllib.parse import urlparse, parse_qs
-import urllib.request
+import urllib3.request
 import json
 from js import console
 import uuid
@@ -48,10 +48,10 @@ async def on_fetch(request, env):
                #print(f"Response: {response_text}")
         except urllib.error.URLError as e:
             console.log(f"Error: {e.reason}")
-            #print(f"Error: {e.reason}")
+            print(f"Error: {e.reason}")
         except urllib.error.HTTPError as e:
             console.log(f"HTTP Error: {e.code} - {e.reason}")
-            # print(f"HTTP Error: {e.code} - {e.reason}")
+            print(f"HTTP Error: {e.code} - {e.reason}")
         return Response("PROCESSED", status=200)
 
 

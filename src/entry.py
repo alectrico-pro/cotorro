@@ -43,8 +43,8 @@ async def on_fetch(request, env):
 
     # https://developers.cloudflare.com/workers/examples/post-json/
     if url.path == "/":
-        #uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        uri     = f"https://www.alectrico.cl/api/v1/santum/webhook"
+        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        #ri     = f"https://www.alectrico.cl/api/v1/santum/webhook"
 
         headers = {
             "Content-Type": "application/json",

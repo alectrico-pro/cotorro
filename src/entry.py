@@ -25,26 +25,28 @@ async def on_fetch(request, env):
     console.log(f"Handling request {url.path} with params {params}")
 
     if url.path == "/":
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        #uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        uri     = f"https://www.alectrico.cl/webhook"
+
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {env.META_USER_TOKEN}"
         }
-        values = {
+        values ="{
              'messaging_product': 'whatsapp',
              'to': '56981370042',
              'type': 'template',
              'template': { 'name': 'prueba',
                            'language': {'code': 'en_US'}
              }
-        }
-        #data = urllib.parse.urlencode(values)
-        #data = data.encode('ascii')
-
+        }"
+        data = urllib.parse.urlencode(values)
+        data = data.encode('ascii')
+        console.log(f"data {data}")
         console.log(f"META_USER_TOKEN {env.META_USER_TOKEN}")
         console.log(f"PHONE_NUMBER_ID {env.PHONE_NUMBER_ID}")
         console.log(f"uri {uri}")
-        return await fetch(uri, method='POST', data = values,  headers=headers)
+        return await fetch(uri, method='POST', data = data,  headers=headers)
 
 
 

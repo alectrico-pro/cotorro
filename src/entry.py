@@ -44,7 +44,7 @@ async def on_fetch(request, env):
         console.log(f"ACCESS_TOKEN {env.ACCESS_TOKEN}")
         console.log(f"PHONE_NUMBER_ID {env.PHONE_NUMBER_ID}")
         console.log(f"uri {uri}")
-        return await fetch(uri, method='POST', data = values,  headers=headers)
+        return await fetch(uri, method='POST', data = data,  headers=headers)
 
 
 

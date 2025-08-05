@@ -324,7 +324,7 @@ def send_message(message, phone_number, env):
     #    auth_header       = {"Authorization": f"Bearer {env.ACCESS_TOKEN}"}
     headers = {
      "Content-Type": "application/json",
-     "Authorization": f"Bearer {env.ACCESS_TOKEN}"
+     "Authorization": f"Bearer {env.META_USER_TOKEN}"
     }
     payload = json.dumps(
         {

@@ -42,7 +42,7 @@ async def on_fetch(request, env):
 
     if url.path == "/envia_formulario":
         fono       = "56940338057"
-        imagen_url = "https://www.alectrico.cl/assets/iconos/etherdog.png"
+        imagen_url = "https://www.alectrico.cl/assets/iconos/loguito.jpeg"
         uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
             "Content-Type": "application/json",

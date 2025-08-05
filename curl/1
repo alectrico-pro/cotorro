@@ -12,7 +12,7 @@ curl -X  POST \
  'to': '56981370042',
  'type': 'template',
  'template': { 'name': 'prueba',
-               'language': {'code': 'en_US'}
+               'language': {'code': 'en_En'}
  }
 }
 EOF

@@ -1,13 +1,10 @@
-#mensaje de ejemplo en 
-#https://developers.facebook.com/apps/860581905818440/whatsapp-business/wa-dev-console/?business_id=737782437638734
-token="EAAMOsdbL40gBPFHZA6NuqpXZAZCy1AANJCuAqZCaIA0EU2mHQuJZA6NltZA2CGhMaZCI2lMa1luLA1tYSgw7ONB06PhAr49B34mogaKucktdtOgQSEauDqggxB4tWjrfgDObe0tYS7r0J5EYv6xTSfJz3GOc4SnFACFf6eBKhVzccuATs6yTwBGtZCWt15ot5vuky4MtdJH55jRDxAoFLjNQhwW2XFik6rYmvyG0UPHEegZDZD"
-
-waba_id=113481378034034
+#
+waba_id=860581905818440
 phone_id=109431835110338
 
 curl -X  POST \
- https://graph.facebook.com/v22.0/109431835110338/messages \
- -H "Authorization: Bearer $token" \
+ "https://graph.facebook.com/v22.0/$phone_id/messages" \
+ -H "Authorization: Bearer $token_cotorro" \
  -H 'Content-Type: application/json' \
  --data @/dev/stdin<<EOF
 {

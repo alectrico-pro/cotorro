@@ -17,12 +17,28 @@ logger = logging.getLogger(__name__)
 #async def on_scheduled(controller, env, ctx):
 
 
+def to_js(obj):
+    return _to_js(obj, dict_converter=Object.fromEntries)
+
+# gather_response returns both content-type & response body as a string
+async def gather_response(response):
+    headers = response.headers
+    content_type = headers["content-type"] or ""
+
+    if "application/json" in content_type:
+        return (content_type, json.dumps(dict(await response.json())))
+    return (content_type, await response.text())
+
+
 async def on_fetch(request, env):
     url = urlparse(request.url)
     params = parse_qs(url.query)
     method = request.method
 
     console.log(f"Handling request {url.path} with params {params}")
+
+
+
 
     # https://developers.cloudflare.com/workers/examples/post-json/
     if url.path == "/":
@@ -50,7 +66,7 @@ async def on_fetch(request, env):
            },
         }
 
-        response = await fetch(uri, _to_js(options))
+        response = await fetch(uri, to_js(options))
         content_type, result = await gather_response(response)
  
         headers = Headers.new({"content-type": content_type}.items())

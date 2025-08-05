@@ -32,14 +32,14 @@ async def on_fetch(request, env):
             "Content-Type": "application/json",
             "Authorization": f"Bearer {env.META_USER_TOKEN}"
         }
-        values ="{
+        values ={
              'messaging_product': 'whatsapp',
              'to': '56981370042',
              'type': 'template',
              'template': { 'name': 'prueba',
                            'language': {'code': 'en_US'}
              }
-        }"
+        }
         data = urllib.parse.urlencode(values)
         data = data.encode('ascii')
         console.log(f"data {data}")

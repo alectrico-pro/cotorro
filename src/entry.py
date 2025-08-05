@@ -26,7 +26,7 @@ async def on_fetch(request, env):
 
     if url.path == "/":
         #uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        uri     = f"https://www.alectrico.cl/santum/webhook"
+        uri     = f"https://www.alectrico.cl/api/v1/santum/webhook"
 
         headers = {
             "Content-Type": "application/json",
@@ -40,13 +40,13 @@ async def on_fetch(request, env):
                            'language': {'code': 'en_US'}
              }
         }
-        data = urllib.parse.urlencode(values)
-        data = data.encode('ascii')
-        console.log(f"data {data}")
+        #ata = urllib.parse.urlencode(values)
+        #ata = data.encode('ascii')
+        console.log(f"value {value}")
         console.log(f"META_USER_TOKEN {env.META_USER_TOKEN}")
         console.log(f"PHONE_NUMBER_ID {env.PHONE_NUMBER_ID}")
         console.log(f"uri {uri}")
-        return await fetch(uri, method='POST', data = data,  headers=headers)
+        return await fetch(uri, method='POST', data = value,  headers=headers)
 
 
 

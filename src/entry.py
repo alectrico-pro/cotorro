@@ -39,7 +39,7 @@ async def on_fetch(request, env):
              }
         }
         data = urllib.parse.urlencode(values)
-        data = data.encode('ascii')
+        data = data.encode('utf-8')
 
         console.log(f"ACCESS_TOKEN {env.ACCESS_TOKEN}")
         console.log(f"PHONE_NUMBER_ID {env.PHONE_NUMBER_ID}")

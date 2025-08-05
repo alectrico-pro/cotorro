@@ -48,14 +48,6 @@ async def on_fetch(request, env):
             "Content-Type": "application/json",
             "Authorization": f"Bearer {env.META_USER_TOKEN}"
         }
-        options = {
-           "body": json.dumps(body),
-           "method": "POST",
-           "headers": {
-             "Authorization": f"Bearer {env.META_USER_TOKEN}",
-             "content-type": "application/json;charset=UTF-8"
-           },
-        }
 
         body = {
           "messaging_product": "whatsapp",
@@ -73,6 +65,17 @@ async def on_fetch(request, env):
            ]
           }
         }
+
+
+        options = {
+           "body": json.dumps(body),
+           "method": "POST",
+           "headers": {
+             "Authorization": f"Bearer {env.META_USER_TOKEN}",
+             "content-type": "application/json;charset=UTF-8"
+           },
+        }
+
         response = await fetch(uri, to_js(options))
         content_type, result = await gather_response(response)
 

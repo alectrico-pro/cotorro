@@ -129,7 +129,7 @@ async def on_fetch(request, env):
         #  console.log(f"Text {body}")
         #  send_message( body, "56981370042", env)
 
-def send(mensaje, env):
+async def send(mensaje, env):
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         #ri     = f"https://www.alectrico.cl/api/v1/santum/webhook"
 

@@ -50,7 +50,7 @@ async def on_fetch(request, env):
            },
         }
 
-        response = await fetch(uri, to_js(options))
+        response = await fetch(uri, _to_js(options))
         content_type, result = await gather_response(response)
  
         headers = Headers.new({"content-type": content_type}.items())

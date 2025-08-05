@@ -1,6 +1,6 @@
 import logging
 from workers import fetch, handler
-
+from pyodide.ffi import to_js as _to_js
 #import requests no funciona en cloudflare workers
 from workers import Response
 from urllib.parse import urlparse, parse_qs
@@ -24,6 +24,7 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
 
+    # https://developers.cloudflare.com/workers/examples/post-json/
     if url.path == "/":
         #uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         uri     = f"https://www.alectrico.cl/api/v1/santum/webhook"

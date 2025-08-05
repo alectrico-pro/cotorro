@@ -42,11 +42,11 @@ async def on_fetch(request, env):
         }
         #ata = urllib.parse.urlencode(values)
         #ata = data.encode('ascii')
-        console.log(f"value {value}")
+        console.log(f"values {values}")
         console.log(f"META_USER_TOKEN {env.META_USER_TOKEN}")
         console.log(f"PHONE_NUMBER_ID {env.PHONE_NUMBER_ID}")
         console.log(f"uri {uri}")
-        return await fetch(uri, method='POST', data = value,  headers=headers)
+        return await fetch(uri, method='POST', data = values,  headers=headers)
 
 
 

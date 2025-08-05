@@ -43,7 +43,7 @@ async def on_fetch(request, env):
         }
         data = urllib.parse.urlencode(values)
         data = data.encode('ascii')
-        return await fetch(uri, method='POST', data = data,  headers={"X-Source": "Cloudflare-Workers"})
+        return await fetch(uri, method='POST', data = data,  headers=headers)
 
 
 

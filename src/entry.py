@@ -28,7 +28,7 @@ async def on_fetch(request, env):
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {env.ACCESS_TOKEN}"
+            "Authorization": f"Bearer {env.META_USER_TOKEN}"
         }
         values = {
              'messaging_product': 'whatsapp',
@@ -41,7 +41,7 @@ async def on_fetch(request, env):
         data = urllib.parse.urlencode(values)
         data = data.encode('ascii')
 
-        console.log(f"ACCESS_TOKEN {env.ACCESS_TOKEN}")
+        console.log(f"META_USER_TOKEN {env.META_USER_TOKEN}")
         console.log(f"PHONE_NUMBER_ID {env.PHONE_NUMBER_ID}")
         console.log(f"uri {uri}")
         return await fetch(uri, method='POST', data = data,  headers=headers)

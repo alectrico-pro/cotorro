@@ -9,6 +9,7 @@ import urllib.request
 import json
 from js import console
 import uuid
+from js import Object, fetch, Response, Headers
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

@@ -32,7 +32,7 @@ async def on_fetch(request, env):
             "Content-Type": "application/json",
             "Authorization": f"Bearer {env.META_USER_TOKEN}"
         }
-        values ={
+        body ={
              'messaging_product': 'whatsapp',
              'to': '56981370042',
              'type': 'template',
@@ -40,14 +40,20 @@ async def on_fetch(request, env):
                            'language': {'code': 'en_US'}
              }
         }
-        #ata = urllib.parse.urlencode(values)
-        #ata = data.encode('ascii')
-        console.log(f"values {values}")
-        console.log(f"META_USER_TOKEN {env.META_USER_TOKEN}")
-        console.log(f"PHONE_NUMBER_ID {env.PHONE_NUMBER_ID}")
-        console.log(f"uri {uri}")
-        return await fetch(uri, method='POST', data = '{"hola":"hola"}',  headers=headers)
+        options = {
+           "body": json.dumps(body),
+           "method": "POST",
+           "headers": {
+             "Authorization": f"Bearer {env.META_USER_TOKEN}",
+             "content-type": "application/json;charset=UTF-8"
+           },
+        }
 
+        response = await fetch(uri, to_js(options))
+        content_type, result = await gather_response(response)
+ 
+        headers = Headers.new({"content-type": content_type}.items())
+        return Response.new(result, headers=headers)
 
 
     if url.path.startswith("/webhook") and method == 'POST':

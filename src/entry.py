@@ -21,14 +21,11 @@ async def on_fetch(request, env):
     url = urlparse(request.url)
     params = parse_qs(url.query)
     method = request.method
-    body = request.body
-    message = "hola hola"
 
     console.log(f"Handling request {url.path} with params {params}")
 
     if url.path == "/":
-        uri     = f"https://graph.facebook.com/v18.0/{env.PHONE_NUMBER_ID}/messages"
-        #ri     = "https://www.alectrico.cl/api/v1/santum/webhook"
+        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {env.ACCESS_TOKEN}"
@@ -43,6 +40,10 @@ async def on_fetch(request, env):
         }
         data = urllib.parse.urlencode(values)
         data = data.encode('ascii')
+
+        console.log(f"ACCESS_TOKEN {env.ACCESS_TOKEN}")
+        console.log(f"PHONE_NUMBER_ID {env.PHONE_NUMBER_ID}")
+        console.log(f"uri {uri}")
         return await fetch(uri, method='POST', data = data,  headers=headers)
 
 

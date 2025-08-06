@@ -130,6 +130,8 @@ async def on_fetch(request, env):
     #de pago.
     if url.path.startswith("/webhook") and method == 'POST':
         console.log("En webhook")
+        flow_reply_procesor( request, env)
+        """
         request_json = await request.json()
         value = request_json.entry[0].changes[0].value
         console.log("En try")
@@ -248,6 +250,7 @@ async def on_fetch(request, env):
         except:
                 return Response.new('ok', status="200")
 
+       """
 
 async def send(mensaje, env):
         console.log(f"En send {mensaje}")
@@ -342,8 +345,56 @@ def webhook_post():
 
 
 
+def flow_reply_procesor(request, env)
+    flow_response = json.loads(request.get_data())["entry"][0]["changes"][0]["value"][
+        "messages"
+    ][0]["interactive"]["nfm_reply"]["response_json"]
 
-def flow_reply_processor(request):
+    flow_data = json.loads(flow_response)
+    uno:
+        console.log("En webhook")
+        request_json = await request.json()
+        value = request_json.entry[0].changes[0].value
+        console.log("En try")
+        wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
+        console.log("wa_id: {wa_id}")
+        response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
+
+        console.log(f"response_json {response_json}")
+        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        #ri     = f"https://www.alectrico.cl/api/v1/santum/webhook"
+
+        headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {env.META_USER_TOKEN}"
+        }
+        body = {
+                    "messaging_product" :  "whatsapp",
+                    "recipient_type"    :  "individual",
+                    "to"                :  wa_id,
+                    "type"              :  "text",
+                    "text"              :  { "preview_url" : True,
+                        "body" : response_json }
+        }
+
+        options = {
+               "body": json.dumps(body),
+               "method": "POST",
+               "headers": {
+                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                 "content-type": "application/json;charset=UTF-8"
+               },
+        }
+
+        response = await fetch(uri, to_js(options))
+        console.log(f"response {response}")
+        content_type, result = await gather_response(response)
+        return Response.new( response_json, status="200")
+
+
+
+
+def flow_reply_processor_original(request):
     flow_response = json.loads(request.get_data())["entry"][0]["changes"][0]["value"][
         "messages"
     ][0]["interactive"]["nfm_reply"]["response_json"]

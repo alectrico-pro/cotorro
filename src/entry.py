@@ -117,8 +117,8 @@ async def on_fetch(request, env):
 
     if url.path.startswith("/w") and method == 'POST':
         request_json = await request.json()
-        value = request_json.entry[0].changes[0].value
-        console.log(f"value {value}")
+        interactive = request_json.entry[0].changes[0].value.messages[0].interactive
+        console.log(f"interactive {interactive}")
         return Response.new( value, status="200")
 
 

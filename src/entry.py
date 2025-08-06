@@ -117,8 +117,8 @@ async def on_fetch(request, env):
 
     if url.path.startswith("/w") and method == 'POST':
         request_json = await request.json()
-        etype = request_json.entry[0].changes[0].value.messages[0].interactive.type
-        console.log(f"etype {etype}")
+        response_json = request_json.entry[0].changes[0].value.messages[0].interactive.type.nfm_reply.response_json
+        console.log(f"etype {response_json}")
         return Response.new( value, status="200")
 
 

@@ -386,7 +386,52 @@ async def flow_reply_processor(request, env):
         response = await fetch(uri, to_js(options))
         console.log(f"response {response}")
         content_type, result = await gather_response(response)
-        return Response.new( response_json, status="200")
+
+
+        #---- procesando los campos
+        flow        = response_json
+  
+        sintomas_id = flow['sintomas']
+
+        match sintomas_id:
+            case 0:
+                sintoma = '0'
+            case 1:
+                sintoma = '1'
+            case 2:
+                sintoma = '2'
+            case 3:
+                sintoma = '3'
+            case 4:
+                sintoma = '4'
+            case 5:
+                sintoma = '5'
+
+        nombre      = flow['nombre']
+        apellido    = flow['apellido']
+        fono        = flow['fono']
+        email       = flow['email']
+        direccion   = flow['direccion']
+        descripcion = flow['descripcion']
+        fecha       = flow['fecha']
+        comuna      = flow['comuna']
+        flow_token  =flow['flow_token']
+        
+        reply = (
+            f"Gracias por llenar el cuestionario. Estas sonlas respuestas que hemos guardado:\n\n"
+            f"*Sintoma?*\n{sintoma}\n\n"
+            f"*Nombre?*\n{nombre}\n\n"
+            f"*Apellido?*\n{Apellido}\n\n"
+            f"*Fono?*\n{fono}\n\n"
+            f"*email?*\n{email}\n\n"
+            f"*Dirección?*\n{direccion}\n\n"
+            f"*Descripción?*\n{descripcion}\n\n"
+            f"*Fecha?*\n{fecha}\n\n"
+            f"*Comuna?*\n{comuna}"
+        )
+
+
+        return Response.new( reply, status="200")
 
 
 

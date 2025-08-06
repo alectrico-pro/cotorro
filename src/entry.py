@@ -132,15 +132,15 @@ async def on_fetch(request, env):
         console.log("En webhook")
         request_json = await request.json()
         value = request_json.entry[0].changes[0].value
-        try:
-          console.log("En try")
-          wa_id        = request_json.entry[0].changes[0].value.contacts[0].profile.wa_id
-          console.log("wa_id: {wa_id}")
-          return Response.new( wa_id, status="200")
-          console.log(f"wa_id {wa_id}")
-          response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
-          console.log(f"response_json {response_json}")
-          return Response.new( response_json, status="200")
+        console.log("En try")
+        wa_id        = request_json.entry[0].changes[0].value.contacts[0].profile.wa_id
+        console.log("wa_id: {wa_id}")
+        return Response.new( wa_id, status="200")
+        console.log(f"wa_id {wa_id}")
+        response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
+        console.log(f"response_json {response_json}")
+        return Response.new( response_json, status="200")
+        """
         except:
             try:
                 mensaje = value.messages[0].text.body 
@@ -223,7 +223,7 @@ async def on_fetch(request, env):
             except:
                 return Response.new('ok', status="200")
 
-
+            """
 
 async def send(mensaje, env):
         console.log(f"En send {mensaje}")

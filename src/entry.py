@@ -153,7 +153,50 @@ async def on_fetch(request, env):
             console.log(f"result {result}")
             console.log(f"content_type {content_type}")
             headers = Headers.new({"content-type": content_type}.items())
+
+
+            #-- enviar el formulario a isa
+            fono       = "56940338057"
+            imagen_url = "https://www.alectrico.cl/assets/iconos/loguito.jpeg"
+            uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {env.META_USER_TOKEN}"
+            }
+
+            body = {
+              "messaging_product": "whatsapp",
+              "to": f"{fono}",
+              "type": "template",
+              "template": {
+                "name": "say_visita",
+                "language": {
+                  "code": "es"
+              },
+              "components": [
+               { "type": "header", "parameters": [ { "type": "image",
+                    "image": {  "link": f"{imagen_url}" } } ] },
+                { "type": "button", "sub_type": "flow",  "index": "0" }
+               ]
+              }
+            }
+
+
+            options = {
+               "body": json.dumps(body),
+               "method": "POST",
+               "headers": {
+                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                 "content-type": "application/json;charset=UTF-8"
+               },
+            }
+
+            response = await fetch(uri, to_js(options))
+            content_type, result = await gather_response(response)
+
+            headers = Headers.new({"content-type": content_type}.items())
             return Response.new(result, headers=headers)
+
         except:
             return Response.new('ok', status="200")
 

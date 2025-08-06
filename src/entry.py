@@ -254,7 +254,6 @@ async def on_fetch(request, env):
             except:
                 return Response.new('ok', status="200")
 
-            """
 
 async def send(mensaje, env):
         console.log(f"En send {mensaje}")

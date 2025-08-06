@@ -130,7 +130,10 @@ async def on_fetch(request, env):
     #de pago.
     if url.path.startswith("/webhook") and method == 'POST':
         console.log("En webhook")
-        flow_reply_procesor( request, env)
+        await flow_reply_procesor( request, env)
+        return Response.new('ok', status="200")
+
+
         """
         request_json = await request.json()
         value = request_json.entry[0].changes[0].value

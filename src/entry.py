@@ -118,19 +118,37 @@ async def on_fetch(request, env):
 
     if url.path.startswith("/webhook") and method == 'POST':
         request_json = await request.json()
-        console.log( request_json )
-        #try:
         value = request_json.entry[0].changes[0].value
         try:
-          console.log( value.messages[0].text.body )
-          response = await send( value.messages[0].message.text.body, env)
-          console.log(f"response {response}")
-          content_type, result = await gather_response(response)
-          headers = Headers.new({"content-type": content_type}.items())
-          return Response.new(result, headers=headers)
-        except:
-          return Response.new("ok", status=200)
-  
+            mensaje = value.messages[0].text.body 
+            uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+            #ri     = f"https://www.alectrico.cl/api/v1/santum/webhook"
+
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {env.META_USER_TOKEN}"
+            }
+            body ={
+                 'messaging_product': 'whatsapp',
+                 'to': '56981370042',
+                 'type': 'template',
+                 'template': { 'name': mensaje,
+                               'language': {'code': 'en_US'}
+                 }
+            }
+            options = {
+               "body": json.dumps(body),
+               "method": "POST",
+               "headers": {
+                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                 "content-type": "application/json;charset=UTF-8"
+               },
+            }
+
+            response = await fetch(uri, to_js(options))
+            content_type, result = await gather_response(response)
+            headers = Headers.new({"content-type": content_type}.items())
+            return Response.new(result, headers=headers)
 
 
 

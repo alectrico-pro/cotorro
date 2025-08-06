@@ -121,7 +121,7 @@ async def on_fetch(request, env):
         value = request_json.entry[0].changes[0].value
         try:
             mensaje = value.messages[0].text.body 
-            console.log("mensaje {mensaje}")
+            console.log(f"mensaje {mensaje}")
 
             uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
             #ri     = f"https://www.alectrico.cl/api/v1/santum/webhook"

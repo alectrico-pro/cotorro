@@ -133,7 +133,7 @@ async def on_fetch(request, env):
         request_json = await request.json()
         value = request_json.entry[0].changes[0].value
         try:
-          request_json  = await request.json()
+          console.log("En try")
           wa_id         = request_json.entry[0].changes[0].value.contacts[0].profile.wa_id
           console.log(f"wa_id {wa_id}")
           response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json

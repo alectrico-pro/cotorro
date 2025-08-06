@@ -361,9 +361,8 @@ async def flow_reply_processor(request, env):
 
 
         #---- procesando los campos
-        flow        = response_json
 
-        sintomas_id = flow['sintomas']
+        sintomas_id = response_json['sintomas']
 
         match sintomas_id:
             case 0:
@@ -379,21 +378,21 @@ async def flow_reply_processor(request, env):
             case 5:
                 sintoma = '5'
 
-        nombre      = flow['nombre']
-        apellido    = flow['apellido']
-        fono        = flow['fono']
-        email       = flow['email']
-        direccion   = flow['direccion']
-        descripcion = flow['descripcion']
-        fecha       = flow['fecha']
-        comuna      = flow['comuna']
-        flow_token  =flow['flow_token']
+        nombre      = response_json['nombre']
+        apellido    = response_json['apellido']
+        fono        = response_json['fono']
+        email       = response_json['email']
+        direccion   = response_json['direccion']
+        descripcion = response_json['descripcion']
+        fecha       = response_json['fecha']
+        comuna      = response_json['comuna']
+        flow_token  = response_json['flow_token']
 
         reply = (
-            f"Gracias por llenar el cuestionario. Estas sonlas respuestas que hemos guardado:\n\n"
-            f"*Sintoma?*\n{sintoma}\n\n"
+            f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"
+            f"*Síntoma?*\n{sintoma}\n\n"
             f"*Nombre?*\n{nombre}\n\n"
-            f"*Apellido?*\n{Apellido}\n\n"
+            f"*Apellido?*\n{apellido}\n\n"
             f"*Fono?*\n{fono}\n\n"
             f"*email?*\n{email}\n\n"
             f"*Dirección?*\n{direccion}\n\n"

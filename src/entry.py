@@ -130,7 +130,7 @@ async def on_fetch(request, env):
     #de pago.
     if url.path.startswith("/webhook") and method == 'POST':
         console.log("En webhook")
-        await flow_reply_procesor( request, env)
+        await flow_reply_processor( request, env)
         return Response.new('ok', status="200")
 
 
@@ -348,16 +348,8 @@ def webhook_post():
 
 
 
-async def flow_reply_procesor(request, env):
-    request_json = await request.json()
-
-    flow_response = json.loads(request_json)["entry"][0]["changes"][0]["value"][
-        "messages"
-    ][0]["interactive"]["nfm_reply"]["response_json"]
-
-    flow_data = json.loads(flow_response)
-    """
-        console.log("En webhook")
+async def flow_reply_processor(request, env):
+        console.log("En flow_reply_processor")
         request_json = await request.json()
         value = request_json.entry[0].changes[0].value
         console.log("En try")
@@ -395,7 +387,6 @@ async def flow_reply_procesor(request, env):
         console.log(f"response {response}")
         content_type, result = await gather_response(response)
         return Response.new( response_json, status="200")
-   """
 
 
 

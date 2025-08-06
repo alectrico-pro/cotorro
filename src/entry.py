@@ -123,7 +123,6 @@ async def on_fetch(request, env):
         value = request_json.entry[0].changes[0].value
         try:
           console.log( value )
-          console.log( value.messages[0].message )
           console.log( value.messages[0].text )
           console.log( value.messages[0].text.body )
           response = await send( value.messages[0].message.text.body, env)

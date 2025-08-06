@@ -115,6 +115,12 @@ async def on_fetch(request, env):
         headers = Headers.new({"content-type": content_type}.items())
         return Response.new(result, headers=headers)
 
+    if url.path.startswith("/w") and method == 'POST':
+        request_json = await request.json()
+        value = request_json.entry[0].changes[0].value
+        console.log(f"value {value}")
+        return Response.new( value, status="200")
+
 
     if url.path.startswith("/webhook") and method == 'POST':
         request_json = await request.json()

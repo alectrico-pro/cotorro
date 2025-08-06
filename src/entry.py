@@ -121,6 +121,8 @@ async def on_fetch(request, env):
         value = request_json.entry[0].changes[0].value
         try:
             mensaje = value.messages[0].text.body 
+            console.log("mensaje {mensaje}")
+
             uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
             #ri     = f"https://www.alectrico.cl/api/v1/santum/webhook"
 
@@ -146,6 +148,7 @@ async def on_fetch(request, env):
             }
 
             response = await fetch(uri, to_js(options))
+            console.log(f"response {response}")
             content_type, result = await gather_response(response)
             headers = Headers.new({"content-type": content_type}.items())
             return Response.new(result, headers=headers)

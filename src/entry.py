@@ -150,7 +150,7 @@ async def on_fetch(request, env):
                     "recipient_type"    :  "individual",
                     "to"                :  wa_id,
                     "type"              :  "text",
-                    "text"              :  { "preview_url" : true,
+                    "text"              :  { "preview_url" : True,
                         "body" : response_json }
         }
 

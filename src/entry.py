@@ -149,13 +149,10 @@ async def on_fetch(request, env):
             content_type, result = await gather_response(response)
             headers = Headers.new({"content-type": content_type}.items())
             return Response.new(result, headers=headers)
+        except:
+            return Response.new('ok', status="200")
 
 
-
-        #messages[0].text.body
-        #if body is not None:
-        #  console.log(f"Text {body}")
-        #  send_message( body, "56981370042", env)
 
 async def send(mensaje, env):
         console.log(f"En send {mensaje}")

@@ -150,6 +150,8 @@ async def on_fetch(request, env):
             response = await fetch(uri, to_js(options))
             console.log(f"response {response}")
             content_type, result = await gather_response(response)
+            console.log(f"result {result}")
+            console.log(f"content_type {content_type}")
             headers = Headers.new({"content-type": content_type}.items())
             return Response.new(result, headers=headers)
         except:

@@ -134,7 +134,8 @@ async def on_fetch(request, env):
         value = request_json.entry[0].changes[0].value
         try:
           console.log("En try")
-          wa_id         = request_json.entry[0].changes[0].value.contacts[0].profile.wa_id
+          contacto        = request_json.entry[0].changes[0].value.contacts[0]
+          return Response.new( contacto, status="200")
           console.log(f"wa_id {wa_id}")
           response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
           console.log(f"response_json {response_json}")

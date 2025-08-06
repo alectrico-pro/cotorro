@@ -118,8 +118,8 @@ async def on_fetch(request, env):
     if url.path.startswith("/w") and method == 'POST':
         request_json = await request.json()
         response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
-        console.log(f"etype {response_json}")
-        return Response.new( value, status="200")
+        console.log(f"response_json {response_json}")
+        return Response.new( response_json, status="200")
 
 
     if url.path.startswith("/webhook") and method == 'POST':

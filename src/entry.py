@@ -351,7 +351,7 @@ def webhook_post():
 async def flow_reply_procesor(request, env):
     request_json = await request.json()
 
-    flow_response = json.loads(request.get_data())["entry"][0]["changes"][0]["value"][
+    flow_response = json.loads(request_json)["entry"][0]["changes"][0]["value"][
         "messages"
     ][0]["interactive"]["nfm_reply"]["response_json"]
 

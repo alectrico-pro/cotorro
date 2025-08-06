@@ -351,7 +351,7 @@ def flow_reply_procesor(request, env):
     ][0]["interactive"]["nfm_reply"]["response_json"]
 
     flow_data = json.loads(flow_response)
-    uno:
+    """
         console.log("En webhook")
         request_json = await request.json()
         value = request_json.entry[0].changes[0].value
@@ -390,7 +390,7 @@ def flow_reply_procesor(request, env):
         console.log(f"response {response}")
         content_type, result = await gather_response(response)
         return Response.new( response_json, status="200")
-
+   """
 
 
 

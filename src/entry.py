@@ -122,6 +122,9 @@ async def on_fetch(request, env):
         #try:
         value = request_json.entry[0].changes[0].value
         try:
+          console.log( value.messages[0].message )
+          console.log( value.messages[0].message.text )
+          console.log( value.messages[0].message.text.body )
           response = await send( value.messages[0].message.text.body, env)
           content_type, result = await gather_response(response)
           headers = Headers.new({"content-type": content_type}.items())

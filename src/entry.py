@@ -148,12 +148,12 @@ async def on_fetch(request, env):
                 }
 
                 body = {
-                    "messaging_product" =>  "whatsapp",
-                    "recipient_type"    =>  "individual",
-                    "to"                =>  wa_id,
-                    "type"              =>  "text",
-                    "text"              =>  { "preview_url" => true,
-                                 "body" => respons_json }
+                        "messaging_product" :  "whatsapp",
+                        "recipient_type"    :  "individual",
+                        "to"                :  wa_id,
+                        "type"              :  "text",
+                        "text"              :  { "preview_url" => true,
+                            "body" : response_json }
                 }
 
                 options = {

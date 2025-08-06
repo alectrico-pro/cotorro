@@ -134,7 +134,7 @@ async def on_fetch(request, env):
                  'messaging_product': 'whatsapp',
                  'to': '56981370042',
                  'type': 'template',
-                 'template': { 'name': mensaje,
+                 'template': { 'name': 'prueba',
                                'language': {'code': 'en_US'}
                  }
             }

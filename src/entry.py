@@ -129,6 +129,7 @@ async def on_fetch(request, env):
     #3. Cada vez que un usuario reponda un cuestionario se le entegará un resumen y un botón
     #de pago.
     if url.path.startswith("/webhook") and method == 'POST':
+        console.log("En webhook")
         request_json = await request.json()
         value = request_json.entry[0].changes[0].value
         try:

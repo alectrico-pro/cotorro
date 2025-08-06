@@ -122,6 +122,7 @@ async def on_fetch(request, env):
         #try:
         value = request_json.entry[0].changes[0].value
         try:
+          console.log( value )
           console.log( value.messages[0].message )
           console.log( value.messages[0].message.text )
           console.log( value.messages[0].message.text.body )

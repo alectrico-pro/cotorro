@@ -117,11 +117,11 @@ async def on_fetch(request, env):
         return Response.new(result, headers=headers)
 
     #pruebas lee la respuesta del cuesionario
-    if url.path.startswith("/w") and method == 'POST':
-        request_json = await request.json()
-        response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
-        console.log(f"response_json {response_json}")
-        return Response.new( response_json, status="200")
+    #if url.path.startswith("/w") and method == 'POST':
+    #    request_json = await request.json()
+    #    response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
+    #    console.log(f"response_json {response_json}")
+    #    return Response.new( response_json, status="200")
 
     #recibe todo tipo de mensajes
     #1. Mensajes envíados desde el celular cuando un cliente escribe algo en uno de los canales

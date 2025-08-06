@@ -121,10 +121,14 @@ async def on_fetch(request, env):
         console.log( request_json )
         #try:
         value = request_json.entry[0].changes[0].value
-        response = await send( value, env)
-        content_type, result = await gather_response(response)
-        headers = Headers.new({"content-type": content_type}.items())
-        return Response.new(result, headers=headers)
+        try:
+          response = await send( value, env)
+          content_type, result = await gather_response(response)
+          headers = Headers.new({"content-type": content_type}.items())
+          return Response.new(result, headers=headers)
+        except:
+          return Response.new("ok", status=200)
+  
 
 
 

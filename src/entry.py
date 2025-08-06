@@ -358,39 +358,11 @@ async def flow_reply_processor(request, env):
         response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
 
         console.log(f"response_json {response_json}")
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        #ri     = f"https://www.alectrico.cl/api/v1/santum/webhook"
-
-        headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {env.META_USER_TOKEN}"
-        }
-        body = {
-                    "messaging_product" :  "whatsapp",
-                    "recipient_type"    :  "individual",
-                    "to"                :  wa_id,
-                    "type"              :  "text",
-                    "text"              :  { "preview_url" : True,
-                        "body" : response_json }
-        }
-
-        options = {
-               "body": json.dumps(body),
-               "method": "POST",
-               "headers": {
-                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
-                 "content-type": "application/json;charset=UTF-8"
-               },
-        }
-
-        response = await fetch(uri, to_js(options))
-        console.log(f"response {response}")
-        content_type, result = await gather_response(response)
 
 
         #---- procesando los campos
         flow        = response_json
-  
+
         sintomas_id = flow['sintomas']
 
         match sintomas_id:
@@ -416,7 +388,7 @@ async def flow_reply_processor(request, env):
         fecha       = flow['fecha']
         comuna      = flow['comuna']
         flow_token  =flow['flow_token']
-        
+
         reply = (
             f"Gracias por llenar el cuestionario. Estas sonlas respuestas que hemos guardado:\n\n"
             f"*Sintoma?*\n{sintoma}\n\n"
@@ -430,6 +402,35 @@ async def flow_reply_processor(request, env):
             f"*Comuna?*\n{comuna}"
         )
 
+
+        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        #ri     = f"https://www.alectrico.cl/api/v1/santum/webhook"
+
+        headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {env.META_USER_TOKEN}"
+        }
+        body = {
+                    "messaging_product" :  "whatsapp",
+                    "recipient_type"    :  "individual",
+                    "to"                :  wa_id,
+                    "type"              :  "text",
+                    "text"              :  { "preview_url" : True,
+                        "body" : reply }
+        }
+
+        options = {
+               "body": json.dumps(body),
+               "method": "POST",
+               "headers": {
+                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                 "content-type": "application/json;charset=UTF-8"
+               },
+        }
+
+        response = await fetch(uri, to_js(options))
+        console.log(f"response {response}")
+        content_type, result = await gather_response(response)
 
         return Response.new( reply, status="200")
 

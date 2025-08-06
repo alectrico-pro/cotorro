@@ -132,15 +132,47 @@ async def on_fetch(request, env):
         console.log("En webhook")
         request_json = await request.json()
         value = request_json.entry[0].changes[0].value
-        console.log("En try")
-        wa_id        = request_json.entry[0].changes[0].value.contacts[0].wa_id
-        console.log("wa_id: {wa_id}")
-        return Response.new( wa_id, status="200")
-        console.log(f"wa_id {wa_id}")
-        response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
-        console.log(f"response_json {response_json}")
-        return Response.new( response_json, status="200")
-        """
+        try:
+          console.log("En try")
+          wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
+          wa_id = 56981370042
+          console.log("wa_id: {wa_id}")
+          response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
+          console.log(f"response_json {response_json}")
+          try:
+                uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+                #ri     = f"https://www.alectrico.cl/api/v1/santum/webhook"
+
+                headers = {
+                    "Content-Type": "application/json",
+                    "Authorization": f"Bearer {env.META_USER_TOKEN}"
+                }
+
+                body = {
+                    "messaging_product" =>  "whatsapp",
+                    "recipient_type"    =>  "individual",
+                    "to"                =>  wa_id,
+                    "type"              =>  "text",
+                    "text"              =>  { "preview_url" => true,
+                                 "body" => respons_json }
+                }
+
+                options = {
+                   "body": json.dumps(body),
+                   "method": "POST",
+                   "headers": {
+                     "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                     "content-type": "application/json;charset=UTF-8"
+                   },
+                }
+
+                response = await fetch(uri, to_js(options))
+                console.log(f"response {response}")
+                content_type, result = await gather_response(response)
+
+
+
+          return Response.new( response_json, status="200")
         except:
             try:
                 mensaje = value.messages[0].text.body 

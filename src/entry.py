@@ -168,7 +168,7 @@ async def on_fetch(request, env):
                 response = await fetch(uri, to_js(options))
                 console.log(f"response {response}")
                 content_type, result = await gather_response(response)
-            except:
+          except:
                 return Response.new( response_json, status="200")
 
 

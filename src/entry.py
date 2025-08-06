@@ -133,7 +133,7 @@ async def on_fetch(request, env):
         request_json = await request.json()
         value = request_json.entry[0].changes[0].value
         console.log("En try")
-        wa_id        = request_json.entry[0].changes[0].value.contacts[0].profile.wa_id
+        wa_id        = request_json.entry[0].changes[0].value.contacts[0].wa_id
         console.log("wa_id: {wa_id}")
         return Response.new( wa_id, status="200")
         console.log(f"wa_id {wa_id}")

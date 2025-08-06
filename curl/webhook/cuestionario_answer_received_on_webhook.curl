@@ -2,11 +2,13 @@ token_cotorro=EAAN6V6gyZCSMBPClhLAnayqa8vBkDLXrCQYqCkH5iA3ZCWy42eeH97ZAcwYqvcZB6
 
 phone_id=150477064807758
 
+#"https://cotorro.alectrico.workers.dev/w"\ solo lee la respuesta del cuestionario
+
 #esto se recibe en webhook cuanso alguien responde un cuestionario de visita
 #el cuestiona de visita se envía al usuario usando el template visita
 #Este curl envía esto a un endopoint que estoy creando que es un bot
 curl -X  POST \
- "https://cotorro.alectrico.workers.dev/w"\
+ "https://cotorro.alectrico.workers.dev/webhook"\
  -H "Authorization: Bearer $token_cotorro" \
  -H 'Content-Type: application/json' \
  --data @/dev/stdin<<EOF

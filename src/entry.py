@@ -39,7 +39,7 @@ async def on_fetch(request, env):
     console.log(f"Handling request {url.path} with params {params}")
 
 
-
+    #es solo para pruebas
     if url.path == "/envia_formulario":
         fono       = "56940338057"
         imagen_url = "https://www.alectrico.cl/assets/iconos/loguito.jpeg"
@@ -84,6 +84,7 @@ async def on_fetch(request, env):
 
 
     # https://developers.cloudflare.com/workers/examples/post-json/
+    # solo pruebas, envía un mensaje de pruebas
     if url.path == "/":
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         #ri     = f"https://www.alectrico.cl/api/v1/santum/webhook"
@@ -115,18 +116,25 @@ async def on_fetch(request, env):
         headers = Headers.new({"content-type": content_type}.items())
         return Response.new(result, headers=headers)
 
+    #pruebas lee la respuesta del cuesionario
     if url.path.startswith("/w") and method == 'POST':
         request_json = await request.json()
         response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
         console.log(f"response_json {response_json}")
         return Response.new( response_json, status="200")
 
-
+    #recibe todo tipo de mensajes
+    #1. Mensajes envíados desde el celular cuando un cliente escribe algo en uno de los canales
+    #2. Con cada body.text que llegue se enviará un cuestionario
+    #3. Cada vez que un usuario reponda un cuestionario se le entegará un resumen y un botón
+    #de pago.
     if url.path.startswith("/webhook") and method == 'POST':
         request_json = await request.json()
         value = request_json.entry[0].changes[0].value
         try:
           request_json = await request.json()
+          wa_id          = request_json.entry[0].changes[0].value.contacts[0].wa_id
+          console.log(f"wa_id {wa_id}")
           response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
           console.log(f"response_json {response_json}")
           return Response.new( response_json, status="200")

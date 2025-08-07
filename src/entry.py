@@ -1,4 +1,5 @@
-from transbank-sdk import tx
+from transbank.webpay.webpay_plus import WebpayPlus
+#pip install transbank-sdk
 import random
 import logging
 from workers import fetch, handler

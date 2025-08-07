@@ -353,9 +353,9 @@ async def flow_reply_processor(request, env):
         request_json = await request.json()
         console.log( f"request_json {request_json}")
         value = request_json.entry[0].changes[0].value
-        console.log("En try")
+        console.log(f"value {value}")
         wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
-        console.log("wa_id: {wa_id}")
+        console.log(f"wa_id: {wa_id}")
         response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
 
         console.log(f"response_json {response_json}")

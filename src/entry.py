@@ -181,6 +181,7 @@ async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env
         console.log(f"tbk response {response}")
         content_type, result = await gather_response(response)
         console.log(f"result{result}")
+        console.log(f"content_type}")
         return result
 
 

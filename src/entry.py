@@ -135,10 +135,8 @@ async def on_fetch(request, env):
         console.log( f"request_json {request_json}")
 
         value = request_json.entry[0].changes[0].value
-        console.log( f"value {value} ")
-        console.log( f"type {type(value)} " )
+        console.log( f"value__dict__ {value.__dict__} ")
 
-        value_json = JSON.stringify( value )
         console.log( f"value_json {value_json}")
 
         if hasattr(value, 'messages'):

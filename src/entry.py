@@ -149,7 +149,7 @@ async def on_fetch(request, env):
                console.log("Es interactive")
                if hasattr(value.messages[0].interactive, 'nfm_reply') == True :
                    console.log("Es nfm_reply")
-                   if hasattr(value.messages[0].interactive.nfm_repay, 'response_json') == True :
+                   if hasattr(value.messages[0].interactive.nfm_replay, 'response_json') == True :
                        console.log("Tiene response_json")
                        await flow_reply_processor( request_json, env)
                        return Response.new('ok', status="200")

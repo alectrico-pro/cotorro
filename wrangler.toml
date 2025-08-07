@@ -32,5 +32,5 @@ TBK_ENDPOINT="https://webpay3g.transbank.cl"
 [development]
 WEBPAY_API_KEY="597055555532"
 WEBPAY_SHARED_SECRET="579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C"
-TBK_ENDPOINT=https://webpay3gint.transbank.cl
+TBK_ENDPOINT="https://webpay3gint.transbank.cl"
 

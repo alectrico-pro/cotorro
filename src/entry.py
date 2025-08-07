@@ -35,9 +35,11 @@ async def gather_response(response):
     return (content_type, await response.text())
 
 
+
+#importatnte, envia un formulario
+#Text hay que incorporarlo WIP
 async def enviar_formulario( request, env, text, fono):
 
-        #ono       = "56940338057"
         imagen_url = "https://www.alectrico.cl/assets/iconos/loguito.jpeg"
         uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
@@ -100,16 +102,25 @@ async def on_fetch(request, env):
         console.log( f"hasattr contacts    {hasattr(value, 'contacts')} " )
         console.log( f"hasattr contacts    {hasattr(value, 'statuses')} " )
 
+
         if hasattr(value, 'messages') == True :
             console.log("Es un mensaje")
+
+            #Cuando alguien escribe un texto en los canales de publico suscritos
+            #Se recbie aquí
+            #REspondeo con un cuestionario
+
             if hasattr(value.messages[0], 'text') == True :
                console.log("Es text")
                console.log(f"body {value.messages[0].text.body}")
                text = value.messages[0].text.body
-               await enviar_formulario( request, env, text, "56981370042" )
+               wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
+               await enviar_formulario( request, env, text, wa_id )
                return Response.new( text, status="200")
                
-
+            #Cuando el usuario responde el cuestionario
+            #Llega aquí
+            #Lo proceso y le envío un resumen
             if hasattr(value.messages[0], 'interactive') == True :
                console.log("Es interactive")
                if hasattr(value.messages[0].interactive, 'nfm_reply') == True :
@@ -118,6 +129,7 @@ async def on_fetch(request, env):
                        console.log("Tiene response_json")
                        await flow_reply_processor( request_json, env)
                        return Response.new('ok', status="200")
+
         elif hasattr(value, 'statuses') == True :
             console.log("Es un statuses")
             console.log(f"Status: {value.statuses[0].status}")
@@ -128,88 +140,6 @@ async def on_fetch(request, env):
            console.log("No se ha identificado")
            return Response.new('ok', status="404")
 
-        """
-        try:
-                mensaje = value.messages[0].text.body 
-                console.log(f"mensaje {mensaje}")
-
-                uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-                #ri     = f"https://www.alectrico.cl/api/v1/santum/webhook"
-
-                headers = {
-                    "Content-Type": "application/json",
-                    "Authorization": f"Bearer {env.META_USER_TOKEN}"
-                }
-                body ={
-                     'messaging_product': 'whatsapp',
-                     'to': wa_id,
-                     'type': 'template',
-                     'template': { 'name': 'prueba',
-                                   'language': {'code': 'en_US'}
-                     }
-                }
-                options = {
-                   "body": json.dumps(body),
-                   "method": "POST",
-                   "headers": {
-                     "Authorization": f"Bearer {env.META_USER_TOKEN}",
-                     "content-type": "application/json;charset=UTF-8"
-                   },
-                }
-
-                response = await fetch(uri, to_js(options))
-                console.log(f"response {response}")
-                content_type, result = await gather_response(response)
-                console.log(f"result {result}")
-                console.log(f"content_type {content_type}")
-                headers = Headers.new({"content-type": content_type}.items())
-
-
-                #-- enviar el formulario a isa
-                fono       = "56940338057"
-                imagen_url = "https://www.alectrico.cl/assets/iconos/loguito.jpeg"
-                uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-                headers = {
-                    "Content-Type": "application/json",
-                    "Authorization": f"Bearer {env.META_USER_TOKEN}"
-                }
-
-                body = {
-                  "messaging_product": "whatsapp",
-                  "to": f"{fono}",
-                  "type": "template",
-                  "template": {
-                    "name": "say_visita",
-                    "language": {
-                      "code": "es"
-                  },
-                  "components": [
-                   { "type": "header", "parameters": [ { "type": "image",
-                        "image": {  "link": f"{imagen_url}" } } ] },
-                    { "type": "button", "sub_type": "flow",  "index": "0" }
-                   ]
-                  }
-                }
-
-
-                options = {
-                   "body": json.dumps(body),
-                   "method": "POST",
-                   "headers": {
-                     "Authorization": f"Bearer {env.META_USER_TOKEN}",
-                     "content-type": "application/json;charset=UTF-8"
-                   },
-                }
-
-                response = await fetch(uri, to_js(options))
-                content_type, result = await gather_response(response)
-
-                headers = Headers.new({"content-type": content_type}.items())
-                return Response.new(result, headers=headers)
-
-        except:
-                return Response.new('ok', status="200")
-        """
 
 async def send(mensaje, env):
         console.log(f"En send {mensaje}")
@@ -303,7 +233,8 @@ def webhook_post():
     return Response("PROCESSED", status=200)
 
 
-
+#Se le envía un resumen de las respuestas del cuestionario
+#Al que llenó el cuestionario
 async def flow_reply_processor(request_json, env):
         console.log("En flow_reply_processor")
         #equest_json = await request.json()

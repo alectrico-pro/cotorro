@@ -261,7 +261,7 @@ async def send(mensaje, env):
              'messaging_product': 'whatsapp',
              'to': '56981370042',
              'type': 'template',
-             'template': { 'name': mensaje,
+             'template': { 'name': "prueba",
                            'language': {'code': 'en_US'}
              }
         }
@@ -364,17 +364,17 @@ async def flow_reply_processor(request_json, env):
 
         match sintoma_id[0]:
             case "0":
-                sintoma = '0'
+                sintoma_1 = 'Sentí un ruido de cuetazo'
             case "1":
-                sintoma = '1'
+                sintoma_2 = 'Tengo enchufe(s) malo(s)'
             case "2":
-                sintoma = '2'
+                sintoma_3 = 'Necesito Instalar Luminarias'
             case "3":
-                sintoma = '3'
+                sintoma_4 = 'Necesito Presentar un TE1'
             case "4":
-                sintoma = '4'
+                sintoma_5 = 'Necesito más Circuitos'
             case "5":
-                sintoma = '5'
+                sintoma_6 = 'No tengo luz'
 
         nombre      = flow_data['nombre']
         apellido    = flow_data['apellido']
@@ -388,7 +388,13 @@ async def flow_reply_processor(request_json, env):
 
         reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"
-            f"*Síntoma?*\n{sintoma}\n\n"
+            f"*Síntomas*\n\n\n"
+            f"{sintoma_1}\n\n"
+            f"{sintoma_2}\n\n"
+            f"{sintoma_3}\n\n"
+            f"{sintoma_4}\n\n"
+            f"{sintoma_5}\n\n"
+            f"{sintoma_6}\n\n"
             f"*Nombre?*\n{nombre}\n\n"
             f"*Apellido?*\n{apellido}\n\n"
             f"*Fono?*\n{fono}\n\n"

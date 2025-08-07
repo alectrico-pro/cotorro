@@ -140,7 +140,6 @@ async def on_fetch(request, env):
 
         value = request_json.entry[0].changes[0].value
 
-        console.log( f"value_json {value_json}")
         console.log( f"hasattr messages    {hasattr(value, 'messages')} " )
         console.log( f"hasattr contacts    {hasattr(value, 'contacts')} " )
         console.log( f"hasattr interactive {hasattr(value, 'interactive')} " )

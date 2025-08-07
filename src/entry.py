@@ -1,4 +1,5 @@
-from transbank.webpay.webpay_plus import WebpayPlus
+#no reconoce el móudlo 
+#from transbank.webpay.webpay_plus import WebpayPlus
 #pip install transbank-sdk
 import random
 import logging
@@ -154,20 +155,9 @@ def webhook_get(request, env):
         return Response("Error", status=403)
 
 
-#crea un link de pago tbk usando el sdk de transbank
-async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env):
-
-
-        tx = Transaction(WebpayOptions(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, IntegrationType.TEST))
-        tx = Transaction.build_for_integration(env.WEBPAY_SHARED_SECRET, env.WEBPAY_API_KEY)
-        resp = tx.create(buy_order, session_id, amount, return_url)
-        console.log(f"resp {resp}")
-        return resp
-
-
 
 #crea un link de pago tbk
-async def genera_link_de_pago_tbk_http(buy_order, amount, return_url, session_id, env):
+async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env):
 
         uri     = f"{env.TBK_ENDPOINT}"
 

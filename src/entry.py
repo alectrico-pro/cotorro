@@ -11,6 +11,10 @@ from js import console
 import uuid
 from js import Object, fetch, Response, Headers
 
+#const globals = pyodide.toPy({})
+#globals.set('x', 123)
+#globals.set('y', { a: 1, b: 2 } )
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -138,12 +142,15 @@ async def on_fetch(request, env):
         console.log( f"value__dict__ {value.__dict__} ")
 
         console.log( f"value_json {value_json}")
+        console.log( f"hasattr messages    {hasattr(value, 'messages')} " )
+        console.log( f"hasattr contacts    {hasattr(value, 'contacts')} " )
+        console.log( f"hasattr interactive {hasattr(value, 'interactive')} " )
 
-        if hasattr(value, 'messages'):
+        if hasattr(value, 'messages') == True :
             console.log("Es un mensaje")
-        if hasattr(value, 'contacts'):
+        if hasattr(value, 'contacts') == True :
             console.log("Es un mensaje")
-        if hasattr(value, 'interactive'):
+        if hasattr(value, 'interactive') == True :
             console.log("Es interactive")
         else:
            await flow_reply_processor( request_json, env)

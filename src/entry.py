@@ -142,7 +142,7 @@ async def on_fetch(request, env):
         if hasattr(value, 'interactive'):
             console.log("Es interactive")
         else:
-           await flow_reply_processor( request, env)
+           await flow_reply_processor( request_json, env)
 
         return Response.new('ok', status="200")
         """
@@ -321,9 +321,9 @@ def webhook_post():
 
 
 
-async def flow_reply_processor(request, env):
+async def flow_reply_processor(request_json, env):
         console.log("En flow_reply_processor")
-        request_json = await request.json()
+        #equest_json = await request.json()
         console.log( f"request_json {request_json}")
         value = request_json.entry[0].changes[0].value.contacts[0]
         console.log(f"value {value}")

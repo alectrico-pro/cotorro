@@ -149,6 +149,7 @@ async def on_fetch(request, env):
             console.log("Es un mensaje")
             if hasattr(value.messages[0], 'text') == True :
                console.log("Es text")
+               console.log(f"body {value.messages[0].text.body"})
             if hasattr(value.messages[0], 'interactive') == True :
                console.log("Es interactive")
                if hasattr(value.messages[0].interactive, 'nfm_reply') == True :

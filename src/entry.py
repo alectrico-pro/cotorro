@@ -366,17 +366,17 @@ async def flow_reply_processor(request, env):
         sintomas_id = response_json['sintomas']
 
         match sintomas_id:
-            case 0:
+            case "0":
                 sintoma = '0'
-            case 1:
+            case "1":
                 sintoma = '1'
-            case 2:
+            case "2":
                 sintoma = '2'
-            case 3:
+            case "3":
                 sintoma = '3'
-            case 4:
+            case "4":
                 sintoma = '4'
-            case 5:
+            case "5":
                 sintoma = '5'
 
         nombre      = response_json['nombre']

@@ -142,17 +142,21 @@ async def on_fetch(request, env):
 
         console.log( f"hasattr messages    {hasattr(value, 'messages')} " )
         console.log( f"hasattr contacts    {hasattr(value, 'contacts')} " )
-        console.log( f"hasattr interactive {hasattr(value, 'interactive')} " )
 
         if hasattr(value, 'messages') == True :
             console.log("Es un mensaje")
-            if hasattr(value.messages[0].type, 'interactive') == True :
+            if hasattr(value.messages[0], 'interactive') == True :
                console.log("Es interactive")
-               await flow_reply_processor( request_json, env)
+               if hasattr(value.messages[0].interactive, 'nfm_reply') == True :
+                   console.log("Es nfm_reply")
+                   if hasattr(value.messages[0].interactive.nfm_repay, 'response_json') == True :
+                       console.log("Tiene response_json")
+                       await flow_reply_processor( request_json, env)
+                       return Response.new('ok', status="200")
 
-               return Response.new('ok', status="200")
-        elif hasattr(value, 'contacts') == True :
-            console.log("Es un contacts")
+        #elif hasattr(value, 'contacts') == True :
+        #    console.log("Es un contacts")
+
         else:
            console.log("No se ha identificado")
            return Response.new('ok', status="404")

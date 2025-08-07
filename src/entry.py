@@ -362,6 +362,13 @@ async def flow_reply_processor(request_json, env):
 
         console.log(f"sintoma_id {sintoma_id}")
 
+        sintoma_1=''
+        sintoma_2=''
+        sintoma_3=''
+        sintoma_4=''
+        sintoma_5=''
+        sintoma_6=''
+
         match sintoma_id[0]:
             case "0":
                 sintoma_1 = 'Sentí un ruido de cuetazo'

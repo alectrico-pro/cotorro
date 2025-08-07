@@ -130,11 +130,16 @@ async def on_fetch(request, env):
     #de pago.
     if url.path.startswith("/webhook") and method == 'POST':
         console.log("En webhook")
+
         request_json = await request.json()
         console.log( f"request_json {request_json}")
+
         value = request_json.entry[0].changes[0].value
         console.log( f"value {value} ")
         console.log( f"type {type(value)} " )
+
+        value_json = JSON.stringify( value )
+        console.log( f"value_json {value_json}")
 
         if hasattr(value, 'messages'):
             console.log("Es un mensaje")

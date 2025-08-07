@@ -146,9 +146,9 @@ async def on_fetch(request, env):
 
         if hasattr(value, 'messages') == True :
             console.log("Es un mensaje")
-        if hasattr(value, 'contacts') == True :
-            console.log("Es un mensaje")
-        if hasattr(value, 'interactive') == True :
+        elif hasattr(value, 'contacts') == True :
+            console.log("Es un contacts")
+        elif hasattr(value, 'interactive') == True :
             console.log("Es interactive")
         else:
            await flow_reply_processor( request_json, env)

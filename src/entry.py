@@ -158,10 +158,10 @@ async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env
         uri     = f"{env.TBK_ENDPOINT}"
 
         body = {
-          buy_order:   buy_order,
-          amount:      amount,
-          return_url:  return_url,
-          session_id:  session_id,
+          "buy_order":   buy_order,
+          "amount":      amount,
+          "return_url":  return_url,
+          "session_id":  session_id,
         }
 
         options = {

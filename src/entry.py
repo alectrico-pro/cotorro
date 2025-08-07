@@ -381,15 +381,15 @@ async def flow_reply_processor(request, env):
             case "5":
                 sintoma = '5'
 
-        nombre      = response_json['nombre']
-        apellido    = response_json['apellido']
-        fono        = response_json['fono']
-        email       = response_json['email']
-        direccion   = response_json['direccion']
-        descripcion = response_json['descripcion']
-        fecha       = response_json['fecha']
-        comuna      = response_json['comuna']
-        flow_token  = response_json['flow_token']
+        nombre      = flow_data['nombre']
+        apellido    = flow_data['apellido']
+        fono        = flow_data['fono']
+        email       = flow_data['email']
+        direccion   = flow_data['direccion']
+        descripcion = flow_data['descripcion']
+        fecha       = flow_data['fecha']
+        comuna      = flow_data['comuna']
+        flow_token  = flow_data['flow_token']
 
         reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"

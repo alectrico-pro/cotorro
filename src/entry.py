@@ -436,6 +436,7 @@ async def flow_reply_processor(request, env):
         response = await fetch(uri, to_js(options))
         console.log(f"response {response}")
         content_type, result = await gather_response(response)
+        console.log(f"result{result}")
 
         return Response.new( reply, status="200")
 

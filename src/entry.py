@@ -134,14 +134,15 @@ async def on_fetch(request, env):
         console.log( f"request_json {request_json}")
         value = request_json.entry[0].changes[0].value
 
-        if 'messages' in value:
+        if hasattr(value, 'messages'):
             console.log("Es un mensaje")
-        if 'contacts' in value:
-            console.log("Tiene contactos")
-        if 'interactive' in value:
-            console.log("Es la respuesta a un flow")
+        if hasattr(value, 'contacts'):
+            console.log("Es un mensaje")
+        if hasattr(value, 'interactive'):
+            console.log("Es interactive")
         else:
            await flow_reply_processor( request, env)
+
         return Response.new('ok', status="200")
         """
         try:

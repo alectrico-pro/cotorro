@@ -158,6 +158,9 @@ async def on_fetch(request, env):
         elif hasattr(value, 'statuses') == True :
             console.log("Es un statuses")
             console.log(f"Status: {value.statuses[0].status}")
+            if hasattr(value.statuses[0].status, 'failed') == True:
+                console.log(f"Es failed, error: {value.status[0].status.errors[0].title}" )
+            
             return Response.new('ok', status="200")
         else:
            console.log("No se ha identificado")

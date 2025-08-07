@@ -406,6 +406,7 @@ async def flow_reply_processor(request, env):
             f"*Comuna?*\n{comuna}"
         )
 
+        console.log(f"reply {reply}")
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         #ri     = f"https://www.alectrico.cl/api/v1/santum/webhook"

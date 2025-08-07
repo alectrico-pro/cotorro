@@ -351,6 +351,7 @@ def webhook_post():
 async def flow_reply_processor(request, env):
         console.log("En flow_reply_processor")
         request_json = await request.json()
+        console.log( f"request_json {request_json}")
         value = request_json.entry[0].changes[0].value
         console.log("En try")
         wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id

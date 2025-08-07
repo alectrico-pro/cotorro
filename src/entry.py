@@ -364,7 +364,8 @@ async def flow_reply_processor(request, env):
         #---- procesando los campos
         flow_data = json.loads(response_json)
 
-        sintomas_id = flow_data.sintomas
+        console.log(f"flow_data {flow_data}")
+        sintomas_id = flow_data['sintomas']
 
         match sintomas_id:
             case "0":

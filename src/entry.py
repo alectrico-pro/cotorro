@@ -168,8 +168,8 @@ async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Tbk-Api-Key-Id":     f"env.WEBPAY_API_KEY",
-                 "Tbk-Api-Key-Secret": f"env.WEBPAY_SHARED_SECRET" ,
+                 "Tbk-Api-Key-Id":     f"{env.WEBPAY_API_KEY}",
+                 "Tbk-Api-Key-Secret": f"{env.WEBPAY_SHARED_SECRET}" ,
                  "Content-Type":       "application/json",
                },
         }

@@ -146,14 +146,17 @@ async def on_fetch(request, env):
 
         if hasattr(value, 'messages') == True :
             console.log("Es un mensaje")
+            if hasattr(value.messages[0].type, 'interactive') == True :
+               console.log("Es interactive")
+               await flow_reply_processor( request_json, env)
+
+               return Response.new('ok', status="200")
         elif hasattr(value, 'contacts') == True :
             console.log("Es un contacts")
-        elif hasattr(value, 'interactive') == True :
-            console.log("Es interactive")
-        else:
-           await flow_reply_processor( request_json, env)
+        else
+           console.log("No se ha identificado")
+           return Response.new('ok', status="404")
 
-        return Response.new('ok', status="200")
         """
         try:
                 mensaje = value.messages[0].text.body 

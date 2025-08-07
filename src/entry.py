@@ -352,7 +352,7 @@ async def flow_reply_processor(request, env):
         console.log("En flow_reply_processor")
         request_json = await request.json()
         console.log( f"request_json {request_json}")
-        value = request_json.entry[0].changes[0].value.contacs[0]
+        value = request_json.entry[0].changes[0].value.contacts[0]
         console.log(f"value {value}")
         wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
         console.log(f"wa_id: {wa_id}")

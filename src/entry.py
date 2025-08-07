@@ -153,7 +153,7 @@ async def on_fetch(request, env):
                return Response.new('ok', status="200")
         elif hasattr(value, 'contacts') == True :
             console.log("Es un contacts")
-        else
+        else:
            console.log("No se ha identificado")
            return Response.new('ok', status="404")
 

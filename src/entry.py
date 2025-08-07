@@ -240,9 +240,9 @@ async def flow_reply_processor(request_json, env):
         flow_token  = flow_data['flow_token']
 
         #un número único por exigencia de Transbank
-        buy_order  = str(uuid.uuid4())
+        buy_order  = str(uuid.uuid())
 
-        link_de_pago_tbk_url = await genera_link_de_pago_tbk( buy_order, env.AMOUNT, env.RETURN_URL, fono, env)
+        link_de_pago_tbk_url = await genera_link_de_pago_tbk( buy_order, str(env.AMOUNT), env.RETURN_URL, fono, env)
 
 
 

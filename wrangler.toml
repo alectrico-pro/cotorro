@@ -7,13 +7,10 @@ main = "src/entry.py"
 GREETING = "Hi desde Python"
 SOY_WEBHOOK= "Hola, soy endpoint /webhook"
 API_URL = "https://cotorro.alectrico.cl" 
-
 VERIFY_TOKEN = "1"
-
 #Webpay
 AMOUNT=15000
 RETURN_URL="https://cotorro.alectrico.workers.dev/return_url"
-TBK_ENDPOINT="https://webpay3g.transbank.cl"
 
 
 META_USER_TOKEN="EAAN6V6gyZCSMBPClhLAnayqa8vBkDLXrCQYqCkH5iA3ZCWy42eeH97ZAcwYqvcZB6e2KEfbqaXZBcyS4CP0hJz7RTVwAyc7BFaZA9sXelj0AjMi1nwARvsZAjr6NnHZAJHPnKkDhP5iSk61pIZCh6aoZBCZBlqPTCZBjua1QnEYcNlqFSZAeyHixKYPUffcjSmmmoZCaVH"
@@ -22,14 +19,20 @@ PHONE_NUMBER_ID="150477064807758"
 
 created_flow_id = ""
 
-[env.production]
+[env.production.vars]
+AMOUNT=15000
+RETURN_URL="https://cotorro.alectrico.workers.dev/return_url"
+
 WEBPAY_API_KEY="597036225750"
 WEBPAY_SHARED_SECRET="2438ac00992d73fe1c3a0b501e8a90bb"
 TBK_ENDPOINT="https://webpay3g.transbank.cl"
 
 
 
-[env.development]
+[env.development.vars]
+AMOUNT=15000
+RETURN_URL="https://cotorro.alectrico.workers.dev/return_url"
+
 WEBPAY_API_KEY="597055555532"
 WEBPAY_SHARED_SECRET="579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C"
 TBK_ENDPOINT="https://webpay3gint.transbank.cl"

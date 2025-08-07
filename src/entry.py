@@ -142,6 +142,7 @@ async def on_fetch(request, env):
 
         console.log( f"hasattr messages    {hasattr(value, 'messages')} " )
         console.log( f"hasattr contacts    {hasattr(value, 'contacts')} " )
+        console.log( f"hasattr contacts    {hasattr(value, 'statuses')} " )
 
         if hasattr(value, 'messages') == True :
             console.log("Es un mensaje")
@@ -153,10 +154,9 @@ async def on_fetch(request, env):
                        console.log("Tiene response_json")
                        await flow_reply_processor( request_json, env)
                        return Response.new('ok', status="200")
-
-        #elif hasattr(value, 'contacts') == True :
-        #    console.log("Es un contacts")
-
+        elif hasattr(value, 'statuses') == True :
+            console.log("Es un statuses")
+            return Response.new('ok', status="200")
         else:
            console.log("No se ha identificado")
            return Response.new('ok', status="404")

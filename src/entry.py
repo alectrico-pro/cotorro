@@ -32,7 +32,8 @@ async def gather_response(response):
     content_type = headers["content-type"] or ""
 
     if "application/json" in content_type:
-        return (content_type, json.dumps(dict(await response.json())))
+        #return (content_type, json.dumps(dict(await response.json())))
+        return (content_type, await response.json())
     return (content_type, await response.text())
 
 

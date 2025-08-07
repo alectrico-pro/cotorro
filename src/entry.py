@@ -33,7 +33,9 @@ async def gather_response(response):
 
     if "application/json" in content_type:
         #return (content_type, json.dumps(dict(await response.json())))
-        return (content_type, dict( await response.json()))
+        jj = await response.json()
+        console.log(f"hhh {jj}")
+        return (content_type,  jj)
     return (content_type, await response.text())
 
 

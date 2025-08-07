@@ -369,7 +369,7 @@ async def flow_reply_processor(request, env):
 
         console.log(f"sintoma_id {sintoma_id}")
 
-        match sintoma_id['0']:
+        match sintoma_id[0]:
             case "0":
                 sintoma = '0'
             case "1":

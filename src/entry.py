@@ -1,4 +1,4 @@
-import transbank-sdk
+from transbank-sdk import tx
 import random
 import logging
 from workers import fetch, handler

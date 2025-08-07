@@ -157,7 +157,7 @@ async def on_fetch(request, env):
                        return Response.new('ok', status="200")
         elif hasattr(value, 'statuses') == True :
             console.log("Es un statuses")
-            console.log("Status: {value.statuses[0].status}")
+            console.log(f"Status: {value.statuses[0].status}")
             return Response.new('ok', status="200")
         else:
            console.log("No se ha identificado")

@@ -155,7 +155,7 @@ def webhook_get(request, env):
 #crea un link de pago tbk
 async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env):
 
-        uri     = f"env.TBK_ENDPOINT"
+        uri     = f"{env.TBK_ENDPOINT}"
 
         body = {
           buy_order:   buy_order,

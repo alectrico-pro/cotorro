@@ -1,4 +1,4 @@
-import uuid
+import random
 import logging
 from workers import fetch, handler
 from pyodide.ffi import to_js as _to_js
@@ -240,8 +240,9 @@ async def flow_reply_processor(request_json, env):
         flow_token  = flow_data['flow_token']
 
         #un número único por exigencia de Transbank
-        buy_order  = str(uuid.uuid())
+        #uy_order  = str(uuid.uuid())
 
+        buy_order  = str( random.randint(1, 10000))
         link_de_pago_tbk_url = await genera_link_de_pago_tbk( buy_order, str(env.AMOUNT), env.RETURN_URL, fono, env)
 
 

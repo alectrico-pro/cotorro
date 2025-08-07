@@ -35,17 +35,9 @@ async def gather_response(response):
     return (content_type, await response.text())
 
 
-async def on_fetch(request, env):
-    url = urlparse(request.url)
-    params = parse_qs(url.query)
-    method = request.method
+async def enviar_formulario( request, env, text, fono):
 
-    console.log(f"Handling request {url.path} with params {params}")
-
-
-    #es solo para pruebas
-    if url.path == "/envia_formulario":
-        fono       = "56940338057"
+        #ono       = "56940338057"
         imagen_url = "https://www.alectrico.cl/assets/iconos/loguito.jpeg"
         uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
@@ -87,51 +79,14 @@ async def on_fetch(request, env):
         return Response.new(result, headers=headers)
 
 
-    # https://developers.cloudflare.com/workers/examples/post-json/
-    # solo pruebas, envía un mensaje de pruebas
-    if url.path == "/":
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        #ri     = f"https://www.alectrico.cl/api/v1/santum/webhook"
 
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {env.META_USER_TOKEN}"
-        }
-        body ={
-             'messaging_product': 'whatsapp',
-             'to': '56981370042',
-             'type': 'template',
-             'template': { 'name': 'prueba',
-                           'language': {'code': 'en_US'}
-             }
-        }
-        options = {
-           "body": json.dumps(body),
-           "method": "POST",
-           "headers": {
-             "Authorization": f"Bearer {env.META_USER_TOKEN}",
-             "content-type": "application/json;charset=UTF-8"
-           },
-        }
+async def on_fetch(request, env):
+    url = urlparse(request.url)
+    params = parse_qs(url.query)
+    method = request.method
 
-        response = await fetch(uri, to_js(options))
-        content_type, result = await gather_response(response)
- 
-        headers = Headers.new({"content-type": content_type}.items())
-        return Response.new(result, headers=headers)
+    console.log(f"Handling request {url.path} with params {params}")
 
-    #pruebas lee la respuesta del cuesionario
-    #if url.path.startswith("/w") and method == 'POST':
-    #    request_json = await request.json()
-    #    response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
-    #    console.log(f"response_json {response_json}")
-    #    return Response.new( response_json, status="200")
-
-    #recibe todo tipo de mensajes
-    #1. Mensajes envíados desde el celular cuando un cliente escribe algo en uno de los canales
-    #2. Con cada body.text que llegue se enviará un cuestionario
-    #3. Cada vez que un usuario reponda un cuestionario se le entegará un resumen y un botón
-    #de pago.
     if url.path.startswith("/webhook") and method == 'POST':
         console.log("En webhook")
 
@@ -150,8 +105,11 @@ async def on_fetch(request, env):
             if hasattr(value.messages[0], 'text') == True :
                console.log("Es text")
                console.log(f"body {value.messages[0].text.body}")
-               body = value.messages[0].text.body
-               return Response.new( body, status="200")
+               text = value.messages[0].text.body
+               await enviar_formulario( request, env, text, "56981370042" )
+               return Response.new( text, status="200")
+               
+
             if hasattr(value.messages[0], 'interactive') == True :
                console.log("Es interactive")
                if hasattr(value.messages[0].interactive, 'nfm_reply') == True :

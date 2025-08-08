@@ -105,7 +105,7 @@ async def on_fetch(request, env):
         #headers = {"content-type": "text/html;charset=UTF-8" }
         #response = Response.new( html, headers=headers )
 
-        return new Response('<!DOCTYPE html><html lang="en"><head><title>Cloudflare Worker HTML</title></head><body><h1>Hello from Cloudflare Worker!</h1></body></html>', {  headers: { 'Content-Type': 'text/html' }  });
+        return new Response('<!DOCTYPE html><html lang="en"><head><title>Cloudflare Worker HTML</title></head><body><h1>Hello from Cloudflare Worker!</h1></body></html>', {  headers: { 'Content-Type': 'text/html' }  })
         #/Se inicia un buffer header para que sea lleando en agendar y usado en pagar
         #uy_order = await REPAIR_ALECTRICO.get("last_id")
         #ew_buy_order = Number(buy_order) + 1

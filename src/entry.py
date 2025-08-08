@@ -100,7 +100,21 @@ async def on_fetch(request, env):
         response = await post_tbk(pago_url, env)
         respuesta = Response.redirect(pago_url, 307)
 
-        html =  f"<form method='post' action={uri}><input type='hidden' name='token_ws' value={token} /> <input type='submit' value='Ir a pagar' /> </form>"
+        html =  
+        f"
+        <!DOCTYPE html>
+        <html lang='es-CL' prefix='og: http://ogp.me/ns#'  >
+        <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        </head>
+        <body>
+           <form method='post' action={uri}>
+            <input type='hidden' name='token_ws' value={token} /> 
+             <input type='submit' value='Ir a pagar' /> 
+           </form>
+        </body>
+        "
 
         headers = {"content-type": "text/html;charset=UTF-8" }
         response = Response.new( html, headers=headers )

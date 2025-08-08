@@ -95,13 +95,8 @@ async def on_fetch(request, env):
         buy_order = params['buy_order'][0]
         amount    = params['amount'][0]
         token, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
-        headers = {
-                 "Tbk-Api-Key-Id":     f"{env.WEBPAY_API_KEY}",
-                 "Tbk-Api-Key-Secret": f"{env.WEBPAY_SHARED_SECRET}" ,
-                 "Content-Type":       "application/json",
-        }
         url_de_pago = uri + "/?token_ws=" + token
-        respuesta = Response.redirect(url_de_pago, 307, headers=headers, method='POST' )
+        respuesta = Response.redirect(url_de_pago, 307)
         return respuesta
 
 

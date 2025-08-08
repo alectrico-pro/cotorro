@@ -256,7 +256,7 @@ async def flow_reply_processor(request_json, env):
         buy_order  = str( random.randint(1, 10000))
         #amount debe ser calculado en base a lo ingresado en el cuestionario
         #por simplicidad se cobra solo la visita por ahora
-        link_de_pago_tbk_url = f"{env.GO_TBK_URL}/?{buy_order}&amount={env.AMOUNT}"
+        link_de_pago_tbk_url = env.GO_TBK_URL+"/?"+ buy_order+"&amount="+env.AMOUNT
         #ink_de_pago_tbk_url = await genera_link_de_pago_tbk( buy_order, env.AMOUNT, env.RETURN_URL, fono, env)
 
         reply = (
@@ -277,7 +277,12 @@ async def flow_reply_processor(request_json, env):
             f"*Fecha:*\t{fecha}\n\n"
             f"*Comuna:*\t{comuna}\n\n"
             "------------------------------ \n\n"
-            f"*Orden*:*\t{buy_order}\n\n"
+            f"*Orden*:\t{buy_order}\n\n"
+            "Por favor siga el link para pagar la visita en Transbank"
+            "Solo se paga la mano de obra"
+            "Ofrecemos crédito propio en seis cuotas mensuales sin interés"
+            "Con tarjeta de Crédito"
+            "Se captura el total pero se van pagando las cuotas"
             f"*Link_de_pago:*\t{link_de_pago_tbk_url}\n\n"
             "------------------------------ \n\n"
         )

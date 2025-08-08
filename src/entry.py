@@ -102,12 +102,9 @@ async def on_fetch(request, env):
         headers: {
          "Tbk-Api-Key-Id": env.WEBPAY_API_KEY,
          "Tbk-Api-Key-Secret": env.WEBPAY_SHARED_SECRET,
-          "Content-Type": "application/json"
+         "Content-Type": "application/json"
         },
         method: "POST",
-        headers: {
-         "content-type": "application/json;charset=UTF-8"
-        },
         }
         resultado = await fetch( uri, init)
 

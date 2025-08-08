@@ -171,17 +171,16 @@ def webhook_get(request, env):
 
 
 async def post_tbk( uri, env):
-        options = {
-               "method": "POST",
-               "headers": {
-                 "Tbk-Api-Key-Id":     f"{env.WEBPAY_API_KEY}",
-                 "Tbk-Api-Key-Secret": f"{env.WEBPAY_SHARED_SECRET}" ,
-                 "Content-Type":       "application/json",
-               },
+    init = {
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json;charset=UTF-8",
+            "Tbk-Api-Key-Id":     f"{env.WEBPAY_API_KEY}",
+            "Tbk-Api-Key-Secret": f"{env.WEBPAY_SHARED_SECRET}" ,
         }
-        response = await fetch(uri, to_js(options))
-
-        return response
+    }
+    response = await fetch(uri, init)
+    return response
         
 
 

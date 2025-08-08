@@ -96,7 +96,9 @@ async def on_fetch(request, env):
         amount    = params['amount'][0]
         token, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
         pago_url= uri + "/?token_ws=" + token
-        respuesta = Response.redirect(pago_url, 307)
+        link_de_pago_repair  = f"https://repair_alectrico.alectrico.cl/pagar?token_ws={token_ws}&pago_url={pago_url}&amount={amount}"
+        respuesta = Response.redirect( link_de_pago_repair, 307)
+        #respuesta = Response.redirect(pago_url, 307)
         return respuesta
 
 
@@ -265,7 +267,6 @@ async def flow_reply_processor(request_json, env):
         #amount debe ser calculado en base a lo ingresado en el cuestionario
         #por simplicidad se cobra solo la visita por ahora
         link_de_pago_tbk_url = env.GO_TBK_URL+"/?buy_order="+ buy_order +"&amount="+ str( env.AMOUNT)
-        link_de_pago_repair  = f"https://repair_alectrico.alectrico.cl/pagar?token_ws={token_ws}&pago_url={pago_url}&amount={amount}"
 
         #ink_de_pago_tbk_url = await genera_link_de_pago_tbk( buy_order, env.AMOUNT, env.RETURN_URL, fono, env)
 
@@ -293,8 +294,6 @@ async def flow_reply_processor(request_json, env):
             "Ofrecemos crédito propio en seis cuotas mensuales sin interés con tarjeta de Crédito.\n"
             "Transbank captura el total pero UD. solo paga cuotas mensules.\n\n"
             f"*Link_de_pago:*\t{link_de_pago_tbk_url}\n\n"
-            f"*Link_de_repair:*\t{link_de_pago_repair}\n\n"
-
             "------------------------------ \n\n"
         )
 

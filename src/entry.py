@@ -99,11 +99,10 @@ async def on_fetch(request, env):
             "Content-Type": "application/json",
             "Authorization": f"Bearer {env.META_USER_TOKEN}"
         }
-        uri = uri + "/" + token
-        response = await fetch(uri, headers=headers, method => 'PUT'))
-        console.log(f"pago response {response}")
-        response_json = await response.json()
-        return Response.new('ok', status="200")
+        url_de_pago = uri + "/?token_ws=" + token
+        respuesta = Response.redirect(url_de_pago, 307)
+        return respuesta
+
 
 
     if url == "/return_url" and method == 'GET':

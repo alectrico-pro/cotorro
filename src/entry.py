@@ -281,7 +281,7 @@ async def flow_reply_processor(request_json, env):
             "Por favor siga el link para pagar la visita en Transbank.\n"
             "Solo se paga la mano de obra.\n"
             "Ofrecemos crédito propio en seis cuotas mensuales sin interés con tarjeta de Crédito.\n"
-            "Transbank captura el total pero solo van pagando las cuotas.\n"
+            "Transbank captura el total pero UD. solo paga cuotas mensules.\n\n"
             f"*Link_de_pago:*\t{link_de_pago_tbk_url}\n\n"
             "------------------------------ \n\n"
         )

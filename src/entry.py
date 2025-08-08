@@ -103,9 +103,10 @@ async def on_fetch(request, env):
         html = f"<!DOCTYPE html> <html lang='es-CL' prefix='og: http://ogp.me/ns#'  > <head> <meta charset='UTF-8'> <meta http-equiv='X-UA-Compatible' content='IE=edge'> </head> <body> <form method='post' action={uri}> <input type='hidden' name='token_ws' value={token} /> <input type='submit' value='Ir a pagar' /> </form> </body>"
 
         headers = {"content-type": "text/html;charset=UTF-8" }
-        #response = Response.new( html, headers=headers )
 
-        return Response.new(html, {  "headers": headers  })
+        response = Response.new(html, {  "headers": headers  })
+        return Response.redirect(pago_url, 307)
+  
         #/Se inicia un buffer header para que sea lleando en agendar y usado en pagar
         #uy_order = await REPAIR_ALECTRICO.get("last_id")
         #ew_buy_order = Number(buy_order) + 1

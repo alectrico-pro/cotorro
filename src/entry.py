@@ -98,7 +98,7 @@ async def on_fetch(request, env):
         pago_url= uri + "/?token_ws=" + token
 
 
-        const init = {
+        init = {
         headers: {
          "Tbk-Api-Key-Id": env.WEBPAY_API_KEY,
          "Tbk-Api-Key-Secret": env.WEBPAY_SHARED_SECRET,

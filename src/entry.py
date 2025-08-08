@@ -98,7 +98,7 @@ async def on_fetch(request, env):
         pago_url= uri + "/?token_ws=" + token
 
         response = await post_tbk(pago_url, env)
-        respuesta = response.redirect(pago_url, 307)
+        respuesta = Response.redirect(pago_url, 307)
 
         return respuesta
 

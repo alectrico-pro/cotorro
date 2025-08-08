@@ -96,8 +96,9 @@ async def on_fetch(request, env):
         amount    = params['amount'][0]
         token, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
         headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {env.META_USER_TOKEN}"
+                 "Tbk-Api-Key-Id":     f"{env.WEBPAY_API_KEY}",
+                 "Tbk-Api-Key-Secret": f"{env.WEBPAY_SHARED_SECRET}" ,
+                 "Content-Type":       "application/json",
         }
         url_de_pago = uri + "/?token_ws=" + token
         respuesta = Response.redirect(url_de_pago, 307, headers=headers, method='POST' )
@@ -106,8 +107,8 @@ async def on_fetch(request, env):
 
 
     if url == "/return_url" and method == 'GET':
-       console.log("En return_url")
-       return Response.new('ok', status="200")
+        console.log("En return_url")
+        return Response.new('ok', status="200")
 
 
     if url.path.startswith("/webhook") and method == 'POST':

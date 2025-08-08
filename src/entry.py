@@ -92,7 +92,12 @@ async def on_fetch(request, env):
 
     if url.path.startswith("/transbank") and method == 'GET':
         console.log(f"Params en /transbank {params}")
-        return Response.new(params, status="200")
+        buy_order = params['buy_order'][0]
+        amount    = params['amount'][0]
+
+        console.log(f"buy_order {buy_order}")        
+        return_url, token = await genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env)
+        return Response.new(buy_order, status="200")
 
 
     if url == "/return_url" and method == 'GET':

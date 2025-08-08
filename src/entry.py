@@ -89,8 +89,15 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
 
+
+    if url.path.startswith("/transbank") and method == 'GET':
+        console.log(f"Params en /transbank {params}")
+        return Response.new(params, status="200")
+
+
     if url == "/return_url" and method == 'GET':
        console.log("En return_url")
+       return Response.new('ok', status="200")
 
 
     if url.path.startswith("/webhook") and method == 'POST':
@@ -246,11 +253,9 @@ async def flow_reply_processor(request_json, env):
         #un número único por exigencia de Transbank
         #uy_order  = str(uuid.uuid())
 
-        #buy_order  = str( random.randint(1, 10000))
-        link_de_pago_tbk_url = env.GO_TBK_URL
+        buy_order  = str( random.randint(1, 10000))
+        link_de_pago_tbk_url = env.GO_TBK_URL+"/"+buy_order
         #ink_de_pago_tbk_url = await genera_link_de_pago_tbk( buy_order, env.AMOUNT, env.RETURN_URL, fono, env)
-
-
 
         reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"
@@ -269,7 +274,10 @@ async def flow_reply_processor(request_json, env):
             f"*Descripción:*\t{descripcion}\n\n"
             f"*Fecha:*\t{fecha}\n\n"
             f"*Comuna:*\t{comuna}\n\n"
+            "------------------------------ \n\n"
+            f"*Orden*:*\t{buy_order}\n\n"
             f"*Link_de_pago:*\t{link_de_pago_tbk_url}\n\n"
+            "------------------------------ \n\n"
         )
 
         console.log(f"reply {reply}")

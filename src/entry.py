@@ -193,7 +193,7 @@ async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env
         console.log(f"uri {uri}")
         response = await fetch(uri, to_js(options))
         console.log(f"tbk response {response}")
-        response_json = await response.json())
+        response_json = await response.json()
         token = response_json.token
         #content_type, result = await gather_response(response)
         #console.log(f"result{result}")

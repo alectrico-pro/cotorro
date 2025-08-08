@@ -94,7 +94,7 @@ async def on_fetch(request, env):
         console.log(f"Params en /transbank {params}")
         buy_order = params['buy_order'][0]
         amount    = params['amount'][0]
-        return_url, token = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
+        token = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
         return Response.new(return_url, status="200")
 
 
@@ -195,6 +195,7 @@ async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env
         console.log(f"tbk response {response}")
         response_json = await response.json()
         token = response_json.token
+        console.log(f"token {token}")
         #content_type, result = await gather_response(response)
         #console.log(f"result{result}")
         #console.log(f"{content_type}")

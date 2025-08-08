@@ -100,8 +100,21 @@ async def on_fetch(request, env):
         response = await post_tbk(pago_url, env)
         respuesta = Response.redirect(pago_url, 307)
 
-        return respuesta
+        html =  f"
+        <form method="post" action={uri}>
+            <input type="hidden" name="token_ws" value={token} />
+            <input type="submit" value="Ir a pagar" />
+        </form>"
 
+        headers = {"content-type": "text/html;charset=UTF-8" }
+        response = new Response( html, { headers: headers} )
+
+        #/Se inicia un buffer header para que sea lleando en agendar y usado en pagar
+        #uy_order = await REPAIR_ALECTRICO.get("last_id")
+        #ew_buy_order = Number(buy_order) + 1
+        #response.headers.set("Set-Cookie", `buy_order=${new_buy_order}; domain=.${TLD}.cl`)
+        #await REPAIR_ALECTRICO.put("last_id", new_buy_order)
+        return response
 
 
     if url == "/return_url" and method == 'GET':

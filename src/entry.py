@@ -94,7 +94,15 @@ async def on_fetch(request, env):
         console.log(f"Params en /transbank {params}")
         buy_order = params['buy_order'][0]
         amount    = params['amount'][0]
-        token, url = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
+        token, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {env.META_USER_TOKEN}"
+        }
+        uri = uri + "/" + token
+        response = await fetch(uri, headers=headers, method => 'PUT'))
+        console.log(f"pago response {response}")
+        response_json = await response.json()
         return Response.new('ok', status="200")
 
 
@@ -198,9 +206,6 @@ async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env
         url   = response_json.url
         console.log(f"token {token}")
         console.log(f"url {url}")
-        #content_type, result = await gather_response(response)
-        #console.log(f"result{result}")
-        #console.log(f"{content_type}")
         return token, url
 
 

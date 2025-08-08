@@ -99,9 +99,9 @@ async def on_fetch(request, env):
         post_tbk(pago_url)
         #link_de_pago_repair  = f"https://repair_alectrico.alectrico.cl/pagar?token_ws={token}&pago_url={pago_url}&amount={amount}"
         #respuesta = Response.redirect( link_de_pago_repair, 307)
-        #respuesta = Response.redirect(pago_url, 307)
+        respuesta = Response.redirect(pago_url, 307)
         #equests.post(pago_url)
-        #return respuesta
+        return respuesta
 
 
 

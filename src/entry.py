@@ -96,10 +96,11 @@ async def on_fetch(request, env):
         amount    = params['amount'][0]
         token, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
         pago_url= uri + "/?token_ws=" + token
+        post_tbk(pago_url)
         #link_de_pago_repair  = f"https://repair_alectrico.alectrico.cl/pagar?token_ws={token}&pago_url={pago_url}&amount={amount}"
         #respuesta = Response.redirect( link_de_pago_repair, 307)
         #respuesta = Response.redirect(pago_url, 307)
-        requests.post(pago_url)
+        #equests.post(pago_url)
         #return respuesta
 
 
@@ -170,6 +171,18 @@ def webhook_get(request, env):
     else:
         return Response("Error", status=403)
 
+
+async def post_tbk( uri):
+        options = {
+               "method": "POST",
+               "headers": {
+                 "Tbk-Api-Key-Id":     f"{env.WEBPAY_API_KEY}",
+                 "Tbk-Api-Key-Secret": f"{env.WEBPAY_SHARED_SECRET}" ,
+                 "Content-Type":       "application/json",
+               },
+        }
+        response = await fetch(uri, to_js(options))
+        
 
 
 #crea un link de pago tbk

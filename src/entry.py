@@ -256,7 +256,7 @@ async def flow_reply_processor(request_json, env):
         buy_order  = str( random.randint(1, 10000))
         #amount debe ser calculado en base a lo ingresado en el cuestionario
         #por simplicidad se cobra solo la visita por ahora
-        link_de_pago_tbk_url = env.GO_TBK_URL+"/?"+ buy_order +"&amount="+ str( env.AMOUNT)
+        link_de_pago_tbk_url = env.GO_TBK_URL+"/?buy_order="+ buy_order +"&amount="+ str( env.AMOUNT)
         #ink_de_pago_tbk_url = await genera_link_de_pago_tbk( buy_order, env.AMOUNT, env.RETURN_URL, fono, env)
 
         reply = (

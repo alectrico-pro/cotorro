@@ -98,7 +98,7 @@ async def on_fetch(request, env):
         pago_url= uri + "/?token_ws=" + token
         #link_de_pago_repair  = f"https://repair_alectrico.alectrico.cl/pagar?token_ws={token}&pago_url={pago_url}&amount={amount}"
         #respuesta = Response.redirect( link_de_pago_repair, 307)
-        request..method = 'POST'
+        request.method = 'POST'
         respuesta = Response.redirect(pago_url, 307)
         return respuesta
 

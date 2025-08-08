@@ -94,8 +94,8 @@ async def on_fetch(request, env):
         console.log(f"Params en /transbank {params}")
         buy_order = params['buy_order'][0]
         amount    = params['amount'][0]
-        token = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
-        return Response.new(return_url, status="200")
+        token, url = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
+        return Response.new('ok', status="200")
 
 
     if url == "/return_url" and method == 'GET':
@@ -195,11 +195,13 @@ async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env
         console.log(f"tbk response {response}")
         response_json = await response.json()
         token = response_json.token
+        url   = response_json.url
         console.log(f"token {token}")
+        console.log(f"url {url}")
         #content_type, result = await gather_response(response)
         #console.log(f"result{result}")
         #console.log(f"{content_type}")
-        return token
+        return token, url
 
 
 #Se le envía un resumen de las respuestas del cuestionario

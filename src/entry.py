@@ -97,7 +97,7 @@ async def on_fetch(request, env):
         token, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
         pago_url= uri + "/?token_ws=" + token
         espuesta = Response.redirect(pago_url, 307)
-        eturn respuesta
+        return respuesta
 
 
 

@@ -100,11 +100,7 @@ async def on_fetch(request, env):
         response = await post_tbk(pago_url, env)
         respuesta = Response.redirect(pago_url, 307)
 
-        html =  f"
-        <form method="post" action={uri}>
-            <input type="hidden" name="token_ws" value={token} />
-            <input type="submit" value="Ir a pagar" />
-        </form>"
+        html =  f"<form method="post" action={uri}><input type="hidden" name="token_ws" value={token} /> <input type="submit" value="Ir a pagar" /> </form>"
 
         headers = {"content-type": "text/html;charset=UTF-8" }
         response = new Response( html, { headers: headers} )

@@ -95,9 +95,13 @@ async def on_fetch(request, env):
         buy_order = params['buy_order'][0]
         amount    = params['amount'][0]
         token, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
-        url_de_pago = uri + "/?token_ws=" + token
-        respuesta = Response.redirect(url_de_pago, 307)
+        pago_url= uri + "/?token_ws=" + token
+        link_de_pago_repair = "https://repair_alectrico.alectrico.cl/pagar?token_ws={token_ws}&pago_url={pago_url}&amount={amount}"
+        respuesta = Response.redirect(link_de_pago_repair, 307)
         return respuesta
+        #pago_url = uri + "/?token_ws=" + token
+        #espuesta = Response.redirect(pago_url, 307)
+        #eturn respuesta
 
 
 

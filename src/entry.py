@@ -100,17 +100,20 @@ async def on_fetch(request, env):
         #esponse = await post_tbk(pago_url, env)
         #espuesta = Response.redirect(pago_url, 307)
 
-        html = f"<!DOCTYPE html> <html lang='es-CL' prefix='og: http://ogp.me/ns#'  > <head> <meta charset='UTF-8'> <meta http-equiv='X-UA-Compatible' content='IE=edge'> </head> <body> <form method='post' action={uri}> <input type='hidden' name='token_ws' value={token} /> <input type='submit' value='Ir a pagar' /> </form> </body>"
+        #html = f"<!DOCTYPE html> <html lang='es-CL' prefix='og: http://ogp.me/ns#'  > <head> <meta charset='UTF-8'> <meta http-equiv='X-UA-Compatible' content='IE=edge'> </head> <body> <form method='post' action={uri}> <input type='hidden' name='token_ws' value={token} /> <input type='submit' value='Ir a pagar' /> </form> </body>"
 
-        headers = {"content-type": "text/html;charset=UTF-8" }
-        response = Response.new( html, headers=headers )
+        #headers = {"content-type": "text/html;charset=UTF-8" }
+        #response = Response.new( html, headers=headers )
 
+        return new Response('<!DOCTYPE html><html lang="en"><head><title>Cloudflare Worker HTML</title></head><body><h1>Hello from Cloudflare Worker!</h1></body></html>', {
+         headers: { 'Content-Type': 'text/html' }
+        });
         #/Se inicia un buffer header para que sea lleando en agendar y usado en pagar
         #uy_order = await REPAIR_ALECTRICO.get("last_id")
         #ew_buy_order = Number(buy_order) + 1
         #response.headers.set("Set-Cookie", `buy_order=${new_buy_order}; domain=.${TLD}.cl`)
         #await REPAIR_ALECTRICO.put("last_id", new_buy_order)
-        return response
+        #return response
 
 
     if url == "/return_url" and method == 'GET':

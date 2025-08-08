@@ -96,8 +96,11 @@ async def on_fetch(request, env):
         amount    = params['amount'][0]
         token, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
         pago_url= uri + "/?token_ws=" + token
-        response = await post_tbk(pago_url, env)
-        respuesta = Response.redirect(pago_url, 307)
+        response = urllib.request.urlopen(pago_url)
+
+        #response = await post_tbk(pago_url, env)
+        
+        #espuesta = Response.redirect(pago_url, 307)
         return respuesta
 
 

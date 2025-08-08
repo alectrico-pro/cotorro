@@ -246,8 +246,9 @@ async def flow_reply_processor(request_json, env):
         #un número único por exigencia de Transbank
         #uy_order  = str(uuid.uuid())
 
-        buy_order  = str( random.randint(1, 10000))
-        link_de_pago_tbk_url = await genera_link_de_pago_tbk( buy_order, env.AMOUNT, env.RETURN_URL, fono, env)
+        #buy_order  = str( random.randint(1, 10000))
+        link_de_pago_tbk_url = env.GO_TBK_URL
+        #ink_de_pago_tbk_url = await genera_link_de_pago_tbk( buy_order, env.AMOUNT, env.RETURN_URL, fono, env)
 
 
 

@@ -100,7 +100,7 @@ async def on_fetch(request, env):
             "Authorization": f"Bearer {env.META_USER_TOKEN}"
         }
         url_de_pago = uri + "/?token_ws=" + token
-        respuesta = Response.redirect(url_de_pago, 307)
+        respuesta = Response.redirect(url_de_pago, 307, headers=headers, method='POST' )
         return respuesta
 
 

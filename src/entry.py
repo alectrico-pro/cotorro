@@ -352,12 +352,13 @@ async def flow_reply_processor(request_json, env):
 
         return Response.new( reply, status="200")
 
-async def mostrar_formulario_de_pago(request, amount, avisar) {
-  if (amount == null) {
-    amount = AMOUNT
-  }
 
- html = `
+
+async def mostrar_formulario_de_pago(request, amount, avisar):
+  if (amount == null):
+     amount = AMOUNT
+
+  html = `
 <!DOCTYPE html>
 <html lang='es-CL' prefix='og: http://ogp.me/ns#'  >
 <head>
@@ -574,23 +575,13 @@ async def mostrar_formulario_de_pago(request, amount, avisar) {
 
 </html>
 `
- const response = new Response
-    (
-    html,
-    {
-      headers:
-      {
-        "content-type": "text/html;charset=UTF-8",
-      },
-    }
-    )
-  //Se inicia un buffer header para que sea lleando en agendar y usado en pagar
-  buy_order = await REPAIR_ALECTRICO.get("last_id")
-  new_buy_order = Number(buy_order) + 1
-  response.headers.set("Set-Cookie", `buy_order=${new_buy_order}; domain=.alectrico.cl`)
-  await REPAIR_ALECTRICO.put("last_id", new_buy_order)
+  response = Response.new(  html,  { "headers": { "content-type": "text/html;charset=UTF-8"  } } )
+  #buy_order = await REPAIR_ALECTRICO.get("last_id")
+  #new_buy_order = Number(buy_order) + 1
+  #response.headers.set("Set-Cookie", `buy_order=${new_buy_order}; domain=.alectrico.cl`)
+  #await REPAIR_ALECTRICO.put("last_id", new_buy_order)
   return response
-}
+
 
 
 

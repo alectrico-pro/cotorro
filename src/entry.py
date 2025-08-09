@@ -536,22 +536,7 @@ async def mostrar_formulario_de_pago(request, buy_order, amount):
       </div>
     </div>
 </section>
-"""
 
-script = """
-<script>
-  function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else { 
-    }
-  }
-
-  function showPosition(position) {
-    document.getElementById('latitude').value  = position.coords.latitude.toString(10);
-    document.getElementById('longitude').value = position.coords.longitude.toString(10);
-  }
-  </script>
   <script src='{env.ASSETS_SERVER_URL}/web/assets/jquery/jquery.min.js'></script> 
   <script src='{env.ASSETS_SERVER_URL}/popper/popper.min.js'></script> 
   <script src='{env.ASSETS_SERVER_URL}/tether/tether.min.js'></script> 
@@ -572,6 +557,24 @@ script = """
 </body>
 </html>
 """
+
+script = "
+<script>
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+    }
+  }
+
+  function showPosition(position) {
+    document.getElementById('latitude').value  = position.coords.latitude.toString(10);
+    document.getElementById('longitude').value = position.coords.longitude.toString(10);
+  }
+  </script>
+  "
+
+  headers = {"content-type": "text/html;charset=UTF-8"}
   response = Response.new(  html,  { 'headers': { 'content-type': 'text/html;charset=UTF-8'  } } )
   #buy_order = await REPAIR_ALECTRICO.get('last_id')
   #new_buy_order = Number(buy_order) + 1

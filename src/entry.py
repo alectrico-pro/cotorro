@@ -350,6 +350,7 @@ async def flow_reply_processor(request_json, env):
 
 async def mostrar_formulario_de_pago(request, env, buy_order, amount):
   avisar = True
+  CSS = "body { color: red; }"
   html = f"""<!DOCTYPE html>
 <html lang='es-CL' prefix='og: http://ogp.me/ns#'  >
 <head>
@@ -567,9 +568,15 @@ async def mostrar_formulario_de_pago(request, env, buy_order, amount):
   }
   </script>
   """
+  if re.search("test.css", request.url):
+        headers = {"content-type": "text/css"}
+        return Response(CSS, headers=headers)
+  else:
+        headers = {"content-type": "text/html","link": "</test.css>; rel=preload; as=style"}
+        return Response(HTML, headers=headers)
 
-  headers = {"content-type": "text/html;charset=UTF-8"}
-  response = Response.new(  html,  { 'headers': { 'content-type': 'text/html;charset=UTF-8'  } } )
+  #eaders = {"content-type": "text/html;charset=UTF-8"}
+  #esponse = Response.new(  html,  { 'headers': { 'content-type': 'text/html;charset=UTF-8'  } } )
   #buy_order = await REPAIR_ALECTRICO.get('last_id')
   #new_buy_order = Number(buy_order) + 1
   #response.headers.set('Set-Cookie', `buy_order=${new_buy_order}; domain=.alectrico.cl`)

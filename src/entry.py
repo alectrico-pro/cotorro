@@ -394,7 +394,7 @@ async def mostrar_formulario_de_pago(request, env, buy_order, amount):
       <div class='container'>
         <div class='navbar-brand'>
           <span class='navbar-logo'>
-            <a href='https://{TLD}.cl'>
+            <a href='https://{env.TLD}.cl'>
               <img src='{ASSETS_SERVER_URL}/images/locoalicate-96x155.png' alt='a' style='height: 3rem;'>
             </a>
           </span>

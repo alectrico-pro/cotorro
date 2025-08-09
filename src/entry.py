@@ -105,7 +105,7 @@ async def on_fetch(request, env):
     )
 
 
-    if url.path.startswith("/transbank") and method == 'GET':
+    if url.path.startswith("/transbank"): # and method == 'GET':
 
         return Response.new(
         """

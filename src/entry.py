@@ -352,7 +352,7 @@ async def flow_reply_processor(request_json, env):
 
         return Response.new( reply, status="200")
 
-async function mostrar_formulario_de_pago(request, amount, avisar) {
+async def mostrar_formulario_de_pago(request, amount, avisar) {
   if (amount == null) {
     amount = AMOUNT
   }

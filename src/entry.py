@@ -536,7 +536,9 @@ async def mostrar_formulario_de_pago(request, buy_order, amount):
       </div>
     </div>
 </section>
+"""
 
+script = """
 <script>
   function getLocation() {
     if (navigator.geolocation) {

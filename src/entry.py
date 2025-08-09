@@ -88,24 +88,7 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
 
-    if request.method == "POST":
-        form = await request.formData()
-        name = form.get("name", "anonymous")
-        return Response.new(f"<h1>Hello, {name}!</h1>", headers={"Content-Type": "text/html"})
-
-
-    if url.path.startswith("/transbank"): # and method == 'GET':
-        return Response.new(
-        """
-        <form method="POST">
-          <label>Name: <input name="name" type="text" /></label>
-          <button type="submit">Submit</button>
-        </form>
-        """,
-        headers={"Content-Type": "text/html"},
-        )
-
-    if False:
+    if url.path.startswith("/transbank") and method == 'GET':
         console.log(f"Params en /transbank {params}")
         buy_order = params['buy_order'][0]
         amount    = params['amount'][0]

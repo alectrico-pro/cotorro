@@ -1,6 +1,7 @@
 #no reconoce el móudlo 
 #from transbank.webpay.webpay_plus import WebpayPlus
 #pip install transbank-sdk
+import re
 import random
 import logging
 from workers import fetch, handler

@@ -355,6 +355,7 @@ async def flow_reply_processor(request_json, env):
 
 
 async def mostrar_formulario_de_pago(request, env, buy_order, amount):
+  avisar = True
   html = f"""
   <!DOCTYPE html>
 <html lang='es-CL' prefix='og: http://ogp.me/ns#'  >

@@ -91,7 +91,7 @@ async def on_fetch(request, env):
     if request.method == "POST":
         form = await request.formData()
         name = form.get("name", "anonymous")
-        return Response(f"<h1>Hello, {name}!</h1>", headers={"Content-Type": "text/html"})
+        return Response.new(f"<h1>Hello, {name}!</h1>", headers={"Content-Type": "text/html"})
 
     # Serve the form on GET requests
     return Response(

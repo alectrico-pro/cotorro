@@ -355,8 +355,10 @@ async def flow_reply_processor(request_json, env):
 
 
 async def mostrar_formulario_de_pago(request, buy_order, amount):
-  html = f"<!DOCTYPE html>
-<h:tml lang='es-CL' prefix='og: http://ogp.me/ns#'  >
+  html = f
+  """
+  <!DOCTYPE html>
+<html lang='es-CL' prefix='og: http://ogp.me/ns#'  >
 <head>
   <meta charset='UTF-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -567,8 +569,8 @@ async def mostrar_formulario_de_pago(request, buy_order, amount):
   </div>
   <input name='animation' type='hidden'>
 </body>
-</html>"
-
+</html>
+"""
   response = Response.new(  html,  { 'headers': { 'content-type': 'text/html;charset=UTF-8'  } } )
   #buy_order = await REPAIR_ALECTRICO.get('last_id')
   #new_buy_order = Number(buy_order) + 1

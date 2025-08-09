@@ -117,7 +117,7 @@ async def on_fetch(request, env):
         headers={"Content-Type": "text/html"},
         )
 
-
+    if False:
         console.log(f"Params en /transbank {params}")
         buy_order = params['buy_order'][0]
         amount    = params['amount'][0]

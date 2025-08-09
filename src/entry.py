@@ -93,7 +93,7 @@ async def on_fetch(request, env):
     </body>"""
 
     headers = {"content-type": "text/html;charset=UTF-8"}
-    return Response(html, headers=headers)
+    return Response.new(html, headers=headers)
 
     console.log(f"Handling request {url.path} with params {params}")
 

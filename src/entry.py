@@ -395,7 +395,7 @@ async def mostrar_formulario_de_pago(request, env, buy_order, amount):
         <div class='navbar-brand'>
           <span class='navbar-logo'>
             <a href='https://{env.TLD}.cl'>
-              <img src='{ASSETS_SERVER_URL}/images/locoalicate-96x155.png' alt='a' style='height: 3rem;'>
+              <img src='{env.ASSETS_SERVER_URL}/images/locoalicate-96x155.png' alt='a' style='height: 3rem;'>
             </a>
           </span>
           <span class='navbar-caption-wrap'><a class='navbar-caption text-white text-primary display-4' href='#top'>ALECTRICO</a></span>
@@ -409,7 +409,7 @@ async def mostrar_formulario_de_pago(request, env, buy_order, amount):
         <div class='row justify-content-center'>
             <div class='col-12 col-lg-11'>
               <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>Eléctricos a Domicilio </em></strong><br><strong><em>- en Providencia -</em></strong></h1>
-              <h2 class='mbr-section-subtitle mbr-fonts-style mb-3 display-5'>{MISION}</h2>
+              <h2 class='mbr-section-subtitle mbr-fonts-style mb-3 display-5'>{env.MISION}</h2>
               <div class='mbr-section-btn mt-3'><a class='btn btn-primary display-4' href='https://wa.me/56945644889'>
               <span class='socicon socicon-whatsapp mbr-iconfont mbr-iconfont-btn'>
               </span></a> <a class='btn btn-info display-4' href='tel:+56932000849'><span class='mobi-mbri mobi-mbri-phone mbr-iconfont mbr-iconfont-btn'></span></a></div>

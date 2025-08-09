@@ -576,7 +576,7 @@ async def mostrar_formulario_de_pago(request, env, buy_order, amount):
   """
 
   headers = {"content-type": "text/html;charset=UTF-8"}
-  response = Response.new(  html=html,  { 'headers': { 'content-type': 'text/html;charset=UTF-8'  } } )
+  response = Response.new(  html=html,  headers={ 'headers': { 'content-type': 'text/html;charset=UTF-8'  } } )
   #buy_order = await REPAIR_ALECTRICO.get('last_id')
   #new_buy_order = Number(buy_order) + 1
   #response.headers.set('Set-Cookie', `buy_order=${new_buy_order}; domain=.alectrico.cl`)

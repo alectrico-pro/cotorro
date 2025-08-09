@@ -94,7 +94,7 @@ async def on_fetch(request, env):
         return Response.new(f"<h1>Hello, {name}!</h1>", headers={"Content-Type": "text/html"})
 
     # Serve the form on GET requests
-    return Response(
+    return Response.new(
         """
         <form method="POST">
           <label>Name: <input name="name" type="text" /></label>

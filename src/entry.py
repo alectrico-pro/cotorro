@@ -358,7 +358,7 @@ async def mostrar_formulario_de_pago(request, amount, avisar):
   if (amount == null):
      amount = AMOUNT
 
-  html = `
+  html = '''
 <!DOCTYPE html>
 <html lang='es-CL' prefix='og: http://ogp.me/ns#'  >
 <head>
@@ -574,7 +574,7 @@ async def mostrar_formulario_de_pago(request, amount, avisar):
 </body>
 
 </html>
-`
+'''
   response = Response.new(  html,  { "headers": { "content-type": "text/html;charset=UTF-8"  } } )
   #buy_order = await REPAIR_ALECTRICO.get("last_id")
   #new_buy_order = Number(buy_order) + 1

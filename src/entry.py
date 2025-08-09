@@ -349,7 +349,8 @@ async def flow_reply_processor(request_json, env):
 
 
 
-async def mostrar_formulario_de_pago(request, env, buy_order, amount):
+#async def mostrar_formulario_de_pago(request, env, buy_order, amount):
+
   avisar = True
   CSS = "body { color: red; }"
   HTML = f"""<!DOCTYPE html>
@@ -571,10 +572,10 @@ async def mostrar_formulario_de_pago(request, env, buy_order, amount):
   """
   if re.search("test.css", request.url):
         headers = {"content-type": "text/css"}
-        return Response(CSS, headers=headers)
+        return Response.new(CSS, headers=headers)
   else:
         headers = {"content-type": "text/html","link": "</test.css>; rel=preload; as=style"}
-        return Response(HTML, headers=headers)
+        return Response.new(HTML, headers=headers)
 
   #eaders = {"content-type": "text/html;charset=UTF-8"}
   #esponse = Response.new(  html,  { 'headers': { 'content-type': 'text/html;charset=UTF-8'  } } )

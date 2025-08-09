@@ -93,20 +93,8 @@ async def on_fetch(request, env):
         name = form.get("name", "anonymous")
         return Response.new(f"<h1>Hello, {name}!</h1>", headers={"Content-Type": "text/html"})
 
-    # Serve the form on GET requests
-    return Response.new(
-        """
-        <form method="POST">
-          <label>Name: <input name="name" type="text" /></label>
-          <button type="submit">Submit</button>
-        </form>
-        """,
-        headers={"Content-Type": "text/html"},
-    )
-
 
     if url.path.startswith("/transbank"): # and method == 'GET':
-
         return Response.new(
         """
         <form method="POST">

@@ -372,18 +372,18 @@ async def mostrar_formulario_de_pago(request, buy_order, amount):
 
 
   <title>Eléctrico a Domicilio Providencia</title>
-  <link rel='stylesheet' href='{ASSETS_SERVER_URL}/web/assets/mobirise-icons2/mobirise2.css'>
-  <link rel='stylesheet' href='{ASSETS_SERVER_URL}/web/assets/mobirise-icons/mobirise-icons.css'>
-  <link rel='stylesheet' href='{ASSETS_SERVER_URL}/tether/tether.min.css'>
-  <link rel='stylesheet' href='{ASSETS_SERVER_URL}/bootstrap/css/bootstrap.min.css'>
-  <link rel='stylesheet' href='{ASSETS_SERVER_URL}/bootstrap/css/bootstrap-grid.min.css'>
-  <link rel='stylesheet' href='{ASSETS_SERVER_URL}/bootstrap/css/bootstrap-reboot.min.css'>
-  <link rel='stylesheet' href='{ASSETS_SERVER_URL}/dropdown/css/style.css'>
-  <link rel='stylesheet' href='{ASSETS_SERVER_URL}/animatecss/animate.css'>
-  <link rel='stylesheet' href='{ASSETS_SERVER_URL}/socicon/css/styles.css'>
-  <link rel='stylesheet' href='{ASSETS_SERVER_URL}/theme/css/style.css'>
-  <link rel='preload' as='style' href='{ASSETS_SERVER_URL}/mobirise/css/mbr-additional.css'>
-  <link rel='stylesheet' href='{ASSETS_SERVER_URL}/mobirise/css/mbr-additional.css' type='text/css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/web/assets/mobirise-icons2/mobirise2.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/web/assets/mobirise-icons/mobirise-icons.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/tether/tether.min.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/bootstrap/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/bootstrap/css/bootstrap-grid.min.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/bootstrap/css/bootstrap-reboot.min.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/dropdown/css/style.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/animatecss/animate.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/socicon/css/styles.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/theme/css/style.css'>
+  <link rel='preload' as='style' href='{env.ASSETS_SERVER_URL}/mobirise/css/mbr-additional.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/mobirise/css/mbr-additional.css' type='text/css'>
 
 </head>
 

@@ -81,7 +81,6 @@ async def enviar_formulario( request, env, text, fono):
         return Response.new(result, headers=headers)
 
 
-
 async def on_fetch(request, env):
     url = urlparse(request.url)
     params = parse_qs(url.query)
@@ -89,9 +88,21 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
 
+    if request.method == "POST":
+        form = await request.formData()
+        name = form.get("name", "anonymous")
+        return Response(f"<h1>Hello, {name}!</h1>", headers={"Content-Type": "text/html"})
 
-
-
+    # Serve the form on GET requests
+    return Response(
+        """
+        <form method="POST">
+          <label>Name: <input name="name" type="text" /></label>
+          <button type="submit">Submit</button>
+        </form>
+        """,
+        headers={"Content-Type": "text/html"},
+    )
 
 
     if url.path.startswith("/transbank") and method == 'GET':

@@ -101,7 +101,7 @@ async def on_fetch(request, env):
         token, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
         pago_url= uri + "/?token_ws=" + token
 
-        response = await mostrar_formulario_de_pago(request, buy_order,  amount )
+        response = await mostrar_formulario_de_pago(request, env, buy_order,  amount )
         return response
 
         #epair_url = f"https://repair_alectrico.alectrico.cl/go_tbk?pago_url={pago_url}&token_ws={token}"
@@ -354,7 +354,7 @@ async def flow_reply_processor(request_json, env):
 
 
 
-async def mostrar_formulario_de_pago(request, buy_order, amount):
+async def mostrar_formulario_de_pago(request, env, buy_order, amount):
   html = f"""
   <!DOCTYPE html>
 <html lang='es-CL' prefix='og: http://ogp.me/ns#'  >

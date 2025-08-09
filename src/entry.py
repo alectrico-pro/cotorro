@@ -96,9 +96,9 @@ async def on_fetch(request, env):
         amount    = params['amount'][0]
         token, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
         pago_url= uri + "/?token_ws=" + token
-
+        repair_utl="https://repair_alectrico.alectrico.cl/agendar"
         #esponse = await post_tbk(pago_url, env)
-        #espuesta = Response.redirect(pago_url, 307)
+        return Response.redirect(repair_url, 307)
 
         html = f"<!DOCTYPE html> <html lang='es-CL' prefix='og: http://ogp.me/ns#'  > <head> <meta charset='UTF-8'> <meta http-equiv='X-UA-Compatible' content='IE=edge'> </head> <body> <form method='post' action={uri}> <input type='hidden' name='token_ws' value={token} /> <input type='submit' value='Ir a pagar' /> </form> </body>"
 

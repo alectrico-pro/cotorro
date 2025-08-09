@@ -566,11 +566,9 @@ async def mostrar_formulario_de_pago(request, buy_order, amount):
     <i class='mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up'></i></a>
   </div>
   <input name='animation' type='hidden'>
-
 </body>
+</html>"
 
-</html>
-"
   response = Response.new(  html,  { 'headers': { 'content-type': 'text/html;charset=UTF-8'  } } )
   #buy_order = await REPAIR_ALECTRICO.get('last_id')
   #new_buy_order = Number(buy_order) + 1

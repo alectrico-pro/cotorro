@@ -341,7 +341,7 @@ async def flow_reply_processor(request_json, env):
 
 
 def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_ws):
-  amount = '$ ' + amount
+  amount = f"$ {amount}"
   avisar = True
   CSS = "body { color: red; }"
   HTML = f"""<!DOCTYPE html>
@@ -405,7 +405,7 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
         </div>
     </div>
   </section>
-  <section class='mbr-section form4 cid-qAUteatZnl' id='form4-8e' style='border-top-style: solid;border-top-width: 0px;right: -;margin-bottom: 20px;margin-top: 100px;' >
+  <section class='mbr-section form4 cid-qAUteatZnl' id='form4-8e' style='border-top-style: solid;border-top-width: 0px;right: -;margin-bottom: 10px;margin-top: 100px;' >
     <div class='container'>
       <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
       <div class='row'>

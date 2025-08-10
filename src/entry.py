@@ -405,7 +405,7 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
         </div>
     </div>
   </section>
-  <section class='mbr-section form4 cid-qAUteatZnl' id='form4-8e' style='border-top-style: solid;border-top-width: 0px;right: -;margin-bottom: 100px;margin-top: 10px;' >
+  <section class='mbr-section form4 cid-qAUteatZnl' id='form4-8e' style='border-top-style: solid;border-top-width: 0px;right: -;margin-bottom: 100px;margin-top: 20px;' >
     <div class='container'>
       <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
       <div class='row'>

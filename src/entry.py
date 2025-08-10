@@ -468,7 +468,7 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
                 <input type='text' readonly='' hidden='' value = {amount} class='form-control input' id='amount' name='amount' data-form-field='amount' placeholder='Monto a Pagar' required=''>
               </div>
               <div class='col-md-4' data-for='avisar'>
-                <input type='text' readonly='' value = {token_ws} class='form-control input' id='avisar' name='avisar' data-form-field='token_ws' placeholder='TokenWs' required=''>
+                <input type='text' readonly='' hidden='' value = {token_ws} class='form-control input' id='token_ws' name='token_ws' data-form-field='token_ws' placeholder='token_ws' required=''>
               </div>
 
               <div class='input-group-btn col-md-12' style='margin-top: 10px;'><button href='' type='submit' class='btn btn-primary btn-form display-4'>Agendar</button>

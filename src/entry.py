@@ -96,13 +96,13 @@ async def on_fetch(request, env):
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
     #https://cotorro.alectrico.workers.dev/return_url?token_ws=01abda5ffb6bfefe4aba49d218695a97f25674a9720c637ff3b78da9947be165
-    if url == "/return_url" and params['token_ws'][0] is not None:
+    if url.path == "/return_url" and params['token_ws'][0] is not None:
         token_ws = params['token_ws'][0]
         console.log(f"En return_url token_ws: {token_ws}")
         return Response.new( token_ws , status="200")
 
 
-    if url == "/return_url" and method == 'GET':
+    if url.path == "/return_url" and method == 'GET':
         console.log("En return_url")
         return Response.new('ok', status="200")
 

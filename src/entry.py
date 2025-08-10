@@ -404,14 +404,14 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
         </div>
     </div>
   </section>
-  <section class='mbr-section form4 cid-qAUteatZnl' id='form4-8e' style='border-top-style: solid;border-top-width: 0px;right: -;margin-bottom: 100px;margin-top: 100px;' >
+  <section class='mbr-section form4 cid-qAUteatZnl' id='form4-8e' style='border-top-style: solid;border-top-width: 0px;right: -;margin-bottom: 10px;margin-top: 100px;' >
     <div class='container'>
+      <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
       <div class='row'>
         <div class='offset-md-3 col-md-6'>
           <div>
               </span>
               <div class='col-md-4' multi-horizontal data-for='amount'>
-                <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
                 <input type='text' readonly='' value = {amount} class='form-control input' id='amount' name='amount' data-form-field='Number' placeholder='Monto a Pagar' required=''>
               </div>
         </div>

@@ -93,14 +93,7 @@ async def on_fetch(request, env):
         buy_order = params['buy_order'][0]
         amount    = params['amount'][0]
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
-        #pago_url= uri + "/?token_ws=" + token_ws
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
-
-
-        #epair_url = f"https://repair_alectrico.alectrico.cl/go_tbk?pago_url={pago_url}&token_ws={token}"
-        #epair_url = f"https://repair_alectrico.alectrico.cl/agendar?amount={amount}"
-
-        #eturn Response.redirect(repair_url, 307)
 
 
 
@@ -425,13 +418,16 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
               </span>
               <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
               <div class='col-md-4' data-for='amount'>
-                <input type='text' readonly='' value = {amount} class='form-control input' id='amount' name='amount' data-form-field='amount' placeholder='Monto a Pagar' required=''>
+                <input type='text' readonly='' value = {amount} class='form-control input' id='amount' name='amount' data-form-field='Number' placeholder='Monto a Pagar' required=''>
               </div>
             </div>
         </div>
        <div data-form-type='formoid'>
           <form class='block mbr-form' action={pago_url} method='post' data-form-title='Agendar Form'>
             <div class='row'>
+              <div class='col-md-6 multi-horizontal' data-for='Orden de Compra'>
+                <input type='text' class='form-control input' name='buy_order' data-form-field='Number' placeholder='Orden de Compra' required='' id='name-form4-8e' value={buy_order}>
+              </div>
               <div class='col-md-6 multi-horizontal' data-for='nombre'>
                 <input type='text' class='form-control input' name='nombre' data-form-field='Name' placeholder='Su nombre' required='' id='name-form4-8e' value="nombre">
               </div>

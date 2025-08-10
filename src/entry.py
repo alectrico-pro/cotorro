@@ -428,9 +428,6 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
        <div data-form-type='formoid'>
           <form class='block mbr-form' action={pago_url} method='post' data-form-title='Agendar Form'>
             <div class='row'>
-              <div class='col-md-12' data-for='direccion'>
-                <textarea class='form-control input' readonly='' name='direccion' rows='3' data-form-field='Direccion' placeholder='Escriba la dirección del lugar en Providencia, donde se requiere un eléctrico' required='' style='resize:none' id='message-form4-8f'> Dirección</textarea>
-              </div>
               <div  onclick='getLocation()'  class='input-group-btn col-md-4' style='margin-top: 1px;'>
                 <button href='' type='button' class='btn btn-secondary btn-form display-4'>Enviar mi ubicación:</button>
               </div>

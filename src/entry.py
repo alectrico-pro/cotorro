@@ -323,7 +323,7 @@ def on_fetch(request, env):
                console.log(f"body {value.messages[0].text.body}")
                text = value.messages[0].text.body
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               await enviar_formulario( request, env, text, wa_id )
+               enviar_formulario( request, env, text, wa_id )
                return Response.new( text, status="200")
 
             #Cuando el usuario responde el cuestionario

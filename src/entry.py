@@ -420,14 +420,15 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
               <div class='col-md-4' data-for='amount'>
                 <input type='text' readonly='' value = {amount} class='form-control input' id='amount' name='amount' data-form-field='Number' placeholder='Monto a Pagar' required=''>
               </div>
+              <div class='col-md-6 multi-horizontal' data-for='Orden de Compra'>
+                <small class='icon-block__title align-left mbr-fonts-style display-5'>Orden de Compra:</small>
+                <input type='text' class='form-control input' hidden='' name='buy_order' data-form-field='Number' placeholder='Orden de Compra' required='' id='name-form4-8e' value={buy_order}>
+              </div>
             </div>
         </div>
        <div data-form-type='formoid'>
           <form class='block mbr-form' action={pago_url} method='post' data-form-title='Agendar Form'>
             <div class='row'>
-              <div class='col-md-6 multi-horizontal' data-for='Orden de Compra'>
-                <input type='text' class='form-control input' name='buy_order' data-form-field='Number' placeholder='Orden de Compra' required='' id='name-form4-8e' value={buy_order}>
-              </div>
               <div class='col-md-6 multi-horizontal' data-for='nombre'>
                 <input type='text' class='form-control input' name='nombre' data-form-field='Name' placeholder='Su nombre' required='' id='name-form4-8e' value="nombre">
               </div>

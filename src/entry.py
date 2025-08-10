@@ -410,7 +410,6 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
     <div class='container'>
       <div class='row'>
         <div class='offset-md-3 col-md-6'>
-          <h2 class='pb-3 align-left mbr-fonts-style display-2'>Visita de Electricista a Domicilio</h2>
           <div>
             <div class='icon-block pb-3'>
               <span class='icon-block__icon'>
@@ -442,7 +441,7 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
                 <input type='text' readonly='' hidden='' value = {token_ws} class='form-control input' id='token_ws' name='token_ws' data-form-field='token_ws' placeholder='token_ws' required=''>
               </div>
 
-              <div class='input-group-btn col-md-12' style='margin-top: 10px;'><button href='' type='submit' class='btn btn-primary btn-form display-4'>Agendar</button>
+              <div class='input-group-btn col-md-12' style='margin-top: 10px;'><button href='' type='submit' class='btn btn-primary btn-form display-4'>Pagar</button>
               </div>
             </div>
           </form>

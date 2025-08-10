@@ -300,7 +300,7 @@ def on_fetch(request, env):
     if url.path.startswith("/webhook") and method == 'POST':
         console.log("En webhook")
 
-        request_json = await request.json()
+        request_json = request.json()
         console.log( f"request_json {request_json}")
 
         value = request_json.entry[0].changes[0].value

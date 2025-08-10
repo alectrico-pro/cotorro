@@ -341,7 +341,7 @@ async def flow_reply_processor(request_json, env):
 
 
 def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_ws):
- # amount = f"$ {amount}"
+  amount = f"$ {amount}"
   avisar = True
   CSS = "body { color: red; }"
   HTML = f"""<!DOCTYPE html>
@@ -413,7 +413,7 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
           <div>
               </span>
               <div class='col-md-6' multi-horizontal data-for='amount'>
-                <input type='text' readonly='' value = {amount} class='form-control input' id='amount' name='amount' data-form-field='Number' placeholder='Monto a Pagar' required=''>
+                <input type='text' readonly='' value = {amount} class='form-control input' id='amount' name='amount' data-form-field='Text' placeholder='Monto a Pagar' required=''>
               </div>
         </div>
        <div data-form-type='formoid'>

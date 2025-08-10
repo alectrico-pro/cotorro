@@ -404,43 +404,22 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
         </div>
     </div>
   </section>
-
-
   <section class='mbr-section form4 cid-qAUteatZnl' id='form4-8e' style='border-top-style: solid;border-top-width: 0px;right: -;margin-bottom: 100px;margin-top: 100px;' >
     <div class='container'>
       <div class='row'>
         <div class='offset-md-3 col-md-6'>
           <div>
-            <div class='icon-block pb-3'>
-              <span class='icon-block__icon'>
               </span>
               <div class='col-md-4' multi-horizontal data-for='amount'>
                 <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
                 <input type='text' readonly='' value = {amount} class='form-control input' id='amount' name='amount' data-form-field='Number' placeholder='Monto a Pagar' required=''>
               </div>
-              <div class='col-md-4 multi-horizontal' data-for='Orden de Compra'>
-                <small class='icon-block__title align-left mbr-fonts-style display-5'>Orden de Compra:</small>
-                <input type='text' class='form-control input' readonly='' name='buy_order' data-form-field='Number' placeholder='Orden de Compra' required='' id='name-form4-8e' value={buy_order}>
-              </div>
-            </div>
         </div>
        <div data-form-type='formoid'>
           <form class='block mbr-form' action={pago_url} method='post' data-form-title='Agendar Form'>
-            <div class='row'>
-              <div  onclick='getLocation()'  class='input-group-btn col-md-4' style='margin-top: 1px;'>
-                <button href='' type='button' class='btn btn-secondary btn-form display-4'>Enviar mi ubicación:</button>
-              </div>
-
-              <div class='col-md-4' data-for='latitude'>
-                <input type='text' readonly='' class='form-control input' id='latitude' name='latitude' data-form-field='latitude' placeholder='Latitud' required='' value=''>
-              </div>
-              <div class='col-md-4' data-for='longitude'>
-                <input type='text' readonly='' class='form-control input' id='longitude' name='longitude' data-form-field='longitude' placeholder='Longitud' required='' value=''>
-              </div>
               <div class='col-md-4' data-for='token_ws'>
                 <input type='text' readonly='' hidden='' value = {token_ws} class='form-control input' id='token_ws' name='token_ws' data-form-field='token_ws' placeholder='token_ws' required=''>
               </div>
-
               <div class='input-group-btn col-md-12' style='margin-top: 10px;'><button href='' type='submit' class='btn btn-primary btn-form display-4'>Pagar</button>
               </div>
             </div>

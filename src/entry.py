@@ -95,9 +95,8 @@ async def on_fetch(request, env):
         amount    = params['amount'][0]
         token, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
         pago_url= uri + "/?token_ws=" + token
+        return mostrar_formulario_de_pago(request, env, buy_order,  amount )
 
-        response = await mostrar_formulario_de_pago(request, env, buy_order,  amount )
-        return response
 
         #epair_url = f"https://repair_alectrico.alectrico.cl/go_tbk?pago_url={pago_url}&token_ws={token}"
         #epair_url = f"https://repair_alectrico.alectrico.cl/agendar?amount={amount}"
@@ -349,7 +348,7 @@ async def flow_reply_processor(request_json, env):
 
 
 
-async def mostrar_formulario_de_pago(request, env, buy_order, amount):
+def mostrar_formulario_de_pago(request, env, buy_order, amount):
 
   avisar = True
   CSS = "body { color: red; }"
@@ -534,6 +533,13 @@ async def mostrar_formulario_de_pago(request, env, buy_order, amount):
     </div>
 </section>
 
+<script>
+  function getLocation() {{ if (navigator.geolocation) {{ navigator.geolocation.getCurrentPosition(showPosition); }} else {{}} }}
+  function showPosition(position) {{
+    document.getElementById('latitude').value  = position.coords.latitude.toString(10);
+    document.getElementById('longitude').value = position.coords.longitude.toString(10); }}
+</script>
+
   <script src='{env.ASSETS_SERVER_URL}/web/assets/jquery/jquery.min.js'></script> 
   <script src='{env.ASSETS_SERVER_URL}/popper/popper.min.js'></script> 
   <script src='{env.ASSETS_SERVER_URL}/tether/tether.min.js'></script> 
@@ -554,22 +560,6 @@ async def mostrar_formulario_de_pago(request, env, buy_order, amount):
 </body>
 </html>
 """
-
-  script = """
-<script>
-  function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-    }
-  }
-
-  function showPosition(position) {
-    document.getElementById('latitude').value  = position.coords.latitude.toString(10);
-    document.getElementById('longitude').value = position.coords.longitude.toString(10);
-  }
-  </script>
-  """
   if re.search("test.css", request.url):
         headers = {"content-type": "text/css"}
         return Response(CSS, headers=headers)

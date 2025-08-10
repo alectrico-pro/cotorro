@@ -433,7 +433,7 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
           <form class='block mbr-form' action={pago_url} method='post' data-form-title='Agendar Form'>
             <div class='row'>
               <div class='col-md-6 multi-horizontal' data-for='nombre'>
-                <input type='text' class='form-control input' name='nombre' data-form-field='Name' placeholder='Su nombre' required='' id='name-form4-8e' nombre="nombre">
+                <input type='text' class='form-control input' name='nombre' data-form-field='Name' placeholder='Su nombre' required='' id='name-form4-8e' value="nombre">
               </div>
               <div class='col-md-6 multi-horizontal' data-for='fono'>
                 <input type='text' class='form-control input' name='fono' data-form-field='Fono' placeholder='Fono' required='' id='phone-form4-8e' value="5987654321">
@@ -445,14 +445,14 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
                 <input type='text' class='form-control input' name='comuna' data-form-field='Comuna' placeholder='Comuna' required='' id='comuna-form4-8e' value='Providencia'>
               </div>
               <div class='col-md-12' data-for='descripcion'>
-                <textarea class='form-control input' name='descripcion' rows='3' data-form-field='Descripcion' placeholder='Describa su problema' style='resize:none' required='' id='message-form4-8e'></textarea>
+                <textarea class='form-control input' name='descripcion' rows='3' data-form-field='Descripcion' placeholder='Describa su problema' style='resize:none' required='' id='message-form4-8e' value="Descripción" ></textarea>
               </div>
               <div class='container'>
                 <iframe frameborder='0' style='border:0;width:525; height:400' src='https://www.google.com/maps/embed/v1/place?key=AIzaSyCx3d07zxHPLvkFBLlAR3Ng8a9wsAsGoJ8&amp;q=place_id:ChIJ92aDbnzPYpYRfI1HCsD874c' allowfullscreen=''>
                 </iframe>
               </div>
               <div class='col-md-12' data-for='direccion'>
-                <textarea class='form-control input' name='direccion' rows='3' data-form-field='Direccion' placeholder='Escriba la dirección del lugar en Providencia, donde se requiere un eléctrico' required='' style='resize:none' id='message-form4-8f'></textarea>
+                <textarea class='form-control input' name='direccion' rows='3' data-form-field='Direccion' placeholder='Escriba la dirección del lugar en Providencia, donde se requiere un eléctrico' required='' style='resize:none' id='message-form4-8f' value="Dirección"></textarea>
               </div>
               <div  onclick='getLocation()'  class='input-group-btn col-md-4' style='margin-top: 1px;'>
                 <button href='' type='button' class='btn btn-secondary btn-form display-4'>Enviar mi ubicación:</button>

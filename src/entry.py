@@ -335,7 +335,7 @@ def on_fetch(request, env):
                    console.log("Es nfm_reply")
                    if hasattr(value.messages[0].interactive.nfm_reply, 'response_json') == True :
                        console.log("Tiene response_json")
-                       await flow_reply_processor( request_json, env)
+                       flow_reply_processor( request_json, env)
                        return Response.new('ok', status="200")
         elif hasattr(value, 'statuses') == True :
             console.log("Es un statuses")

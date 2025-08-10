@@ -414,7 +414,6 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
           <div>
             <div class='icon-block pb-3'>
               <span class='icon-block__icon'>
-              <span class='mbri-letter mbr-iconfont'></span>
               </span>
               <div class='col-md-4' multi-horizontal data-for='amount'>
                 <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
@@ -436,6 +435,7 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
                 <input type='text' class='form-control input' name='fono' data-form-field='Fono' placeholder='Fono' required='' id='phone-form4-8e' value="5987654321">
               </div>
               <div class='col-md-8' data-for='email'>
+                <span class='mbri-letter mbr-iconfont'></span>
                 <input type='email' class='form-control input' name='email' data-form-field='Email' placeholder='Email' required='' id='email-form4-8e'  value="email@ll.cl">
               </div>
               <div class='col-md-4' data-for='comuna'>

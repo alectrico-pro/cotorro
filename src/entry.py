@@ -445,14 +445,14 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
                 <input type='text' class='form-control input' name='comuna' data-form-field='Comuna' placeholder='Comuna' required='' id='comuna-form4-8e' value='Providencia'>
               </div>
               <div class='col-md-12' data-for='descripcion'>
-                <textarea class='form-control input' name='descripcion' rows='3' data-form-field='Descripcion' placeholder='Describa su problema' style='resize:none' required='' id='message-form4-8e' value="Descripción" ></textarea>
+                <textarea class='form-control input' name='descripcion' rows='3' data-form-field='Descripcion' placeholder='Describa su problema' style='resize:none' required='' id='message-form4-8e'> Dirección </textarea>
               </div>
               <div class='container'>
                 <iframe frameborder='0' style='border:0;width:525; height:400' src='https://www.google.com/maps/embed/v1/place?key=AIzaSyCx3d07zxHPLvkFBLlAR3Ng8a9wsAsGoJ8&amp;q=place_id:ChIJ92aDbnzPYpYRfI1HCsD874c' allowfullscreen=''>
                 </iframe>
               </div>
               <div class='col-md-12' data-for='direccion'>
-                <textarea class='form-control input' name='direccion' rows='3' data-form-field='Direccion' placeholder='Escriba la dirección del lugar en Providencia, donde se requiere un eléctrico' required='' style='resize:none' id='message-form4-8f' value="Dirección"></textarea>
+                <textarea class='form-control input' name='direccion' rows='3' data-form-field='Direccion' placeholder='Escriba la dirección del lugar en Providencia, donde se requiere un eléctrico' required='' style='resize:none' id='message-form4-8f'> Dirección</textarea>
               </div>
               <div  onclick='getLocation()'  class='input-group-btn col-md-4' style='margin-top: 1px;'>
                 <button href='' type='button' class='btn btn-secondary btn-form display-4'>Enviar mi ubicación:</button>

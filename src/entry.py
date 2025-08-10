@@ -34,7 +34,6 @@ def to_js(obj):
 async def gather_response(response):
     headers = response.headers
     content_type = headers["content-type"] or ""
-
     if "application/json" in content_type:
         return (content_type, json.dumps(dict(await response.json())))
     return (content_type, await response.text())
@@ -93,9 +92,9 @@ async def on_fetch(request, env):
         console.log(f"Params en /transbank {params}")
         buy_order = params['buy_order'][0]
         amount    = params['amount'][0]
-        token, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
-        pago_url= uri + "/?token_ws=" + token
-        return mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url)
+        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
+        pago_url= uri + "/?token_ws=" + token_ws
+        return mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_ws)
 
 
         #epair_url = f"https://repair_alectrico.alectrico.cl/go_tbk?pago_url={pago_url}&token_ws={token}"
@@ -348,7 +347,7 @@ async def flow_reply_processor(request_json, env):
 
 
 
-def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url):
+def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_ws):
 
   avisar = True
   CSS = "body { color: red; }"
@@ -470,7 +469,7 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url):
                 <input type='text' readonly='' hidden='' value = {amount} class='form-control input' id='amount' name='amount' data-form-field='amount' placeholder='Monto a Pagar' required=''>
               </div>
               <div class='col-md-4' data-for='avisar'>
-                <input type='text' readonly='' hidden='' value = {avisar} class='form-control input' id='avisar' name='avisar' data-form-field='avisar' placeholder='Avisar/No Avisar' required=''>
+                <input type='text' readonly='' value = {token_ws} class='form-control input' id='avisar' name='avisar' data-form-field='token_ws' placeholder='TokenWs' required=''>
               </div>
 
               <div class='input-group-btn col-md-12' style='margin-top: 10px;'><button href='' type='submit' class='btn btn-primary btn-form display-4'>Agendar</button>

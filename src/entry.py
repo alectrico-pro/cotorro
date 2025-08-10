@@ -95,7 +95,7 @@ async def on_fetch(request, env):
         amount    = params['amount'][0]
         token, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
         pago_url= uri + "/?token_ws=" + token
-        return mostrar_formulario_de_pago(request, env, buy_order,  amount )
+        return mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url)
 
 
         #epair_url = f"https://repair_alectrico.alectrico.cl/go_tbk?pago_url={pago_url}&token_ws={token}"
@@ -348,7 +348,7 @@ async def flow_reply_processor(request_json, env):
 
 
 
-def mostrar_formulario_de_pago(request, env, buy_order, amount):
+def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url):
 
   avisar = True
   CSS = "body { color: red; }"
@@ -432,7 +432,7 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount):
             </div>
         </div>
        <div data-form-type='formoid'>
-          <form class='block mbr-form' action='https://pago_repair.alectrico.workers.dev/agendar' method='get' data-form-title='Agendar Form'>
+          <form class='block mbr-form' action={pago_url} method='post' data-form-title='Agendar Form'>
             <div class='row'>
               <div class='col-md-6 multi-horizontal' data-for='nombre'>
                 <input type='text' class='form-control input' name='nombre' data-form-field='Name' placeholder='Su nombre' required='' id='name-form4-8e'>

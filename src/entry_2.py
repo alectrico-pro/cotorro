@@ -300,7 +300,7 @@ def on_fetch(request, env):
     if url.path.startswith("/webhook") and method == 'POST':
         console.log("En webhook")
 
-        request_json = await request.json()
+        request_json = request.json()
         console.log( f"request_json {request_json}")
 
         value = request_json.entry[0].changes[0].value
@@ -323,7 +323,7 @@ def on_fetch(request, env):
                console.log(f"body {value.messages[0].text.body}")
                text = value.messages[0].text.body
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               await enviar_formulario( request, env, text, wa_id )
+               enviar_formulario( request, env, text, wa_id )
                return Response.new( text, status="200")
 
             #Cuando el usuario responde el cuestionario
@@ -335,7 +335,7 @@ def on_fetch(request, env):
                    console.log("Es nfm_reply")
                    if hasattr(value.messages[0].interactive.nfm_reply, 'response_json') == True :
                        console.log("Tiene response_json")
-                       await flow_reply_processor( request_json, env)
+                       flow_reply_processor( request_json, env)
                        return Response.new('ok', status="200")
         elif hasattr(value, 'statuses') == True :
             console.log("Es un statuses")
@@ -513,11 +513,7 @@ async def flow_reply_processor(request_json, env):
         }
 
 
-
-
-
-
-               body = {
+        body = {
                     "messaging_product" :  "whatsapp",
                     "recipient_type"    :  "individual",
                     "to"                :  wa_id,

@@ -412,7 +412,7 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
         <div class='offset-md-3 col-md-6'>
           <div>
               </span>
-              <div class='col-md-6' multi-horizontal data-for='amount'>
+              <div class='col-7 col-md-6' multi-horizontal data-for='amount'>
                 <input type='text' readonly='' value = {amount} class='form-control input' id='amount' name='amount' data-form-field='Text' placeholder='Monto a Pagar' required=''>
               </div>
         </div>

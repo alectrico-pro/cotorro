@@ -416,13 +416,13 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
               <span class='icon-block__icon'>
               <span class='mbri-letter mbr-iconfont'></span>
               </span>
-              <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
               <div class='col-md-4' data-for='amount'>
+                <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
                 <input type='text' readonly='' value = {amount} class='form-control input' id='amount' name='amount' data-form-field='Number' placeholder='Monto a Pagar' required=''>
               </div>
               <div class='col-md-6 multi-horizontal' data-for='Orden de Compra'>
                 <small class='icon-block__title align-left mbr-fonts-style display-5'>Orden de Compra:</small>
-                <input type='text' class='form-control input' hidden='' name='buy_order' data-form-field='Number' placeholder='Orden de Compra' required='' id='name-form4-8e' value={buy_order}>
+                <input type='text' class='form-control input' read_only='' name='buy_order' data-form-field='Number' placeholder='Orden de Compra' required='' id='name-form4-8e' value={buy_order}>
               </div>
             </div>
         </div>

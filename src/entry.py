@@ -559,22 +559,5 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
 </body>
 </html>
 """
-  if re.search("test.css", request.url):
-        headers = {"content-type": "text/css"}
-        return Response(CSS, headers=headers)
-  else:
-        headers = {"content-type": "text/html","link": "</test.css>; rel=preload; as=style"}
-        return Response(HTML, headers=headers)
-
-  #eaders = {"content-type": "text/html;charset=UTF-8"}
-  #esponse = Response.new(  html,  { 'headers': { 'content-type': 'text/html;charset=UTF-8'  } } )
-  #buy_order = await REPAIR_ALECTRICO.get('last_id')
-  #new_buy_order = Number(buy_order) + 1
-  #response.headers.set('Set-Cookie', `buy_order=${new_buy_order}; domain=.alectrico.cl`)
-  #await REPAIR_ALECTRICO.put('last_id', new_buy_order)
-  #return response
-
-
-
-
-
+  headers = {"content-type": "text/html"}
+  return Response(HTML, headers=headers)

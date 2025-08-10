@@ -416,7 +416,7 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
               <span class='icon-block__icon'>
               <span class='mbri-letter mbr-iconfont'></span>
               </span>
-              <div class='col-md-4' data-for='amount'>
+              <div class='col-md-4' multi-horizontal data-for='amount'>
                 <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
                 <input type='text' readonly='' value = {amount} class='form-control input' id='amount' name='amount' data-form-field='Number' placeholder='Monto a Pagar' required=''>
               </div>

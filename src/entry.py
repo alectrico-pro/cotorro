@@ -341,6 +341,7 @@ async def flow_reply_processor(request_json, env):
 
 
 def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_ws):
+  amount = '$ '+str(amount)
   avisar = True
   CSS = "body { color: red; }"
   HTML = f"""<!DOCTYPE html>

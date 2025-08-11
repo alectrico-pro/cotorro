@@ -214,6 +214,8 @@ async def tbk_commit( token_ws, env):
    response_json = await response.json()
    console.log(f"response_json {response_json}")
    return await send_voucher( response_json, env)
+   #respondo ok sin esperar al resultado de send_voucher
+   
    return Response('ok', status="200")
    
 
@@ -235,7 +237,7 @@ async def send_voucher( voucher_json, env):
    console.log(f"voucher_json {voucher_json}")
    reply = to_markdown( voucher_json )
    console.log(f"reply {reply}")
-   await send_reply(env, "56981370042", reply)
+   return await send_reply(env, "56981370042", reply)
 
 
 #crea un link de pago tbk
@@ -361,7 +363,7 @@ async def flow_reply_processor(request_json, env):
             "------------------------------ \n\n"
         )
         console.log(f"reply {reply}")
-        await send_reply(env, wa_id, reply)
+        return await send_reply(env, wa_id, reply)
 
 
 async def send_reply( env, wa_id, reply):

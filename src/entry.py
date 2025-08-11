@@ -210,7 +210,7 @@ async def send_voucher( response_json, env):
             "------------------------------ \n\n"
    )
    console.log(f"reply {reply}")
-   await send_reply(env, "56981370042")
+   await send_reply(env, "56981370042", reply)
 
 
 #crea un link de pago tbk

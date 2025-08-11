@@ -55,7 +55,7 @@ async def gather_response(response):
 #importatnte, envia un formulario
 #Text hay que incorporarlo WIP
 async def enviar_formulario( request, env, text, fono):
-
+        console.log("En enviar_formulario template say_vista -> flow reserva")
         imagen_url = "/loguito.jpeg"
         uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {

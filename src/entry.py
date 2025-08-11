@@ -203,7 +203,7 @@ async def tbk_commit( token_ws, env):
    return Response('ok', status="200")
    
 
-async def send_voucher( response_json, env)
+async def send_voucher( response_json, env):
    console.log( response_json.vci, status="200")
    return 
 

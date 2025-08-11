@@ -136,7 +136,7 @@ async def on_fetch(request, env):
                text = value.messages[0].text.body
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
                await enviar_formulario( request, env, text, wa_id )
-               return Response.new( text, status="200")
+               return Response( text, status="200")
                
             #Cuando el usuario responde el cuestionario
             #Llega aquí
@@ -148,7 +148,7 @@ async def on_fetch(request, env):
                    if hasattr(value.messages[0].interactive.nfm_reply, 'response_json') == True :
                        console.log("Tiene response_json")
                        await flow_reply_processor( request_json, env)
-                       return Response.new('ok', status="200")
+                       return Response('ok', status="200")
 
         elif hasattr(value, 'statuses') == True :
             console.log("Es un statuses")
@@ -199,9 +199,13 @@ async def tbk_commit( token_ws, env):
    response      = await fetch(uri, to_js(options))
    console.log(f"response {response}")
    response_json = await response.json()
-   vci = response_json.vci
-   console.log(f"vci {vci}")
-   return vci
+   return await send_voucher( reponse_json, env)
+   return Response('ok', status="200")
+   
+
+async def send_voucher( response_json, env)
+   console.log( response_json.vci, status="200")
+   return 
 
 
 #crea un link de pago tbk

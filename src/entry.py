@@ -204,8 +204,13 @@ async def tbk_commit( token_ws, env):
    
 
 async def send_voucher( response_json, env):
-   console.log( response_json.vci, status="200")
-   return 
+   console.log( response_json.vci )
+   reply = (
+            f"response_json.vci \n"
+            "------------------------------ \n\n"
+   )
+   console.log(f"reply {reply}")
+   await send_reply(env, "56981370042")
 
 
 #crea un link de pago tbk
@@ -330,8 +335,11 @@ async def flow_reply_processor(request_json, env):
             f"*Link_de_pago:*\t{link_de_pago_tbk_url}\n\n"
             "------------------------------ \n\n"
         )
-
         console.log(f"reply {reply}")
+        await send_replay(env, wa_id)
+
+
+async def send_reply( env, wa_id)
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
 

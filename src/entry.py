@@ -99,7 +99,8 @@ async def on_fetch(request, env):
     if url.path == "/return_url" and params['token_ws'][0] is not None:
         token_ws = params['token_ws'][0]
         console.log(f"En return_url token_ws: {token_ws}")
-        return Response( token_ws , status="200")
+        vci = tbk_commit( token_ws)
+        return Response( vci , status="200")
 
 
     if url.path == "/return_url" and method == 'GET':
@@ -193,8 +194,11 @@ async def tbk_commit( token_ws):
             "Tbk-Api-Key-Secret": f"{env.WEBPAY_SHARED_SECRET}" ,
         }
    }
-   response = await fetch(uri, init)
-   return response
+   response      = await fetch(uri, init)
+   response_json = await response.json()
+   vci = response_json.vci
+   console.log(f"vci {vci}")
+   return vci
 
 
 #crea un link de pago tbk
@@ -352,7 +356,7 @@ async def flow_reply_processor(request_json, env):
         content_type, result = await gather_response(response)
         console.log(f"result{result}")
 
-        return Response.new( reply, status="200")
+        return Response( reply, status="200")
 
 
 

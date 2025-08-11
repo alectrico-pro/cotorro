@@ -1,3 +1,15 @@
+#Esto ahorra conexiones simulatneas
+#Están limitdas a solo 6
+#const response = await fetch(url);
+
+#// Only read the response body for successful responses
+#if (response.statusCode <= 299) {
+#  // Call response.json(), response.text() or otherwise process the body
+#} else {
+#  // Explicitly cancel it
+#  response.body.cancel();
+#}
+
 #no reconoce el móudlo 
 #from transbank.webpay.webpay_plus import WebpayPlus
 #pip install transbank-sdk

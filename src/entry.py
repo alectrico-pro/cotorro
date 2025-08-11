@@ -56,7 +56,7 @@ async def gather_response(response):
 #Text hay que incorporarlo WIP
 async def enviar_formulario( request, env, text, fono):
 
-        imagen_url = "https://www.alectrico.cl/assets/iconos/loguito.jpeg"
+        imagen_url = "/loguito.jpeg"
         uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
             "Content-Type": "application/json",

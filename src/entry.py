@@ -170,7 +170,7 @@ async def on_fetch(request, env):
             return Response('ok', status="200")
     else:     
       console.log("No se ha identificado")
-      return mostrar_not_found(env)
+      return mostrar_not_found(env, "Bah! Ocurrió un Error")
       #ot_found = await env.ASSETS.fetch('not_found.html')
       #return not_found
 
@@ -214,7 +214,7 @@ async def tbk_commit( token_ws, env):
    response      = await fetch(uri, to_js(options))
    console.log(f"response {response}")
    response_json = await response.json()
-   console.log(f"reponse_json {response_json}")
+   console.log(f"response_json {response_json}")
    return await send_voucher( response_json, env)
    return Response('ok', status="200")
    
@@ -574,7 +574,7 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
 
 
 
-def mostrar_not_found( env):
+def mostrar_not_found( env, mensaje):
 
   buy_order= 199
 

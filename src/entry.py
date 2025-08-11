@@ -205,7 +205,7 @@ async def tbk_commit( token_ws, env):
    
 
 def to_markdown( voucher):
-      TXT = """
+      TXT = f"""
       Comprobante de Pago Electrónico
 
       Estos son los datos del pago, que Ud. ha realizado en Transbank. Guárdelos para su Contabilidad. El valor inluye IVA y estará registrado en la Contabilidad de alectrico®. El pago corresponde a un operación de Compra finalizada con éxito y no es reembolsable. Ud. ha recibido la información que ha solicitado. Esto es, el teléfono de un colaborador autónomo. Por la cual ha debido pagar.

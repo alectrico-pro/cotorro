@@ -185,6 +185,7 @@ async def post_tbk( uri, env):
         
 
 async def tbk_commit( token_ws):
+   console.log("En tbk_commit")
    uri = f"{env.TBK_ENDPOINT}{token_ws}"
    options = {
         "method": "PUT",
@@ -194,6 +195,7 @@ async def tbk_commit( token_ws):
             "Tbk-Api-Key-Secret": f"{env.WEBPAY_SHARED_SECRET}" ,
         }
    }
+   console.log(f"uri {uri}")
    response      = await fetch(uri, to_js(options))
    console.log(f"response {response}")
    response_json = await response.json()

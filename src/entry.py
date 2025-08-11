@@ -170,7 +170,7 @@ async def on_fetch(request, env):
             return Response('ok', status="200")
     else:     
       console.log("No se ha identificado")
-      return await mostrar_not_found(env)
+      return mostrar_not_found(env)
       #ot_found = await env.ASSETS.fetch('not_found.html')
       #return not_found
 

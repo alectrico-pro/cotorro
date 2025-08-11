@@ -169,8 +169,8 @@ async def on_fetch(request, env):
                console.log(f"Es failed, error: {value.statuses[0].errors[0].title}" )
             return Response('ok', status="200")
            
-        console.log("No se ha identificado")
-        return Response('ok', status="404")
+    console.log("No se ha identificado")
+    return Response('ok', status="404")
 
 
 #@app.route("/webhook", methods=["GET"])

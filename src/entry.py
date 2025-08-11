@@ -113,7 +113,7 @@ async def on_fetch(request, env):
         console.log(f"En return_url token_ws: {token_ws}")
         vci = await tbk_commit( token_ws, env)
         console.log(f"vci {vci}")
-        return Response( vci , status="200")
+        return mostrar_success(env, " Todo Salió Bien ")
 
 
     elif url.path == "/return_url" and 'TBK_TOKEN' in params:
@@ -148,7 +148,8 @@ async def on_fetch(request, env):
                text = value.messages[0].text.body
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
                await enviar_formulario( request, env, text, wa_id )
-               return Response( text, status="200")
+               return mostrar_success(env, " Todo Salió Bien ")
+
                
             #Cuando el usuario responde el cuestionario
             #Llega aquí
@@ -160,7 +161,7 @@ async def on_fetch(request, env):
                    if hasattr(value.messages[0].interactive.nfm_reply, 'response_json') == True :
                        console.log("Tiene response_json")
                        await flow_reply_processor( request_json, env)
-                       return Response('ok', status="200")
+                       return mostrar_success(env, " Todo Salió Bien ")
 
         elif hasattr(value, 'statuses') == True :
             console.log("Es un statuses")
@@ -643,6 +644,161 @@ def mostrar_not_found( env, mensaje):
       <div class='row'>
         <div class='offset-3'>
            <img src="icon/fail.png" width="150" height="150" alt="fail">
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class='barter1 cid-sezOMgUKyB' once='barters' data-bg-video={env.VIDEO_URL} id='barter1-f'>
+  <div class='mbr-overlay' style='opacity: 0.6; background-color: rgb(35, 35, 35);'></div>
+    <div class='container'>
+      <div class='row mbr-white'>
+        <div class='col-12 col-md-6 col-lg-3'>
+          <h5 class='mbr-section-subtitle mbr-fonts-style mb-2 display-7'><strong>Solo para Ud.</strong></h5>
+          <ul class='list mbr-fonts-style display-4'>
+            <li class='mbr-text item-wrap'><a href='https://designer.alectrico.cl' class='text-primary'>Designer</a></li>
+            <li class='mbr-text item-wrap'><a href='https://registro.alectrica.cl' class='text-primary'>Registro</a></li><li class='mbr-text item-wrap'><a href='https://tips.alectrico.cl' class='text-primary'>Tips</a></li>
+          </ul>
+        </div>
+        <div class='col-12 col-md-6 col-lg-3'>
+          <h5 class='mbr-section-subtitle mbr-fonts-style mb-2 display-7'><strong>Reclamos</strong></h5>
+            <ul class='list mbr-fonts-style display-4'>
+              <li class='mbr-text item-wrap'><a href='https://tico.alectrico.cl' class='text-primary'>tico.alectrico.cl</a></li>
+            </ul>
+        </div>
+        <div class='col-12 col-md-6 col-lg-3'>
+          <h5 class='mbr-section-subtitle mbr-fonts-style mb-2 display-7'><strong>Qué es esto?</strong></h5>
+          <p class='mbr-text mbr-fonts-style mb-4 display-4'>ALECTRICO<br>Es un lugar de encuentro entre personas con problemas eléctricos y los profesionales que sean capaces de resolverlos.</p>
+          <h5 class='mbr-section-subtitle mbr-fonts-style mb-3 display-5'>Botones de Pánico<strong></strong></h5>
+          <div class='social-row display-7'>
+
+           <div class='soc-item'>
+              <a href='https://repair.{env.TLD}.cl' target='_blank'>
+                <span class='mbr-iconfont mobi-mbri-cash mobi-mbri'></span>
+              </a>
+            </div>
+            <div class='soc-item'>
+              <a href='https://www.{env.TLD}.cl/agendar' target='_blank'>
+                <span class='mbr-iconfont mobi-mbri-edit-2 mobi-mbri'></span>
+              </a>
+            </div>
+            <div class='soc-item'>
+              <a href='https://www.{env.TLD}.cl/agendar'>
+                <span class='mbr-iconfont mobi-mbri-setting mobi-mbri'></span>
+              </a>
+            </div>
+            <div class='soc-item'>
+              <a href='https://registro.alectrica,cl' target='_blank'>
+                <span class='mbr-iconfont mobi-mbri-user mobi-mbri'></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<script>
+  function getLocation() {{ if (navigator.geolocation) {{ navigator.geolocation.getCurrentPosition(showPosition); }} else {{}} }}
+  function showPosition(position) {{
+    document.getElementById('latitude').value  = position.coords.latitude.toString(10);
+    document.getElementById('longitude').value = position.coords.longitude.toString(10); }}
+</script>
+
+  <script src='{env.ASSETS_SERVER_URL}/web/assets/jquery/jquery.min.js'></script> 
+  <script src='{env.ASSETS_SERVER_URL}/popper/popper.min.js'></script> 
+  <script src='{env.ASSETS_SERVER_URL}/tether/tether.min.js'></script> 
+  <script src='{env.ASSETS_SERVER_URL}/bootstrap/js/bootstrap.min.js'></script> 
+  <script src='{env.ASSETS_SERVER_URL}/smoothscroll/smooth-scroll.js'></script> 
+  <script src='{env.ASSETS_SERVER_URL}/dropdown/js/nav-dropdown.js'></script> 
+  <script src='{env.ASSETS_SERVER_URL}/dropdown/js/navbar-dropdown.js'></script> 
+  <script src='{env.ASSETS_SERVER_URL}/touchswipe/jquery.touch-swipe.min.js'></script> 
+  <script src='{env.ASSETS_SERVER_URL}/viewportchecker/jquery.viewportchecker.js'></script> 
+  <script src='{env.ASSETS_SERVER_URL}/parallax/jarallax.min.js'></script>  
+  <script src='{env.ASSETS_SERVER_URL}/ytplayer/jquery.mb.ytplayer.min.js'></script>  
+  <script src='{env.ASSETS_SERVER_URL}/vimeoplayer/jquery.mb.vimeo_player.js'></script>  
+  <script src='{env.ASSETS_SERVER_URL}/theme/js/script.js'></script>
+  <div id='scrollToTop' class='scrollToTop mbr-arrow-up'><a style='text-align: center;'>
+    <i class='mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up'></i></a>
+  </div>
+  <input name='animation' type='hidden'>
+</body>
+</html>
+"""
+  headers = {"content-type": "text/html"}
+  return Response(HTML, headers=headers)
+
+
+def mostrar_succes( env, mensaje):
+
+  HTML = f"""<!DOCTYPE html>
+<html lang='es-CL' prefix='og: http://ogp.me/ns#'  >
+<head>
+  <meta charset='UTF-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <meta name='generator' content='Mobirise v5.1.8, mobirise.com'>
+  <meta name='twitter:card' content='summary_large_image'/>
+  <meta name='twitter:image:src' content='assets/images/index-meta.png'>
+  <meta property='og:image' content='assets/images/index-meta.png'>
+  <meta name='twitter:title' content='Eléctrico a Domicilio Providencia'>
+  <meta name='viewport' content='width=device-width, initial-scale=1, minimum-scale=1'>
+  <link rel='shortcut icon' href='https://alectrico.cl/assets/images/locoalicate-96x155.png' type='image/x-icon'>
+  <meta name='description' content='Eléctrico a Domicilio Providencia'>
+
+
+  <title>Eléctrico a Domicilio Providencia</title>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/web/assets/mobirise-icons2/mobirise2.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/web/assets/mobirise-icons/mobirise-icons.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/tether/tether.min.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/bootstrap/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/bootstrap/css/bootstrap-grid.min.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/bootstrap/css/bootstrap-reboot.min.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/dropdown/css/style.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/animatecss/animate.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/socicon/css/styles.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/theme/css/style.css'>
+  <link rel='preload' as='style' href='{env.ASSETS_SERVER_URL}/mobirise/css/mbr-additional.css'>
+  <link rel='stylesheet' href='{env.ASSETS_SERVER_URL}/mobirise/css/mbr-additional.css' type='text/css'>
+
+</head>
+
+<body>
+
+  <section class='menu menu2 cid-sewGNRqCZx' once='menu' id='menu2-2'>
+    <nav class='navbar navbar-dropdown navbar-fixed-top navbar-expand-lg'>
+      <div class='container'>
+        <div class='navbar-brand'>
+          <span class='navbar-logo'>
+            <a href='https://{env.TLD}.cl'>
+              <img src='{env.ASSETS_SERVER_URL}/images/locoalicate-96x155.png' alt='a' style='height: 3rem;'>
+            </a>
+          </span>
+          <span class='navbar-caption-wrap'><a class='navbar-caption text-white text-primary display-4' href='#top'>ALECTRICO</a></span>
+        </div>
+      </div>
+    </nav>
+  </section>
+
+  <section class='header1 cid-sewsPSgeos mbr-parallax-background' id='header1-1'>
+    <div class='container-fluid'>
+        <div class='row justify-content-center'>
+            <div class='col-12 col-lg-11'>
+              <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>Eléctricos a Domicilio </em></strong><br><strong><em>- en Providencia -</em></strong></h1>
+              <h2 class='mbr-section-subtitle mbr-fonts-style mb-3 display-5'>{env.MISION}</h2>
+              <div class='mbr-section-btn mt-3'><a class='btn btn-primary display-4' href='https://wa.me/56945644889'>
+              <span class='socicon socicon-whatsapp mbr-iconfont mbr-iconfont-btn'>
+              </span></a> <a class='btn btn-info display-4' href='tel:+56932000849'><span class='mobi-mbri mobi-mbri-phone mbr-iconfont mbr-iconfont-btn'></span></a></div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <section class='mbr-section form4 cid-qAUteatZnl' id='form4-8e' style='border-top-style: solid;border-top-width: 0px;right: -;margin-bottom: 100px;margin-top: 50px;' >
+    <div class='container'>
+      <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>{mensaje} </em></strong><br><strong><em>-  Genial!  -</em></strong></h1>
+      <div class='row'>
+        <div class='offset-3'>
+           <img src="icon/success.png" width="150" height="150" alt="success">
         </div>
       </div>
     </div>

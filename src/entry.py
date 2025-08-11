@@ -203,7 +203,7 @@ async def tbk_commit( token_ws, env):
    return Response('ok', status="200")
    
 
-def to_markdown( voucher )
+def to_markdown( voucher):
       """
       Comprobante de Pago Electrónico
 

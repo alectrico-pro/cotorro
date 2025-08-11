@@ -100,6 +100,7 @@ async def on_fetch(request, env):
         token_ws = params['token_ws'][0]
         console.log(f"En return_url token_ws: {token_ws}")
         vci = tbk_commit( token_ws)
+        console.log(f"vci {vci}")
         return Response( vci , status="200")
 
 

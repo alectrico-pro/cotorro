@@ -3,6 +3,9 @@ compatibility_date = "2025-08-01"
 compatibility_flags = ["python_workers"]
 main = "src/entry.py"
 
+[observability.logs]
+enabled = true
+
 [assets]
 directory='./public/assets'
 binding='ASSETS'

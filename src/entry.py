@@ -576,10 +576,6 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
 
 def mostrar_not_found( env, mensaje):
 
-  buy_order= 199
-
-  avisar = True
-  CSS = "body { color: red; }"
   HTML = f"""<!DOCTYPE html>
 <html lang='es-CL' prefix='og: http://ogp.me/ns#'  >
 <head>
@@ -644,10 +640,10 @@ def mostrar_not_found( env, mensaje):
 
   <section class='mbr-section form4 cid-qAUteatZnl' id='form4-8e' style='border-top-style: solid;border-top-width: 0px;right: -;margin-bottom: 100px;margin-top: 50px;' >
     <div class='container'>
-      <h4 class='icon-block__title align-left mbr-fonts-style display-5'>{mensaje}</h4>
+      <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>{mensaje} </em></strong><br><strong><em>- en Providencia -</em></strong></h1>
       <div class='row'>
         <div class='offset-md-3 col-md-6'>
-           <img src="/public/assets/icon/fail.png" width="500" height="250" alt="fail">
+           <img src="icon/fail.png" width="500" height="250" alt="fail">
         </div>
       </div>
     </div>

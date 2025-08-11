@@ -30,7 +30,7 @@ WHATSAPP_BUSINESS_ACCOUNT_ID="107728605282500"
 PHONE_NUMBER_ID="150477064807758"
 
 
-AMOUNT=15000
+AMOUNT=100
 RETURN_URL="https://cotorro.alectrico.workers.dev/return_url"
 GO_TBK_URL="https://cotorro.alectrico.workers.dev/transbank"
 
@@ -53,7 +53,7 @@ PHONE_NUMBER_ID="150477064807758"
 
 
 
-AMOUNT=15000
+AMOUNT=100
 RETURN_URL="https://cotorro.alectrico.workers.dev/return_url"
 GO_TBK_URL="https://cotorro.alectrico.workers.dev/transbank"
 

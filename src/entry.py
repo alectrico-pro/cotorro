@@ -642,8 +642,8 @@ def mostrar_not_found( env, mensaje):
     <div class='container'>
       <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>{mensaje} </em></strong><br><strong><em>- Uhm! a veces hay que intentarlo de nuevo :) -</em></strong></h1>
       <div class='row'>
-        <div class='offset-md-3 col-md-6'>
-           <img src="icon/fail.png" width="50" height="50" alt="fail">
+        <div class='offset-3'>
+           <img src="icon/fail.png" width="150" height="150" alt="fail">
         </div>
       </div>
     </div>

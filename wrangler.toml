@@ -4,8 +4,9 @@ compatibility_flags = ["python_workers"]
 main = "src/entry.py"
 
 [assets]
-directory='./public/assets/'
+directory='./public/assets'
 binding='ASSETS'
+
 
 [vars]
 GREETING = "Hi desde Python"

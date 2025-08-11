@@ -113,7 +113,7 @@ async def on_fetch(request, env):
         console.log(f"En return_url token_ws: {token_ws}")
         vci = await tbk_commit( token_ws, env)
         console.log(f"vci {vci}")
-        return mostrar_success(env, " Todo Salió Bien ")
+        return mostrar_success(env, " Envíamos el Comprobante del Pago, a Su Whatsapp ")
 
 
     elif url.path == "/return_url" and 'TBK_TOKEN' in params:
@@ -169,7 +169,7 @@ async def on_fetch(request, env):
             if value.statuses[0].status == 'failed':
                console.log(f"Es failed, error: {value.statuses[0].errors[0].title}" )
                return mostrar_not_found(env, "Bah! Ocurrió un Error")
-            return Response('ok', status="200")
+            return mostrar_success(env, " Todo Salió Bien ")
     else:     
       console.log("No se ha identificado")
       return mostrar_not_found(env, "Bah! Ocurrió un Error")

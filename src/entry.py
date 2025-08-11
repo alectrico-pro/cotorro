@@ -118,7 +118,7 @@ async def on_fetch(request, env):
 
     elif url.path == "/return_url" and 'TBK_TOKEN' in params:
         console.log("En return_url TKB_TOKEN {TKB_TOKEN}")
-        return Response('ok', status="200")
+        return mostrar_not_found(env, "El Pago fue Cancelado! ")
 
 
     elif url.path.startswith("/webhook"):
@@ -139,7 +139,7 @@ async def on_fetch(request, env):
             console.log("Es un mensaje")
 
             #Cuando alguien escribe un texto en los canales de publico suscritos
-            #Se recbie aquí
+            #Se recibe aquí
             #REspondeo con un cuestionario
 
             if hasattr(value.messages[0], 'text') == True :
@@ -167,12 +167,11 @@ async def on_fetch(request, env):
             console.log(f"Status: {value.statuses[0].status}")
             if value.statuses[0].status == 'failed':
                console.log(f"Es failed, error: {value.statuses[0].errors[0].title}" )
+               return mostrar_not_found(env, "Bah! Ocurrió un Error")
             return Response('ok', status="200")
     else:     
       console.log("No se ha identificado")
       return mostrar_not_found(env, "Bah! Ocurrió un Error")
-      #ot_found = await env.ASSETS.fetch('not_found.html')
-      #return not_found
 
 #.......................... MENU PRINCIPAL -----------------------------------
 

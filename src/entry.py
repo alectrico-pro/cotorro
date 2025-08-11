@@ -185,7 +185,7 @@ async def post_tbk( uri, env):
 
 async def tbk_commit( token_ws):
    uri = f"{env.TBK_ENDPOINT}{token_ws}"
-   init = {
+   options = {
         "method": "PUT",
         "headers": {
             "Content-Type": "application/json;charset=UTF-8",
@@ -193,7 +193,8 @@ async def tbk_commit( token_ws):
             "Tbk-Api-Key-Secret": f"{env.WEBPAY_SHARED_SECRET}" ,
         }
    }
-   response      = await fetch(uri, init)
+   response      = await fetch(uri, to_js(options))
+   console.log(f"response {response}")
    response_json = await response.json()
    vci = response_json.vci
    console.log(f"vci {vci}")

@@ -99,12 +99,13 @@ async def on_fetch(request, env):
     if url.path == "/return_url" and params['token_ws'][0] is not None:
         token_ws = params['token_ws'][0]
         console.log(f"En return_url token_ws: {token_ws}")
-        return Response.new( token_ws , status="200")
+        return Response( token_ws , status="200")
 
 
     if url.path == "/return_url" and method == 'GET':
         console.log("En return_url")
-        return Response.new('ok', status="200")
+        tbk_commit( token_ws )
+        return Response('ok', status="200")
 
 
     if url.path.startswith("/webhook") and method == 'POST':
@@ -182,6 +183,19 @@ async def post_tbk( uri, env):
     return response
         
 
+async def tbk_commit( token_ws):
+   uri = f"{env.TBK_ENDPOINT}{token_ws}"
+   init = {
+        "method": "PUT",
+        "headers": {
+            "Content-Type": "application/json;charset=UTF-8",
+            "Tbk-Api-Key-Id":     f"{env.WEBPAY_API_KEY}",
+            "Tbk-Api-Key-Secret": f"{env.WEBPAY_SHARED_SECRET}" ,
+        }
+    }
+    response = await fetch(uri, init)
+    return response
+
 
 #crea un link de pago tbk
 async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env):
@@ -222,7 +236,6 @@ async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env
 #Al que llenó el cuestionario
 async def flow_reply_processor(request_json, env):
         console.log("En flow_reply_processor")
-        #equest_json = await request.json()
         console.log( f"request_json {request_json}")
         value = request_json.entry[0].changes[0].value.contacts[0]
         console.log(f"value {value}")
@@ -279,8 +292,6 @@ async def flow_reply_processor(request_json, env):
         #amount debe ser calculado en base a lo ingresado en el cuestionario
         #por simplicidad se cobra solo la visita por ahora
         link_de_pago_tbk_url = env.GO_TBK_URL+"/?buy_order="+ buy_order +"&amount="+ str( env.AMOUNT)
-
-        #ink_de_pago_tbk_url = await genera_link_de_pago_tbk( buy_order, env.AMOUNT, env.RETURN_URL, fono, env)
 
         reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"

@@ -468,7 +468,8 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
   </section>
   <section class='mbr-section form4 cid-qAUteatZnl' id='form4-8e' style='border-top-style: solid;border-top-width: 0px;right: -;margin-bottom: 100px;margin-top: 50px;' >
     <div class='container'>
-      <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
+      <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>Servicios de Electricista a Domicilio </em></strong><br><strong><em>- en Providencia -</em></strong></h1>
+      <h2 class='mbr-section-subtitle mbr-fonts-style mb-3 display-5'>Este servicio tienen un costo con IVA de:</h2>
       <div class='row'>
         <div class='offset-md-3 col-md-6'>
           <div>

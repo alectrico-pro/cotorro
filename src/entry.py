@@ -186,7 +186,7 @@ async def post_tbk( uri, env):
 
 async def tbk_commit( token_ws, env):
    console.log("En tbk_commit")
-   uri = f"{env.TBK_ENDPOINT}{token_ws}"
+   uri = f"{env.TBK_ENDPOINT}/{token_ws}"
    options = {
         "method": "PUT",
         "headers": {

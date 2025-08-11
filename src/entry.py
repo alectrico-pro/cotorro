@@ -729,7 +729,7 @@ def mostrar_not_found( env, mensaje):
   return Response(HTML, headers=headers)
 
 
-def mostrar_succes( env, mensaje):
+def mostrar_success( env, mensaje):
 
   HTML = f"""<!DOCTYPE html>
 <html lang='es-CL' prefix='og: http://ogp.me/ns#'  >

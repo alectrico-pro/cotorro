@@ -3,6 +3,10 @@ compatibility_date = "2025-08-01"
 compatibility_flags = ["python_workers"]
 main = "src/entry.py"
 
+[assets]
+directory='./public/assets/'
+binding='ASSETS'
+
 [vars]
 GREETING = "Hi desde Python"
 SOY_WEBHOOK= "Hola, soy endpoint /webhook"

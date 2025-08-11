@@ -108,7 +108,7 @@ async def on_fetch(request, env):
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 
-    if url.path == "/return_url" and 'token_ws' in params:
+    elif url.path == "/return_url" and 'token_ws' in params:
         token_ws = params['token_ws'][0]
         console.log(f"En return_url token_ws: {token_ws}")
         vci = await tbk_commit( token_ws, env)
@@ -116,12 +116,12 @@ async def on_fetch(request, env):
         return Response( vci , status="200")
 
 
-    if url.path == "/return_url" and 'TBK_TOKEN' in params:
+    elif url.path == "/return_url" and 'TBK_TOKEN' in params:
         console.log("En return_url TKB_TOKEN {TKB_TOKEN}")
         return Response('ok', status="200")
 
 
-    if url.path.startswith("/webhook"):
+    elif url.path.startswith("/webhook"):
         console.log("En webhook")
 
         request_json = await request.json()
@@ -168,9 +168,9 @@ async def on_fetch(request, env):
             if value.statuses[0].status == 'failed':
                console.log(f"Es failed, error: {value.statuses[0].errors[0].title}" )
             return Response('ok', status="200")
-           
-    console.log("No se ha identificado")
-    return Response('ok', status="404")
+    else:     
+      console.log("No se ha identificado")
+      return Response('ok', status="404")
 
 
 #@app.route("/webhook", methods=["GET"])

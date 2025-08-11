@@ -170,7 +170,7 @@ async def on_fetch(request, env):
             return Response('ok', status="200")
     else:     
       console.log("No se ha identificado")
-      return await mostrar_not_found()
+      return await mostrar_not_found(env)
       #ot_found = await env.ASSETS.fetch('not_found.html')
       #return not_found
 
@@ -574,7 +574,7 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
 
 
 
-def mostrar_not_found():
+def mostrar_not_found( env):
 
   buy_order= 199
   amount=1777

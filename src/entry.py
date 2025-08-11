@@ -336,10 +336,10 @@ async def flow_reply_processor(request_json, env):
             "------------------------------ \n\n"
         )
         console.log(f"reply {reply}")
-        await send_replay(env, wa_id)
+        await send_reply(env, wa_id)
 
 
-async def send_reply( env, wa_id)
+async def send_reply( env, wa_id):
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
 

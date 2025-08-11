@@ -95,8 +95,7 @@ async def on_fetch(request, env):
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
-    #https://cotorro.alectrico.workers.dev/return_url?token_ws=01abda5ffb6bfefe4aba49d218695a97f25674a9720c637ff3b78da9947be165
-    if url.path == "/return_url" and params['token_ws'][0] is not None:
+    if url.path == "/return_url" and hasattr( url.path, 'token_ws'):
         token_ws = params['token_ws'][0]
         console.log(f"En return_url token_ws: {token_ws}")
         vci = tbk_commit( token_ws)
@@ -109,7 +108,7 @@ async def on_fetch(request, env):
         return Response('ok', status="200")
 
 
-    if url.path.startswith("/webhook") and method == 'POST':
+    if url.path.startswith("/webhook") and hasattr( url.path, 'TBK_TOKEN'):
         console.log("En webhook")
 
         request_json = await request.json()

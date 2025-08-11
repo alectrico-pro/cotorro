@@ -78,7 +78,7 @@ async def enviar_formulario( request, env, text, fono):
         content_type, result = await gather_response(response)
 
         headers = Headers.new({"content-type": content_type}.items())
-        return Response.new(result, headers=headers)
+        return Response(result, headers=headers)
 
 
 async def on_fetch(request, env):
@@ -155,10 +155,10 @@ async def on_fetch(request, env):
             console.log(f"Status: {value.statuses[0].status}")
             if value.statuses[0].status == 'failed':
                console.log(f"Es failed, error: {value.statuses[0].errors[0].title}" )
-            return Response.new('ok', status="200")
+            return Response('ok', status="200")
         else:
            console.log("No se ha identificado")
-           return Response.new('ok', status="404")
+           return Response('ok', status="404")
 
 
 #@app.route("/webhook", methods=["GET"])

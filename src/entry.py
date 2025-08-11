@@ -577,9 +577,6 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
 def mostrar_not_found( env):
 
   buy_order= 199
-  amount=1777
-  pago_url=888
-  token_ws=888
 
   avisar = True
   CSS = "body { color: red; }"
@@ -644,32 +641,17 @@ def mostrar_not_found( env):
         </div>
     </div>
   </section>
+
   <section class='mbr-section form4 cid-qAUteatZnl' id='form4-8e' style='border-top-style: solid;border-top-width: 0px;right: -;margin-bottom: 100px;margin-top: 50px;' >
     <div class='container'>
-      <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
+      <h4 class='icon-block__title align-left mbr-fonts-style display-5'>{mensaje}</h4>
       <div class='row'>
         <div class='offset-md-3 col-md-6'>
-          <div>
-              </span>
-              <div class='col-7 col-md-6' multi-horizontal data-for='amount'>
-                <input type='text' readonly='' value = {amount} class='form-control input' id='amount' name='amount' data-form-field='Text' placeholder='Monto a Pagar' required=''>
-              </div>
-        </div>
-       <div data-form-type='formoid'>
-          <form class='block mbr-form' action={pago_url} method='post' data-form-title='Agendar Form'>
-              <div class='col-md-4' data-for='token_ws'>
-                <input type='text' readonly='' hidden='' value = {token_ws} class='form-control input' id='token_ws' name='token_ws' data-form-field='token_ws' placeholder='token_ws' required=''>
-              </div>
-              <div class='input-group-btn col-md-12' style='margin-top: 10px;'><button href='' type='submit' class='btn btn-primary btn-form display-4'>Pagar</button>
-              </div>
-            </div>
-          </form>
+           <img src="/public/assets/icon/fail.png" width="500" height="250" alt="fail">
         </div>
       </div>
     </div>
-  </div>
-</section>
-
+  </section>
 
 <section class='barter1 cid-sezOMgUKyB' once='barters' data-bg-video={env.VIDEO_URL} id='barter1-f'>
   <div class='mbr-overlay' style='opacity: 0.6; background-color: rgb(35, 35, 35);'></div>

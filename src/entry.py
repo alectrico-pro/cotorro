@@ -99,7 +99,7 @@ async def on_fetch(request, env):
     if url.path == "/return_url" and 'token_ws' in params:
         token_ws = params['token_ws'][0]
         console.log(f"En return_url token_ws: {token_ws}")
-        vci = await tbk_commit( token_ws)
+        vci = await tbk_commit( token_ws, env)
         console.log(f"vci {vci}")
         return Response( vci , status="200")
 
@@ -184,7 +184,7 @@ async def post_tbk( uri, env):
     return response
         
 
-async def tbk_commit( token_ws):
+async def tbk_commit( token_ws, env):
    console.log("En tbk_commit")
    uri = f"{env.TBK_ENDPOINT}{token_ws}"
    options = {

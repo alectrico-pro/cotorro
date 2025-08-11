@@ -102,13 +102,12 @@ async def on_fetch(request, env):
         return Response( vci , status="200")
 
 
-    if url.path == "/return_url" and method == 'GET':
-        console.log("En return_url")
-        tbk_commit( token_ws )
+    if url.path == "/return_url" and hasattr( url.path, 'TBK_TOKEN'):
+        console.log("En return_url TKB_TOKEN {TKB_TOKEN}")
         return Response('ok', status="200")
 
 
-    if url.path.startswith("/webhook") and hasattr( url.path, 'TBK_TOKEN'):
+    if url.path.startswith("/webhook"):
         console.log("En webhook")
 
         request_json = await request.json()

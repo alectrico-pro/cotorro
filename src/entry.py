@@ -199,7 +199,7 @@ async def tbk_commit( token_ws, env):
    response      = await fetch(uri, to_js(options))
    console.log(f"response {response}")
    response_json = await response.json()
-   return await send_voucher( reponse_json, env)
+   return await send_voucher( response_json, env)
    return Response('ok', status="200")
    
 

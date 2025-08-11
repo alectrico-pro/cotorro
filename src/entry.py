@@ -204,12 +204,13 @@ async def tbk_commit( token_ws, env):
    return Response('ok', status="200")
    
 
+#installments_amount no está en la tarjeta de prueba AmericanExpress
 def to_markdown( voucher):
       TXT = f"""
       Comprobante de Pago Electrónico
 
       Estos son los datos del pago, que Ud. ha realizado en Transbank. Guárdelos para su Contabilidad. El valor inluye IVA y estará registrado en la Contabilidad de alectrico®. El pago corresponde a un operación de Compra finalizada con éxito y no es reembolsable. Ud. ha recibido la información que ha solicitado. Esto es, el teléfono de un colaborador autónomo. Por la cual ha debido pagar.
-      \n *card_detail* \n   *card_number* {voucher.card_detail} \n *buy_order* {voucher.buy_order} \n *session_id* {voucher.session_id} \n *amount* {voucher.amount} \n *transaction_date* {voucher.transaction_date} \n *accounting_date* {voucher.accounting_date} \n *authorization_code* {voucher.authorization_code} \n *response_code* {voucher.response_code} \n *installments_amount* {voucher.installments_amount} \n *installments_number* {voucher.installments_number} \n *balance* {voucher.balance} \n *status* {voucher.status} \n *payment_type_code* {voucher.payment_type_code} \n *vci* {voucher.vci} \n *token* \n {voucher.token}
+      \n *card_detail* \n   *card_number* {voucher.card_detail} \n *buy_order* {voucher.buy_order} \n *session_id* {voucher.session_id} \n *amount* {voucher.amount} \n *transaction_date* {voucher.transaction_date} \n *accounting_date* {voucher.accounting_date} \n *authorization_code* {voucher.authorization_code} \n *response_code* {voucher.response_code} \n *installments_number* {voucher.installments_number} \n *balance* {voucher.balance} \n *status* {voucher.status} \n *payment_type_code* {voucher.payment_type_code} \n *vci* {voucher.vci} \n *token* \n {voucher.token}
       """
       return TXT
 

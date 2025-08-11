@@ -147,7 +147,7 @@ async def on_fetch(request, env):
                console.log(f"body {value.messages[0].text.body}")
                text = value.messages[0].text.body
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               await enviar_formulario( request, env, text, wa_id )
+               return await enviar_formulario( request, env, text, wa_id )
 
                
             #Cuando el usuario responde el cuestionario
@@ -159,7 +159,7 @@ async def on_fetch(request, env):
                    console.log("Es nfm_reply")
                    if hasattr(value.messages[0].interactive.nfm_reply, 'response_json') == True :
                        console.log("Tiene response_json")
-                       await flow_reply_processor( request_json, env)
+                       return await flow_reply_processor( request_json, env)
 
         elif hasattr(value, 'statuses') == True :
             console.log("Es un statuses")

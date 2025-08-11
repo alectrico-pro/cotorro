@@ -96,14 +96,14 @@ async def on_fetch(request, env):
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 
-    if url.path == "/return_url" and params['token_ws']:
+    if url.path == "/return_url" and 'token_ws' in params:
         token_ws = params['token_ws'][0]
         console.log(f"En return_url token_ws: {token_ws}")
         vci = tbk_commit( token_ws)
         return Response( vci , status="200")
 
 
-    if url.path == "/return_url" and params['TBK_TOKEN']:
+    if url.path == "/return_url" and 'TBK_TOKEN' in params:
         console.log("En return_url TKB_TOKEN {TKB_TOKEN}")
         return Response('ok', status="200")
 

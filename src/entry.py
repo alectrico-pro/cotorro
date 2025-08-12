@@ -56,7 +56,7 @@ async def gather_response(response):
 #Text hay que incorporarlo WIP
 async def enviar_formulario( request, env, text, fono):
         console.log("En enviar_formulario template say_vista -> flow reserva")
-        imagen_url = f"{env.API_URL}/public/assets/loguito.jpeg"
+        imagen_url = f"{env.API_URL}/loguito.jpeg"
         uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
             "Content-Type": "application/json",

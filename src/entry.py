@@ -150,7 +150,8 @@ async def on_fetch(request, env):
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
                await enviar_formulario( request, env, text, wa_id )
 
-               return await send_msg(env, str(env.FONO_JEFE), f"{text}----{wa_id}" )
+               await send_msg(env, str(env.FONO_JEFE), f"{text}----{wa_id}" )
+               return Response( "Procesado", status="200")
 
                
             #Cuando el usuario responde el cuestionario
@@ -165,7 +166,7 @@ async def on_fetch(request, env):
                        return await flow_reply_processor( request_json, env)
 
             console.log(f"Es un mensaje y nada más: {value}")
-            #return Response( "no procesado", status="200")
+            return Response( "no procesado", status="200")
 
 
         elif hasattr(value, 'statuses') == True :

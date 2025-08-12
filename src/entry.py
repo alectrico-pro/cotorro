@@ -141,16 +141,16 @@ async def on_fetch(request, env):
 
             #Cuando alguien escribe un texto en los canales de publico suscritos
             #Se recibe aquí
-            #REspondeo con un cuestionario
+            #REspondo con un cuestionario
 
             if hasattr(value.messages[0], 'text') == True :
                console.log("Es text")
                console.log(f"body {value.messages[0].text.body}")
-               text = value.messages[0].text.body
+               body = value.messages[0].text.body
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               await enviar_formulario( request, env, text, wa_id )
+               await enviar_formulario( request, env, body, wa_id )
 
-               await send_msg(env, str(env.FONO_JEFE), f"{text}----{wa_id}" )
+               await send_msg(env, str(env.FONO_JEFE), f"{body}----{wa_id}" )
                return Response( "Procesado", status="200")
 
                
@@ -235,8 +235,7 @@ async def tbk_commit( token_ws, env):
    await send_voucher( response_json, response_json.session_id, env)
    return await send_msg(env, str(env.FONO_JEFE), f"Pagado {response_json.buy_order}----{response_json.session_id}" )
    #respondo ok sin esperar al resultado de send_voucher
-   
-   #return Response('ok', status="200")
+   return Response('ok', status="200")
    
 
 #installments_amount no está en la tarjeta de prueba AmericanExpress

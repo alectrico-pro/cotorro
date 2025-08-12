@@ -122,8 +122,6 @@ async def on_fetch(request, env):
         console.log("En return_url TKB_TOKEN {TKB_TOKEN}")
         return mostrar_not_found(env, "El Pago fue Cancelado! ")
 
-    elif url.path.startswith("/assets/images/index-meta.png"):
-        return env.ASSETS.fetch('icon-cable-green.png')
 
     elif url.path.startswith("/webhook"):
         console.log("En webhook")

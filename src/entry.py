@@ -169,15 +169,17 @@ async def on_fetch(request, env):
 
         elif hasattr(value, 'statuses') == True :
             console.log("Es un statuses")
-            console.log(f"Status: {value.statuses[0].status}")
-            if value.statuses[0].status == 'failed':
-               console.log(f"Es failed, error: {value.statuses[0].errors[0].title}" )
+            console.log(f"Es failed, error: {value.statuses[0].errors[0].title}" )
+            status = value.statuses[0].status}
+            title  = value.statuses[0].errors[0].title
+            if  status == 'failed' and title == 'Message Undeliverable':
                wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                buy_order    = str( random.randint(1, 10000))
                link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
                msg        = (f"Por favor pague la visita siguiendo el link:\n"
                             f"link_de_pago: {link_de_pago}\n\n")
                return await send_msg(env, wa_id, msg)
+            return Response( "ok", status="200")
 
     elif url.path.startswith('/fonos.json'):
         console.log("En fonos.json")

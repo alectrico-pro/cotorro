@@ -233,10 +233,10 @@ async def tbk_commit( token_ws, env):
    response_json = await response.json()
    console.log(f"response_json {response_json}")
    await send_voucher( response_json, response_json.session_id, env)
-   return await send_msg(env, str(env.FONO_JEFE), f"Pagado {response_json.buy_order}----{response_json.session_id}" )
+   await send_msg(env, str(env.FONO_JEFE), f"Pagado {response_json.buy_order}----{response_json.session_id}" )
    #respondo ok sin esperar al resultado de send_voucher
    
-   #eturn Response('ok', status="200")
+   return Response('ok', status="200")
    
 
 #installments_amount no está en la tarjeta de prueba AmericanExpress

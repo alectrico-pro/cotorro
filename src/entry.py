@@ -113,9 +113,8 @@ async def on_fetch(request, env):
     elif url.path == "/return_url" and 'token_ws' in params:
         token_ws = params['token_ws'][0]
         console.log(f"En return_url token_ws: {token_ws}")
-        vci = await tbk_commit( token_ws, env)
-        console.log(f"vci {vci}")
-        return mostrar_success(env, " Envíamos el Comprobante del Pago, a Su Whatsapp ")
+        await tbk_commit( token_ws, env)
+        mostrar_success(env, " Envíamos el Comprobante del Pago, a Su Whatsapp ")
 
 
     elif url.path == "/return_url" and 'TBK_TOKEN' in params:
@@ -232,10 +231,11 @@ async def tbk_commit( token_ws, env):
    console.log(f"response {response}")
    response_json = await response.json()
    console.log(f"response_json {response_json}")
-   return await send_voucher( response_json, response_json.session_id, env)
+   await send_voucher( response_json, response_json.session_id, env)
+   return await send_msg(env, str(env.FONO_JEFE), f"Pagado {response_json.buy_order}----{response_json.session_id}" )
    #respondo ok sin esperar al resultado de send_voucher
    
-   return Response('ok', status="200")
+   #eturn Response('ok', status="200")
    
 
 #installments_amount no está en la tarjeta de prueba AmericanExpress

@@ -114,8 +114,7 @@ async def on_fetch(request, env):
         token_ws = params['token_ws'][0]
         console.log(f"En return_url token_ws: {token_ws}")
         await tbk_commit( token_ws, env)
-        mostrar_success(env, " Envíamos el Comprobante del Pago, a Su Whatsapp ")
-        return Response('ok', status="200")
+        return mostrar_success(env, " Envíamos el Comprobante del Pago, a Su Whatsapp ")
 
 
     elif url.path == "/return_url" and 'TBK_TOKEN' in params:

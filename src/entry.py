@@ -458,8 +458,8 @@ def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name='generator' content='Mobirise v5.1.8, mobirise.com'>
   <meta name='twitter:card' content='summary_large_image'/>
-  <meta name='twitter:image:src' content='assets/images/index-meta.png'>
-  <meta property='og:image' content='assets/images/index-meta.png'>
+  <meta name='twitter:image:src' content='loguito.jpeg'>
+  <meta property='og:image' content='loguito.jpeg'>
   <meta name='twitter:title' content='Eléctrico a Domicilio Providencia'>
   <meta name='viewport' content='width=device-width, initial-scale=1, minimum-scale=1'>
   <link rel='shortcut icon' href='https://alectrico.cl/assets/images/locoalicate-96x155.png' type='image/x-icon'>
@@ -630,8 +630,8 @@ def mostrar_not_found( env, mensaje):
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name='generator' content='Mobirise v5.1.8, mobirise.com'>
   <meta name='twitter:card' content='summary_large_image'/>
-  <meta name='twitter:image:src' content='assets/images/index-meta.png'>
-  <meta property='og:image' content='assets/images/index-meta.png'>
+  <meta name='twitter:image:src' content='loguito.jpeg'>
+  <meta property='og:image' content='loguito.jpeg'>
   <meta name='twitter:title' content='Eléctrico a Domicilio Providencia'>
   <meta name='viewport' content='width=device-width, initial-scale=1, minimum-scale=1'>
   <link rel='shortcut icon' href='https://alectrico.cl/assets/images/locoalicate-96x155.png' type='image/x-icon'>

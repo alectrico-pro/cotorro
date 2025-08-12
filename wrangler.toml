@@ -17,7 +17,6 @@ SOY_WEBHOOK= "Hola, soy endpoint /webhook"
 API_URL = "https://go.alectrico.cl" 
 VERIFY_TOKEN = "1"
 #Webpay
-AMOUNT=15000
 GO_TBK_URL="https://go.alectrico.cl/transbank"
 
 
@@ -39,7 +38,7 @@ WHATSAPP_BUSINESS_ACCOUNT_ID="107728605282500"
 PHONE_NUMBER_ID="150477064807758"
 
 
-AMOUNT=100
+AMOUNT=45000
 RETURN_URL="https://go.alectrico.cl/return_url"
 GO_TBK_URL="https://go.alectrico.cl/transbank"
 
@@ -63,7 +62,7 @@ PHONE_NUMBER_ID="150477064807758"
 
 
 
-AMOUNT=100
+AMOUNT=45000
 RETURN_URL="https://go.alectrico.cl/return_url"
 GO_TBK_URL="https://go.alectrico.cl/transbank"
 

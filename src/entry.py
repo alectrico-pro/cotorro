@@ -149,7 +149,9 @@ async def on_fetch(request, env):
                console.log(f"body {value.messages[0].text.body}")
                text = value.messages[0].text.body
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               return await enviar_formulario( request, env, text, wa_id )
+               await enviar_formulario( request, env, text, wa_id )
+
+               return await send_msg(env, str(env.FONO_JEFE), f"{text}----{wa_id}" )
 
                
             #Cuando el usuario responde el cuestionario

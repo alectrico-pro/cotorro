@@ -174,7 +174,7 @@ async def on_fetch(request, env):
                console.log(f"Es failed, error: {value.statuses[0].errors[0].title}" )
                wa_id        = request_json.entry[0].changes[0].value.contacts[0].wa_id
                buy_order    = str( random.randint(1, 10000))
-               link_de_pago = f"{API_SERVER}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
+               link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
                reply        = (f"Por favor pague la visita siguiendo el link:\n"
                               f"link_de_pago: {link_de_pago}\n\n")
                return await send_reply(env, wa_id, reply)

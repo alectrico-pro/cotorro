@@ -918,5 +918,5 @@ def fonos( env):
 
    #jsonData = { message: 'Hello from the Worker!', status: 'success' }
 
-   return Response.json(body_json, headers=headers, status='200' }
+   return Response.json(body_json, headers=headers, status='200' )
 

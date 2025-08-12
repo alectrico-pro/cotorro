@@ -175,7 +175,7 @@ async def on_fetch(request, env):
                return mostrar_not_found(env, "Bah! Ocurrió un Error")
             return mostrar_success(env, " Todo Salió Bien ")
 
-    elif url.path.startswith('/listas/designer/fonos.json'):
+    elif url.path.startswith('/fonos.json'):
         console.log("En fonos.json")
         return fonos(env)
 

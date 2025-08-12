@@ -28,6 +28,7 @@ PHONE_NUMBER_ID="150477064807758"
 created_flow_id = ""
 
 [env.production.vars]
+API_URL = "https://go.alectrico.cl"
 ASSETS_SERVER_URL="https://alectrica.github.io/pay/assets"
 TLD="alectrico"
 MISION="Misión: Ayudar a progeter la vida y la propiedad"
@@ -50,6 +51,7 @@ TBK_ENDPOINT="https://webpay3g.transbank.cl/rswebpaytransaction/api/webpay/v1.2/
 
 
 [env.development.vars]
+API_URL = "https://go.alectrico.cl"
 ASSETS_SERVER_URL="https://alectrica.github.io/pay/assets"
 TLD="alectrico"
 MISION="Misión: Ayudar a progeter la vida y la propiedad"

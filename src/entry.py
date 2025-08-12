@@ -170,7 +170,7 @@ async def on_fetch(request, env):
         elif hasattr(value, 'statuses') == True :
             console.log("Es un statuses")
             console.log(f"Es failed, error: {value.statuses[0].errors[0].title}" )
-            status = value.statuses[0].status}
+            status = value.statuses[0].status
             title  = value.statuses[0].errors[0].title
             if  status == 'failed' and title == 'Message Undeliverable':
                wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id

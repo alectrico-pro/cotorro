@@ -899,7 +899,7 @@ def mostrar_success( env, mensaje):
 
 def fonos( env):
    headers = { 'Access-Control-Allow-Origin'      :'*',
-                'Access-Control-Allow-Credentials' : true,
+                'Access-Control-Allow-Credentials' : True,
                 'content-type'                     : 'application/json'
    }
 
@@ -910,7 +910,7 @@ def fonos( env):
                          },
               "cliente": { "publico" : "cliente",
                            "numero"  : str(env.PUBLICO_COLABORADOR),
-                           "html"    : str(ENV.PUBLICO_COLABORADOR)
+                           "html"    : str(env.PUBLICO_COLABORADOR)
                          }
       }
    }

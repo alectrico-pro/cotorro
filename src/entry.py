@@ -635,7 +635,7 @@ def mostrar_not_found( env, mensaje):
   <meta name='generator' content='Mobirise v5.1.8, mobirise.com'>
   <meta name='twitter:card' content='summary_large_image'/>
   <meta name='twitter:image:src' content={env.LOGUITO_PATH}>
-  <meta property='og:image' content={env.LOGUITO.PATH}>
+  <meta property='og:image' content={env.LOGUITO_PATH}>
   <meta name='twitter:title' content='Eléctrico a Domicilio Providencia'>
   <meta name='viewport' content='width=device-width, initial-scale=1, minimum-scale=1'>
   <link rel='shortcut icon' href='https://alectrico.cl/assets/images/locoalicate-96x155.png' type='image/x-icon'>

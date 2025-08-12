@@ -178,7 +178,7 @@ async def on_fetch(request, env):
                console.log(f"link_de_pago {link_de_pago}")
                msg        = (f"Por favor pague la visita siguiendo el link:\n"
                             f"link_de_pago: {link_de_pago}\n\n")
-               console.log(f"msg {msd}")
+               console.log(f"msg {msg}")
                return await send_msg(env, wa_id, msg)
 
     elif url.path.startswith('/fonos.json'):

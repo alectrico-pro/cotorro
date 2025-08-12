@@ -175,8 +175,10 @@ async def on_fetch(request, env):
                wa_id        = request_json.entry[0].changes[0].value.metadata.display_phone_number
                buy_order    = str( random.randint(1, 10000))
                link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
+               console.log(f"link_de_pago {link_de_pago}")
                msg        = (f"Por favor pague la visita siguiendo el link:\n"
                             f"link_de_pago: {link_de_pago}\n\n")
+               console.log(f"msg {msd}")
                return await send_msg(env, wa_id, msg)
 
     elif url.path.startswith('/fonos.json'):
@@ -383,6 +385,9 @@ async def flow_reply_processor(request_json, env):
 
 
 async def send_msg( env, wa_id, msg):
+        console.log( "En send_msg")
+        console.log(f"wa_id {wa_id}")
+        console.log( f"msg  {msg}")
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {

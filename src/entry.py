@@ -161,6 +161,10 @@ async def on_fetch(request, env):
                        console.log("Tiene response_json")
                        return await flow_reply_processor( request_json, env)
 
+            console.log("Es un mensaje y nada más: {value}")
+            return Response( "no procesado", status="200")
+
+
         elif hasattr(value, 'statuses') == True :
             console.log("Es un statuses")
             console.log(f"Status: {value.statuses[0].status}")

@@ -898,7 +898,7 @@ def mostrar_success( env, mensaje):
 
 
 def fonos( env):
-   headers = { 'Access-Control-Allow-Origin'      :'*',
+   headers = {  'Access-Control-Allow-Origin'      :'*',
                 'Access-Control-Allow-Credentials' : True,
                 'content-type'                     : 'application/json'
    }
@@ -914,4 +914,8 @@ def fonos( env):
                          }
       }
    }
-   return Response( body_json, headers=headers)
+
+
+   #jsonData = { message: 'Hello from the Worker!', status: 'success' }
+
+   return Response.json(body_json, { status: 200 }, headers=headers)

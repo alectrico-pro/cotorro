@@ -175,9 +175,9 @@ async def on_fetch(request, env):
                wa_id        = request_json.entry[0].changes[0].value.metadata.display_phone_number
                buy_order    = str( random.randint(1, 10000))
                link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
-               reply        = (f"Por favor pague la visita siguiendo el link:\n"
-                              f"link_de_pago: {link_de_pago}\n\n")
-               return await send_reply(env, wa_id, reply)
+               msg        = (f"Por favor pague la visita siguiendo el link:\n"
+                            f"link_de_pago: {link_de_pago}\n\n")
+               return await send_msg(env, wa_id, msg)
 
     elif url.path.startswith('/fonos.json'):
         console.log("En fonos.json")
@@ -382,24 +382,21 @@ async def flow_reply_processor(request_json, env):
         return await send_reply(env, wa_id, reply)
 
 
-async def send_reply( env, wa_id, reply):
+async def send_msg( env, wa_id, msg):
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-
         headers = {
                 "Content-Type": "application/json",
                 "Authorization": f"Bearer {env.META_USER_TOKEN}"
         }
-
         body = {
                     "messaging_product" :  "whatsapp",
                     "recipient_type"    :  "individual",
                     "to"                :  wa_id,
                     "type"              :  "text",
                     "text"              :  { "preview_url" : True,
-                        "body" : reply }
+                                             "body"        : msg }
         }
-
         options = {
                "body": json.dumps(body),
                "method": "POST",
@@ -408,12 +405,37 @@ async def send_reply( env, wa_id, reply):
                  "content-type": "application/json;charset=UTF-8"
                },
         }
+        return await fetch(uri, options)
 
+
+
+async def send_reply( env, wa_id, reply):
+
+        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {env.META_USER_TOKEN}"
+        }
+        body = {
+                    "messaging_product" :  "whatsapp",
+                    "recipient_type"    :  "individual",
+                    "to"                :  wa_id,
+                    "type"              :  "text",
+                    "text"              :  { "preview_url" : True,
+                        "body" : reply }
+        }
+        options = {
+               "body": json.dumps(body),
+               "method": "POST",
+               "headers": {
+                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                 "content-type": "application/json;charset=UTF-8"
+               },
+        }
         response = await fetch(uri, to_js(options))
         console.log(f"response {response}")
         content_type, result = await gather_response(response)
         console.log(f"result{result}")
-
         return Response( reply, status="200")
 
 

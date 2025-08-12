@@ -161,7 +161,7 @@ async def on_fetch(request, env):
                        console.log("Tiene response_json")
                        return await flow_reply_processor( request_json, env)
 
-            console.log("Es un mensaje y nada más: {value}")
+            console.log(f"Es un mensaje y nada más: {value}")
             return Response( "no procesado", status="200")
 
 

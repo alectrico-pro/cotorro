@@ -102,9 +102,11 @@ async def on_fetch(request, env):
 
     if url.path.startswith("/transbank") and method == 'GET':
         console.log(f"Params en /transbank {params}")
-        buy_order = params['buy_order'][0]
-        amount    = params['amount'][0]
-        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, buy_order, env)
+        buy_order  = params['buy_order'][0]
+        amount     = params['amount'][0]
+        session_id = params['session_id'][0]
+
+        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 
@@ -217,7 +219,7 @@ async def tbk_commit( token_ws, env):
    console.log(f"response {response}")
    response_json = await response.json()
    console.log(f"response_json {response_json}")
-   return await send_voucher( response_json, env)
+   return await send_voucher( response_json, response_json.session_id, env)
    #respondo ok sin esperar al resultado de send_voucher
    
    return Response('ok', status="200")
@@ -238,11 +240,11 @@ def to_markdown( voucher):
       return TXT
 
 
-async def send_voucher( voucher_json, env):
+async def send_voucher( voucher_json, wa_id, env):
    console.log(f"voucher_json {voucher_json}")
    reply = to_markdown( voucher_json )
    console.log(f"reply {reply}")
-   return await send_reply(env, "56981370042", reply)
+   return await send_reply(env, wa_id, reply)
 
 
 #crea un link de pago tbk
@@ -339,7 +341,7 @@ async def flow_reply_processor(request_json, env):
         buy_order  = str( random.randint(1, 10000))
         #amount debe ser calculado en base a lo ingresado en el cuestionario
         #por simplicidad se cobra solo la visita por ahora
-        link_de_pago_tbk_url = env.GO_TBK_URL+"/?buy_order="+ buy_order +"&amount="+ str( env.AMOUNT)
+        link_de_pago_tbk_url = env.GO_TBK_URL+"/?buy_order="+ buy_order +"&amount="+ str( env.AMOUNT) + "&session_id=" + str(wa_id)
 
         reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"

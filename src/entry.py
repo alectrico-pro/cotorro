@@ -174,6 +174,11 @@ async def on_fetch(request, env):
                console.log(f"Es failed, error: {value.statuses[0].errors[0].title}" )
                return mostrar_not_found(env, "Bah! Ocurrió un Error")
             return mostrar_success(env, " Todo Salió Bien ")
+
+    elif url.path.startswith('/listas/designer/fonos.json'):
+        console.log("En fonos.json")
+        return fonos(env)
+
     else:     
       console.log("No se ha identificado")
       return mostrar_not_found(env, "Bah! Ocurrió un Error")
@@ -890,3 +895,19 @@ def mostrar_success( env, mensaje):
 """
   headers = {"content-type": "text/html"}
   return Response(HTML, headers=headers)
+
+
+def fonos( env):
+   headers = { 'Access-Control-Allow-Origin'      :'*',
+                'Access-Control-Allow-Credentials' : true,
+                'content-type'                     : 'application/json'
+   }
+
+   body_json = { "fonos" :
+        { "colaborador": { "publico" : "colaborador",
+                           "numero"  : str(env.PUBLICO_CLIENTE), 
+                           "html"    : str(env.PUBLICO_CLIENTE) },
+              "cliente": { "publico" : "cliente",
+                           "numero"  : str(env.PUBLICO_COLABORADOR),
+                           "html"    : str(ENV.PUBLICO_COLABORADOR)}
+   return Response( body_json, headers=headers)

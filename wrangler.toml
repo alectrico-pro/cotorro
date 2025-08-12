@@ -26,7 +26,10 @@ PHONE_NUMBER_ID="150477064807758"
 
 created_flow_id = ""
 
+
 [env.production.vars]
+PUBLICO_CLIENTE=56932000849
+PUBLICO_COLABORADOR=56932000849
 API_URL = "https://go.alectrico.cl"
 ASSETS_SERVER_URL="https://alectrica.github.io/pay/assets"
 TLD="alectrico"
@@ -50,6 +53,9 @@ TBK_ENDPOINT="https://webpay3g.transbank.cl/rswebpaytransaction/api/webpay/v1.2/
 
 
 [env.development.vars]
+PUBLICO_CLIENTE=56932000849
+PUBLICO_COLABORADOR=56932000849
+
 API_URL = "https://go.alectrico.cl"
 ASSETS_SERVER_URL="https://alectrica.github.io/pay/assets"
 TLD="alectrico"

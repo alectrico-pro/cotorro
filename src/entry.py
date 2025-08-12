@@ -906,8 +906,12 @@ def fonos( env):
    body_json = { "fonos" :
         { "colaborador": { "publico" : "colaborador",
                            "numero"  : str(env.PUBLICO_CLIENTE), 
-                           "html"    : str(env.PUBLICO_CLIENTE) },
+                           "html"    : str(env.PUBLICO_CLIENTE)
+                         },
               "cliente": { "publico" : "cliente",
                            "numero"  : str(env.PUBLICO_COLABORADOR),
-                           "html"    : str(ENV.PUBLICO_COLABORADOR)}
+                           "html"    : str(ENV.PUBLICO_COLABORADOR)
+                         }
+      }
+   }
    return Response( body_json, headers=headers)

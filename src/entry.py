@@ -164,7 +164,7 @@ async def on_fetch(request, env):
                        return await flow_reply_processor( request_json, env)
 
             console.log(f"Es un mensaje y nada más: {value}")
-            return Response( "no procesado", status="200")
+            #return Response( "no procesado", status="200")
 
 
         elif hasattr(value, 'statuses') == True :
@@ -172,8 +172,12 @@ async def on_fetch(request, env):
             console.log(f"Status: {value.statuses[0].status}")
             if value.statuses[0].status == 'failed':
                console.log(f"Es failed, error: {value.statuses[0].errors[0].title}" )
-               return mostrar_not_found(env, "Bah! Ocurrió un Error")
-            return mostrar_success(env, " Todo Salió Bien ")
+               wa_id        = request_json.entry[0].changes[0].value.contacts[0].wa_id
+               buy_order    = str( random.randint(1, 10000))
+               link_de_pago = f"{API_SERVER}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
+               reply        = (f"Por favor pague la visita siguiendo el link:\n"
+                              f"link_de_pago: {link_de_pago}\n\n")
+               return await send_reply(env, wa_id, reply)
 
     elif url.path.startswith('/fonos.json'):
         console.log("En fonos.json")
@@ -413,7 +417,7 @@ async def send_reply( env, wa_id, reply):
         return Response( reply, status="200")
 
 
-
+#Funciona para android > 5
 def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_ws):
   avisar = True
   CSS = "body { color: red; }"
@@ -897,6 +901,7 @@ def mostrar_success( env, mensaje):
   return Response(HTML, headers=headers)
 
 
+#Actuliza los fonos en la landing page
 def fonos( env):
    headers = {  'Access-Control-Allow-Origin'      :'*',
                 'Access-Control-Allow-Credentials' : True,
@@ -914,9 +919,5 @@ def fonos( env):
                          }
       }
    }
-
-
-   #jsonData = { message: 'Hello from the Worker!', status: 'success' }
-
    return Response.json(body_json, headers=headers, status='200' )
 

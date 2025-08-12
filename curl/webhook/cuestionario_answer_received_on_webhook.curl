@@ -8,7 +8,7 @@ phone_id=150477064807758
 #el cuestiona de visita se envía al usuario usando el template visita
 #Este curl envía esto a un endopoint que estoy creando que es un bot
 curl -X  POST \
- "https://cotorro.alectrico.workers.dev/webhook"\
+ "https://go.alectrico.cl/webhook"\
  -H "Authorization: Bearer $token_cotorro" \
  -H 'Content-Type: application/json' \
  --data @/dev/stdin<<EOF

@@ -175,10 +175,8 @@ async def on_fetch(request, env):
                wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                buy_order    = str( random.randint(1, 10000))
                link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
-               console.log(f"link_de_pago {link_de_pago}")
                msg        = (f"Por favor pague la visita siguiendo el link:\n"
                             f"link_de_pago: {link_de_pago}\n\n")
-               console.log(f"msg {msg}")
                return await send_msg(env, wa_id, msg)
 
     elif url.path.startswith('/fonos.json'):
@@ -410,7 +408,11 @@ async def send_msg( env, wa_id, msg):
                  "content-type": "application/json;charset=UTF-8"
                },
         }
-        return await fetch(uri, options)
+        response = await fetch(uri, to_js(options))
+        console.log(f"response {response}")
+        content_type, result = await gather_response(response)
+        console.log(f"result{result}")
+        return Response( msg, status="200")
 
 
 

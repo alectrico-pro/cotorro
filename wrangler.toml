@@ -44,7 +44,7 @@ WHATSAPP_BUSINESS_ACCOUNT_ID="107728605282500"
 PHONE_NUMBER_ID="150477064807758"
 
 
-AMOUNT=45000
+AMOUNT=100
 RETURN_URL="https://go.alectrico.cl/return_url"
 GO_TBK_URL="https://go.alectrico.cl/transbank"
 
@@ -75,7 +75,7 @@ PHONE_NUMBER_ID="150477064807758"
 
 
 
-AMOUNT=45000
+AMOUNT=100
 RETURN_URL="https://go.alectrico.cl/return_url"
 GO_TBK_URL="https://go.alectrico.cl/transbank"
 

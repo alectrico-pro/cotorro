@@ -152,8 +152,7 @@ async def on_fetch(request, env):
                body = value.messages[0].text.body
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
                await enviar_formulario( request, env, body, wa_id )
-
-               await send_msg(env, str(env.FONO_JEFE), f"{body}----{wa_id}" )
+               await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien escribió: {body}\n\n----{wa_id}" )
                return Response( "Procesado", status="200")
 
                
@@ -387,7 +386,9 @@ async def flow_reply_processor(request_json, env):
             "------------------------------ \n\n"
         )
         console.log(f"reply {reply}")
-        return await send_reply(env, wa_id, reply)
+        await send_reply(env, wa_id, reply)
+        console.log("Enviando reply al FONO_JEFE")
+        return await say_tomar(env, str(env.FONO_JEFE), reply )
 
 
 async def say_tomar( env, wa_id, msg):

@@ -986,11 +986,11 @@ def fonos( env):
    body_json = { "fonos" :
         { "colaborador": { "publico" : "colaborador",
                            "numero"  : str(env.PUBLICO_CLIENTE), 
-                           "html"    : str(env.PUBLICO_CLIENTE)
+                           "html"    : str(env.PUBLICO_CLIENTE_HTML)
                          },
               "cliente": { "publico" : "cliente",
                            "numero"  : str(env.PUBLICO_COLABORADOR),
-                           "html"    : str(env.PUBLICO_COLABORADOR)
+                           "html"    : str(env.PUBLICO_COLABORADOR_HTML)
                          }
       }
    }

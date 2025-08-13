@@ -400,7 +400,7 @@ async def say_tomar( env, wa_id, msg):
                 "type"                 :  "template",
                 "template"             : { "name" : "say_tomar", "language" : { "code" : "es" },
                     "components"           : [  { "type" :   "body",
-          "parameters" => [
+                        "parameters" : [
               { "type"             :   "text", "text" : "msg"     } ,
               { "type"             :   "text", "text" : msg     } ,
               { "type"             :   "text", "text" : "msg"     }

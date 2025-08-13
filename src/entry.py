@@ -109,6 +109,9 @@ async def on_fetch(request, env):
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
+    elif url.path == "/test":
+        return await send_msg(env, str(env.FONO_JEFE), f"test" )
+
 
     elif url.path == "/return_url" and 'token_ws' in params:
         token_ws = params['token_ws'][0]

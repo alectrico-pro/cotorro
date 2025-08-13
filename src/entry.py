@@ -402,7 +402,7 @@ async def say_tomar( env, wa_id, msg):
                     "components"           : [  { "type" :   "body",
           "parameters" => [
               { "type"             :   "text", "text" : "msg"     } ,
-              { "type"             :   "text", "text" : "{msg}"     } ,
+              { "type"             :   "text", "text" : msg     } ,
               { "type"             :   "text", "text" : "msg"     }
             ] } ] }}
 

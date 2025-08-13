@@ -186,9 +186,9 @@ async def on_fetch(request, env):
                return await send_msg(env, wa_id, msg)
             return Response( "ok", status="200")
 
-    #elif url.path.startswith('/fonos.json'):
-    #    console.log("En fonos.json")
-    #    return fonos(env)
+    elif url.path.startswith('/fonos.json'):
+        console.log("En fonos.json")
+        return fonos(env)
 
     else:     
       console.log("No se ha identificado")

@@ -110,7 +110,7 @@ async def on_fetch(request, env):
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
     elif url.path == "/test":
-        return await send_msg(env, str(env.FONO_JEFE), f"test" )
+        return await say_tomar(env, str(env.FONO_JEFE), f"test" )
 
 
     elif url.path == "/return_url" and 'token_ws' in params:
@@ -389,6 +389,43 @@ async def flow_reply_processor(request_json, env):
         return await send_reply(env, wa_id, reply)
 
 
+async def say_tomar( env, wa_id, msg):
+        console.log("En say_tomar")
+        console.log(f"wa_id {wa_id}")
+        console.log( f"msg  {msg}")
+
+        body = { "messaging_product" =>  "whatsapp",
+          "to"                   =>  wa_id,
+          "type"                 =>  "template",
+          "template"             => { "name" => "say_tomar", "language" => { "code" => "es" },
+          "components"           => [  { "type" =>   "body",
+          "parameters" => [
+            { "type"             =>   "text", "text" => "msg"     } ,
+            { "type"             =>   "text", "text" => "{msg}"     } ,
+            { "type"             =>   "text", "text" => "msg"     }
+            ] } ] }}
+
+        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {env.META_USER_TOKEN}"
+        }
+        options = {
+               "body": json.dumps(body),
+               "method": "POST",
+               "headers": {
+                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                 "content-type": "application/json;charset=UTF-8"
+               },
+        }
+        response = await fetch(uri, to_js(options))
+        console.log(f"response {response}")
+        content_type, result = await gather_response(response)
+        console.log(f"result {result}")
+        return Response( msg, status="200")
+
+
+
 async def send_msg( env, wa_id, msg):
         console.log( "En send_msg")
         console.log(f"wa_id {wa_id}")
@@ -418,7 +455,7 @@ async def send_msg( env, wa_id, msg):
         response = await fetch(uri, to_js(options))
         console.log(f"response {response}")
         content_type, result = await gather_response(response)
-        console.log(f"result{result}")
+        console.log(f"result {result}")
         return Response( msg, status="200")
 
 

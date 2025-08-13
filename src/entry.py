@@ -388,7 +388,7 @@ async def flow_reply_processor(request_json, env):
         console.log(f"reply {reply}")
         await send_reply(env, wa_id, reply)
         console.log("Enviando reply al FONO_JEFE")
-        return await say_tomar(env, str(env.FONO_JEFE), reply )
+        return await send_msg(env, str(env.FONO_JEFE), reply )
 
 
 async def say_tomar( env, wa_id, msg):

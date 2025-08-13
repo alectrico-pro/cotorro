@@ -395,15 +395,15 @@ async def say_tomar( env, wa_id, msg):
         console.log(f"wa_id {wa_id}")
         console.log( f"msg  {msg}")
 
-        body = { "messaging_product" =>  "whatsapp",
-          "to"                   =>  wa_id,
-          "type"                 =>  "template",
-          "template"             => { "name" => "say_tomar", "language" => { "code" => "es" },
-          "components"           => [  { "type" =>   "body",
+        body = { "messaging_product" :  "whatsapp",
+                "to"                   :  wa_id,
+                "type"                 :  "template",
+                "template"             : { "name" : "say_tomar", "language" : { "code" : "es" },
+                    "components"           : [  { "type" :   "body",
           "parameters" => [
-            { "type"             =>   "text", "text" => "msg"     } ,
-            { "type"             =>   "text", "text" => "{msg}"     } ,
-            { "type"             =>   "text", "text" => "msg"     }
+              { "type"             :   "text", "text" : "msg"     } ,
+              { "type"             :   "text", "text" : "{msg}"     } ,
+              { "type"             :   "text", "text" : "msg"     }
             ] } ] }}
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"

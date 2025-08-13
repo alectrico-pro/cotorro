@@ -109,8 +109,8 @@ async def on_fetch(request, env):
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
-    elif url.path == "/say_tomar":
-        return await say_tomar(env, str(env.FONO_JEFE), f"say_tomar" )
+    #elif url.path == "/say_tomar":
+    #   return await say_tomar(env, str(env.FONO_JEFE), f"say_tomar" )
 
 
     elif url.path == "/return_url" and 'token_ws' in params:
@@ -182,9 +182,9 @@ async def on_fetch(request, env):
                buy_order    = str( random.randint(1, 10000))
                link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
                #esto genera utro Message undeliverable
-               #msg        = (f"Por favor pague la visita siguiendo el link:\n"
-               #             f"link_de_pago: {link_de_pago}\n\n")
-               #return await send_msg(env, wa_id, msg)
+               msg        = (f"Por favor pague la visita siguiendo el link:\n"
+                            f"link_de_pago: {link_de_pago}\n\n")
+               return await send_msg(env, wa_id, msg)
             return Response( "ok", status="200")
 
     elif url.path.startswith('/fonos.json'):

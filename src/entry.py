@@ -100,7 +100,7 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
 
-    if url.path == '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user'
+    if url.path == '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user':
        return await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien llegó a verifica_user" )
 
 

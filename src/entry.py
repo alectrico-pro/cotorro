@@ -1125,10 +1125,7 @@ def agendar( env, mensaje):
                 <input type="text" readonly="" class="form-control input" id="longitude" name="longitude" data-form-field="longitude" placeholder="Longitud" required="" value=''>
               </div>
               <div class="col-md-4" data-for="amount">
-                <input type="text" readonly="" hidden="" value = ${amount} class="form-control input" id="amount" name="amount" data-form-field="amount" placeholder="Monto a Pagar" required="">
-              </div>
-              <div class="col-md-4" data-for="avisar">
-                <input type="text" readonly="" hidden="" value = ${avisar} class="form-control input" id="avisar" name="avisar" data-form-field="avisar" placeholder="Avisar/No Avisar" required="">
+                <input type="text" readonly="" hidden="" value = {env.AMOUNT} class="form-control input" id="amount" name="amount" data-form-field="amount" placeholder="Monto a Pagar" required="">
               </div>
 
               <div class="input-group-btn col-md-12" style="margin-top: 10px;"><button href="" type="submit" class="btn btn-primary btn-form display-4">Agendar</button>

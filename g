@@ -1,0 +1,11 @@
+denuevo
+# Por favor ingresa el mensaje del commit para tus cambios. Las
+#  líneas que comiencen con '#' serán ignoradas, y un mensaje
+#  vacío aborta el commit.
+#
+# En la rama master
+# Tu rama está actualizada con 'origin/master'.
+#
+# Cambios a ser confirmados:
+#	modificados:     entry.py
+#

@@ -101,12 +101,13 @@ async def on_fetch(request, env):
     console.log(f"Handling request {url.path} with params {params}")
 
     if url.path == '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user':
-       return await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien llegó a verifica_user" )
-
+        await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien llegó a verifica_user" )
+        return agendar(env, '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user')
 
 
     if url.path == '/':
-        return await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien llegó a /" )
+        await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien llegó a /" )
+        return agendar(env, '/')
 
 
     if url.path == '/agendar':
@@ -114,8 +115,8 @@ async def on_fetch(request, env):
         #buy_order  = params['buy_order'][0]
         #amount     = params['amount'][0]
         #session_id = params['session_id'][0]
-        return await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien escribió: agendar\n\n----" )
-
+        await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien escribió: agendar\n\n----" )
+        return agendar(env, '/agendar')
 
 
     elif url.path.startswith("/transbank") and method == 'GET':

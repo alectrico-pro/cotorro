@@ -107,7 +107,7 @@ async def on_fetch(request, env):
 
     if url.path == '/':
         await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien llegó a /" )
-        return agendar(env, '/')
+        return agendar(env, 'Ingrese los datos para Agendar una Vista a Domicilio')
 
 
     if url.path == '/agendar':
@@ -1067,7 +1067,7 @@ def agendar( env, mensaje):
 
   <section class='mbr-section form4 cid-qAUteatZnl' id='form4-8e' style='border-top-style: solid;border-top-width: 0px;right: -;margin-bottom: 100px;margin-top: 100px;' >
     <div class='container'>
-      <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>{mensaje} </em></strong><br><strong><em>-  Genial!  -</em></strong></h1>
+      <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>{mensaje} </em></strong><br><strong><em></em></strong></h1>
       <div class='row'>
         <div data-form-type="formoid">
           <form class="block mbr-form" action="https://www.alectrico.cl/agendar" method="get" data-form-title="Agendar Form">

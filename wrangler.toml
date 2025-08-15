@@ -10,14 +10,20 @@ enabled = true
 directory='./public/assets'
 binding='ASSETS'
 
+[limits]
+cpu_ms = 100
+
+routes = [
+  { pattern = "www.alectrico.cl", custom_domain = true },
+]
 
 [vars]
 GREETING = "Hi desde Python"
 SOY_WEBHOOK= "Hola, soy endpoint /webhook"
-API_URL = "https://go.alectrico.cl" 
+API_URL = "https://www.alectrico.cl" 
 VERIFY_TOKEN = "1"
 #Webpay
-GO_TBK_URL="https://go.alectrico.cl/transbank"
+GO_TBK_URL="https://www.alectrico.cl/transbank"
 LOGUITO_PATH='icon-cable-green.png'
 
 META_USER_TOKEN="EAAN6V6gyZCSMBPClhLAnayqa8vBkDLXrCQYqCkH5iA3ZCWy42eeH97ZAcwYqvcZB6e2KEfbqaXZBcyS4CP0hJz7RTVwAyc7BFaZA9sXelj0AjMi1nwARvsZAjr6NnHZAJHPnKkDhP5iSk61pIZCh6aoZBCZBlqPTCZBjua1QnEYcNlqFSZAeyHixKYPUffcjSmmmoZCaVH"
@@ -35,7 +41,7 @@ PUBLICO_COLABORADOR_HTML="932-000-849"
 
 PUBLICO_CLIENTE=56932000849
 PUBLICO_COLABORADOR=56932000849
-API_URL = "https://go.alectrico.cl"
+API_URL = "https://www.alectrico.cl"
 ASSETS_SERVER_URL="https://alectrica.github.io/pay/assets"
 TLD="alectrico"
 MISION="Misión: Ayudar a progeter la vida y la propiedad"
@@ -47,8 +53,8 @@ PHONE_NUMBER_ID="150477064807758"
 
 
 AMOUNT=68000
-RETURN_URL="https://go.alectrico.cl/return_url"
-GO_TBK_URL="https://go.alectrico.cl/transbank"
+RETURN_URL="https://www.alectrico.cl/return_url"
+GO_TBK_URL="https://www.alectrico.cl/transbank"
 
 
 WEBPAY_API_KEY="597036225750"
@@ -67,7 +73,7 @@ PUBLICO_CLIENTE_HTML="932-000-849"
 PUBLICO_COLABORADOR_HTML="932-000-849"
 PUBLICO_COLABORADOR=56932000849
 
-API_URL = "https://go.alectrico.cl"
+API_URL = "https://www.alectrico.cl"
 ASSETS_SERVER_URL="https://alectrica.github.io/pay/assets"
 TLD="alectrico"
 MISION="Misión: Ayudar a progeter la vida y la propiedad"
@@ -80,8 +86,8 @@ PHONE_NUMBER_ID="150477064807758"
 
 
 AMOUNT=68000
-RETURN_URL="https://go.alectrico.cl/return_url"
-GO_TBK_URL="https://go.alectrico.cl/transbank"
+RETURN_URL="https://www.alectrico.cl/return_url"
+GO_TBK_URL="https://www.alectrico.cl/transbank"
 
 WEBPAY_API_KEY="597055555532"
 WEBPAY_SHARED_SECRET="579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C"

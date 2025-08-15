@@ -1051,6 +1051,20 @@ def agendar( env, mensaje):
     </nav>
   </section>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <section class='header1 cid-sewsPSgeos mbr-parallax-background' id='header1-1'>
     <div class='container-fluid'>
         <div class='row justify-content-center'>
@@ -1074,9 +1088,58 @@ def agendar( env, mensaje):
         </div>
       </div>
     </div>
-  </section>
 
+        <div data-form-type="formoid">
+          <form class="block mbr-form" action="https://pago_repair.alectrico.workers.dev/agendar" method="get" data-form-title="Agendar Form">
+            <div class="row">
+              <div class="col-md-6 multi-horizontal" data-for="nombre">
+                <input type="text" class="form-control input" name="nombre" data-form-field="Name" placeholder="Su nombre" required="" id="name-form4-8e">
+              </div>
+              <div class="col-md-6 multi-horizontal" data-for="fono">
+                <input type="text" class="form-control input" name="fono" data-form-field="Fono" placeholder="Fono" required="" id="phone-form4-8e">
+              </div>
+              <div class="col-md-8" data-for="email">
+                <input type="email" class="form-control input" name="email" data-form-field="Email" placeholder="Email" required="" id="email-form4-8e">
+              </div>
+              <div class="col-md-4" data-for="comuna">
+                <input type="text" class="form-control input" name="comuna" data-form-field="Comuna" placeholder="Comuna" required="" id="comuna-form4-8e" value='Providencia'>
+              </div>
+              <div class="col-md-12" data-for="descripcion">
+                <textarea class="form-control input" name="descripcion" rows="3" data-form-field="Descripcion" placeholder="Describa su problema" style="resize:none" required="" id="message-form4-8e"></textarea>
+              </div>
+              <div class="container">
+                <iframe frameborder="0" style="border:0;width:525; height:400" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCx3d07zxHPLvkFBLlAR3Ng8a9wsAsGoJ8&amp;q=place_id:ChIJ92aDbnzPYpYRfI1HCsD874c" allowfullscreen="">
+                </iframe>
+              </div>
+              <div class="col-md-12" data-for="direccion">
+                <textarea class="form-control input" name="direccion" rows="3" data-form-field="Direccion" placeholder="Escriba la dirección del lugar en Providencia, donde se requiere un eléctrico" required="" style="resize:none" id="message-form4-8f"></textarea>
+              </div>
+              <div  onclick="getLocation()"  class="input-group-btn col-md-4" style="margin-top: 1px;">
+               <button href="" type="button" class="btn btn-secondary btn-form display-4">Enviar mi ubicación:</button>
+              </div>
 
+              <div class="col-md-4" data-for="latitude">
+                <input type="text" readonly="" class="form-control input" id="latitude" name="latitude" data-form-field="latitude" placeholder="Latitud" required="" value=''>
+              </div>
+              <div class="col-md-4" data-for="longitude">
+                <input type="text" readonly="" class="form-control input" id="longitude" name="longitude" data-form-field="longitude" placeholder="Longitud" required="" value=''>
+              </div>
+              <div class="col-md-4" data-for="amount">
+                <input type="text" readonly="" hidden="" value = ${amount} class="form-control input" id="amount" name="amount" data-form-field="amount" placeholder="Monto a Pagar" required="">
+              </div>
+              <div class="col-md-4" data-for="avisar">
+                <input type="text" readonly="" hidden="" value = ${avisar} class="form-control input" id="avisar" name="avisar" data-form-field="avisar" placeholder="Avisar/No Avisar" required="">
+              </div>
+
+              <div class="input-group-btn col-md-12" style="margin-top: 10px;"><button href="" type="submit" class="btn btn-primary btn-form display-4">Agendar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 <section class='barter1 cid-sezOMgUKyB' once='barters' data-bg-video={env.VIDEO_URL} id='barter1-f'>

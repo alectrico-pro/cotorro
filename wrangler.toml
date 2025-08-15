@@ -10,8 +10,6 @@ enabled = true
 directory='./public/assets'
 binding='ASSETS'
 
-[limits]
-cpu_ms = 100
 
 routes = [
   { pattern = "www.alectrico.cl", custom_domain = true },

@@ -102,7 +102,6 @@ async def on_fetch(request, env):
 
     if url.path == '/':
         await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien llegó a /" )
-        return agendar(env, 'preparando')
 
 
     if url.path == '/agendar':

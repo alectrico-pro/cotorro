@@ -1051,20 +1051,6 @@ def agendar( env, mensaje):
     </nav>
   </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <section class='header1 cid-sewsPSgeos mbr-parallax-background' id='header1-1'>
     <div class='container-fluid'>
         <div class='row justify-content-center'>
@@ -1079,14 +1065,14 @@ def agendar( env, mensaje):
     </div>
   </section>
 
-  <section class='mbr-section form4 cid-qAUteatZnl' id='form4-8e' style='border-top-style: solid;border-top-width: 0px;right: -;margin-bottom: 100px;margin-top: 50px;' >
+  <section class='mbr-section form4 cid-qAUteatZnl' id='form4-8e' style='border-top-style: solid;border-top-width: 0px;right: -;margin-bottom: 100px;margin-top: 100px;' >
     <div class='container'>
       <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>{mensaje} </em></strong><br><strong><em>-  Genial!  -</em></strong></h1>
       <div class='row'>
         <div class='offset-3'>
 
         <div data-form-type="formoid">
-          <form class="block mbr-form" action="https://www.alectrico.workers.dev/agendar" method="get" data-form-title="Agendar Form">
+          <form class="block mbr-form" action="https://www.alectrico.cl/agendar" method="get" data-form-title="Agendar Form">
             <div class="row">
               <div class="col-md-6 multi-horizontal" data-for="nombre">
                 <input type="text" class="form-control input" name="nombre" data-form-field="Name" placeholder="Su nombre" required="" id="name-form4-8e">

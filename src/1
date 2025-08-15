@@ -101,20 +101,10 @@ async def on_fetch(request, env):
     console.log(f"Handling request {url.path} with params {params}")
 
     if url.path == '/':
-        await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien llegó a /" )
-        return agendar(env, 'preparando')
+        return agendar(env, 'pelota')
 
 
-    if url.path == '/agendar':
-        console.log(f"Params en /agendar {params}")
-        #buy_order  = params['buy_order'][0]
-        #amount     = params['amount'][0]
-        #session_id = params['session_id'][0]
-        await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien escribió: agendar\n\n----" )
-
-
-
-    elif url.path.startswith("/transbank") and method == 'GET':
+    if url.path.startswith("/transbank") and method == 'GET':
         console.log(f"Params en /transbank {params}")
         buy_order  = params['buy_order'][0]
         amount     = params['amount'][0]
@@ -185,7 +175,6 @@ async def on_fetch(request, env):
             return Response( "no procesado", status="200")
 
 
-
         elif hasattr(value, 'statuses') == True :
             console.log("Es un statuses")
             status = value.statuses[0].status
@@ -200,8 +189,6 @@ async def on_fetch(request, env):
                             f"link_de_pago: {link_de_pago}\n\n")
                return await send_msg(env, wa_id, msg)
             return Response( "ok", status="200")
-
-
 
     elif url.path.startswith('/fonos.json'):
         console.log("En fonos.json")
@@ -1070,9 +1057,6 @@ def agendar( env, mensaje):
       </div>
     </div>
   </section>
-
-
-
 
 <section class='barter1 cid-sezOMgUKyB' once='barters' data-bg-video={env.VIDEO_URL} id='barter1-f'>
   <div class='mbr-overlay' style='opacity: 0.6; background-color: rgb(35, 35, 35);'></div>

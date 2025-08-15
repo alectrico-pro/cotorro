@@ -1084,13 +1084,9 @@ def agendar( env, mensaje):
       <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>{mensaje} </em></strong><br><strong><em>-  Genial!  -</em></strong></h1>
       <div class='row'>
         <div class='offset-3'>
-           <img src="icon/success.png" width="150" height="150" alt="success">
-        </div>
-      </div>
-    </div>
 
         <div data-form-type="formoid">
-          <form class="block mbr-form" action="https://pago_repair.alectrico.workers.dev/agendar" method="get" data-form-title="Agendar Form">
+          <form class="block mbr-form" action="https://www.alectrico.workers.dev/agendar" method="get" data-form-title="Agendar Form">
             <div class="row">
               <div class="col-md-6 multi-horizontal" data-for="nombre">
                 <input type="text" class="form-control input" name="nombre" data-form-field="Name" placeholder="Su nombre" required="" id="name-form4-8e">

@@ -100,11 +100,11 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
 
-    if url.path == '/':
+    if url.path == '/agendar':
         return agendar(env, 'pelota')
 
 
-    if url.path.startswith("/transbank") and method == 'GET':
+    elif url.path.startswith("/transbank") and method == 'GET':
         console.log(f"Params en /transbank {params}")
         buy_order  = params['buy_order'][0]
         amount     = params['amount'][0]

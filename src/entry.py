@@ -127,7 +127,7 @@ async def on_fetch(request, env):
 
         #await send_reply( env, fono, reply)
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
-        await send_msg(env, str(env.FONO_JEFE), "reply" )
+        await send_msg(env, str(env.FONO_JEFE), reply )
 
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 

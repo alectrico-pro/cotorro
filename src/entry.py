@@ -1069,7 +1069,23 @@ def agendar( env, mensaje):
     <div class='container'>
       <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>{mensaje} </em></strong><br><strong><em></em></strong></h1>
       <div class='row'>
+
+<div class='offset-md-3 col-md-6'>
+          <h2 class='pb-3 align-left mbr-fonts-style display-2'>Visita de Electricista a Domicilio</h2>
+          <div>
+            <div class='icon-block pb-3'>
+              <span class='icon-block__icon'>
+              <span class='mbri-letter mbr-iconfont'></span>
+              </span>
+              <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
+              <div class='col-md-4' data-for='amount'>
+                <input type='text' readonly='' value = {env.AMOUNT} class='form-control input' id='amount' name='amount' data-form-field='amount' placeholder='Monto a Pagar' required=''>
+              </div>
+            </div>
+        </div>
+
         <div data-form-type="formoid">
+
           <form class="block mbr-form" action="https://www.alectrico.cl/agendar" method="get" data-form-title="Agendar Form">
             <div class="row">
               <div class="col-md-6 multi-horizontal" data-for="nombre">

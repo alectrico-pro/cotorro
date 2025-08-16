@@ -120,7 +120,7 @@ async def on_fetch(request, env):
         descripcion = params['descripcion'][0]
         amount      = params['amount'][0]
 
-        await enviar_template_say_visita_flow_reserva(request, env, wa_id )
+        await enviar_template_say_visita_flow_reserva(request, env, fono )
 
         #funciona
         #return await say_tomar(env, str(fono), f"say_tomar" )

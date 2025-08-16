@@ -116,7 +116,7 @@ async def on_fetch(request, env):
         amount      = params['amount'][0]
         fono        = params['fono'][0]
         descripcion = params['descripcion'][0]
-        amount      = params['amount'][0])
+        amount      = params['amount'][0]
 
         reply   = (
                     f"*buy_order*    { buy_order}     \n"

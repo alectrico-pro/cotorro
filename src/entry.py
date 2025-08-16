@@ -1105,8 +1105,10 @@ def agendar( env, mensaje):
             </div>
         </div>
 
-
         <div class='mbr-section-btn mt-3'><a class='btn btn-primary display-4' href='https://wa.me/56945644889'>
+           <span class='socicon socicon-whatsapp mbr-iconfont mbr-iconfont-btn'></span></a> 
+        </div>
+
 
         <div data-form-type="formoid">
 

@@ -1105,9 +1105,6 @@ def agendar( env, mensaje):
             </div>
         </div>
 
-
-        <div class='mbr-section-btn mt-3'><a class='btn btn-primary display-4' href='https://wa.me/56945644889'>
-
         <div data-form-type="formoid">
 
           <form class="block mbr-form" action="https://www.alectrico.cl/agendar" method="get" data-form-title="Agendar Form">
@@ -1135,7 +1132,7 @@ def agendar( env, mensaje):
                 <textarea class="form-control input" name="direccion" rows="3" data-form-field="Direccion" placeholder="Escriba la dirección del lugar en Providencia, donde se requiere un eléctrico" required="" style="resize:none" id="message-form4-8f"></textarea>
               </div>
               <div  onclick="getLocation()"  class="input-group-btn col-md-4" style="margin-top: 1px;">
-               <button href="" type="button" class="btn btn-secondary btn-form display-4">Agregar mi ubicación:</button>
+               <button href="" type="button" class="btn btn-secondary btn-form display-4">Enviar mi ubicación:</button>
               </div>
 
               <div class="col-md-4" data-for="latitude">

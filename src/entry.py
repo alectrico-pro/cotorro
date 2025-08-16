@@ -1132,7 +1132,7 @@ def agendar( env, mensaje):
                 <textarea class="form-control input" name="direccion" rows="3" data-form-field="Direccion" placeholder="Escriba la dirección del lugar en Providencia, donde se requiere un eléctrico" required="" style="resize:none" id="message-form4-8f"></textarea>
               </div>
               <div  onclick="getLocation()"  class="input-group-btn col-md-4" style="margin-top: 1px;">
-               <button href="" type="button" class="btn btn-secondary btn-form display-4">Enviar mi ubicación:</button>
+               <button href="" type="button" class="btn btn-secondary btn-form display-4">Agregar mi ubicación:</button>
               </div>
 
               <div class="col-md-4" data-for="latitude">

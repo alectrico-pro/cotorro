@@ -108,6 +108,8 @@ async def on_fetch(request, env):
     if url.path == '/':
         return agendar(env, 'Ingrese los datos para Agendar una Vista a Domicilio')
 
+
+
        #agendar?nombre=oipoi+upoi&fono=987654321&email=hjhkjh%40lkjlkj.ll&comuna=Providencia&descripcion=lkñ+jñlkj&direccion=o+ṕoiṕoiṕo&latitude=&longitude=&amount=68000
     if url.path == '/agendar':
         console.log(f"Params en /agendar {params}")
@@ -117,6 +119,9 @@ async def on_fetch(request, env):
         fono        = params['fono'][0]
         descripcion = params['descripcion'][0]
         amount      = params['amount'][0]
+
+        return await say_tomar(env, str(fono), f"say_tomar" )
+
 
         reply   = (
                     f"*buy_order*    { buy_order}     \n"
@@ -128,7 +133,6 @@ async def on_fetch(request, env):
         await send_reply( env, fono, reply)
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
         await send_msg(env, str(env.FONO_JEFE), reply )
-
 
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 

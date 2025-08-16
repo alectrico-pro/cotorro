@@ -114,7 +114,7 @@ async def on_fetch(request, env):
         buy_order   = str( random.randint(1, 10000))
         session_id  = buy_order
         #buy_order  = params['buy_order'][0]
-        #amount     = params['amount'][0]
+        amount     = params['amount'][0]
         #session_id = params['session_id'][0]
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)

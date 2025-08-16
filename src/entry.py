@@ -54,8 +54,8 @@ async def gather_response(response):
 
 #importatnte, envia un formulario
 #Text hay que incorporarlo WIP
-async def enviar_formulario( request, env, text, fono):
-        console.log("En enviar_formulario template say_vista -> flow reserva")
+async def enviar_template_say_visita_flow_reserva( request, env, text, fono):
+        console.log("En enviar_template say_visita -> flow reserva")
         imagen_url = f"{env.API_URL}/{env.LOGUITO_PATH}"
         uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
@@ -120,7 +120,10 @@ async def on_fetch(request, env):
         descripcion = params['descripcion'][0]
         amount      = params['amount'][0]
 
-        return await say_tomar(env, str(fono), f"say_tomar" )
+        await enviar_template_say_visita_flow_reserva(request, env, body, wa_id )
+
+        #funciona
+        #return await say_tomar(env, str(fono), f"say_tomar" )
 
 
         reply   = (
@@ -130,11 +133,11 @@ async def on_fetch(request, env):
                     f"*descripcion*  { descripcion } \n"
                   )
 
-        await send_reply( env, fono, reply)
-        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
-        await send_msg(env, str(env.FONO_JEFE), reply )
+        #wait send_reply( env, fono, reply)
+        #token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
+        #wait send_msg(env, str(env.FONO_JEFE), reply )
 
-        return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
+        #return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 
     elif url.path.startswith("/transbank") and method == 'GET':
@@ -188,7 +191,7 @@ async def on_fetch(request, env):
                console.log(f"body {value.messages[0].text.body}")
                body = value.messages[0].text.body
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               await enviar_formulario( request, env, body, wa_id )
+               await enviar_template_say_visita_flow_reserva( request, env, body, wa_id )
                await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien escribió: {body}\n\n----{wa_id}" )
                return Response( "Procesado", status="200")
 

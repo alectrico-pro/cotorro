@@ -113,12 +113,17 @@ async def on_fetch(request, env):
         console.log(f"Params en /agendar {params}")
         buy_order   = str( random.randint(1, 10000))
         session_id  = buy_order
-        #buy_order  = params['buy_order'][0]
-        amount     = params['amount'][0]
-        #session_id = params['session_id'][0]
+        amount      = params['amount'][0]
+        fono        = params['fono'][0]
+        reply   = (
+                    f"*buy_order*    {buy_order}     \n"
+                    f"*amount*       {amount}        \n"
+                    f"*fono*         { fono     }    \n"
+                    f"*descripcion*  { descripcion } \n"
+                  )
+        await send_reply( env, fono, reply)
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
-        #return agendar(env, '/agendar')
 
 
     elif url.path.startswith("/transbank") and method == 'GET':

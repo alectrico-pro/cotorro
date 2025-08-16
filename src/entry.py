@@ -108,13 +108,17 @@ async def on_fetch(request, env):
     if url.path == '/':
         return agendar(env, 'Ingrese los datos para Agendar una Vista a Domicilio')
 
-
+       #agendar?nombre=oipoi+upoi&fono=987654321&email=hjhkjh%40lkjlkj.ll&comuna=Providencia&descripcion=lkñ+jñlkj&direccion=o+ṕoiṕoiṕo&latitude=&longitude=&amount=68000
     if url.path == '/agendar':
         console.log(f"Params en /agendar {params}")
+        buy_order   = str( random.randint(1, 10000))
+        session_id  = buy_order
         #buy_order  = params['buy_order'][0]
         #amount     = params['amount'][0]
         #session_id = params['session_id'][0]
-        return agendar(env, '/agendar')
+        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
+        return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
+        #return agendar(env, '/agendar')
 
 
     elif url.path.startswith("/transbank") and method == 'GET':

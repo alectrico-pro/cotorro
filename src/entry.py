@@ -115,6 +115,7 @@ async def on_fetch(request, env):
         session_id  = buy_order
         amount      = params['amount'][0]
         fono        = params['fono'][0]
+        descripcion = params['descripcion'][0]
         reply   = (
                     f"*buy_order*    {buy_order}     \n"
                     f"*amount*       {amount}        \n"

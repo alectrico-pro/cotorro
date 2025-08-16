@@ -101,7 +101,7 @@ async def on_fetch(request, env):
     console.log(f"Handling request {url.path} with params {params}")
 
     if url.path == '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user':
-        await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien llegó a verifica_user" )
+        await say_jefe(env, f"Hola Jefe, alguien llegó a verifica_user" )
         return agendar(env, '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user')
 
 
@@ -192,7 +192,7 @@ async def on_fetch(request, env):
                body = value.messages[0].text.body
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
                await enviar_template_say_visita_flow_reserva( request, env, wa_id )
-               await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien escribió: {body}\n\n----{wa_id}" )
+               await say_jefe(env, f"Hola Jefe, alguien escribió: {body}\n\n----{wa_id}" )
                return Response( "Procesado", status="200")
 
                
@@ -279,7 +279,7 @@ async def tbk_commit( token_ws, env):
    response_json = await response.json()
    console.log(f"response_json {response_json}")
    await send_voucher( response_json, response_json.session_id, env)
-   return await send_msg(env, str(env.FONO_JEFE), f"Pagado {response_json.buy_order}----{response_json.session_id}" )
+   return await say_jefe(env, f"Pagado {response_json.buy_order}----{response_json.session_id}" )
    #respondo ok sin esperar al resultado de send_voucher
    return Response('ok', status="200")
    
@@ -432,6 +432,10 @@ async def flow_reply_processor(request_json, env):
         await send_reply(env, wa_id, reply)
         console.log("Enviando reply al FONO_JEFE")
         return await send_msg(env, str(env.FONO_JEFE), reply )
+
+
+async def say_jefe(env, msg)
+        return await say_tomar( env, str(env.FONO_JEFE, msg)
 
 
 async def say_tomar( env, wa_id, msg):

@@ -432,7 +432,7 @@ async def flow_reply_processor(request_json, env):
         return await send_msg(env, str(env.FONO_JEFE), reply )
 
 
-async def say_jefe(env, msg)
+async def say_jefe(env, msg):
         return await say_tomar( env, str(env.FONO_JEFE, msg)
 
 

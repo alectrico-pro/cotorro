@@ -106,7 +106,6 @@ async def on_fetch(request, env):
 
 
     if url.path == '/':
-        await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien llegó a /" )
         return agendar(env, 'Ingrese los datos para Agendar una Vista a Domicilio')
 
 
@@ -115,7 +114,6 @@ async def on_fetch(request, env):
         #buy_order  = params['buy_order'][0]
         #amount     = params['amount'][0]
         #session_id = params['session_id'][0]
-        await send_msg(env, str(env.FONO_JEFE), f"Hola Jefe, alguien escribió: agendar\n\n----" )
         return agendar(env, '/agendar')
 
 

@@ -1107,7 +1107,7 @@ def agendar( env, mensaje):
 
         <div class='mbr-section-btn mt-3'><a class='btn btn-primary display-4' href='https://wa.me/56945644889'>
            <span class='socicon socicon-whatsapp mbr-iconfont mbr-iconfont-btn'></span></a> 
-           <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>Continuar en Whatsapp</em></strong><br><strong><em>- Android versión 6 o más reciente -</em></strong></h1>
+           <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>Continuar en Whatsapp</em></strong><br><strong><em>- Requiere Android versión 6 o más reciente -</em></strong></h1>
 
 
         <div data-form-type="formoid">

@@ -121,7 +121,7 @@ async def on_fetch(request, env):
         amount      = params['amount'][0]
 
         await enviar_template_say_visita_flow_reserva(request, env, fono )
-        return await say_jefe( env, f"en agendar {fono} {descripcion}")
+        await say_jefe( env, f"en agendar {fono} {descripcion}")
 
 
         reply   = (

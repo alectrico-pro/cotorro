@@ -131,11 +131,9 @@ async def on_fetch(request, env):
                     f"*descripcion*  { descripcion } \n"
                   )
 
-        #wait send_reply( env, fono, reply)
-        #token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
-        #wait send_msg(env, str(env.FONO_JEFE), reply )
-
-        #return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
+        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
+        wait say_jefe(env, reply )
+        return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 
     elif url.path.startswith("/transbank") and method == 'GET':

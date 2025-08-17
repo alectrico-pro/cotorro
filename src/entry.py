@@ -132,7 +132,7 @@ async def on_fetch(request, env):
                   )
 
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
-        wait say_jefe(env, reply )
+        await say_jefe(env, reply )
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 

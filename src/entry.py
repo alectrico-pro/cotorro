@@ -190,7 +190,7 @@ async def on_fetch(request, env):
                body = value.messages[0].text.body
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
                await enviar_template_say_visita_flow_reserva( request, env, wa_id )
-               await say_jefe(env, f"Hola Jefe, alguien escribió: {body}\n\n----{wa_id}" )
+               await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
                return Response( "Procesado", status="200")
 
                

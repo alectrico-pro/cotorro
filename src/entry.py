@@ -106,7 +106,7 @@ async def on_fetch(request, env):
 
 
     if url.path == '/':
-        return agendar(env, 'Ingrese los datos para Agendar una Vista a Domicilio')
+        return agendar(env, 'Ingrese los datos para Agendar una Visita a Domicilio')
 
 
 

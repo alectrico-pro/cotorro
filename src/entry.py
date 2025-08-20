@@ -100,6 +100,11 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
 
+    if url.path == '/create_from_landing'
+        await say_jefe(env, f"Hola Jefe, alguien llegó a create_from_landing" )
+        return Response('ok', status="200")
+
+
     if url.path == '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user':
         await say_jefe(env, f"Hola Jefe, alguien llegó a verifica_user" )
         return agendar(env, '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user')

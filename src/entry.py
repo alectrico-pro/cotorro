@@ -114,10 +114,10 @@ async def on_fetch(request, env):
         params      = parse_qs( texto )
 
         email       = params['email'][1]
-        fono        = params['phone'][0]
-        descripcion = params['message'][0]
+        fono        = params['phone'][1]
+        descripcion = params['message'][1]
 
-        await say_jefe( env, f"en create_from_landing_page {email}")
+        await say_jefe( env, f"en create_from_landing_page {email} {fono} {descripcion}")
         reply   = (
                     f"*buy_order*    { buy_order}     \n"
                     f"*amount*       { amount}        \n"

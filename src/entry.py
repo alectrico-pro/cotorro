@@ -100,9 +100,25 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
 
-    if url.path == '/create_from_landing_page':
-        await say_jefe(env, f"Hola Jefe, alguien llegó a create_from_landing" )
-        return Response('ok', status="200")
+    if url.path == '/create_from_landing_page' and method== 'POST':
+        console.log(f"Params en /create_from_landing_page {params}")
+
+        buy_order   = str( random.randint(1, 10000))
+        amount      = env.AMOUNT
+        fono        = params['phone'][0]
+        descripcion = params['message'][0]
+
+        await say_jefe( env, f"en agendar {fono} {descripcion}")
+        reply   = (
+                    f"*buy_order*    { buy_order}     \n"
+                    f"*amount*       { amount}        \n"
+                    f"*fono*         { fono     }    \n"
+                    f"*descripcion*  { descripcion } \n"
+                  )
+        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
+        await say_jefe(env, reply )
+        return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
+
 
 
     if url.path == '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user':

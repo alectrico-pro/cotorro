@@ -108,14 +108,16 @@ async def on_fetch(request, env):
 
 
         buy_order   = str( random.randint(1, 10000))
+
+        session_id  = buy_order
         amount      = env.AMOUNT
         params      = parse_qs( texto )
 
-        #email       = params['email'][1]
+        email       = params['email'][1]
         fono        = params['phone'][0]
         descripcion = params['message'][0]
 
-        await say_jefe( env, f"en create_from_landing_page {fono}")
+        await say_jefe( env, f"en create_from_landing_page {email}")
         reply   = (
                     f"*buy_order*    { buy_order}     \n"
                     f"*amount*       { amount}        \n"

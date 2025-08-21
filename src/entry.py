@@ -105,6 +105,7 @@ async def on_fetch(request, env):
 
         buy_order   = str( random.randint(1, 10000))
         amount      = env.AMOUNT
+        email       = params['email'][1]
         fono        = params['phone'][0]
         descripcion = params['message'][0]
 

@@ -117,7 +117,7 @@ async def on_fetch(request, env):
         #fono        = params['phone'][1]
         #descripcion = params['message'][1]
 
-        await say_jefe( env, f"en create_from_landing_page Name {texto['data']}")
+        await say_jefe( env, f"en create_from_landing_page Name {texto[0]}")
         reply   = (
                     f"*buy_order*    { buy_order}     \n"
                     f"*amount*       { amount}        \n"

@@ -106,15 +106,16 @@ async def on_fetch(request, env):
         texto = await request.text()
         console.log( f"request {texto}")
 
-        await say_jefe( env, f"en create_from_landing_page {texto}")
 
         buy_order   = str( random.randint(1, 10000))
         amount      = env.AMOUNT
+        params      = parse_qs( texto )
+
         #email       = params['email'][1]
         fono        = params['phone'][0]
         descripcion = params['message'][0]
 
-        await say_jefe( env, f"en agendar {fono} {request_json}")
+        await say_jefe( env, f"en create_from_landing_page {fono}")
         reply   = (
                     f"*buy_order*    { buy_order}     \n"
                     f"*amount*       { amount}        \n"

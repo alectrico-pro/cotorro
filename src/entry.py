@@ -103,7 +103,6 @@ async def on_fetch(request, env):
     if url.path == '/create_from_landing_page' and method== 'POST':
         console.log(f"Params en /create_from_landing_page {params}")
 
-        request = await request
         console.log( f"request {request}")
 
         await say_jefe( env, f"en create_from_landing_page {fono} {request}")

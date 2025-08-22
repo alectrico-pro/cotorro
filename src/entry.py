@@ -121,17 +121,18 @@ async def on_fetch(request, env):
         direccion    = params['data[5][]'][1]
         landing_page = params['data[6][]'][1]
 
-        await say_jefe( env, f"en create_from_landing_page params {params}")
 
         reply   = (
-                    f"*buy_order*    { buy_order}     \n"
-                    f"*amount*       { amount}        \n"
-                    f"*fono*         { fono     }    \n"
-                    f"*descripcion*  { descripcion } \n"
+                    f"*buy_order*\t{ buy_order}\n"
+                    f"*amount*\t{ amount}\n"
+                    f"*fono*\t\t{ fono }\n"
+                    f"*descripcion*\t { descripcion } \n"
                   )
+
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
         await say_jefe(env, reply )
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
+
 
     elif url.path == "/favicon.ico":
           return Response("")

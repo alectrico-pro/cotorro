@@ -468,7 +468,7 @@ async def say_jefe(env, descripcion):
         return await say_tomar( env, str(env.FONO_JEFE), 'ALEC', descripcion, 'PROVIDENCIA')
 
 
-async def say_tomar( env, wa_id, colaborador, descripcion, comuna ):
+async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
         console.log("En say_tomar")
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")

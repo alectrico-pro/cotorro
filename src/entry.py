@@ -467,14 +467,14 @@ async def flow_reply_processor(request_json, env):
         return await send_msg(env, str(env.FONO_JEFE), reply )
 
 
-async def say_jefe(env, msg):
-        return await say_tomar( env, str(env.FONO_JEFE), msg)
+async def say_jefe(env, descripcion):
+        return await say_tomar( env, str(env.FONO_JEFE), 'ALEC', descripcion, 'PROVIDENCIA')
 
 
-async def say_tomar( env, wa_id, msg):
+async def say_tomar( env, wa_id, colaborador, descripcion, comuna )
         console.log("En say_tomar")
         console.log(f"wa_id {wa_id}")
-        console.log( f"msg  {msg}")
+        console.log( f"msg  {desripcion}")
 
         body = { "messaging_product" :  "whatsapp",
                 "to"                   :  wa_id,
@@ -482,9 +482,9 @@ async def say_tomar( env, wa_id, msg):
                 "template"             : { "name" : "say_tomar", "language" : { "code" : "es" },
                     "components"           : [  { "type" :   "body",
                         "parameters" : [
-              { "type"             :   "text", "text" : "msg"     } ,
-              { "type"             :   "text", "text" : msg     } ,
-              { "type"             :   "text", "text" : "msg"     }
+              { "type"             :   "text", "text" : nombre    } ,
+              { "type"             :   "text", "text" : descripcion } ,
+              { "type"             :   "text", "text" : comuna    }
             ] } ] }}
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
@@ -541,7 +541,7 @@ async def send_msg( env, wa_id, msg):
         return Response( msg, status="200")
 
 
-
+#sujeto a reenganche
 async def send_reply( env, wa_id, reply):
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"

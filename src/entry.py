@@ -128,7 +128,7 @@ async def on_fetch(request, env):
 
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
         await say_tomar(env, str(env.FONO_JEFE), name, direccion, comuna )
-        await say_tomar(env, str(env.fono), name, uri, comuna )
+        await say_tomar(env, fono, name, uri, comuna )
 
         return Response( 'ok', status="200")
 

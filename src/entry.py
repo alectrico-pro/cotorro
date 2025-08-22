@@ -518,7 +518,7 @@ async def say_link_de_pago( env, wa_id, nombre, descripcion, comuna, path_de_pag
                 "to"                   :  wa_id,
                 "type"                 : "template",
                 "template"             : { "name" : "saludo",
-                                       "language" : { "code" : "es" },
+                                       "language" : { "code" : "es_AR" },
                 "components"           : [
                 { "type": "header",  "parameters": [
                    { "type" : "image",

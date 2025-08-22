@@ -111,9 +111,6 @@ async def on_fetch(request, env):
         params       = parse_qs( body )
 
         name         = params['data[0][]'][1]
-
-        console.log( f"name {name}")
-
         fono         = params['data[1][]'][1]
         email        = params['data[2][]'][1]
         descripcion  = params['data[3][]'][1]
@@ -130,7 +127,7 @@ async def on_fetch(request, env):
                   )
 
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
-        await say_jefe(env, reply )
+        await say_tomar(env, str(env.FONO_JEFE), name, direccion, comuna )
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 

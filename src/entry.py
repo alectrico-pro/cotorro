@@ -100,7 +100,7 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
 
-    if url.path == '/create_from_landing_page.json' and method== 'POST':
+    if url.path == '/create_from_landing_page' and method== 'POST':
         console.log(f"Params en /create_from_landing_page {params}")
 
         texto = await request.text()

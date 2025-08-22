@@ -103,8 +103,8 @@ async def on_fetch(request, env):
     if url.path == '/create_from_landing_page' and method== 'POST':
         console.log(f"Params en /create_from_landing_page {params}")
 
-        texto = await request.json()
-        console.log( f"request {texto}")
+        body = await request.text()
+        console.log( f"request phone {body.phone}")
 
 
         buy_order   = str( random.randint(1, 10000))
@@ -128,14 +128,15 @@ async def on_fetch(request, env):
         await say_jefe(env, reply )
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
+    elif url.path == "/favicon.ico":
+          return Response("")
 
-
-    if url.path == '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user':
+    elif url.path == '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user':
         await say_jefe(env, f"Hola Jefe, alguien llegó a verifica_user" )
         return agendar(env, '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user')
 
 
-    if url.path == '/':
+    elif url.path == '/':
         return agendar(env, 'Ingrese los datos para Agendar una Visita a Domicilio')
 
 

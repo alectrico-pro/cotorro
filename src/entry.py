@@ -104,13 +104,21 @@ async def on_fetch(request, env):
         console.log(f"Params en /create_from_landing_page {params}")
 
         body = await request.text()
-        buy_order   = str( random.randint(1, 10000))
+        buy_order    = str( random.randint(1, 10000))
 
-        session_id  = buy_order
-        amount      = env.AMOUNT
-        params      = parse_qs( body )
+        session_id   = buy_order
+        amount       = env.AMOUNT
+        params       = parse_qs( body )
 
-        #email       = params['email'][1]
+        name         = params['data[0][]'][1]
+        phone        = params['data[1][]'][1]
+        email        = params['data[2][]'][1]
+        message      = params['data[3][]'][1]
+        comuna       = params['data[4][]'][1]
+        direccion    = params['data[5][]'][1]
+        landing_page = params['data[6][]'][1]
+
+ #email       = params['email'][1]
         #fono        = params['phone'][1]
         #descripcion = params['message'][1]
 

@@ -103,7 +103,7 @@ async def on_fetch(request, env):
     if url.path == '/create_from_landing_page' and method== 'POST':
         console.log(f"Params en /create_from_landing_page {params}")
 
-        texto = await request.text()
+        texto = await request.json()
         console.log( f"request {texto}")
 
 
@@ -117,7 +117,7 @@ async def on_fetch(request, env):
         #fono        = params['phone'][1]
         #descripcion = params['message'][1]
 
-        await say_jefe( env, f"en create_from_landing_page Name {texto[0]}")
+        await say_jefe( env, f"en create_from_landing_page Name {texto}")
         reply   = (
                     f"*buy_order*    { buy_order}     \n"
                     f"*amount*       { amount}        \n"

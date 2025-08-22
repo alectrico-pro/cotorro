@@ -513,21 +513,22 @@ async def say_link_de_pago( env, wa_id, nombre, descripcion, comuna, link_de_pag
         console.log( f"descripcion  {descripcion}")
         imagen_url = f"{env.API_URL}/{env.LOGUITO_PATH}"
 
-        body = { "messaging_product" :  "whatsapp",
+        body = {"messaging_product"    :  "whatsapp",
                 "to"                   :  wa_id,
                 "type"                 : "template",
-                "template"             : { "name" : "saludo", "language" : { "code" : "es" },
-                "components"           : 
+                "template"             : { "name" : "saludo",
+                                       "language" : { "code" : "es" }},
+                "components"           : [
                 { "type": "header",  "parameters": [
                    { "type" : "image",
                      "image": { "link": imagen_url } } ] },
                 { "type" :   "body", "parameters" : [
                    { "type"            :   "text", "text" : nombre    } ,
                    { "type"            :   "text", "text" : descripcion } ] },
-                   { "type"    : "button",
+                { "type"    : "button",
                      "sub_type": "url", 
                      "index"   : "1",
-                   "parameters": [ { "type": "text", "text": link_de_pago}]}]}}
+                   "parameters": [ { "type": "text", "text": link_de_pago}]}]}
 
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"

@@ -116,7 +116,7 @@ async def on_fetch(request, env):
         direccion    = params['data[3][]'][1]
         comuna       = params['data[4][]'][1]
         descripcion  = params['data[5][]'][1]
-        landing_page = params['data[6][]'][1]
+        #landing_page = params['data[6][]'][1]
 
 
         reply   = (

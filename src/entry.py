@@ -507,9 +507,11 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 
 
 async def say_link_de_pago( env, wa_id, nombre, descripcion, comuna, link_de_pago ):
-        console.log("En say_tomar")
+        console.log("En say_link_de_pago")
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
+        console.log( f"link_de_pago  {link_de_pago}")
+
         imagen_url = f"{env.API_URL}/{env.LOGUITO_PATH}"
 
         body = {"messaging_product"    :  "whatsapp",
@@ -526,7 +528,7 @@ async def say_link_de_pago( env, wa_id, nombre, descripcion, comuna, link_de_pag
                    { "type"            :   "text", "text" : descripcion } ] },
                 { "type"    : "button",
                      "sub_type": "url", 
-                     "index"   : "1",
+                     "index"   : "0",
                    "parameters": [ { "type": "text", "text": link_de_pago}]}]}}
 
 
@@ -543,6 +545,7 @@ async def say_link_de_pago( env, wa_id, nombre, descripcion, comuna, link_de_pag
                  "content-type": "application/json;charset=UTF-8"
                },
         }
+        console.log(f"body {body}")
         response = await fetch(uri, to_js(options))
         console.log(f"response {response}")
         content_type, result = await gather_response(response)

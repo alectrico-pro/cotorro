@@ -131,12 +131,8 @@ async def on_fetch(request, env):
         link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
         await say_tomar(env, fono, name, link_de_pago, comuna )
 
-               #esto genera utro Message undeliverable
-        #       msg        = (f"Por favor pague la visita siguiendo el link:\n"
-        #                    f"link_de_pago: {link_de_pago}\n\n")
-        #       return await send_msg(env, wa_id, msg)
-
-        return Response( 'ok', status="200")
+        headers =  { "Access-Control-Allow-Origin": "*" }
+        return Response( 'ok', status="200", headers=headers )
 
 
 

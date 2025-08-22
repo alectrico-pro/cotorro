@@ -128,7 +128,11 @@ async def on_fetch(request, env):
 
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
         await say_tomar(env, str(env.FONO_JEFE), name, direccion, comuna )
-        return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
+        await say_tomar(env, str(env.fono), name, uri, comuna )
+
+        return Response( 'ok', status="200")
+
+        #return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 
     elif url.path == "/favicon.ico":
@@ -501,7 +505,7 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
         console.log(f"response {response}")
         content_type, result = await gather_response(response)
         console.log(f"result {result}")
-        return Response( 'ok', status="200")
+        return
 
 
 

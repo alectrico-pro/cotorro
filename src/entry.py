@@ -113,9 +113,9 @@ async def on_fetch(request, env):
         name         = params['data[0][]'][1]
         fono         = params['data[1][]'][1]
         email        = params['data[2][]'][1]
-        descripcion  = params['data[3][]'][1]
+        direccion    = params['data[3][]'][1]
         comuna       = params['data[4][]'][1]
-        direccion    = params['data[5][]'][1]
+        descripcion  = params['data[5][]'][1]
         landing_page = params['data[6][]'][1]
 
 

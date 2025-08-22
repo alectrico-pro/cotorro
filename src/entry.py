@@ -516,7 +516,7 @@ async def say_link_de_pago( env, wa_id, nombre, descripcion, comuna, link_de_pag
                 "to"                   :  wa_id,
                 "type"                 : "template",
                 "template"             : { "name" : "saludo",
-                                       "language" : { "code" : "es" }},
+                                       "language" : { "code" : "es" },
                 "components"           : [
                 { "type": "header",  "parameters": [
                    { "type" : "image",
@@ -527,7 +527,7 @@ async def say_link_de_pago( env, wa_id, nombre, descripcion, comuna, link_de_pag
                 { "type"    : "button",
                      "sub_type": "url", 
                      "index"   : "1",
-                   "parameters": [ { "type": "text", "text": link_de_pago}]}]}
+                   "parameters": [ { "type": "text", "text": link_de_pago}]}]}}
 
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"

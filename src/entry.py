@@ -501,7 +501,7 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
         console.log(f"response {response}")
         content_type, result = await gather_response(response)
         console.log(f"result {result}")
-        return Response( msg, status="200")
+        return Response( 'ok', status="200")
 
 
 

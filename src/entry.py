@@ -128,8 +128,8 @@ async def on_fetch(request, env):
 
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
         await say_tomar(env, str(env.FONO_JEFE), name, direccion, comuna )
-        link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
-        await say_link_de_pago( env, fono, name, descripcion, comuna, link_de_pago )
+        path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
+        await say_link_de_pago( env, fono, name, descripcion, comuna, path_de_pago )
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
 
@@ -506,11 +506,11 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 
 
 
-async def say_link_de_pago( env, wa_id, nombre, descripcion, comuna, link_de_pago ):
+async def say_link_de_pago( env, wa_id, nombre, descripcion, comuna, path_de_pago ):
         console.log("En say_link_de_pago")
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
-        console.log( f"link_de_pago  {link_de_pago}")
+        console.log( f"link_de_pago  {path_de_pago}")
 
         imagen_url = f"{env.API_URL}/{env.LOGUITO_PATH}"
 
@@ -529,7 +529,7 @@ async def say_link_de_pago( env, wa_id, nombre, descripcion, comuna, link_de_pag
                 { "type"    : "button",
                      "sub_type": "url", 
                      "index"   : "0",
-                   "parameters": [ { "type": "text", "text": link_de_pago}]}]}}
+                   "parameters": [ { "type": "text", "text": path_de_pago}]}]}}
 
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"

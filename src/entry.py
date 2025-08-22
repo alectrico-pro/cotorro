@@ -111,6 +111,9 @@ async def on_fetch(request, env):
         params       = parse_qs( body )
 
         name         = params['data[0][]'][1]
+
+        console.log( f"name {name}")
+
         fono         = params['data[1][]'][1]
         email        = params['data[2][]'][1]
         descripcion  = params['data[3][]'][1]

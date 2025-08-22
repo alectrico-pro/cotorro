@@ -474,7 +474,7 @@ async def say_jefe(env, descripcion):
 async def say_tomar( env, wa_id, colaborador, descripcion, comuna )
         console.log("En say_tomar")
         console.log(f"wa_id {wa_id}")
-        console.log( f"msg  {desripcion}")
+        console.log( f"descripcion  {descripcion}")
 
         body = { "messaging_product" :  "whatsapp",
                 "to"                   :  wa_id,

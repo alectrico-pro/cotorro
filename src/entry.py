@@ -17,7 +17,7 @@
 #Tratando de instalar con pip install
 #pero cloudflare worker usa micropip
 import micropip
-await micropip.install('clipspy')
+micropip.install('clipspy')
 
 import re
 import random

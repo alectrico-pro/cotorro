@@ -13,6 +13,12 @@
 #no reconoce el móudlo 
 #from transbank.webpay.webpay_plus import WebpayPlus
 #pip install transbank-sdk
+
+#Tratando de instalar con pip install
+#pero cloudflare worker usa micropip
+import micropip
+await micropip.install('clipspy')
+
 import re
 import random
 import logging
@@ -27,6 +33,7 @@ import json
 from js import console
 import uuid
 from js import Object, fetch, Headers
+
 from clips import Environment, Symbol
 
 

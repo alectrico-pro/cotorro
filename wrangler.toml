@@ -2,7 +2,6 @@ name = "cotorro"
 compatibility_date = "2025-08-01"
 compatibility_flags = ["python_workers"]
 main = "src/entry.py"
-ALEC_SEC_URL="www.sec.cl"
 
 [observability.logs]
 enabled = true
@@ -33,6 +32,7 @@ LOGUITO_PATH='loguito.jpeg'
 META_USER_TOKEN="EAAN6V6gyZCSMBPClhLAnayqa8vBkDLXrCQYqCkH5iA3ZCWy42eeH97ZAcwYqvcZB6e2KEfbqaXZBcyS4CP0hJz7RTVwAyc7BFaZA9sXelj0AjMi1nwARvsZAjr6NnHZAJHPnKkDhP5iSk61pIZCh6aoZBCZBlqPTCZBjua1QnEYcNlqFSZAeyHixKYPUffcjSmmmoZCaVH"
 WHATSAPP_BUSINESS_ACCOUNT_ID="107728605282500"
 PHONE_NUMBER_ID="150477064807758"
+ALEC_SEC_URL="https://www.sec.cl"
 
 
 [env.production.vars]

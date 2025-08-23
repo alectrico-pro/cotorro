@@ -2,7 +2,7 @@
     name = "Cotorro"
     version = "0.1.0"
     description = "Usando clips en un worker de alectrico"
-    requires-python = ">=3.6"
+    requires-python = ">=3.12"
     dependencies = [
        "clipspy"
     ]

@@ -27,7 +27,7 @@ custom_domain = true
 [vars]
 FONO_JEFE=56981370042
 
-ALEX_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
+ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
 API_URL = "https://www.alectrico.cl" 
 VERIFY_TOKEN = "1"
 GO_TBK_URL="https://www.alectrico.cl/transbank"

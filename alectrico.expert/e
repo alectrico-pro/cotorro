@@ -1,0 +1,5 @@
+(clear)
+(load alex.clp)
+(reset)
+(dribble-on "salida.txt")
+(run)

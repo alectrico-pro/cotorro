@@ -4,7 +4,6 @@
     description = "Usando clips en un worker de alectrico"
     requires-python = ">=3.6"
     dependencies = [
-       "fastapi"
        "clipspy"
     ]
 

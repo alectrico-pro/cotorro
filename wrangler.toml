@@ -26,7 +26,6 @@ custom_domain = true
 
 [vars]
 FONO_JEFE=56981370042
-
 ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
 API_URL = "https://www.alectrico.cl" 
 VERIFY_TOKEN = "1"
@@ -35,7 +34,6 @@ LOGUITO_PATH='loguito.jpeg'
 META_USER_TOKEN="EAAN6V6gyZCSMBPClhLAnayqa8vBkDLXrCQYqCkH5iA3ZCWy42eeH97ZAcwYqvcZB6e2KEfbqaXZBcyS4CP0hJz7RTVwAyc7BFaZA9sXelj0AjMi1nwARvsZAjr6NnHZAJHPnKkDhP5iSk61pIZCh6aoZBCZBlqPTCZBjua1QnEYcNlqFSZAeyHixKYPUffcjSmmmoZCaVH"
 WHATSAPP_BUSINESS_ACCOUNT_ID="107728605282500"
 PHONE_NUMBER_ID="150477064807758"
-ALEC_SEC_URL="https://www.sec.cl"
 
 
 [env.production.vars]
@@ -65,7 +63,7 @@ TBK_ENDPOINT="https://webpay3g.transbank.cl/rswebpaytransaction/api/webpay/v1.2/
 
 
 [env.development.vars]
-ALEX_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
+ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
 
 Tarjeta_de_prueba_aprobada="4051 8856 0044 6623"
 FONO_JEFE=56981370042

@@ -16,7 +16,7 @@
 
 #Tratando de instalar con pip install
 #pero cloudflare worker usa micropip
-import clipspy
+#import clipspy
 import re
 import random
 import logging
@@ -32,7 +32,7 @@ from js import console
 import uuid
 from js import Object, fetch, Headers
 
-from clips import Environment, Symbol
+#from clips import Environment, Symbol
 
 
 #const globals = pyodide.toPy({})

@@ -36,6 +36,7 @@ ALEC_SEC_URL="https://www.sec.cl"
 
 
 [env.production.vars]
+ALEC_SEC_URL="https://www.sec.cl"
 FONO_JEFE=56981370042
 LOGUITO_PATH='loguito.jpeg'
 PUBLICO_CLIENTE_HTML="932-000-849"
@@ -61,6 +62,7 @@ TBK_ENDPOINT="https://webpay3g.transbank.cl/rswebpaytransaction/api/webpay/v1.2/
 
 
 [env.development.vars]
+ALEC_SEC_URL="https://www.sec.cl"
 Tarjeta_de_prueba_aprobada="4051 8856 0044 6623"
 FONO_JEFE=56981370042
 LOGUITO_PATH='loguito.jpeg'

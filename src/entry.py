@@ -196,7 +196,7 @@ async def on_fetch(request, env):
         return mostrar_not_found(env, "El Pago fue Cancelado! ")
 
 
-    elif url.path.startswith("/webhook"):
+    elif url.path.startswith("/webhook") or url.path.startswith("/api/v1/santum/webhook"):
         console.log("En webhook")
 
         request_json = await request.json()

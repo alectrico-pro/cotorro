@@ -2,6 +2,7 @@ name = "cotorro"
 compatibility_date = "2025-08-01"
 compatibility_flags = ["python_workers"]
 main = "src/entry.py"
+ALEC_SEC_URL="www.sec.cl"
 
 [observability.logs]
 enabled = true
@@ -13,6 +14,11 @@ binding='ASSETS'
 [[routes]]
 pattern = "api.alectrico.cl"
 custom_domain = true
+
+[[routes]]
+pattern = "repair.alectrico.cl"
+custom_domain = true
+
 
 [[routes]]
 pattern = "www.alectrico.cl"

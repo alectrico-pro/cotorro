@@ -94,6 +94,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
 
 
 async def on_fetch(request, env):
+
     url = urlparse(request.url)
     params = parse_qs(url.query)
     method = request.method
@@ -118,14 +119,6 @@ async def on_fetch(request, env):
         descripcion  = params['data[5][]'][1]
         #landing_page = params['data[6][]'][1]
 
-
-        reply   = (
-                    f"*buy_order*\t{ buy_order}\n"
-                    f"*amount*\t{ amount}\n"
-                    f"*fono*\t\t{ fono }\n"
-                    f"*descripcion*\t { descripcion } \n"
-                  )
-
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
         await say_tomar(env, str(env.FONO_JEFE), name, direccion, comuna )
         path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
@@ -138,9 +131,13 @@ async def on_fetch(request, env):
     elif url.path == "/favicon.ico":
           return Response("")
 
+
+    #Esto viende del QR de la chaqueta
+    #https://www.alectrico.cl/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user
     elif url.path == '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user':
         await say_jefe(env, f"Hola Jefe, alguien llegó a verifica_user" )
-        return agendar(env, '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user')
+        return Response.redirect( env.ALEC_SEC_URL, 307)
+        #return agendar(env, '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user')
 
 
     elif url.path == '/':
@@ -149,7 +146,7 @@ async def on_fetch(request, env):
 
 
        #agendar?nombre=oipoi+upoi&fono=987654321&email=hjhkjh%40lkjlkj.ll&comuna=Providencia&descripcion=lkñ+jñlkj&direccion=o+ṕoiṕoiṕo&latitude=&longitude=&amount=68000
-    if url.path == '/agendar':
+    elif url.path == '/agendar':
         console.log(f"Params en /agendar {params}")
         buy_order   = str( random.randint(1, 10000))
         session_id  = buy_order

@@ -58,6 +58,7 @@ GO_TBK_URL="https://www.alectrico.cl/transbank"
 WEBPAY_API_KEY="597036225750"
 WEBPAY_SHARED_SECRET="2438ac00992d73fe1c3a0b501e8a90bb"
 TBK_ENDPOINT="https://webpay3g.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions"
+LOGUITO_PATH='loguito.jpeg'
 
 
 

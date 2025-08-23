@@ -27,7 +27,7 @@ import json
 from js import console
 import uuid
 from js import Object, fetch, Headers
-#from clips import Environment, Symbol
+from clips import Environment, Symbol
 
 
 #const globals = pyodide.toPy({})

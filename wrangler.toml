@@ -25,6 +25,7 @@ custom_domain = true
 
 
 [vars]
+ALEX_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
 API_URL = "https://www.alectrico.cl" 
 VERIFY_TOKEN = "1"
 GO_TBK_URL="https://www.alectrico.cl/transbank"
@@ -36,9 +37,7 @@ ALEC_SEC_URL="https://www.sec.cl"
 
 
 [env.production.vars]
-ALEC_SEC_URL="https://www.sec.cl"
-FONO_JEFE=56981370042
-LOGUITO_PATH='loguito.jpeg'
+ALEX_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
 PUBLICO_CLIENTE_HTML="932-000-849"
 PUBLICO_COLABORADOR_HTML="932-000-849"
 PUBLICO_CLIENTE=56932000849
@@ -62,7 +61,8 @@ TBK_ENDPOINT="https://webpay3g.transbank.cl/rswebpaytransaction/api/webpay/v1.2/
 
 
 [env.development.vars]
-ALEC_SEC_URL="https://www.sec.cl"
+ALEX_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
+
 Tarjeta_de_prueba_aprobada="4051 8856 0044 6623"
 FONO_JEFE=56981370042
 LOGUITO_PATH='loguito.jpeg'

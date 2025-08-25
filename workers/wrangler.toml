@@ -23,6 +23,9 @@ custom_domain = true
 pattern = "www.alectrico.cl"
 custom_domain = true
 
+[[queues.producers]]
+  queue = "my-queue"
+  binding = "QUEUE"
 
 [vars]
 FONO_JEFE=56981370042

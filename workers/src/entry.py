@@ -115,6 +115,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         headers = Headers.new({"content-type": content_type}.items())
         return Response(result, headers=headers)
 
+#----------------------------- llegada de requests --------------------
 
 async def on_fetch(request, env):
 
@@ -165,6 +166,9 @@ async def on_fetch(request, env):
     #entrypoint cuando se llama directamente a www.alectrico.cl
 
     elif url.path == '/':
+        await env.QUEUE.send("hello", contentType="text")
+        # Send a JSON payload
+        await env.QUEUE.send(to_js({"hello": "world"}))
         return agendar(env, 'Ingrese los datos para Agendar una Visita a Domicilio')
 
 
@@ -291,6 +295,7 @@ async def on_fetch(request, env):
     else:     
       console.log("No se ha identificado")
       return mostrar_not_found(env, "Bah! Ocurrió un Error")
+#----------------------------FIN llegada de requests --------------------------
 
 #.......................... MENU PRINCIPAL -----------------------------------
 

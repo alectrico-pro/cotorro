@@ -559,7 +559,7 @@ async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_orde
           "components":  [  
             { "type":   "body",  "parameters" :
               [
-              { "type": "button", "sub_type": "url", "index": "1",
+              { "type": "button", "sub_type": "url", "index": "0",
          "parameters": [ { "type": "text", "text": "8989"}]}]}]}}
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"

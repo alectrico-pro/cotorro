@@ -539,7 +539,7 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 #Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
 #Ese botón, permite a un colaboraodr tomar la orden dada por buy_order
 async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_order ):
-        console.log("En say_tomar")
+        console.log("En say_tomar_buy_order")
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
 
@@ -559,11 +559,11 @@ async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_orde
                  { "type" :   "body",
                   "parameters" :
                   [
-                    { "type"             : "text", "text" : buy_order } ,
+                    { "type"             : "text", "text" : str(buy_order) } ,
                     { "type"             : "button",
                              "sub_type": "url",
                              "index"   : "0",
-                   "parameters": [ { "type": "text", "text": buy_order}]}]}]}}
+                   "parameters": [ { "type": "text", "text": str(buy_order)}]}]}]}}
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {

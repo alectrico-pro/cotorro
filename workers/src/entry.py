@@ -547,8 +547,8 @@ async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_orde
         console.log( f"descripcion  {descripcion}")
 
         #Probando buy_order
-        await env.BUY_ORDER.put('buy_order', buy_order)
-        await env.BUY_ORDER.put(str(buy_order), 'difundido')
+        #await env.BUY_ORDER.put('buy_order', buy_order)
+        #await env.BUY_ORDER.put(str(buy_order), 'difundido')
        # buy_order = await env.BUY_ORDER.get( str(buy_order))
 
 
@@ -558,7 +558,7 @@ async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_orde
                    'template': { 'name': 'say_atender',
                                  'language': {'code': 'es'},
                 "components": [
-                { "type": "button", "sub_type": "url", "index":"0",
+                { "type": "button", "sub_type": "url", "index": "0",
                   "parameters": [ { "type": "text", "text": "url_de_pago_de_ofertar" } ] } ] } }
 
 

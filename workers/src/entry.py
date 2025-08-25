@@ -543,6 +543,11 @@ async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_orde
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
 
+        #Probando buy_order
+        await env.BUY_ORDER.put('buy_order', buy_order)
+        await env.BUY_ORDER.put(str(buy_order), 'difundido')
+        buy_order = await env.BUY_ORDER.get( str(buy_order))
+
         #Falta el botón
         body = { "messaging_product" :  "whatsapp",
                 "to"                   :  wa_id,
@@ -550,9 +555,9 @@ async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_orde
                 "template"             : { "name" : "say_tomar_buy_order", "language" : { "code" : "es" },
                     "components"           : [  { "type" :   "body",
                         "parameters" : [
-              { "type"             :   "text", "text" : nombre    } ,
+              { "type"             :   "text", "text" : buy_order   } ,
               { "type"             :   "text", "text" : descripcion } ,
-              { "type"             :   "text", "text" : comuna    }
+              { "type"             :   "text", "text" : comuna      }
             ] } ] }}
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
@@ -572,6 +577,10 @@ async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_orde
         console.log(f"response {response}")
         content_type, result = await gather_response(response)
         console.log(f"result {result}")
+        #debo averiguar el result
+#       await env.BUY_ORDER.put('buy_order', buy_order)
+#       await env.BUY_ORDER.put(str(buy_order), 'difundido')
+#       buy_order = await env.FOO.get( str(buy_order))
         return
 
 

@@ -146,8 +146,10 @@ async def on_fetch(request, env):
         return Response.redirect( env.ALEC_SEC_URL, 307)
         #return agendar(env, '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user')
 
+    #entrypoint cuando se llama directamente a www.alectrico.cl
 
     elif url.path == '/':
+        instance = await env.MY_WORKFLOW.create()
         return agendar(env, 'Ingrese los datos para Agendar una Visita a Domicilio')
 
 
@@ -1379,3 +1381,16 @@ def fonos( env):
    }
    return Response.json(body_json, headers=headers, status='200' )
 
+
+#Probando workflows
+
+from workers import WorkflowEntrypoint
+
+class MyWorkflow(WorkflowEntrypoint):
+    async def run(self, event, step):
+        @step.do("my first step")
+        async def my_first_step():
+            # do some work
+            return "Hello World!"
+
+        await my_first_step()

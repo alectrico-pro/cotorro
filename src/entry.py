@@ -861,11 +861,8 @@ def mostrar_not_found( env, mensaje):
 
               <div class='mbr-section-btn mt-3'>
               <a class='btn btn-primary display-4' href='https://wa.me/56945644889'>
-              <span class='socicon socicon-whatsapp mbr-iconfont mbr-iconfont-btn'>REINTENTAR PAGO</span>
+              <span class='socicon socicon-whatsapp mbr-iconfont mbr-iconfont-btn'>- -REINTENTAR- -</span>
               </a> 
-              <a class='btn btn-info display-4' href='tel:+56932000849'>
-                 <span class='mobi-mbri mobi-mbri-phone mbr-iconfont mbr-iconfont-btn'></span>
-              </a>
               </div>
             </div>
         </div>

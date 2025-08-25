@@ -552,13 +552,18 @@ async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_orde
         body = { "messaging_product" :  "whatsapp",
                 "to"                   :  wa_id,
                 "type"                 :  "template",
-                "template"             : { "name" : "say_tomar_buy_order", "language" : { "code" : "es" },
-                    "components"           : [  { "type" :   "body",
-                        "parameters" : [
-              { "type"             :   "text", "text" : buy_order   } ,
-              { "type"             :   "text", "text" : descripcion } ,
-              { "type"             :   "text", "text" : comuna      }
-            ] } ] }}
+                "template"             : 
+                { "name" : "say_tomar_buy_order", "language" : { "code" : "es" },
+                "components"           :
+                [  
+                 { "type" :   "body",
+                  "parameters" :
+                  [
+                    { "type"             : "text", "text" : buy_order } ,
+                    { "type"             : "button",
+                             "sub_type": "url",
+                             "index"   : "0",
+                   "parameters": [ { "type": "text", "text": buy_order}]}]}]}}
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {

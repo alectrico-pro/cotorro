@@ -144,7 +144,10 @@ async def on_fetch(request, env):
         #landing_page = params['data[6][]'][1]
 
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
+
         await say_tomar(env, str(env.FONO_JEFE), name, direccion, comuna )
+        await say_tomar_buy_order(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
+
         path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
         await say_link_de_pago( env, fono, name, descripcion, comuna, path_de_pago )
         headers =  { "Access-Control-Allow-Origin": "*" }
@@ -166,9 +169,6 @@ async def on_fetch(request, env):
     #entrypoint cuando se llama directamente a www.alectrico.cl
 
     elif url.path == '/':
-        await env.QUEUE.send("hello", contentType="text")
-        # Send a JSON payload
-        await env.QUEUE.send(to_js({"hello": "world"}))
         return agendar(env, 'Ingrese los datos para Agendar una Visita a Domicilio')
 
 
@@ -496,6 +496,8 @@ async def flow_reply_processor(request_json, env):
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def say_jefe(env, descripcion):
         return await say_tomar( env, str(env.FONO_JEFE), 'ALEC', descripcion, 'PROVIDENCIA')
+        return await say_tomar_buy_order(env, str(env.FONO_JEFE), 'ALEC', descripcion, 'PROVIDENCIA', buy_order)
+
 
 
 async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
@@ -532,6 +534,46 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
         content_type, result = await gather_response(response)
         console.log(f"result {result}")
         return
+
+
+#Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
+#Ese botón, permite a un colaboraodr tomar la orden dada por buy_order
+async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_order ):
+        console.log("En say_tomar")
+        console.log(f"wa_id {wa_id}")
+        console.log( f"descripcion  {descripcion}")
+
+        #Falta el botón
+        body = { "messaging_product" :  "whatsapp",
+                "to"                   :  wa_id,
+                "type"                 :  "template",
+                "template"             : { "name" : "say_tomar_buy_order", "language" : { "code" : "es" },
+                    "components"           : [  { "type" :   "body",
+                        "parameters" : [
+              { "type"             :   "text", "text" : nombre    } ,
+              { "type"             :   "text", "text" : descripcion } ,
+              { "type"             :   "text", "text" : comuna    }
+            ] } ] }}
+
+        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {env.META_USER_TOKEN}"
+        }
+        options = {
+               "body": json.dumps(body),
+               "method": "POST",
+               "headers": {
+                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                 "content-type": "application/json;charset=UTF-8"
+               },
+        }
+        response = await fetch(uri, to_js(options))
+        console.log(f"response {response}")
+        content_type, result = await gather_response(response)
+        console.log(f"result {result}")
+        return
+
 
 
 

@@ -549,7 +549,7 @@ async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_orde
         #Probando buy_order
         await env.BUY_ORDER.put('buy_order', buy_order)
         await env.BUY_ORDER.put(str(buy_order), 'difundido')
-        buy_order = await env.BUY_ORDER.get( str(buy_order))
+       # buy_order = await env.BUY_ORDER.get( str(buy_order))
 
         body = { "messaging_product" :  "whatsapp",
                 "to"                   :  wa_id,

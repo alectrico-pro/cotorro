@@ -170,6 +170,9 @@ async def on_fetch(request, env):
     elif url.path == '/':
         return agendar(env, 'Ingrese los datos para Agendar una Visita a Domicilio')
 
+    elif url.path == '/atender':
+        console.log(f"Params en /atender {params}")
+        return mostrar_success(env, f"Atendiendo al número {params['buy_order']}.")
 
 
        #agendar?nombre=oipoi+upoi&fono=987654321&email=hjhkjh%40lkjlkj.ll&comuna=Providencia&descripcion=lkñ+jñlkj&direccion=o+ṕoiṕoiṕo&latitude=&longitude=&amount=68000

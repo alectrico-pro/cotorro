@@ -156,13 +156,13 @@ async def on_fetch(request, env):
     elif url.path == '/agendar':
         console.log(f"Params en /agendar {params}")
         buy_order   = str( random.randint(1, 10000))
-        session_id  = buy_order
         amount      = params['amount'][0]
         fono        = params['fono'][0]
         descripcion = params['descripcion'][0]
         amount      = params['amount'][0]
 
-        await enviar_template_say_visita_flow_reserva(request, env, fono )
+        #no se envía el cuestionario, porque se vería repetido
+        #await enviar_template_say_visita_flow_reserva(request, env, fono )
         await say_jefe( env, f"en agendar {fono} {descripcion}")
 
 
@@ -173,7 +173,10 @@ async def on_fetch(request, env):
                     f"*descripcion*  { descripcion } \n"
                   )
 
-        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
+        #En este llamado el argumento session_id se toma como fono
+        #Eso es porque uso la defininción de transbank para enviar el fono
+        #Porque lo necesito en def tbk_commit para enviar el voucher al cliente
+        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
         await say_jefe(env, reply )
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
@@ -468,7 +471,7 @@ async def flow_reply_processor(request_json, env):
         console.log("Enviando reply al FONO_JEFE")
         return await send_msg(env, str(env.FONO_JEFE), reply )
 
-
+#este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def say_jefe(env, descripcion):
         return await say_tomar( env, str(env.FONO_JEFE), 'ALEC', descripcion, 'PROVIDENCIA')
 
@@ -591,7 +594,7 @@ async def send_msg( env, wa_id, msg):
         return Response( msg, status="200")
 
 
-#sujeto a reenganche
+#sujeto a eror de reenganche en waba
 async def send_reply( env, wa_id, reply):
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
@@ -623,6 +626,9 @@ async def send_reply( env, wa_id, reply):
 
 
 #Funciona para android > 5
+#Muestra un aviso de que se le cobrará un amount
+#Y al presionar Pagar
+#Se va a Transbank
 def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_ws):
   avisar = True
   CSS = "body { color: red; }"

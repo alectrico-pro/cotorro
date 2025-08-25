@@ -547,6 +547,8 @@ async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
         console.log("En say_atender")
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
+        imagen_url = f"{env.API_URL}/{env.TAKEME_IMAGE_PATH}"
+
         body =  { "messaging_product": "whatsapp",
                    "to": wa_id,
                    "type": "template",
@@ -555,7 +557,7 @@ async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
                     "components": [
                   { "type": "header",  "parameters": [
                    { "type" : "image",
-                     "image": { "link": env.TAKEME_IMAGE_PATH } } ] },
+                     "image": { "link": imagen_url } } ] },
                     { "type": "button", "sub_type": "url", "index": "0", 
                      "parameters": [ { "type": "text", "text": buy_order } ] } ] } }
 

@@ -541,17 +541,17 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 #Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
 #Ese botón, permite a un colaboraodr tomar la orden dada por buy_order
 async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
-        console.log("En say_tomar_buy_order")
+        console.log("En say_atender")
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
         body =  { "messaging_product": "whatsapp",
-                   "to": "56981370042",
+                   "to": wa_id,
                    "type": "template",
                    "template": { "name": "say_atender",
                                  "language": {"code": "es"},
                     "components": [
                     { "type": "button", "sub_type": "url", "index": "0", 
-                     "parameters": [ { "type": "text", "text": 1111 } ] } ] } }
+                     "parameters": [ { "type": "text", "text": buy_order } ] } ] } }
 
         console.log( f"{body}" )
 

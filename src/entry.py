@@ -46,6 +46,22 @@ logger = logging.getLogger(__name__)
 #async def on_scheduled(controller, env, ctx):
 
 
+#Probando workflows ------------------------------
+
+from workers import WorkflowEntrypoint
+
+#Esta siendo llamado desde fech/
+class MyWorkflow(WorkflowEntrypoint):
+    async def run(self, event, step):
+        @step.do("my first step")
+        async def my_first_step():
+            # do some work
+            return "Hello World!"
+
+        await my_first_step()
+
+#-----------------------------------------
+
 def to_js(obj):
     return _to_js(obj, dict_converter=Object.fromEntries)
 
@@ -1382,15 +1398,3 @@ def fonos( env):
    return Response.json(body_json, headers=headers, status='200' )
 
 
-#Probando workflows
-
-from workers import WorkflowEntrypoint
-
-class MyWorkflow(WorkflowEntrypoint):
-    async def run(self, event, step):
-        @step.do("my first step")
-        async def my_first_step():
-            # do some work
-            return "Hello World!"
-
-        await my_first_step()

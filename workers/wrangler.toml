@@ -11,9 +11,6 @@ directory='./public/assets'
 binding='ASSETS'
 
 account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
-kv_namespaces = [
-  { binding = "REPAIR_ALECTRICO", preview_id = "07c53510cea449dbb81f0856dc77e7af", id = "e2b44c1e2e0c4644803a04bf3ea0b95d" },
-  { preview_id = "d6b5da58cc854814a2396043c56f76bb", binding = "BUY_ORDER", id = "7a20ea90007a4f99a6a02e864f358144" }]
 
 
 [[routes]]
@@ -46,6 +43,13 @@ PHONE_NUMBER_ID="150477064807758"
 
 
 [env.production.vars]
+
+
+kv_namespaces = [
+  { binding = "REPAIR_ALECTRICO", preview_id = "07c53510cea449dbb81f0856dc77e7af", id = "e2b44c1e2e0c4644803a04bf3ea0b95d" },
+  { preview_id = "d6b5da58cc854814a2396043c56f76bb", binding = "BUY_ORDER", id = "7a20ea90007a4f99a6a02e864f358144" }]
+
+
 FONO_JEFE=56981370042
 
 ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"

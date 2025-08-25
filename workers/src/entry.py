@@ -165,7 +165,6 @@ async def on_fetch(request, env):
     #entrypoint cuando se llama directamente a www.alectrico.cl
 
     elif url.path == '/':
-        instance = await env.MY_WORKFLOW.create()
         return agendar(env, 'Ingrese los datos para Agendar una Visita a Domicilio')
 
 

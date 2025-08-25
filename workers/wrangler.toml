@@ -1,6 +1,6 @@
 name = "cotorro"
 compatibility_date = "2025-08-01"
-compatibility_flags = ["python_workers", "python_workflows"]
+compatibility_flags = ["python_workers"]
 main = "src/entry.py"
 
 [observability.logs]
@@ -22,15 +22,6 @@ custom_domain = true
 [[routes]]
 pattern = "www.alectrico.cl"
 custom_domain = true
-
-
-[[workflows]]
-# name of your workflow
-name = "workflows-starter"
-# binding name env.MY_WORKFLOW
-binding = "MY_WORKFLOW"
-# this is class that extends the Workflow class in src/index.ts
-class_name = "MyWorkflow"
 
 
 [vars]

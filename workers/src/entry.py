@@ -551,18 +551,16 @@ async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_orde
         await env.BUY_ORDER.put(str(buy_order), 'difundido')
         buy_order = await env.BUY_ORDER.get( str(buy_order))
 
-        #Falta el botón
         body = { "messaging_product" :  "whatsapp",
                 "to"                   :  wa_id,
                 "type"                 :  "template",
                 "template"             : 
-                { "name" : "say_tomar_buy_order", "language" : { "code" : "es" },
+                { "name" : "say_atender", "language" : { "code" : "es" },
                 "components"           :
                 [  
                  { "type" :   "body",
                   "parameters" :
                   [
-                    { "type"             : "text", "text" : str(buy_order) } ,
                     { "type"             : "button",
                              "sub_type": "url",
                              "index"   : "0",
@@ -593,7 +591,7 @@ async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_orde
 
 
 
-
+#el template fue borrado porque facebook insistió en categorizarlo como de marketing
 async def say_link_de_pago( env, wa_id, nombre, descripcion, comuna, path_de_pago ):
         console.log("En say_link_de_pago")
         console.log(f"wa_id {wa_id}")

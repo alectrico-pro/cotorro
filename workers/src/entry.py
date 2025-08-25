@@ -553,6 +553,9 @@ async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
                    "template": { "name": "say_atender",
                                  "language": {"code": "es"},
                     "components": [
+                  { "type": "header",  "parameters": [
+                   { "type" : "image",
+                     "image": { "link": env.TAKEME_IMAGE_PATH } } ] },
                     { "type": "button", "sub_type": "url", "index": "0", 
                      "parameters": [ { "type": "text", "text": buy_order } ] } ] } }
 

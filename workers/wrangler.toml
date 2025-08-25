@@ -31,6 +31,12 @@ custom_domain = true
 
 
 [vars]
+
+kv_namespaces = [
+  { binding = "BUY_ORDER", id = "BUY_ORDER" }]
+
+TAKEME_IMAGE_PATH='etherdog.png'
+
 FONO_JEFE=56981370042
 ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
 API_URL = "https://www.alectrico.cl" 
@@ -48,6 +54,7 @@ PHONE_NUMBER_ID="150477064807758"
 kv_namespaces = [
   { binding = "BUY_ORDER", id = "BUY_ORDER" }]
 
+TAKEME_IMAGE_PATH='etherdog.png'
 
 FONO_JEFE=56981370042
 
@@ -79,6 +86,12 @@ LOGUITO_PATH='loguito.jpeg'
 
 
 [env.development.vars]
+
+kv_namespaces = [
+  { binding = "BUY_ORDER", id = "BUY_ORDER" }]
+
+TAKEME_IMAGE_PATH='etherdog.png'
+
 ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
 
 Tarjeta_de_prueba_aprobada="4051 8856 0044 6623"

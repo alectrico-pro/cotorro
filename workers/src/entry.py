@@ -552,17 +552,14 @@ async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_orde
        # buy_order = await env.BUY_ORDER.get( str(buy_order))
 
 
- body =   {
- 'messaging_product': 'whatsapp',
- 'to': '56981370042',
- 'type': 'template',
- 'template': { 'name': 'say_atender',
-               'language': {'code': 'es'},
-  "components": [
-    { "type": "button", "sub_type": "url", "index":"0",
-      "parameters": [ { "type": "text", "text": "url_de_pago_de_ofertar" } ] } ] }
-
- }
+        body =  { 'messaging_product': 'whatsapp',
+                   'to': '56981370042',
+                   'type': 'template',
+                   'template': { 'name': 'say_atender',
+                                 'language': {'code': 'es'},
+                "components": [
+                { "type": "button", "sub_type": "url", "index":"0",
+                  "parameters": [ { "type": "text", "text": "url_de_pago_de_ofertar" } ] } ] } }
 
 
 

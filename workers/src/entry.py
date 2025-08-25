@@ -145,8 +145,7 @@ async def on_fetch(request, env):
 
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
 
-        #await say_tomar(env, str(env.FONO_JEFE), name, direccion, comuna )
-        #await say_tomar_buy_order(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
+        await say_atender(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
 
         path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
         await say_link_de_pago( env, fono, name, descripcion, comuna, path_de_pago )
@@ -202,7 +201,7 @@ async def on_fetch(request, env):
         #Porque lo necesito en def tbk_commit para enviar el voucher al cliente
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
         await say_jefe(env, reply )
-        await say_tomar_buy_order(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
+        await say_atender(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 
@@ -541,7 +540,7 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 
 #Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
 #Ese botón, permite a un colaboraodr tomar la orden dada por buy_order
-async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_order ):
+async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
         console.log("En say_tomar_buy_order")
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
@@ -552,7 +551,7 @@ async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_orde
                                  "language": {"code": "es"},
                     "components": [
                     { "type": "button", "sub_type": "url", "index": "0", 
-                     "parameters": [ { "type": "text", "text": "url_de_pago_de_ofertar" } ] } ] } }
+                     "parameters": [ { "type": "text", "text": 1111 } ] } ] } }
 
         console.log( f"{body}" )
 

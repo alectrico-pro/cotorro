@@ -1,6 +1,7 @@
 name = "cotorro"
 compatibility_date = "2025-08-01"
-compatibility_flags = ["python_workers"]
+compatibility_flags = ["python_workers", "python_workflows"]
+
 main = "src/entry.py"
 
 [observability.logs]

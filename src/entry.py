@@ -861,7 +861,7 @@ def mostrar_not_found( env, mensaje):
 
               <div class='mbr-section-btn mt-3'>
               <a class='btn btn-primary display-4' href='https://wa.me/56945644889'>
-              <span class='socicon mbr-iconfont mbr-iconfont-btn'>- -REINTENTAR- -</span>
+              <span class='socicon mbr-iconfont mbr-iconfont-btn'>REINTENTAR</span>
               </a> 
               </div>
             </div>

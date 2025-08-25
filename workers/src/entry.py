@@ -545,23 +545,16 @@ async def say_tomar_buy_order( env, wa_id, nombre, descripcion, comuna, buy_orde
         console.log("En say_tomar_buy_order")
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
+        body =  { "messaging_product": "whatsapp",
+                   "to": "56981370042",
+                   "type": "template",
+                   "template": { "name": "say_atender",
+                                 "language": {"code": "es"},
+                    "components": [
+                    { "type": "button", "sub_type": "url", "index": "0", 
+                     "parameters": [ { "type": "text", "text": "url_de_pago_de_ofertar" } ] } ] } }
 
-        #Probando buy_order
-        #await env.BUY_ORDER.put('buy_order', buy_order)
-        #await env.BUY_ORDER.put(str(buy_order), 'difundido')
-       # buy_order = await env.BUY_ORDER.get( str(buy_order))
-
-
-        body =  { 'messaging_product': 'whatsapp',
-                   'to': '56981370042',
-                   'type': 'template',
-                   'template': { 'name': 'say_atender',
-                                 'language': {'code': 'es'},
-                "components": [
-                { "type": "button", "sub_type": "url", "index": "0",
-                  "parameters": [ { "type": "text", "text": "url_de_pago_de_ofertar" } ] } ] } }
-
-
+        console.log( f"{body}" )
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {

@@ -495,7 +495,7 @@ async def flow_reply_processor(request_json, env):
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def say_jefe(env, descripcion):
-        await say_tomar( env, str(env.FONO_JEFE), 'ALEC', descripcion, 'PROVIDENCIA')
+        #return await say_tomar( env, str(env.FONO_JEFE), 'ALEC', descripcion, 'PROVIDENCIA')
         return await say_tomar_buy_order(env, str(env.FONO_JEFE), 'ALEC', descripcion, 'PROVIDENCIA', buy_order)
 
 

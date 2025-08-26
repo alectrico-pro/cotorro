@@ -145,9 +145,7 @@ async def on_fetch(request, env):
         #landing_page = params['data[6][]'][1]
 
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
-
-        await env.BUY_ORDER.put(buy_order, {'fono': fono, "name": name, "email": email, "direccion":direccion, "comuna":comuna, "descripcion":descripcion, "amount": amount } )
-
+        await guardar_pedido( fono, name, email, direccion, comuna, descripcion,  amount )
         await say_atender(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
 
         path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
@@ -179,8 +177,10 @@ async def on_fetch(request, env):
     elif url.path == '/atender':
         console.log(f"Params en /atender {params}")
         buy_order = params['buy_order']
-        buy_order_json = await env.BUY_ORDER.get(str(buy_order))
-        return mostrar_success(env, f"Atendiendo al número {params['buy_order']}=?{buy_order_json} .")
+
+        fono = await get_fono_cliente(buy_order)
+
+        return mostrar_success(env, f"Atendiendo al número {params['buy_order']} fono {fono} .")
     #------------------------------------------------------------------------------------------------
     #----------------------------------------- FORMULARIOS WEBS LLAMAN A AGENDAR ---------------------
     #Esos formularios son un poco diferentes a los usuales usan un assets llamado formoide en las
@@ -216,8 +216,9 @@ async def on_fetch(request, env):
         #Porque lo necesito en def tbk_commit para enviar el voucher al cliente
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
         await say_jefe(env, reply )
-        pedido = { 'pedido': {'fono': fono, "name": name, "email": email, "direccion":direccion, "comuna":comuna, "descripcion":descripcion, "amount": amount }} 
-        await env.BUY_ORDER.put( buy_order, json.dumps(pedido))#, env.SEGUNDOS_DE_EXPIRACION )
+
+        await guardar_pedido( fono, name, email, direccion, comuna, descripcion,  amount )
+
         await say_atender(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
@@ -339,6 +340,15 @@ def webhook_get(request, env):
         return Response("Error", status=403)
 
 #----------------------------- FUNCIONES ------------------------------------------------------
+
+async def get_fono_cliente( buy_order)
+    return await env.BUY_ORDER.get(buy_order)
+
+async def guardar_pedido( fono, name, email, direccion, comuna, descripcion, amount )
+    pedido = { 'pedido': {'fono': fono, "name": name, "email": email, "direccion":direccion, "comuna":comuna, "descripcion":descripcion, "amount": amount }}
+    return await env.BUY_ORDER.put( buy_order, json.dumps(pedido))#, env.SEGUNDOS_DE_EXPIRACION )
+  
+
 async def post_tbk( uri, env):
     init = {
         "method": "POST",

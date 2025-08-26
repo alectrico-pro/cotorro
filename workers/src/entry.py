@@ -345,11 +345,9 @@ async def get_fono_cliente(env, buy_order):
     console.log("En get_fono_cliente")
     console.log(f"buy_order {buy_order}")
     pedido_json = await env.BUY_ORDER.get(str(buy_order))
-    console.log("pedido_json")
-    console.log( pedido_json)
+    console.log(f"pedido_json{pedido_json}")
     pedido = parse_qs(pedido_json)
-    console.log( "pedido")
-    console.log( pedido )
+    console.log(f"pedido{pedido}" )
     return pedido
 
 async def guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion, amount):

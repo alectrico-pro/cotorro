@@ -145,7 +145,7 @@ async def on_fetch(request, env):
         #landing_page = params['data[6][]'][1]
 
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
-        await guardar_pedido(env, fono, name, email, direccion, comuna, descripcion,  amount )
+        await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
         await say_atender(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
 
         path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
@@ -217,7 +217,7 @@ async def on_fetch(request, env):
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
         await say_jefe(env, reply )
 
-        await guardar_pedido( env, fono, name, email, direccion, comuna, descripcion,  amount )
+        await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
 
         await say_atender(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
@@ -346,7 +346,7 @@ async def get_fono_cliente(env, buy_order):
     pedido = parse_qs(pedido_json)
     return pedido
 
-async def guardar_pedido( env, fono, name, email, direccion, comuna, descripcion, amount ):
+async def guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion, amount):
     pedido = { 'pedido': {'fono': fono, "name": name, "email": email, "direccion":direccion, "comuna":comuna, "descripcion":descripcion, "amount": amount }}
     return await env.BUY_ORDER.put( buy_order, json.dumps(pedido))#, env.SEGUNDOS_DE_EXPIRACION )
   

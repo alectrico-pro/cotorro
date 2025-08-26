@@ -541,7 +541,9 @@ async def flow_reply_processor(request_json, env):
 async def say_jefe(env, descripcion):
         return await say_tomar( env, str(env.FONO_JEFE), 'ALEC', descripcion, 'PROVIDENCIA')
 
-
+#Avisa a los colaboradores. De momento solo tengo uno
+async def say_jefe(env, descripcion):
+        return await say_tomar( env, str(env.FONO_COLABORADOR), 'ALEB', descripcion, 'PROVIDENCIA')
 
 async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
         console.log("En say_tomar")

@@ -46,6 +46,8 @@ kv_namespaces = [
 TAKEME_IMAGE_PATH='etherdog.png'
 
 FONO_JEFE=56981370042
+FONO_COLABORADOR=5699351576
+
 ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
 API_URL = "https://www.alectrico.cl" 
 VERIFY_TOKEN = "1"
@@ -63,6 +65,8 @@ SEGUNDOS_DE_EXPIRACION=6
 TAKEME_IMAGE_PATH='etherdog.png'
 
 FONO_JEFE=56981370042
+FONO_COLABORADOR=5699351576
+
 
 ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
 PUBLICO_CLIENTE_HTML="932-000-849"
@@ -101,6 +105,7 @@ ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa062
 
 Tarjeta_de_prueba_aprobada="4051 8856 0044 6623"
 FONO_JEFE=56981370042
+FONO_COLABORADOR=5699351576
 LOGUITO_PATH='loguito.jpeg'
 PUBLICO_CLIENTE=56932000849
 PUBLICO_CLIENTE_HTML="932-000-849"

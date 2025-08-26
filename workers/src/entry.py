@@ -549,7 +549,7 @@ async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
         console.log( f"descripcion  {descripcion}")
         imagen_url = f"{env.API_URL}/{env.TAKEME_IMAGE_PATH}"
 
-        await env.BUY_ORDER.put("buy_order", buy_order)
+        await env.COTORRO.put("buy_order", buy_order)
 
         body =  { "messaging_product": "whatsapp",
                    "to": wa_id,

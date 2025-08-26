@@ -178,8 +178,9 @@ async def on_fetch(request, env):
     #--------------------- EL COLABADORADOR DESEOSO DE ATENDER LLEGA CON EL BUY ORDER -----
     elif url.path == '/atender':
         console.log(f"Params en /atender {params}")
-        buy_order = await env.BUY_ORDER.get("buy_order")
-        return mostrar_success(env, f"Atendiendo al número {params['buy_order']}=?{buy_order} .")
+        buy_order = params['buy_order']
+        buy_order_json = await env.BUY_ORDER.get(str(buy_order))
+        return mostrar_success(env, f"Atendiendo al número {params['buy_order']}=?{buy_order_json} .")
     #------------------------------------------------------------------------------------------------
     #----------------------------------------- FORMULARIOS WEBS LLAMAN A AGENDAR ---------------------
     #Esos formularios son un poco diferentes a los usuales usan un assets llamado formoide en las

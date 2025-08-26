@@ -176,7 +176,7 @@ async def on_fetch(request, env):
     #--------------------- EL COLABADORADOR DESEOSO DE ATENDER LLEGA CON EL BUY ORDER -----
     elif url.path == '/atender':
         console.log(f"Params en /atender {params}")
-        buy_order = params['buy_order']
+        buy_order = params['buy_order'][0]
 
         fono = await get_fono_cliente( env, buy_order)
 
@@ -343,6 +343,7 @@ def webhook_get(request, env):
 
 async def get_fono_cliente(env, buy_order):
     console.log("En get_fono_cliente")
+    console.log(f"buy_order {budy_order})
     pedido_json = await env.BUY_ORDER.get(buy_order)
     console.log("pedido_json")
     console.log( pedido_json)

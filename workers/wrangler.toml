@@ -3,6 +3,9 @@ compatibility_date = "2025-08-01"
 compatibility_flags = ["python_workers"]
 main = "src/entry.py"
 
+kv_namespaces= [{  binding = "BUY_ORDER", id = "7a20ea90007a4f99a6a02e864f358144"   }]
+
+
 [observability.logs]
 enabled = true
 
@@ -30,10 +33,12 @@ custom_domain = true
 
 
 
+
 [vars]
 
-kv_namespaces = [
-  { binding = "BUY_ORDER", id = "BUY_ORDER" }]
+
+
+
 
 TAKEME_IMAGE_PATH='etherdog.png'
 
@@ -49,7 +54,7 @@ PHONE_NUMBER_ID="150477064807758"
 
 
 [env.production.vars]
-kv_namespaces= [{  binding = "BUY_ORDER", id = "7a20ea90007a4f99a6a02e864f358144"   }]
+
 
 
 TAKEME_IMAGE_PATH='etherdog.png'
@@ -85,8 +90,6 @@ LOGUITO_PATH='loguito.jpeg'
 
 [env.development.vars]
 
-kv_namespaces = [
-  { binding = "BUY_ORDER", id = "BUY_ORDER" }]
 
 TAKEME_IMAGE_PATH='etherdog.png'
 

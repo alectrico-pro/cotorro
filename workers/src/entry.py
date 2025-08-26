@@ -217,7 +217,7 @@ async def on_fetch(request, env):
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
         await say_jefe(env, reply )
         pedido = { 'pedido': {'fono': fono, "name": name, "email": email, "direccion":direccion, "comuna":comuna, "descripcion":descripcion, "amount": amount }} 
-        await env.BUY_ORDER.put( buy_order, JSON.stringify(pedido), env.SEGUNDOS_DE_EXPIRACION )
+        await env.BUY_ORDER.put( buy_order, json.dumps(pedido), env.SEGUNDOS_DE_EXPIRACION )
         await say_atender(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 

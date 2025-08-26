@@ -344,7 +344,7 @@ def webhook_get(request, env):
 async def get_fono_cliente(env, buy_order):
     console.log("En get_fono_cliente")
     console.log(f"buy_order {buy_order}")
-    pedido_json = await env.BUY_ORDER.get(buy_order)
+    pedido_json = await env.BUY_ORDER.get(str(buy_order))
     console.log("pedido_json")
     console.log( pedido_json)
     pedido = parse_qs(pedido_json)

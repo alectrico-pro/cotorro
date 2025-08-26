@@ -49,10 +49,11 @@ PHONE_NUMBER_ID="150477064807758"
 
 
 [env.production.vars]
+kv_namespaces= [{
+                    binding = "BUY_ORDER",
+                    id = "7a20ea90007a4f99a6a02e864f358144"
+                 }]
 
-
-kv_namespaces = [
-  { binding = "BUY_ORDER", id = "BUY_ORDER" }]
 
 TAKEME_IMAGE_PATH='etherdog.png'
 

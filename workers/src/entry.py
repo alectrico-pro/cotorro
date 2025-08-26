@@ -1232,7 +1232,7 @@ def mostrar_success( env, mensaje):
 
 
 
-def success_llamar_fono( env, mensaje, fono):
+def success_mostrar_fono( env, mensaje, fono):
 
   HTML = f"""<!DOCTYPE html>
 <html lang='es-CL' prefix='og: http://ogp.me/ns#'  >

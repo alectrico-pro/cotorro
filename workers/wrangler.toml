@@ -8,8 +8,6 @@ account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
 kv_namespaces = [
   { preview_id = "d6b5da58cc854814a2396043c56f76bb", binding = "BUY_ORDER", id = "7a20ea90007a4f99a6a02e864f358144" }]
 
-kv_namespaces= [{  binding = "COTORRO", id = "9b858dcd2cbf4f66ac5f3aa63f22c03b"   }]
-
 [observability.logs]
 enabled = true
 

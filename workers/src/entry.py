@@ -341,7 +341,7 @@ def webhook_get(request, env):
 
 #----------------------------- FUNCIONES ------------------------------------------------------
 
-async def get_fono_cliente( buy_order)
+async def get_fono_cliente( buy_order):
     return await env.BUY_ORDER.get(buy_order)
 
 async def guardar_pedido( fono, name, email, direccion, comuna, descripcion, amount )

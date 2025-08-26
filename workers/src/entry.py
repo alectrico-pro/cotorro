@@ -346,7 +346,7 @@ async def get_fono_cliente( buy_order):
     pedido = parse_qs(pedido_json)
     return pedido
 
-async def guardar_pedido( fono, name, email, direccion, comuna, descripcion, amount )
+async def guardar_pedido( fono, name, email, direccion, comuna, descripcion, amount ):
     pedido = { 'pedido': {'fono': fono, "name": name, "email": email, "direccion":direccion, "comuna":comuna, "descripcion":descripcion, "amount": amount }}
     return await env.BUY_ORDER.put( buy_order, json.dumps(pedido))#, env.SEGUNDOS_DE_EXPIRACION )
   

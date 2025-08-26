@@ -178,7 +178,7 @@ async def on_fetch(request, env):
         console.log(f"Params en /atender {params}")
         buy_order = params['buy_order'][0]
         fono = await get_fono_cliente( env, buy_order)
-        return sucess_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
+        return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
     #------------------------------------------------------------------------------------------------
     #----------------------------------------- FORMULARIOS WEBS LLAMAN A AGENDAR ---------------------
     #Esos formularios son un poco diferentes a los usuales usan un assets llamado formoide en las

@@ -188,7 +188,6 @@ async def on_fetch(request, env):
     elif url.path == '/agendar':
         console.log(f"Params en /agendar {params}")
         buy_order   = str( random.randint(1, 10000))
-        amount      = params['amount'][0]
         fono        = params['fono'][0]
         descripcion = params['descripcion'][0]
         amount      = params['amount'][0]
@@ -250,7 +249,7 @@ async def on_fetch(request, env):
     #--------------------------------------------------------------------------------------------
 
     #----------------- WEBHOOK DE WABA ---------------------------------------------------------
-    elif url.path.startswith("/webhook") or url.path.startswith("/api/v1/santum/webhook"):
+    elif url.path.startswith("/webhook"): # or url.path.startswith("/api/v1/santum/webhook"):
         console.log("En webhook")
 
         request_json = await request.json()

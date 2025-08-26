@@ -172,7 +172,8 @@ async def on_fetch(request, env):
 
     elif url.path == '/atender':
         console.log(f"Params en /atender {params}")
-        return mostrar_success(env, f"Atendiendo al número {params['buy_order']}.")
+        buy_order = await env.BUY_ORDER.get("buy_order")
+        return mostrar_success(env, f"Atendiendo al número {params['buy_order']}=?{buy_order} .")
 
 
        #agendar?nombre=oipoi+upoi&fono=987654321&email=hjhkjh%40lkjlkj.ll&comuna=Providencia&descripcion=lkñ+jñlkj&direccion=o+ṕoiṕoiṕo&latitude=&longitude=&amount=68000

@@ -146,7 +146,7 @@ async def on_fetch(request, env):
 
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
         await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
-        await say_atender(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
+        await say_atender(env, str(env.FONO_COLABORADOR), name, direccion, comuna, buy_order)
 
         path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
         await say_link_de_pago( env, fono, name, descripcion, comuna, path_de_pago )
@@ -216,7 +216,7 @@ async def on_fetch(request, env):
 
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
 
-        await say_atender(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
+        await say_atender(env, str(env.FONO_COLABORADOR), name, direccion, comuna, buy_order)
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
     #--------------------------------------------------------------------------------------------
@@ -534,7 +534,7 @@ async def flow_reply_processor(request_json, env):
         await send_reply(env, wa_id, reply)
         console.log("Enviando reply al FONO_JEFE")
         await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
-        await say_atender(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
+        await say_atender(env, str(env.FONO_COLABORADOR), name, direccion, comuna, buy_order)
         return await send_msg(env, str(env.FONO_JEFE), reply )
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así

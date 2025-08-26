@@ -347,7 +347,7 @@ async def get_fono_cliente(env, buy_order):
     pedido_json = await env.BUY_ORDER.get(str(buy_order))
     pedido = json.loads(pedido_json)
     console.log(f"pedido {pedido}")
-    return pedido.pedido.fono
+    return pedido['pedido']['fono']
 
 async def guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion, amount):
     pedido = { 'pedido': {'fono': fono, "name": name, "email": email, "direccion":direccion, "comuna":comuna, "descripcion":descripcion, "amount": amount }}

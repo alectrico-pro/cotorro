@@ -342,7 +342,7 @@ def webhook_get(request, env):
 #----------------------------- FUNCIONES ------------------------------------------------------
 
 async def get_fono_cliente(env, buy_order):
-    pedido_json = env.BUY_ORDER.get(buy_order)
+    pedido_json = await env.BUY_ORDER.get(buy_order)
     pedido = parse_qs(pedido_json)
     return pedido
 

@@ -533,7 +533,8 @@ async def flow_reply_processor(request_json, env):
         console.log(f"reply {reply}")
         await send_reply(env, wa_id, reply)
         console.log("Enviando reply al FONO_JEFE")
-        await env.BUY_ORDER.put(buy_order, {'fono': fono, "name": name, "email": email, "direccion":direccion, "comuna":comuna, "descripcion":descripcion } )
+        await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
+        await say_atender(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
         return await send_msg(env, str(env.FONO_JEFE), reply )
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así

@@ -125,6 +125,7 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
 
+    #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------
     if url.path == '/create_from_landing_page' and method== 'POST':
         console.log(f"Params en /create_from_landing_page {params}")
 
@@ -145,36 +146,44 @@ async def on_fetch(request, env):
 
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
 
+        await env.BUY_ORDER.put(buy_order, {'fono': fono, "name": name, "email": email, "direccion":direccion, "comuna":comuna, "descripcion":descripcion, "amount": amount } )
+
         await say_atender(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
 
         path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
         await say_link_de_pago( env, fono, name, descripcion, comuna, path_de_pago )
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
-
+   #-----------------------------------------------------------------------------------
 
 
     elif url.path == "/favicon.ico":
           return Response("")
 
 
-    #Esto viende del QR de la chaqueta
+    #Esto viende del QR de la chaqueta -----------------------------------------------
     #https://www.alectrico.cl/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user
     elif url.path == '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user':
         await say_jefe(env, f"Hola Jefe, alguien llegó a verifica_user" )
         return Response.redirect( env.ALEC_SEC_URL, 307)
         #return agendar(env, '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user')
+    #-----------------------------------------------------------------------------------
 
     #entrypoint cuando se llama directamente a www.alectrico.cl
-
+    #--------------------  PRESENTA UN FORMULARIO QUE TERMINA EN AGENDAR ----------
     elif url.path == '/':
         return agendar(env, 'Ingrese los datos para Agendar una Visita a Domicilio')
+    #-----------------------------------------------------------------------------------
 
+    #--------------------- EL COLABADORADOR DESEOSO DE ATENDER LLEGA CON EL BUY ORDER -----
     elif url.path == '/atender':
         console.log(f"Params en /atender {params}")
         buy_order = await env.BUY_ORDER.get("buy_order")
         return mostrar_success(env, f"Atendiendo al número {params['buy_order']}=?{buy_order} .")
-
+    #------------------------------------------------------------------------------------------------
+    #----------------------------------------- FORMULARIOS WEBS LLAMAN A AGENDAR ---------------------
+    #Esos formularios son un poco diferentes a los usuales usan un assets llamado formoide en las
+    #landing_pages
 
        #agendar?nombre=oipoi+upoi&fono=987654321&email=hjhkjh%40lkjlkj.ll&comuna=Providencia&descripcion=lkñ+jñlkj&direccion=o+ṕoiṕoiṕo&latitude=&longitude=&amount=68000
     elif url.path == '/agendar':
@@ -205,10 +214,16 @@ async def on_fetch(request, env):
         #Porque lo necesito en def tbk_commit para enviar el voucher al cliente
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
         await say_jefe(env, reply )
+        await env.BUY_ORDER.put(buy_order, {'fono': fono, "name": name, "email": email, "direccion":direccion, "comuna":comuna, "descripcion":descripcion, "amount": amount } )
         await say_atender(env, str(env.FONO_JEFE), name, direccion, comuna, buy_order)
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
+    #--------------------------------------------------------------------------------------------
 
+    #------------------------------------------ PAGO EN PASARELA TRANSBANK --------------------
+    #Este es al paso previo antes de redirigiar a tranbank
+    #Desde allá vuelve a return_url
+    #Pero con diferentes argumentos
     elif url.path.startswith("/transbank") and method == 'GET':
         console.log(f"Params en /transbank {params}")
         buy_order  = params['buy_order'][0]
@@ -230,7 +245,9 @@ async def on_fetch(request, env):
         console.log("En return_url TKB_TOKEN {TKB_TOKEN}")
         return mostrar_not_found(env, "El Pago fue Cancelado! ")
 
+    #--------------------------------------------------------------------------------------------
 
+    #----------------- WEBHOOK DE WABA ---------------------------------------------------------
     elif url.path.startswith("/webhook") or url.path.startswith("/api/v1/santum/webhook"):
         console.log("En webhook")
 
@@ -293,11 +310,14 @@ async def on_fetch(request, env):
                return await send_msg(env, wa_id, msg)
             return Response( "ok", status="200")
 
+    #----------------------------------------------------------------------------------------
 
+    #-------------------- APOYO PARA LAS LANDING PAGES  EN ---------------------------------
 
     elif url.path.startswith('/fonos.json'):
         console.log("En fonos.json")
         return fonos(env)
+    #-------------------------------------------------------------------------------------
 
     else:     
       console.log("No se ha identificado")
@@ -305,7 +325,7 @@ async def on_fetch(request, env):
 #----------------------------FIN llegada de requests --------------------------
 
 #.......................... MENU PRINCIPAL -----------------------------------
-
+#-----------------------------------------------------------------------------
 #@app.route("/webhook", methods=["GET"])
 #Hay que hacerlo nuevamente. Se me borró el que usé al comienzo
 def webhook_get(request, env):
@@ -315,7 +335,7 @@ def webhook_get(request, env):
     else:
         return Response("Error", status=403)
 
-
+#----------------------------- FUNCIONES ------------------------------------------------------
 async def post_tbk( uri, env):
     init = {
         "method": "POST",
@@ -498,6 +518,7 @@ async def flow_reply_processor(request_json, env):
         console.log(f"reply {reply}")
         await send_reply(env, wa_id, reply)
         console.log("Enviando reply al FONO_JEFE")
+        await env.BUY_ORDER.put(buy_order, {'fono': fono, "name": name, "email": email, "direccion":direccion, "comuna":comuna, "descripcion":descripcion } )
         return await send_msg(env, str(env.FONO_JEFE), reply )
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
@@ -550,7 +571,6 @@ async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
         console.log( f"descripcion  {descripcion}")
         imagen_url = f"{env.API_URL}/{env.TAKEME_IMAGE_PATH}"
 
-        await env.BUY_ORDER.put("buy_order", buy_order)
 
         body =  { "messaging_product": "whatsapp",
                    "to": wa_id,

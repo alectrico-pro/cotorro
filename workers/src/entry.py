@@ -308,7 +308,7 @@ async def on_fetch(request, env):
                #esto genera utro Message undeliverable
                msg        = (f"Por favor pague la visita siguiendo el link:\n"
                             f"link_de_pago: {link_de_pago}\n\n")
-               return await send_msg(env, wa_id, msg)
+               #eturn await send_msg(env, wa_id, msg)
             return Response( "ok", status="200")
 
     #----------------------------------------------------------------------------------------

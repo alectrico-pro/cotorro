@@ -57,7 +57,7 @@ PHONE_NUMBER_ID="150477064807758"
 
 
 [env.production.vars]
-
+SEGUNDOS_DE_EXPIRACION=6
 
 
 TAKEME_IMAGE_PATH='etherdog.png'
@@ -92,6 +92,7 @@ LOGUITO_PATH='loguito.jpeg'
 
 
 [env.development.vars]
+SEGUNDOS_DE_EXPIRACION=6
 
 
 TAKEME_IMAGE_PATH='etherdog.png'

@@ -111,7 +111,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         }
         response = await fetch(uri, to_js(options))
         #content_type, result = await gather_response(response)
-        await json_response = response.json()
+        json_response = await response.json()
         await guardar_message_id(env, json_response, 'say_visita -> flow reserva' )
         return 
         #eaders = Headers.new({"content-type": content_type}.items())

@@ -143,7 +143,7 @@ async def on_fetch(request, env):
         comuna       = params['data[4][]'][1]
         descripcion  = params['data[5][]'][1]
         #landing_page = params['data[6][]'][1]
-        await difundir(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount):
+        await difundir(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount)
         #token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
         #await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
         #await say_atender(env, str(env.FONO_COLABORADOR), name, direccion, comuna, buy_order, fono, name, email, direccion, comuna, descripcion, amount)

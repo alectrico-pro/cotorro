@@ -607,6 +607,13 @@ async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
                                  "language": {"code": "es"},
                     "components": [
                   { "type": "header",  "parameters": [
+                   { "type": "body",
+                     "parameters": [
+                      { "type": "text", "text": nombre },
+                      { "type": "text", "text": descripcion },
+                      { "type": "text", "text": comuna }
+                     ]
+                   }, 
                    { "type" : "image",
                      "image": { "link": imagen_url } } ] },
                     { "type": "button", "sub_type": "url", "index": "0", 
@@ -651,8 +658,8 @@ async def say_link_de_pago( env, wa_id, nombre, descripcion, comuna, path_de_pag
         body = {"messaging_product"    :  "whatsapp",
                 "to"                   :  wa_id,
                 "type"                 : "template",
-                "template"             : { "name" : "saludo",
-                                       "language" : { "code" : "es_AR" },
+                "template"             : { "name" : "say_link_de_pago",
+                                       "language" : { "code" : "es" },
                 "components"           : [
                 { "type": "header",  "parameters": [
                    { "type" : "image",

@@ -533,7 +533,7 @@ async def flow_reply_processor(request_json, env):
         )
         console.log(f"reply {reply}")
         await send_reply(env, wa_id, reply)
-        await difundir(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount)
+        await difundir(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, amount)
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def say_jefe(env, descripcion):

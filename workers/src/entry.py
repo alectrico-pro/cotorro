@@ -143,13 +143,13 @@ async def on_fetch(request, env):
         comuna       = params['data[4][]'][1]
         descripcion  = params['data[5][]'][1]
         #landing_page = params['data[6][]'][1]
+        await difundir(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount):
+        #token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
+        #await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
+        #await say_atender(env, str(env.FONO_COLABORADOR), name, direccion, comuna, buy_order, fono, name, email, direccion, comuna, descripcion, amount)
 
-        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
-        await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
-        await say_atender(env, str(env.FONO_COLABORADOR), name, direccion, comuna, buy_order)
-
-        path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
-        await say_link_de_pago( env, fono, name, descripcion, comuna, path_de_pago )
+        #path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
+        #await say_link_de_pago( env, fono, name, descripcion, comuna, path_de_pago )
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
    #-----------------------------------------------------------------------------------
@@ -217,6 +217,7 @@ async def on_fetch(request, env):
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
 
         await say_atender(env, str(env.FONO_COLABORADOR), name, direccion, comuna, buy_order)
+
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
     #--------------------------------------------------------------------------------------------
@@ -581,6 +582,14 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
         console.log(f"result {result}")
         return
 
+#Difundi un peido a los colaboradores
+async def difundir(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount):
+        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, email, env)
+        await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
+        await say_atender(env, str(env.FONO_COLABORADOR), name, direccion, comuna, buy_order, fono, name, email, direccion, comuna, descripcion, amount)
+        path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
+        await say_link_de_pago( env, fono, name, descripcion, comuna, path_de_pago )
+        return
 
 #Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
 #Ese botón, permite a un colaboraodr tomar la orden dada por buy_order

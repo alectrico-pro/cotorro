@@ -212,7 +212,7 @@ async def on_fetch(request, env):
         #Eso es porque uso la defininción de transbank para enviar el fono
         #Porque lo necesito en def tbk_commit para enviar el voucher al cliente
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
-        await say_jefe(env, reply )
+        #await say_jefe(env, reply )
 
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
 

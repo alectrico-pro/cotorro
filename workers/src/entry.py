@@ -270,6 +270,7 @@ async def on_fetch(request, env):
                console.log(f"body {value.messages[0].text.body}")
                body = value.messages[0].text.body
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
+               #no puedo difundir aquí porque el cliente no ha introducido datos
                await enviar_template_say_visita_flow_reserva( request, env, wa_id )
                await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
                return Response( "Procesado", status="200")
@@ -284,6 +285,7 @@ async def on_fetch(request, env):
                    console.log("Es nfm_reply")
                    if hasattr(value.messages[0].interactive.nfm_reply, 'response_json') == True :
                        console.log("Tiene response_json")
+                       #no puedeo difundiar aquí, lo hago desde dentro del flow_reply_processor
                        return await flow_reply_processor( request_json, env)
 
             console.log(f"Es un mensaje y nada más: {value}")
@@ -532,12 +534,8 @@ async def flow_reply_processor(request_json, env):
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def say_jefe(env, descripcion):
+        return await say_tomar( env, str(env.FONO_JEFE), 'ALE JEFE', descripcion, 'PROVIDENCIA')
 
-        return await say_tomar( env, str(env.FONO_JEFE), 'ALEC', descripcion, 'PROVIDENCIA')
-
-#Avisa a los colaboradores. De momento solo tengo uno
-async def say_jefe(env, descripcion):
-        return await say_tomar( env, str(env.FONO_COLABORADOR), 'ALEB', descripcion, 'PROVIDENCIA')
 
 async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
         console.log("En say_tomar")

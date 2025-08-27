@@ -334,20 +334,6 @@ async def on_fetch(request, env):
             return Response( "ok", status="200")
 
 
-#no se usa, está mal concebido
-async def message_failed( env, json_response):
-    id = json_response.messages[0].id
-    console.log(f"id {id}")
-    status = await env.BUY_ORDER.get(str(id) )
-    #status = await env.BUY_ORDER.get('wamid.HBgLNTY5ODEzNzAwNDIVAgARGBJENEZDNkZGNzY4ODM5NDE2QzAA')
-    console.log(f"status {status}")
-    match status:
-        case 'failed':
-            return True
-    return False
-
-
-
     #----------------------------------------------------------------------------------------
 
     #-------------------- APOYO PARA LAS LANDING PAGES  EN ---------------------------------
@@ -361,6 +347,21 @@ async def message_failed( env, json_response):
       console.log("No se ha identificado")
       return mostrar_not_found(env, "Bah! Ocurrió un Error")
 #----------------------------FIN llegada de requests --------------------------
+
+
+
+#no se usa, está mal concebido
+async def message_failed( env, json_response):
+    id = json_response.messages[0].id
+    console.log(f"id {id}")
+    status = await env.BUY_ORDER.get(str(id) )
+    #status = await env.BUY_ORDER.get('wamid.HBgLNTY5ODEzNzAwNDIVAgARGBJENEZDNkZGNzY4ODM5NDE2QzAA')
+    console.log(f"status {status}")
+    match status:
+        case 'failed':
+            return True
+    return False
+
 
 #.......................... MENU PRINCIPAL -----------------------------------
 #-----------------------------------------------------------------------------

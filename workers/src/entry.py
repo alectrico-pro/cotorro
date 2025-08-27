@@ -110,16 +110,18 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
            },
         }
         response = await fetch(uri, to_js(options))
-        content_type, result = await gather_response(response)
-        await guardar_message_id(env, response, 'say_visita -> flow reserva' )
-        headers = Headers.new({"content-type": content_type}.items())
+        #content_type, result = await gather_response(response)
+        await json_response = response.json()
+        await guardar_message_id(env, json_response, 'say_visita -> flow reserva' )
+        return 
+        #eaders = Headers.new({"content-type": content_type}.items())
 
-        return Response(result, headers=headers)
+        #eturn Response(result, headers=headers)
 
 #----------------------------- llegada de requests --------------------
-async def guardar_message_id( env, response, tipo):
-    await env.BUY_ORDER.put( response, tipo, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
-    id = response.messages[0].id 
+async def guardar_message_id( env, json_response, tipo):
+    await env.BUY_ORDER.put( json_response, tipo, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+    id = json_response.messages[0].id 
     status = await env.BUY_ORDER.get( str(id) )
     match status:
         case 'failed':

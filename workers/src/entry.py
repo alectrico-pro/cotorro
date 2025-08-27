@@ -286,7 +286,9 @@ async def on_fetch(request, env):
                    if hasattr(value.messages[0].interactive.nfm_reply, 'response_json') == True :
                        console.log("Tiene response_json")
                        #no puedeo difundiar aquí, lo hago desde dentro del flow_reply_processor
-                       return await flow_reply_processor( request_json, env)
+                       await flow_reply_processor( request_json, env)
+                       return Response( "Procesado", status="200")
+
 
             console.log(f"Es un mensaje y nada más: {value}")
             return Response( "no procesado", status="200")

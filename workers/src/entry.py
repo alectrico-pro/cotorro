@@ -608,9 +608,9 @@ async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
                     "components": [
                    { "type": "body",
                      "parameters": [
-                      { "type": "text", "text": nombre },
-                      { "type": "text", "text": descripcion },
-                      { "type": "text", "text": comuna }
+                         { "type": "text", "parameter_name": "name", "text": nombre },
+                         { "type": "text", "parameter_name": "reporte", "text": descripcion },
+                         { "type": "text", "parameter_name": "comuna", "text": comuna }
                      ]
                    },
                    { "type": "header",  "parameters": [

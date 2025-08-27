@@ -276,6 +276,8 @@ async def on_fetch(request, env):
                console.log("Es text")
                console.log(f"body {value.messages[0].text.body}")
                body = value.messages[0].text.body
+               id   = value.messages[0].id
+               await save_text_message(env, id, body)
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
                #no puedo difundir aquí porque el cliente no ha introducido datos
                #envío al cuestionario flow para obtener los datos
@@ -347,7 +349,15 @@ def webhook_get(request, env):
     else:
         return Response("Error", status=403)
 
+
 #----------------------------- FUNCIONES ------------------------------------------------------
+
+
+async def save_text_message( env, id, body ):
+    await env.BUY_ORDER.put( str(id), body, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+    return
+
+
 
 async def save_status( env, id, status ):
     await env.BUY_ORDER.put( str(id), status, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )

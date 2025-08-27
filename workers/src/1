@@ -139,11 +139,17 @@ async def on_fetch(request, env):
         name         = params['data[0][]'][1]
         fono         = params['data[1][]'][1]
         email        = params['data[2][]'][1]
-        descripcion  = params['data[3][]'][1]
+        direccion    = params['data[3][]'][1]
         comuna       = params['data[4][]'][1]
-        direccion    = params['data[5][]'][1]
+        descripcion  = params['data[5][]'][1]
         #landing_page = params['data[6][]'][1]
         await difundir(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount)
+        #token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, session_id, env)
+        #await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
+        #await say_atender(env, str(env.FONO_COLABORADOR), name, direccion, comuna, buy_order, fono, name, email, direccion, comuna, descripcion, amount)
+
+        #path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
+        #await say_link_de_pago( env, fono, name, descripcion, comuna, path_de_pago )
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
    #-----------------------------------------------------------------------------------
@@ -528,11 +534,13 @@ async def flow_reply_processor(request_json, env):
         )
         console.log(f"reply {reply}")
         await send_reply(env, wa_id, reply)
-        await difundir(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount)
+        console.log("Enviando reply al FONO_JEFE")
+        await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
+        await say_atender(env, str(env.FONO_COLABORADOR), name, direccion, comuna, buy_order)
+        return await send_msg(env, str(env.FONO_JEFE), reply )
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def say_jefe(env, descripcion):
-
         return await say_tomar( env, str(env.FONO_JEFE), 'ALEC', descripcion, 'PROVIDENCIA')
 
 #Avisa a los colaboradores. De momento solo tengo uno
@@ -600,9 +608,9 @@ async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
                     "components": [
                    { "type": "body",
                      "parameters": [
-                         { "type": "text", "parameter_name": "nombre", "text": nombre },
-                         { "type": "text", "parameter_name": "reporte", "text": descripcion },
-                         { "type": "text", "parameter_name": "comuna", "text": comuna }
+                      { "type": "text", "text": nombre },
+                      { "type": "text", "text": descripcion },
+                      { "type": "text", "text": comuna }
                      ]
                    },
                    { "type": "header",  "parameters": [

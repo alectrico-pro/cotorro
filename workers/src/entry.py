@@ -580,7 +580,7 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 async def difundir(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount):
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, email, env)
         await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
-        await say_atender(env, str(env.FONO_COLABORADOR), name, descripcion, comuna, buy_order)
+        await say_atender(env, str(env.FONO_COLABORADOR), env.NOMBRE_COLABORADOR, descripcion, comuna, buy_order)
         path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
         #await say_link_de_pago( env, fono, name, descripcion, comuna, path_de_pago )
         return

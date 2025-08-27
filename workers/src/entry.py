@@ -588,7 +588,7 @@ async def difundir(env, buy_order, name, descripcion, comuna, fono, email, direc
         await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
         await say_atender(env, str(env.FONO_COLABORADOR), name, descripcion, comuna, buy_order)
         path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
-        await say_link_de_pago( env, fono, name, descripcion, comuna, path_de_pago )
+        #await say_link_de_pago( env, fono, name, descripcion, comuna, path_de_pago )
         return
 
 #Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order

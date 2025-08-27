@@ -606,15 +606,15 @@ async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
                    "template": { "name": "say_atender",
                                  "language": {"code": "es"},
                     "components": [
-                  { "type": "header",  "parameters": [
                    { "type": "body",
                      "parameters": [
                       { "type": "text", "text": nombre },
                       { "type": "text", "text": descripcion },
                       { "type": "text", "text": comuna }
                      ]
-                   }, 
-                   { "type" : "image",
+                   },
+                   { "type": "header",  "parameters": [
+                    { "type" : "image",
                      "image": { "link": imagen_url } } ] },
                     { "type": "button", "sub_type": "url", "index": "0", 
                      "parameters": [ { "type": "text", "text": buy_order } ] } ] } }

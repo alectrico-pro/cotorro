@@ -216,7 +216,7 @@ async def on_fetch(request, env):
 
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
 
-        await say_atender(env, str(env.FONO_COLABORADOR), name, direccion, comuna, buy_order)
+        await say_atender(env, str(env.FONO_COLABORADOR), str(env.NOMBRE_COLABORADOR), direccion, comuna, buy_order)
 
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 

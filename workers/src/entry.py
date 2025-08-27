@@ -124,7 +124,7 @@ async def guardar_message_id( env, json_response, tipo):
     id = json_response.messages[0].id 
     console.log(f"id {id}")
     #status = await env.BUY_ORDER.get(id )
-    status = await env.BUY_ORDER.GET('wamid.HBgLNTY5ODEzNzAwNDIVAgARGBJENEZDNkZGNzY4ODM5NDE2QzAA')
+    status = await env.BUY_ORDER.get('wamid.HBgLNTY5ODEzNzAwNDIVAgARGBJENEZDNkZGNzY4ODM5NDE2QzAA')
     console.log(f"status {status}")
     match status:
         case 'failed':

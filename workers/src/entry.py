@@ -122,7 +122,9 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
 async def guardar_message_id( env, json_response, tipo):
     await env.BUY_ORDER.put( json_response, tipo, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
     id = json_response.messages[0].id 
+    console.log(f"id {id}")
     status = await env.BUY_ORDER.get( str(id) )
+    console.log(f"status {status}")
     match status:
         case 'failed':
             console.log(f"Cuestionario {id} ha fallado ")

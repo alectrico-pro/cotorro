@@ -119,6 +119,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
 #----------------------------- llegada de requests --------------------
 async def guardar_message_id( result ):
     await env.BUY_ORDER.put( 1, 'accepted', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+
     #Debe obtener message_id desde el resultado
     return 1
 
@@ -264,6 +265,7 @@ async def on_fetch(request, env):
 
 
         if hasattr(value, 'messages') == True :
+
             console.log("Es un mensaje")
 
             #Cuando alguien escribe un texto en los canales de publico suscritos
@@ -276,7 +278,7 @@ async def on_fetch(request, env):
                body = value.messages[0].text.body
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
                #no puedo difundir aquí porque el cliente no ha introducido datos
-               #envío el cuestionario flow para obtener los datos
+               #envío al cuestionario flow para obtener los datos
                await enviar_template_say_visita_flow_reserva( request, env, wa_id )
                await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
                return Response( "Procesado", status="200")
@@ -304,6 +306,9 @@ async def on_fetch(request, env):
         elif hasattr(value, 'statuses') == True :
             console.log("Es un statuses")
             status = value.statuses[0].status
+            id     = value.statuses[0].id
+            await save_status( id, status )
+
             console.log(status)
             #Hay que mejorarlo para que identife qué fue lo que causó el fallo
             if  status == 'failed' and value.statuses[0].errors[0].title == 'Message undeliverable':
@@ -344,6 +349,12 @@ def webhook_get(request, env):
 
 #----------------------------- FUNCIONES ------------------------------------------------------
 
+async def save_status( id, status ):
+    await env.BUY_ORDER.put( str(id), status, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+    return
+
+
+
 async def get_fono_cliente(env, buy_order):
     console.log("En get_fono_cliente")
     console.log(f"buy_order {buy_order}")
@@ -351,6 +362,8 @@ async def get_fono_cliente(env, buy_order):
     pedido = json.loads(pedido_json)
     console.log(f"pedido {pedido}")
     return pedido['pedido']['fono']
+
+
 
 async def guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion, amount):
     pedido = { 'pedido': {'fono': fono, "name": name, "email": email, "direccion":direccion, "comuna":comuna, "descripcion":descripcion, "amount": amount }}
@@ -544,9 +557,12 @@ async def flow_reply_processor(request_json, env):
         await send_reply(env, wa_id, reply)
         await difundir(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, amount)
 
+
+
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def say_jefe(env, descripcion):
         return await say_tomar( env, str(env.FONO_JEFE), 'ALE JEFE', descripcion, 'PROVIDENCIA')
+
 
 
 async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
@@ -584,6 +600,8 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
         console.log(f"result {result}")
         return
 
+
+
 #Difundi un peido a los colaboradores
 async def difundir(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount):
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, email, env)
@@ -592,6 +610,8 @@ async def difundir(env, buy_order, name, descripcion, comuna, fono, email, direc
         path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
         #await say_link_de_pago( env, fono, name, descripcion, comuna, path_de_pago )
         return
+
+
 
 #Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
 #Ese botón, permite a un colaboraodr tomar la orden dada por buy_order

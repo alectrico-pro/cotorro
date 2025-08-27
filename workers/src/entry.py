@@ -111,11 +111,16 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         }
         response = await fetch(uri, to_js(options))
         content_type, result = await gather_response(response)
-
+        await guardar_message_id( result )
         headers = Headers.new({"content-type": content_type}.items())
+
         return Response(result, headers=headers)
 
 #----------------------------- llegada de requests --------------------
+async def guardar_message_id( result )
+    await env.BUY_ORDER.put( 1, 'accepted', {   : env.        })
+    #Debe obtener message_id desde el resultado
+    return 1
 
 async def on_fetch(request, env):
 
@@ -271,6 +276,7 @@ async def on_fetch(request, env):
                body = value.messages[0].text.body
                wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
                #no puedo difundir aquí porque el cliente no ha introducido datos
+               #envío el cuestionario flow para obtener los datos
                await enviar_template_say_visita_flow_reserva( request, env, wa_id )
                await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
                return Response( "Procesado", status="200")
@@ -285,7 +291,7 @@ async def on_fetch(request, env):
                    console.log("Es nfm_reply")
                    if hasattr(value.messages[0].interactive.nfm_reply, 'response_json') == True :
                        console.log("Tiene response_json")
-                       #no puedeo difundiar aquí, lo hago desde dentro del flow_reply_processor
+                       #no puedeo difundir aquí, lo hago desde dentro del flow_reply_processor
                        await flow_reply_processor( request_json, env)
                        return Response( "Procesado", status="200")
 
@@ -634,10 +640,6 @@ async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
         console.log(f"response {response}")
         content_type, result = await gather_response(response)
         console.log(f"result {result}")
-        #debo averiguar el result
-#       await env.BUY_ORDER.put('buy_order', buy_order)
-#       await env.BUY_ORDER.put(str(buy_order), 'difundido')
-#       buy_order = await env.FOO.get( str(buy_order))
         return
 
 
@@ -1303,7 +1305,7 @@ def success_mostrar_fono( env, mensaje, fono):
             <div class='col-12 col-lg-11'>
               <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>Eléctricos a Domicilio </em></strong><br><strong><em>- en Providencia -</em></strong></h1>
               <h2 class='mbr-section-subtitle mbr-fonts-style mb-3 display-5'>{env.MISION}</h2>
-              <div class='mbr-section-btn mt-3'><a class='btn btn-primary display-4' href='https://wa.me/{fono}'>
+              <div class='mbr-section-btn mt-3'><a class='btn btn-primary display-4' href='https://wa.me/56{fono}'>
               <span class='socicon socicon-whatsapp mbr-iconfont mbr-iconfont-btn'>
               </span></a> <a class='btn btn-info display-4' href='tel:{fono}'><span class='mobi-mbri mobi-mbri-phone mbr-iconfont mbr-iconfont-btn'></span></a></div>
             </div>

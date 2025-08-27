@@ -307,7 +307,7 @@ async def on_fetch(request, env):
             console.log("Es un statuses")
             status = value.statuses[0].status
             id     = value.statuses[0].id
-            await save_status( id, status )
+            await save_status(env, id, status )
 
             console.log(status)
             #Hay que mejorarlo para que identife qué fue lo que causó el fallo
@@ -349,7 +349,7 @@ def webhook_get(request, env):
 
 #----------------------------- FUNCIONES ------------------------------------------------------
 
-async def save_status( id, status ):
+async def save_status( env, id, status ):
     await env.BUY_ORDER.put( str(id), status, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
     return
 

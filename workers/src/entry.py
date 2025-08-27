@@ -458,19 +458,20 @@ async def flow_reply_processor(request_json, env):
         #---- procesando los campos
         flow_data = json.loads(response_json)
 
+
+        sintoma_1=''
+        sintoma_2=''
+        sintoma_3=''
+        sintoma_4=''
+        sintoma_5=''
+        sintoma_6=''
+
         console.log(f"flow_data {flow_data}")
         if 'sintomas' in flow_data:
 
             sintoma_id = flow_data['sintomas']
 
             console.log(f"sintoma_id {sintoma_id}")
-
-            sintoma_1=''
-            sintoma_2=''
-            sintoma_3=''
-            sintoma_4=''
-            sintoma_5=''
-            sintoma_6=''
 
             match sintoma_id[0]:
                 case "0":

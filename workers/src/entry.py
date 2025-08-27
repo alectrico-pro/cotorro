@@ -459,30 +459,32 @@ async def flow_reply_processor(request_json, env):
         flow_data = json.loads(response_json)
 
         console.log(f"flow_data {flow_data}")
-        sintoma_id = flow_data['sintomas']
+        if 'sintomas' in flow_data:
 
-        console.log(f"sintoma_id {sintoma_id}")
+            sintoma_id = flow_data['sintomas']
 
-        sintoma_1=''
-        sintoma_2=''
-        sintoma_3=''
-        sintoma_4=''
-        sintoma_5=''
-        sintoma_6=''
+            console.log(f"sintoma_id {sintoma_id}")
 
-        match sintoma_id[0]:
-            case "0":
-                sintoma_1 = 'Sentí un ruido de cuetazo'
-            case "1":
-                sintoma_2 = 'Tengo enchufe(s) malo(s)'
-            case "2":
-                sintoma_3 = 'Necesito Instalar Luminarias'
-            case "3":
-                sintoma_4 = 'Necesito Presentar un TE1'
-            case "4":
-                sintoma_5 = 'Necesito más Circuitos'
-            case "5":
-                sintoma_6 = 'No tengo luz'
+            sintoma_1=''
+            sintoma_2=''
+            sintoma_3=''
+            sintoma_4=''
+            sintoma_5=''
+            sintoma_6=''
+
+            match sintoma_id[0]:
+                case "0":
+                    sintoma_1 = 'Sentí un ruido de cuetazo'
+                case "1":
+                    sintoma_2 = 'Tengo enchufe(s) malo(s)'
+                case "2":
+                    sintoma_3 = 'Necesito Instalar Luminarias'
+                case "3":
+                    sintoma_4 = 'Necesito Presentar un TE1'
+                case "4":
+                    sintoma_5 = 'Necesito más Circuitos'
+                case "5":
+                    sintoma_6 = 'No tengo luz'
 
         nombre      = flow_data['nombre']
         apellido    = flow_data['apellido']

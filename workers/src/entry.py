@@ -117,8 +117,8 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         return Response(result, headers=headers)
 
 #----------------------------- llegada de requests --------------------
-async def guardar_message_id( result )
-    await env.BUY_ORDER.put( 1, 'accepted', {   : env.        })
+async def guardar_message_id( result ):
+    await env.BUY_ORDER.put( 1, 'accepted', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
     #Debe obtener message_id desde el resultado
     return 1
 

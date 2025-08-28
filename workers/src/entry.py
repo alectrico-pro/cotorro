@@ -314,14 +314,13 @@ async def on_fetch(request, env):
             #Guardando el status para futura referencia
             #await save_status(env, id, status )
 
-            #Buscando algún menssaje al que este status se refiere
-            resultado = await env.BUY_ORDER.get(str(id) )
-            await env.BUY_ORDER.delete(str(id))
-
             match status:
                  case 'failed':
+                    #Busco el objeto que ha fallado
+                    resultado = await env.BUY_ORDER.get(str(id) )
                     #f value.statuses[0].errors[0].title == 'Message undeliverable':
-                    if resultado == None:
+                    if resultado == 'say_visita -> flow reserva' and value.statuses[0].errors[0].title == 'Message undeliverable':
+                           await env.BUY_ORDER.delete(str(id))
                            #await save_status(env, id, 'tomado' )
                            wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                            buy_order    = str( random.randint(1, 10000))

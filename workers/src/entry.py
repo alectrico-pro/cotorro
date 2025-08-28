@@ -229,7 +229,7 @@ async def on_fetch(request, env):
     #Este es al paso previo antes de redirigiar a tranbank
     #Desde allá vuelve a return_url
     #Pero con diferentes argumentos
-    elif (url.path.startswith("/transbank")  or url.path.startswith("{{1}}/transbank"))   and method == 'GET':
+    elif (url.path == "/transbank" or url.path == '/%7B%7B1%7D%7D/transbank' )   and method == 'GET':
         console.log(f"Params en /transbank {params}")
         buy_order  = params['buy_order'][0]
         amount     = params['amount'][0]

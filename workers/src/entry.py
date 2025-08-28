@@ -323,12 +323,22 @@ async def on_fetch(request, env):
                  case 'failed':
                     #Busco el objeto que ha fallado
                     resultado = await env.BUY_ORDER.get(str(id) )
-                    #f value.statuses[0].errors[0].title == 'Message undeliverable':
+                     
+                    #Compruebo que haya sido un fallo al enviar el template say_visita
+                    #Verifico que el error sea de Message undeliverable 
+                    #Eso cubre a los fonos inexisentes, redes que no funcionan con waba
+                    #Y versiones de androide menores a la exigida para esa característica de cuestionarios
+                     
                     if resultado == 'say_visita -> flow reserva' and value.statuses[0].errors[0].title == 'Message undeliverable':
+                           #Intento eliminar el registro de este envío fallido
+                           #De esa forma evito que se vuelva a reaccionar sobre lo mismo, más adelante
+                           #Se usa try porque el kv_name está limitado a 1000 operaciones diarias
+                           #Si falla algo aquí no podré otorgar Response 200
                            try:
                               await env.BUY_ORDER.delete(str(id))
                            except:
                               await save_status(env, id, 'tomado' )
+
                            wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                            buy_order    = str( random.randint(1, 10000))
 
@@ -336,13 +346,18 @@ async def on_fetch(request, env):
                            link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
                            msg = (f"Por favor pague la visita siguiendo el link:\n"
                            f"link_de_pago: {link_de_pago} {resultado}\n\n")
-                           await send_msg(env, wa_id, msg)
+                           try:
+                             await send_msg(env, wa_id, msg)
+                           except:
+                             pass
 
                            #envío este que debiera funcionar siempre, pero a veces no llega
                            path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
-                           await say_link_de_pago( env, wa_id, '\uD83D\uDE01', env.AMOUNT, path_de_pago )
+                           try:
+                             await say_link_de_pago( env, wa_id, '\uD83D\uDE01', env.AMOUNT, path_de_pago )
+                           except:
+                             pass
 
-                           return Response( "ok", status="200")
             return Response( "ok", status="200")
 
 

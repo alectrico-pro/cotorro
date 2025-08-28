@@ -319,7 +319,7 @@ async def on_fetch(request, env):
             match status:
                  case 'failed':
                     msg        = (f"Se ha detectado un status:\n"
-                    f" {resultado}\n\n")
+                    f" {status}\n\n")
                     await send_msg(env, env.FONO_JEFE, msg)
                     if value.statuses[0].errors[0].title == 'Message undeliverable':
                       wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
@@ -329,8 +329,8 @@ async def on_fetch(request, env):
                       f"link_de_pago: {link_de_pago}\n\n")
                       return Response( "ok", status="200")
                  case _:
-                    msg        = (f"Se ha detectado un status:\n"
-                    f" {resultado}\n\n")
+                    msg        = (f"No está asociado a nada que haya registrado yo:\n"
+                    f" status {status}\n\n")
             return await send_msg(env, env.FONO_JEFE, msg)
 
 

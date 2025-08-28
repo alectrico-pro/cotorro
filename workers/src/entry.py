@@ -711,7 +711,7 @@ async def say_link_de_pago( env, wa_id, nombre, amount, path_de_pago ):
                    { "type" : "image",
                      "image": { "link": imagen_url } } ] },
                 { "type" :   "body", "parameters" : [
-                    { "type"            :   "text", "parameter_name": "name",   "text" : nombre   } ,
+                    { "type"            :   "text", "parameter_name": "nombre",   "text" : nombre   } ,
                     { "type"            :   "text", "parameter_name": "amount", "text" : amount } ] },
                 { "type"    : "button",
                      "sub_type": "url", 

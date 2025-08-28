@@ -113,7 +113,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         response = await fetch(uri, to_js(options))
         #content_type, result = await gather_response(response)
         json_response = await response.json()
-        await env.BUY_ORDER.put( json_response, 'say_visita -> flow reserva', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+        await env.BUY_ORDER.put( json.dumps(json_response), 'say_visita -> flow reserva', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
         #---------------------------------------------------------------------------------------
         return Response( 'ok', status="200")
 
@@ -279,7 +279,7 @@ async def on_fetch(request, env):
                #envío al cuestionario flow para obtener los datos
 
                #no enviando nada por pruebas
-               #await enviar_template_say_visita_flow_reserva( request, env, wa_id )
+               await enviar_template_say_visita_flow_reserva( request, env, wa_id )
                #await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
                return Response( "Procesado", status="200")
 

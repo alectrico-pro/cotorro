@@ -312,7 +312,7 @@ async def on_fetch(request, env):
 
             console.log(status)
             #Guardando el status para futura referencia
-            await save_status(env, id, status )
+            #await save_status(env, id, status )
 
             #Buscando algún menssaje al que este status se refiere
             resultado = await env.BUY_ORDER.get(str(id) )

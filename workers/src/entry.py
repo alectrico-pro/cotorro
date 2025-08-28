@@ -112,10 +112,9 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         }
         #--- anota que se envió un cuestionario, porque podría darse como failed
         response = await fetch(uri, to_js(options))
-        #content_type, result = await gather_response(response)
-        json_response = await response.json()
-        console.log(f"el response_json {dict(to_js(json_response))}")
-        await env.BUY_ORDER.put( json_response, 'say_visita -> flow reserva', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+        content_type, result = await gather_response(response)
+        console.log(f"result {result}")
+        await env.BUY_ORDER.put( result, 'say_visita -> flow reserva', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
         #---------------------------------------------------------------------------------------
         return Response( 'ok', status="200")
 

@@ -318,15 +318,13 @@ async def on_fetch(request, env):
 
             match status:
                  case 'failed':
-                    msg        = (f"Se ha detectado un status:\n"
-                    f" {status}\n\n")
-                    await send_msg(env, env.FONO_JEFE, msg)
                     if value.statuses[0].errors[0].title == 'Message undeliverable':
                       wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                       buy_order    = str( random.randint(1, 10000))
                       link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
                       msg = (f"Por favor pague la visita siguiendo el link:\n"
                       f"link_de_pago: {link_de_pago}\n\n")
+                      await send_msg(env, env.FONO_JEFE, msg)
                       return Response( "ok", status="200")
 
 

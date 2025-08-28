@@ -322,6 +322,8 @@ async def on_fetch(request, env):
                     if resultado == 'say_visita -> flow reserva' and value.statuses[0].errors[0].title == 'Message undeliverable':
                            try:
                               await env.BUY_ORDER.delete(str(id))
+                           except:
+                              pass
                            await save_status(env, id, 'tomado' )
                            wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                            buy_order    = str( random.randint(1, 10000))

@@ -318,6 +318,9 @@ async def on_fetch(request, env):
 
             match status:
                  case 'failed':
+                    msg        = (f"Se ha detectado un status:\n"
+                    f" {resultado}\n\n")
+                    await send_msg(env, env.FONO_JEFE, msg)
                     if value.statuses[0].errors[0].title == 'Message undeliverable':
                       wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                       buy_order    = str( random.randint(1, 10000))
@@ -325,19 +328,9 @@ async def on_fetch(request, env):
                       msg = (f"Por favor pague la visita siguiendo el link:\n"
                       f"link_de_pago: {link_de_pago}\n\n")
                       return Response( "ok", status="200")
-
-                 case 'sent':
-                    msg        = (f"Se detectó un cuestionario envíado:\n"
-                    f"link_de_pago: {resultado}\n\n")
-                 case 'delivered':
-                    msg        = (f"Se detectó un cuestionario entregado:\n"
-                    f"link_de_pago: {resultado}\n\n")
-                 case 'read':
-                    msg        = (f"Se detectó un cuestionario leído:\n"
-                    f"link_de_pago: {resultado}\n\n")
                  case _:
-                    msg        = (f"No se ha detectado nada sobre el cuestionario:\n"
-                    f"link_de_pago: {resultado}\n\n")
+                    msg        = (f"Se ha detectado un status:\n"
+                    f" {resultado}\n\n")
             return await send_msg(env, env.FONO_JEFE, msg)
 
 

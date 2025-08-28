@@ -318,8 +318,8 @@ async def on_fetch(request, env):
 
             match status:
                  case 'failed':
-                    if value.statuses[0].errors[0].title == 'Message undeliverable':
-                        if resultado == None:
+                    #f value.statuses[0].errors[0].title == 'Message undeliverable':
+                    if resultado == None:
                            await save_status(env, id, 'tomado' )
                            wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                            buy_order    = str( random.randint(1, 10000))
@@ -328,6 +328,7 @@ async def on_fetch(request, env):
                            f"link_de_pago: {link_de_pago} {resultado}\n\n")
                            #await send_msg(env, env.FONO_JEFE, msg)
                            return Response( "ok", status="200")
+            return Response( "ok", status="200")
 
 
     #----------------------------------------------------------------------------------------

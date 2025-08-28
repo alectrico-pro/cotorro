@@ -699,7 +699,8 @@ async def say_link_de_pago( env, wa_id, nombre, amount, path_de_pago ):
         console.log( f"nombre  {nombre}")
         console.log( f"link_de_pago  {path_de_pago}")
 
-        imagen_url = f"{env.API_URL}/{env.LOGUITO_PATH}"
+        imagen_url = f"{env.API_URL}/{env.TAKEME_IMAGE_PATH}"
+
 
         body = {"messaging_product"    :  "whatsapp",
                 "to"                   :  wa_id,

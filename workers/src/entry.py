@@ -314,7 +314,7 @@ async def on_fetch(request, env):
 
             #Buscando algún menssaje al que este status se refiere
             resultado = await env.BUY_ORDER.get(str(id) )
-            await env.BUY_ORDER.delete(str(id))
+            #await env.BUY_ORDER.delete(str(id))
 
             match status:
                  case 'failed':

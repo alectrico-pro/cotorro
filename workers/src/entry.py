@@ -323,8 +323,7 @@ async def on_fetch(request, env):
                            try:
                               await env.BUY_ORDER.delete(str(id))
                            except:
-                              pass
-                           await save_status(env, id, 'tomado' )
+                              await save_status(env, id, 'tomado' )
                            wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                            buy_order    = str( random.randint(1, 10000))
                            link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"

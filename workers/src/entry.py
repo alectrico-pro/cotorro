@@ -331,7 +331,8 @@ async def on_fetch(request, env):
                  case _:
                     msg        = (f"No está asociado a nada que haya registrado yo:\n"
                     f" status {status}\n\n")
-            return await send_msg(env, env.FONO_JEFE, msg)
+            await send_msg(env, env.FONO_JEFE, msg)
+            return Response( "ok", status="200")
 
 
     #----------------------------------------------------------------------------------------

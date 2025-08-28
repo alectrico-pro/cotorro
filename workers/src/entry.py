@@ -22,6 +22,8 @@ import random
 import logging
 from workers import fetch, handler
 from pyodide.ffi import to_js as _to_js
+from pyodide.ffi import to_py
+
 #import requests no funciona en cloudflare workers
 from workers import Response
 from urllib.parse import urlparse, parse_qs

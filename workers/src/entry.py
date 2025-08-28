@@ -332,9 +332,11 @@ async def on_fetch(request, env):
                            wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                            buy_order    = str( random.randint(1, 10000))
                            link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
-                           msg = (f"Por favor pague la visita siguiendo el link:\n"
-                           f"link_de_pago: {link_de_pago} {resultado}\n\n")
-                           await send_msg(env, env.FONO_JEFE, msg)
+                           #msg = (f"Por favor pague la visita siguiendo el link:\n"
+                           #f"link_de_pago: {link_de_pago} {resultado}\n\n")
+                           #await send_msg(env, env.FONO_JEFE, msg)
+                           path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
+                           await say_link_de_pago( env, fono, name, amount, path_de_pago )
                            return Response( "ok", status="200")
             return Response( "ok", status="200")
 
@@ -634,7 +636,6 @@ async def difundir(env, buy_order, name, descripcion, comuna, fono, email, direc
         await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
         await say_atender(env, str(env.FONO_COLABORADOR), env.NOMBRE_COLABORADOR, descripcion, comuna, buy_order)
         path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
-        #await say_link_de_pago( env, fono, name, descripcion, comuna, path_de_pago )
         return
 
 
@@ -691,10 +692,11 @@ async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
 
 
 #el template fue borrado porque facebook insistió en categorizarlo como de marketing
-async def say_link_de_pago( env, wa_id, nombre, descripcion, comuna, path_de_pago ):
+async def say_link_de_pago( env, wa_id, nombre, amount, path_de_pago ):
         console.log("En say_link_de_pago")
         console.log(f"wa_id {wa_id}")
-        console.log( f"descripcion  {descripcion}")
+        console.log( f"amount  {amount}")
+        console.log( f"nombre  {nombre}")
         console.log( f"link_de_pago  {path_de_pago}")
 
         imagen_url = f"{env.API_URL}/{env.LOGUITO_PATH}"
@@ -702,15 +704,15 @@ async def say_link_de_pago( env, wa_id, nombre, descripcion, comuna, path_de_pag
         body = {"messaging_product"    :  "whatsapp",
                 "to"                   :  wa_id,
                 "type"                 : "template",
-                "template"             : { "name" : "say_link_de_pago",
+                "template"             : { "name" : "say_pagar",
                                        "language" : { "code" : "es" },
                 "components"           : [
                 { "type": "header",  "parameters": [
                    { "type" : "image",
                      "image": { "link": imagen_url } } ] },
                 { "type" :   "body", "parameters" : [
-                   { "type"            :   "text", "text" : nombre    } ,
-                   { "type"            :   "text", "text" : descripcion } ] },
+                   { "type"            :   "text", "text" : nombre   } ,
+                   { "type"            :   "text", "text" : amount } ] },
                 { "type"    : "button",
                      "sub_type": "url", 
                      "index"   : "0",

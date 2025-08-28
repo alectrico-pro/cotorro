@@ -115,7 +115,12 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         content_type, result = await gather_response(response)
         console.log(f"result {result}")
         result_dict = json.loads( result )
-        await env.BUY_ORDER.put( result_dict['messages'][0]['id'], 'say_visita -> flow reserva', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+        id = result_dict['messages'][0]['id']
+        console.log("id {id}")
+        try:
+          await env.BUY_ORDER.put( id, 'say_visita -> flow reserva', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+        except:
+          pass
         #---------------------------------------------------------------------------------------
         return Response( 'ok', status="200")
 

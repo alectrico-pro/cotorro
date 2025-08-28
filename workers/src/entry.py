@@ -332,11 +332,13 @@ async def on_fetch(request, env):
                            wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                            buy_order    = str( random.randint(1, 10000))
                            link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
-                           #msg = (f"Por favor pague la visita siguiendo el link:\n"
-                           #f"link_de_pago: {link_de_pago} {resultado}\n\n")
-                           #await send_msg(env, env.FONO_JEFE, msg)
+                           msg = (f"Por favor pague la visita siguiendo el link:\n"
+                           f"link_de_pago: {link_de_pago} {resultado}\n\n")
+                           await send_msg(env, env.FONO_JEFE, msg)
                            path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
-                           await say_link_de_pago( env, wa_id, '\uD83D\uDE01', env.AMOUNT, path_de_pago )
+                           await say_link_de_pago( env, wa_id, ✋, env.AMOUNT, path_de_pago )
+
+                           #await say_link_de_pago( env, wa_id, '\uD83D\uDE01', env.AMOUNT, path_de_pago )
                            return Response( "ok", status="200")
             return Response( "ok", status="200")
 

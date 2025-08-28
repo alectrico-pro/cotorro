@@ -114,7 +114,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         #content_type, result = await gather_response(response)
         json_response = await response.json()
         console.log(f"response_json {to_py(json_response)}")
-        await env.BUY_ORDER.put( json_response), 'say_visita -> flow reserva', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+        await env.BUY_ORDER.put( json_response, 'say_visita -> flow reserva', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
         #---------------------------------------------------------------------------------------
         return Response( 'ok', status="200")
 

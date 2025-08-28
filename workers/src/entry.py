@@ -328,11 +328,6 @@ async def on_fetch(request, env):
                       msg = (f"Por favor pague la visita siguiendo el link:\n"
                       f"link_de_pago: {link_de_pago}\n\n")
                       return Response( "ok", status="200")
-                 case _:
-                    msg        = (f"No está asociado a nada que haya registrado yo:\n"
-                    f" status {status}\n\n")
-            await send_msg(env, env.FONO_JEFE, msg)
-            return Response( "ok", status="200")
 
 
     #----------------------------------------------------------------------------------------

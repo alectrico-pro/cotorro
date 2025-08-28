@@ -310,7 +310,7 @@ async def on_fetch(request, env):
 
             console.log(status)
             #Guardando el status para futura referencia
-            #wait save_status(env, id, status )
+            await save_status(env, id, status )
 
             #Buscando algún menssaje al que este status se refiere
             resultado = await env.BUY_ORDER.get(str(id) )
@@ -320,13 +320,13 @@ async def on_fetch(request, env):
                  case 'failed':
                     if value.statuses[0].errors[0].title == 'Message undeliverable':
                         if resultado == None:
-                           await save_status(env, id, status )
+                           await save_status(env, id, 'tomado' )
                            wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                            buy_order    = str( random.randint(1, 10000))
                            link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
                            msg = (f"Por favor pague la visita siguiendo el link:\n"
                            f"link_de_pago: {link_de_pago} {resultado}\n\n")
-                           await send_msg(env, env.FONO_JEFE, msg)
+                           #await send_msg(env, env.FONO_JEFE, msg)
                            return Response( "ok", status="200")
 
 

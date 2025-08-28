@@ -588,6 +588,12 @@ async def flow_reply_processor(request_json, env):
         )
         console.log(f"reply {reply}")
         await send_reply(env, wa_id, reply)
+
+        #envió el path de pago de nuevo con un perrito
+        path_de_pago = f"/transbank/?buy_order="+ buy_order +"&amount="+ amount + "&session_id=" + str(wa_id)
+        await say_link_de_pago( env, wa_id, '\uD83D\uDE01', env.AMOUNT, path_de_pago )
+
+
         await difundir(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, amount)
 
 

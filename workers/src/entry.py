@@ -307,17 +307,34 @@ async def on_fetch(request, env):
             id     = value.statuses[0].id
 
             console.log(status)
+            #Guardando el status para futura referencia
+            await save_status(env, id, status )
+
+            #Buscando algún menssaje al que este status se refiere
+            resultado = await env.BUY_ORDER.get(str(id) )
+            match status:
+                 case 'failed':
+                    msg        = (f"Se detectó un cuestionario fallado:\n"
+                    f"link_de_pago: {resultado}\n\n")
+                 case 'sent':
+                    msg        = (f"Se detectó un cuestionario envíado:\n"
+                    f"link_de_pago: {resultado}\n\n")
+                 case 'delivered':
+                    msg        = (f"Se detectó un cuestionario entregado:\n"
+                    f"link_de_pago: {resultado}\n\n")
+                 case 'read':
+                    msg        = (f"Se detectó un cuestionario leído:\n"
+                    f"link_de_pago: {resultado}\n\n")
+                 else
+                    msg        = (f"No se ha detectado nada sobre el cuestionario:\n"
+                    f"link_de_pago: {resultado}\n\n")
+            return await send_msg(env, env.FONO_JEFE, msg)
+
+
             #Hay que mejorarlo para que identife qué fue lo que causó el fallo
             if  status == 'failed' and value.statuses[0].errors[0].title == 'Message undeliverable':
                console.log(f"Es failed, error: {value.statuses[0].errors[0].title}" )
                #--- guardo failed y la id para luego compararlo con el cuestiarion fallado
-               #--- si no hay cuetionario fallado no importa
-               await save_status(env, id, status )
-               resultado = await env.BUY_ORDER.get(str(id) )
-               msg        = (f"Se detectó un cuestionario fallado:\n"
-               f"link_de_pago: {resultado}\n\n")
-
-               return await send_msg(env, env.FONO_JEFE, msg)
 
                wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                buy_order    = str( random.randint(1, 10000))

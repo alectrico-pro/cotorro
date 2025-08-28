@@ -314,12 +314,13 @@ async def on_fetch(request, env):
             resultado = await env.BUY_ORDER.get(str(id) )
             match status:
                  case 'failed':
-                    wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
-                    buy_order    = str( random.randint(1, 10000))
-                    link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
-                    msg = (f"Por favor pague la visita siguiendo el link:\n"
-                    f"link_de_pago: {link_de_pago}\n\n")
-                    return Response( "ok", status="200")
+                    if value.statuses[0].errors[0].title == 'Message undeliverable':
+                      wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
+                      buy_order    = str( random.randint(1, 10000))
+                      link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
+                      msg = (f"Por favor pague la visita siguiendo el link:\n"
+                      f"link_de_pago: {link_de_pago}\n\n")
+                      return Response( "ok", status="200")
 
                  case 'sent':
                     msg        = (f"Se detectó un cuestionario envíado:\n"
@@ -330,30 +331,10 @@ async def on_fetch(request, env):
                  case 'read':
                     msg        = (f"Se detectó un cuestionario leído:\n"
                     f"link_de_pago: {resultado}\n\n")
-                 else
+                 case _:
                     msg        = (f"No se ha detectado nada sobre el cuestionario:\n"
                     f"link_de_pago: {resultado}\n\n")
             return await send_msg(env, env.FONO_JEFE, msg)
-
-
-            #Hay que mejorarlo para que identife qué fue lo que causó el fallo
-            if  status == 'failed' and value.statuses[0].errors[0].title == 'Message undeliverable':
-               console.log(f"Es failed, error: {value.statuses[0].errors[0].title}" )
-               #--- guardo failed y la id para luego compararlo con el cuestiarion fallado
-
-               wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
-               buy_order    = str( random.randint(1, 10000))
-               link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
-               #esto genera utro Message undeliverable
-
-
-               msg        = (f"Por favor pague la visita siguiendo el link:\n"
-                            f"link_de_pago: {link_de_pago}\n\n")
-
-               #send_msg debe ser reemplazado por el template say_link_de_pago
-               #esto puede generar un failed de Message undeliverable.
-               return await send_msg(env, env.FONO_JEFE, msg)
-            return Response( "ok", status="200")
 
 
     #----------------------------------------------------------------------------------------
@@ -369,20 +350,6 @@ async def on_fetch(request, env):
       console.log("No se ha identificado")
       return mostrar_not_found(env, "Bah! Ocurrió un Error")
 #----------------------------FIN llegada de requests --------------------------
-
-
-
-#no se usa, está mal concebido
-async def message_failed( env, json_response):
-    id = json_response.messages[0].id
-    console.log(f"id {id}")
-    status = await env.BUY_ORDER.get(str(id) )
-    #status = await env.BUY_ORDER.get('wamid.HBgLNTY5ODEzNzAwNDIVAgARGBJENEZDNkZGNzY4ODM5NDE2QzAA')
-    console.log(f"status {status}")
-    match status:
-        case 'failed':
-            return True
-    return False
 
 
 #.......................... MENU PRINCIPAL -----------------------------------

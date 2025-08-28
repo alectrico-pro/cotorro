@@ -22,7 +22,6 @@ import random
 import logging
 from workers import fetch, handler
 from pyodide.ffi import to_js as _to_js
-from pyodide.ffi import to_py
 
 #import requests no funciona en cloudflare workers
 from workers import Response
@@ -115,7 +114,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         response = await fetch(uri, to_js(options))
         #content_type, result = await gather_response(response)
         json_response = await response.json()
-        console.log(f"el response_json {dict(to_py(json_response))}")
+        console.log(f"el response_json {dict(to_js(json_response))}")
         await env.BUY_ORDER.put( json_response, 'say_visita -> flow reserva', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
         #---------------------------------------------------------------------------------------
         return Response( 'ok', status="200")

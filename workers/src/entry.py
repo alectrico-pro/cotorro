@@ -326,7 +326,7 @@ async def on_fetch(request, env):
                            link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
                            msg = (f"Por favor pague la visita siguiendo el link:\n"
                            f"link_de_pago: {link_de_pago} {resultado}\n\n")
-                           #await send_msg(env, env.FONO_JEFE, msg)
+                           await send_msg(env, env.FONO_JEFE, msg)
                            return Response( "ok", status="200")
             return Response( "ok", status="200")
 

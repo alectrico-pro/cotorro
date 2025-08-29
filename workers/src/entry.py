@@ -77,7 +77,6 @@ async def gather_response(response):
 
 
 #importatnte, envia un formulario
-#Text hay que incorporarlo WIP
 async def enviar_template_say_visita_flow_reserva( request, env, fono):
         console.log("En enviar_template say_visita -> flow reserva")
         imagen_url = f"{env.API_URL}/{env.LOGUITO_PATH}"
@@ -282,17 +281,16 @@ async def on_fetch(request, env):
                id          = value.messages[0].id
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
                buy_order   = str( random.randint(1, 10000))
-               amount      = env.AMOUNT
 
                #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
 
                path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
                try:
-                 await say_link_de_pago( env, wa_id, '\uD83D\uDE01', env.AMOUNT, path_de_pago )
+                 await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
                except:
                  pass
 
-               await difundir(env, buy_order, 'no-indica', descripcion, 'no-indica', wa_id, 'user@alectrico.cl', 'no-indica', env.AMOUNT)
+               await difundir(env, buy_order, 'no-indica', descripcion, 'no-indica', wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
 
 
                #no puedo difundir aquí porque el cliente no ha introducido datos
@@ -596,8 +594,9 @@ async def flow_reply_processor(request_json, env):
         buy_order  = str( random.randint(1, 10000))
         #amount debe ser calculado en base a lo ingresado en el cuestionario
         #por simplicidad se cobra solo la visita por ahora
-        amount = str( env.AMOUNT)
-        link_de_pago_tbk_url = env.GO_TBK_URL+"/?buy_order="+ buy_order +"&amount="+ amount + "&session_id=" + str(wa_id)
+
+        precio_visita = env.PRECIO_VISITA
+        link_de_pago_tbk_url = env.GO_TBK_URL+"/?buy_order="+ buy_order +"&amount="+ precio_visita + "&session_id=" + str(wa_id)
 
         reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"
@@ -629,11 +628,10 @@ async def flow_reply_processor(request_json, env):
         await send_reply(env, wa_id, reply)
 
         #envió el path de pago de nuevo con un perrito
-        path_de_pago = f"/transbank/?buy_order="+ buy_order +"&amount="+ amount + "&session_id=" + str(wa_id)
-        await say_link_de_pago( env, wa_id, '\uD83D\uDE01', env.AMOUNT, path_de_pago )
+        path_de_pago = f"/transbank/?buy_order="+ buy_order +"&amount="+ precio_visita + "&session_id=" + str(wa_id)
+        await say_link_de_pago( env, wa_id, '\uD83D\uDE01', precio_visita, path_de_pago )
 
-
-        await difundir(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, amount)
+        await difundir(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
 
 
 

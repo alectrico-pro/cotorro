@@ -696,7 +696,7 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
         console.log(f"lista {lista}")
         for colaborador in lista:
            console.log(f"colaborador {colaborador}")
-           await say_atender(env, colaborador.fono, colaborador.nombre, descripcion, comuna, buy_order)
+           await say_atender(env, colaborador['fono'], colaborador['nombre'], descripcion, comuna, buy_order)
         path_de_pago = f"/transbank?amount={env.PRECIO_TOKEN}&session_id={fono}&buy_order={buy_order}"
         return
 

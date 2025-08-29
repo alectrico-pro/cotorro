@@ -151,7 +151,8 @@ async def on_fetch(request, env):
         comuna       = params['data[4][]'][1]
         direccion    = params['data[5][]'][1]
         #landing_page = params['data[6][]'][1]
-        await difundir(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount)
+        await difundir_jefe(env, name, descripcion, comuna)
+
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
    #-----------------------------------------------------------------------------------
@@ -638,6 +639,10 @@ async def flow_reply_processor(request_json, env):
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def say_jefe(env, descripcion):
         return await say_tomar( env, str(env.FONO_JEFE), 'ALE JEFE', descripcion, 'PROVIDENCIA')
+
+#este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
+async def difundir_jefe(env, nombre, descripcion, comuna):
+        return await say_tomar( env, str(env.FONO_JEFE), nombre, descripcion, comuna')
 
 
 

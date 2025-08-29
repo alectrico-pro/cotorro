@@ -331,8 +331,10 @@ async def on_fetch(request, env):
             #Guardando el status para futura referencia
             #await save_status(env, id, status )
 
+            #ya no estoy vigilando failed,
+            #Solo envío el cuestiari y el link de pago al comienzo
             match status:
-                 case 'failed':
+                 case 'nada':
                     #Busco el objeto que ha fallado
                     resultado = await env.BUY_ORDER.get(str(id) )
                      

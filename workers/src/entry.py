@@ -332,7 +332,7 @@ async def on_fetch(request, env):
             #ya no estoy vigilando failed,
             #Solo envío el cuestiari y el link de pago al comienzo
             match status:
-                 case 'nada':
+                 case 'failed':
                     #Busco el objeto que ha fallado
                     resultado = await env.BUY_ORDER.get(str(id) )
                      
@@ -349,7 +349,7 @@ async def on_fetch(request, env):
                            try:
                               await env.BUY_ORDER.delete(str(id))
                            except:
-                              await save_status(env, id, 'tomado' )
+                              await save_status(env, id, 'failed' )
 
                            wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                            buy_order    = str( random.randint(1, 10000))
@@ -374,7 +374,7 @@ async def on_fetch(request, env):
                              pass
 
                            #envío este que debiera funcionar siempre, pero a veces no llega
-                           path_de_pago = f"/transbank?amount={PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
+                           path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
                            try:
                              await say_link_de_pago( env, wa_id, '\uD83D\uDE01', env.PRECIO_PROCESO, path_de_pago )
                            except:

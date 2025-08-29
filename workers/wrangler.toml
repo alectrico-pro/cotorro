@@ -34,7 +34,7 @@ custom_domain = true
 
 
 [env.production]
-name = "repair_alectrico"
+name = "cotorro"
 account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
 kv_namespaces = [ { binding = "BUY_ORDER",  id = "7a20ea90007a4f99a6a02e864f358144" },
                   { binding = "FINANCIERO", id = "21111b7a045f4f8190416bbf08801cc6" }]

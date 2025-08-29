@@ -361,6 +361,7 @@ async def on_fetch(request, env):
                            email        = 'user@alectrico.cl'
                            name         = 'no indica'
                            amount       = env.PRECIO_VISITA
+
                            try:
                              await guardar_pedido( env, buy_order, wa_id, name, email, direccion, comuna, descripcion, amount)
                            except:
@@ -378,7 +379,7 @@ async def on_fetch(request, env):
                            #envío este que debiera funcionar siempre, pero a veces no llega
                            path_de_pago = f"/transbank?amount={amount}&session_id={wa_id}&buy_order={buy_order}"
                            try:
-                             await say_link_de_pago( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
+                             await say_pagar_visita( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
                            except:
                              pass
 
@@ -742,6 +743,56 @@ async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
         content_type, result = await gather_response(response)
         console.log(f"result {result}")
         return
+
+
+
+async def say_pagar_visita( env, wa_id, nombre, amount, path_de_pago ):
+        console.log("En say_pagar_visita")
+        console.log(f"wa_id {wa_id}")
+        console.log( f"amount  {amount}")
+        console.log( f"nombre  {nombre}")
+        console.log( f"link_de_pago  {path_de_pago}")
+
+        imagen_url = f"{env.API_URL}/{env.JEFE_IMAGE_PATH}"
+        body = {"messaging_product"    :  "whatsapp", 
+                "to"                   :  wa_id,
+                "type"                 : "template",
+                "template"             : { "name" : "say_pagar",
+                                       "language" : { "code" : "es" },
+                "components"           : [
+                { "type": "header",  "parameters": [
+                   { "type" : "image",
+                     "image": { "link": imagen_url } } ] },
+                { "type" :   "body", "parameters" : [
+                    { "type"            :   "text", "parameter_name": "nombre",   "text" : nombre   } ,
+                    { "type"            :   "text", "parameter_name": "amount", "text" : amount } ] },
+                { "type"    : "button",
+                     "sub_type": "url",
+                     "index"   : "0",
+                   "parameters": [ { "type": "text", "text": path_de_pago}]}]}}
+
+        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {env.META_USER_TOKEN}"
+        }
+        options = {
+               "body": json.dumps(body),
+               "method": "POST",
+               "headers": {
+                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                 "content-type": "application/json;charset=UTF-8"
+               },
+        }
+        console.log(f"body {body}")
+        response = await fetch(uri, to_js(options))
+        console.log(f"response {response}")
+        content_type, result = await gather_response(response)
+        console.log(f"result {result}")
+        return
+
+
+
 
 
 

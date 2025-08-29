@@ -632,8 +632,8 @@ async def flow_reply_processor(request_json, env):
 
         #envió el path de pago de nuevo con un perrito
         path_de_pago = f"/transbank/?buy_order="+ buy_order +"&amount="+ precio_visita + "&session_id=" + str(wa_id)
-        await say_link_de_pago( env, wa_id, '\uD83D\uDE01', precio_visita, path_de_pago )
-
+        #wait say_link_de_pago( env, wa_id, '\uD83D\uDE01', precio_visita, path_de_pago )
+        await say_pagar_visita( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
         await difundir(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
 
 
@@ -641,6 +641,7 @@ async def flow_reply_processor(request_json, env):
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def say_jefe(env, descripcion):
         return await say_tomar( env, str(env.FONO_JEFE), 'ALE JEFE', descripcion, 'PROVIDENCIA')
+
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def difundir_jefe(env, nombre, descripcion, direccion, buy_order, comuna):
@@ -754,6 +755,7 @@ async def say_pagar_visita( env, wa_id, nombre, amount, path_de_pago ):
         console.log( f"link_de_pago  {path_de_pago}")
 
         imagen_url = f"{env.API_URL}/{env.JEFE_IMAGE_PATH}"
+
         body = {"messaging_product"    :  "whatsapp", 
                 "to"                   :  wa_id,
                 "type"                 : "template",

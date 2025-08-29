@@ -359,7 +359,7 @@ async def on_fetch(request, env):
                            descripcion  = 'no indica'
                            email        = 'user@alectrico.cl'
                            name         = 'no indica'
-                           amount       = env.PRECIO_PROCESO
+                           amount       = env.PRECIO_visita
                            try:
                              await guardar_pedido( env, buy_order, wa_id, name, email, direccion, comuna, descripcion, amount)
                            except:
@@ -375,7 +375,7 @@ async def on_fetch(request, env):
                            #  pass
 
                            #envío este que debiera funcionar siempre, pero a veces no llega
-                           path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
+                           path_de_pago = f"/transbank?amount={env.PRECIO_VISITA}&session_id={wa_id}&buy_order={buy_order}"
                            try:
                              await say_link_de_pago( env, wa_id, '\uD83D\uDE01', env.PRECIO_PROCESO, path_de_pago )
                            except:

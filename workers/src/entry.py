@@ -292,13 +292,13 @@ async def on_fetch(request, env):
                except:
                  pass
 
-               await difundir(env, buy_order, 'no-indica', 'no-indica', 'no-indica', wa_id, 'user@alectrico.cl', descripcion, env.AMOUNT)
+               await difundir(env, buy_order, 'no-indica', descripcion, 'no-indica', wa_id, 'user@alectrico.cl', 'no-indica', env.AMOUNT)
 
 
                #no puedo difundir aquí porque el cliente no ha introducido datos
                #envío al cuestionario flow para obtener los datos
              
-               #wait enviar_template_say_visita_flow_reserva( request, env, wa_id )
+               await enviar_template_say_visita_flow_reserva( request, env, wa_id )
                #await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
                return Response( "Procesado", status="200")
 

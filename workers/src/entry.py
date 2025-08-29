@@ -642,7 +642,7 @@ async def say_jefe(env, descripcion):
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def difundir_jefe(env, nombre, descripcion, comuna):
-        return await say_tomar( env, str(env.FONO_JEFE), nombre, descripcion, comuna')
+        return await say_tomar( env, str(env.FONO_JEFE), nombre, descripcion, comuna)
 
 
 

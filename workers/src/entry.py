@@ -284,7 +284,7 @@ async def on_fetch(request, env):
                buy_order   = str( random.randint(1, 10000))
                amount      = env.AMOUNT
 
-               await save_text_message(env, id, wa_id, buy_order, amount, descripcion)
+               await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
 
                #no puedo difundir aquí porque el cliente no ha introducido datos
                #envío al cuestionario flow para obtener los datos

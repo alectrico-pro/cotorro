@@ -152,7 +152,6 @@ async def on_fetch(request, env):
         direccion    = params['data[5][]'][1]
         #landing_page = params['data[6][]'][1]
         await difundir_jefe(env, name, descripcion, comuna)
-
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
    #-----------------------------------------------------------------------------------
@@ -642,7 +641,7 @@ async def say_jefe(env, descripcion):
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def difundir_jefe(env, nombre, descripcion, comuna):
-        return await say_tomar( env, str(env.FONO_JEFE), nombre, descripcion, comuna)
+        return await say_atender(env, str(env.FONO_JEFE), nombre, direccion, comuna, buy_order)
 
 
 

@@ -284,12 +284,24 @@ async def on_fetch(request, env):
                buy_order   = str( random.randint(1, 10000))
                amount      = env.AMOUNT
 
-               await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
+               #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
+
+               path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
+               try:
+                 await say_link_de_pago( env, wa_id, '\uD83D\uDE01', env.AMOUNT, path_de_pago )
+               except:
+                 pass
+
+
+               try:
+                 async def difundir(env, buy_order, 'no-indica', 'no-indica', 'no-indica', wa_id, 'user@alectrico.cl', 'no-indica', env.AMOUNT):
+               except:
+                 pass
 
                #no puedo difundir aquí porque el cliente no ha introducido datos
                #envío al cuestionario flow para obtener los datos
              
-               await enviar_template_say_visita_flow_reserva( request, env, wa_id )
+               #wait enviar_template_say_visita_flow_reserva( request, env, wa_id )
                #await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
                return Response( "Procesado", status="200")
 

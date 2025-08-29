@@ -153,7 +153,7 @@ async def on_fetch(request, env):
         #landing_page = params['data[6][]'][1]
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
 
-        await difundir_jefe(env, name, descripcion, direccion, buy_order, comuna)
+        await derivar_jefe(env, name, descripcion, direccion, buy_order, comuna)
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
    #-----------------------------------------------------------------------------------
@@ -292,10 +292,10 @@ async def on_fetch(request, env):
                except:
                  pass
 
-               await difundir(env, buy_order, 'no-indica', descripcion, 'no-indica', wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
+               await difundir_a_colaboradores(env, buy_order, 'no-indica', descripcion, 'no-indica', wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
 
 
-               #no puedo difundir aquí porque el cliente no ha introducido datos
+               #no puedo difundir_a_colaboradores aquí porque el cliente no ha introducido datos
                #envío al cuestionario flow para obtener los datos
              
                await enviar_template_say_visita_flow_reserva( request, env, wa_id )
@@ -312,7 +312,7 @@ async def on_fetch(request, env):
                    console.log("Es nfm_reply")
                    if hasattr(value.messages[0].interactive.nfm_reply, 'response_json') == True :
                        console.log("Tiene response_json")
-                       #no puedeo difundir aquí, lo hago desde dentro del flow_reply_processor
+                       #no puedeo difundir_a_colaboradores aquí, lo hago desde dentro del flow_reply_processor
                        await flow_reply_processor( request_json, env)
                        return Response( "Procesado", status="200")
 
@@ -634,7 +634,7 @@ async def flow_reply_processor(request_json, env):
         path_de_pago = f"/transbank/?buy_order="+ buy_order +"&amount="+ precio_visita + "&session_id=" + str(wa_id)
         #wait say_link_de_pago( env, wa_id, '\uD83D\uDE01', precio_visita, path_de_pago )
         await say_pagar_visita( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
-        await difundir(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
+        await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
 
 
 
@@ -644,7 +644,7 @@ async def say_jefe(env, descripcion):
 
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
-async def difundir_jefe(env, nombre, descripcion, direccion, buy_order, comuna):
+async def derivar_jefe(env, nombre, descripcion, direccion, buy_order, comuna):
         return await say_atender(env, str(env.FONO_JEFE), nombre, direccion, comuna, buy_order)
 
 
@@ -687,7 +687,7 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 
 
 #Difundi un peido a los colaboradores
-async def difundir(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount):
+async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount):
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, email, env)
         await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
         await say_atender(env, str(env.FONO_COLABORADOR), env.NOMBRE_COLABORADOR, descripcion, comuna, buy_order)

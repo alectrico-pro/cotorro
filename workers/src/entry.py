@@ -366,13 +366,13 @@ async def on_fetch(request, env):
                              pass
 
                            #intentaré enviar un mensaje, pero eso funciona solo en le ventana de anteción
-                           link_de_pago = f"{env.API_URL}/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
-                           msg = (f"Por favor pague la visita siguiendo el link:\n"
-                           f"link_de_pago: {link_de_pago} {resultado}\n\n")
-                           try:
-                             await send_msg(env, wa_id, msg)
-                           except:
-                             pass
+                           #link_de_pago = f"{env.API_URL}/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
+                           #msg = (f"Por favor pague la visita siguiendo el link:\n"
+                           #f"link_de_pago: {link_de_pago} {resultado}\n\n")
+                           #try:
+                           #  await send_msg(env, wa_id, msg)
+                           # except:
+                           #  pass
 
                            #envío este que debiera funcionar siempre, pero a veces no llega
                            path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"

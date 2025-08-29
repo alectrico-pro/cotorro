@@ -141,7 +141,7 @@ async def on_fetch(request, env):
         buy_order    = str( random.randint(1, 10000))
 
         session_id   = buy_order
-        amount       = env.AMOUNT
+        amount       = env.PRECIO_VISITA
         params       = parse_qs( body )
 
         name         = params['data[0][]'][1]
@@ -284,7 +284,7 @@ async def on_fetch(request, env):
 
                #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
 
-               path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
+               path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
                try:
                  await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
                except:
@@ -358,14 +358,14 @@ async def on_fetch(request, env):
                            descripcion  = 'no indica'
                            email        = 'user@alectrico.cl'
                            name         = 'no indica'
-                           amount       = env.AMOUNT
+                           amount       = env.PRECIO_PROCESO
                            try:
                              await guardar_pedido( env, buy_order, wa_id, name, email, direccion, comuna, descripcion, amount)
                            except:
                              pass
 
                            #intentaré enviar un mensaje, pero eso funciona solo en le ventana de anteción
-                           link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
+                           link_de_pago = f"{env.API_URL}/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
                            msg = (f"Por favor pague la visita siguiendo el link:\n"
                            f"link_de_pago: {link_de_pago} {resultado}\n\n")
                            try:
@@ -374,9 +374,9 @@ async def on_fetch(request, env):
                              pass
 
                            #envío este que debiera funcionar siempre, pero a veces no llega
-                           path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
+                           path_de_pago = f"/transbank?amount={PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
                            try:
-                             await say_link_de_pago( env, wa_id, '\uD83D\uDE01', env.AMOUNT, path_de_pago )
+                             await say_link_de_pago( env, wa_id, '\uD83D\uDE01', env.PRECIO_PROCESO, path_de_pago )
                            except:
                              pass
 
@@ -683,7 +683,7 @@ async def difundir(env, buy_order, name, descripcion, comuna, fono, email, direc
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, email, env)
         await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
         await say_atender(env, str(env.FONO_COLABORADOR), env.NOMBRE_COLABORADOR, descripcion, comuna, buy_order)
-        path_de_pago = f"/transbank?amount={env.AMOUNT}&session_id={fono}&buy_order={buy_order}"
+        path_de_pago = f"/transbank?amount={env.PRECIO_TOKEN}&session_id={fono}&buy_order={buy_order}"
         return
 
 
@@ -1580,7 +1580,7 @@ def agendar( env, mensaje):
               </span>
               <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
               <div class='col-md-4' data-for='amount'>
-                <input type='text' readonly='' value = {env.AMOUNT} class='form-control input' id='amount' name='amount' data-form-field='amount' placeholder='Monto a Pagar' required=''>
+                <input type='text' readonly='' value = {env.PRECIO_VISITA} class='form-control input' id='amount' name='amount' data-form-field='amount' placeholder='Monto a Pagar' required=''>
               </div>
             </div>
         </div>
@@ -1627,7 +1627,7 @@ def agendar( env, mensaje):
                 <input type="text" readonly="" class="form-control input" id="longitude" name="longitude" data-form-field="longitude" placeholder="Longitud" required="" value=''>
               </div>
               <div class="col-md-4" data-for="amount">
-                <input type="text" readonly="" hidden="" value = {env.AMOUNT} class="form-control input" id="amount" name="amount" data-form-field="amount" placeholder="Monto a Pagar" required="">
+                <input type="text" readonly="" hidden="" value = {env.PRECIO_VISITA} class="form-control input" id="amount" name="amount" data-form-field="amount" placeholder="Monto a Pagar" required="">
               </div>
 
               <div class="input-group-btn col-md-12" style="margin-top: 10px;"><button href="" type="submit" class="btn btn-primary btn-form display-4">Agendar</button>

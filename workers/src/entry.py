@@ -151,6 +151,7 @@ async def on_fetch(request, env):
         comuna       = params['data[4][]'][1]
         direccion    = params['data[5][]'][1]
         #landing_page = params['data[6][]'][1]
+
         await difundir_jefe(env, name, descripcion, direccion, buy_order, comuna)
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )

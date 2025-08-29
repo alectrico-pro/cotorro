@@ -376,9 +376,9 @@ async def on_fetch(request, env):
                            #  pass
 
                            #envío este que debiera funcionar siempre, pero a veces no llega
-                           path_de_pago = f"/transbank?amount={env.PRECIO_VISITA}&session_id={wa_id}&buy_order={buy_order}"
+                           path_de_pago = f"/transbank?amount={amount}&session_id={wa_id}&buy_order={buy_order}"
                            try:
-                             await say_link_de_pago( env, wa_id, '\uD83D\uDE01', env.PRECIO_PROCESO, path_de_pago )
+                             await say_link_de_pago( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
                            except:
                              pass
 

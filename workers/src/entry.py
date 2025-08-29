@@ -292,7 +292,8 @@ async def on_fetch(request, env):
                except:
                  pass
 
-               await difundir(env, buy_order, 'no-indica', 'no-indica', 'no-indica', wa_id, 'user@alectrico.cl', 'no-indica', env.AMOUNT)
+               await difundir(env, buy_order, 'no-indica', 'no-indica', 'no-indica', wa_id, 'user@alectrico.cl', descripcion, env.AMOUNT)
+
 
                #no puedo difundir aquí porque el cliente no ha introducido datos
                #envío al cuestionario flow para obtener los datos

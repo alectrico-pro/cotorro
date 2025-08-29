@@ -401,7 +401,7 @@ def webhook_get(request, env):
 
 
 async def save_text_message( env, id, wa_id, buy_order, descripcion, amount ):
-    await env.BUY_ORDER.put( str(id), { "wa_id": wa_id, 'buy_order': buy_order, 'descripcion': descripcion, 'amount': amount }, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+    await env.BUY_ORDER.put( str(id), json.dumps( { "wa_id": wa_id, 'buy_order': buy_order, 'descripcion': descripcion, 'amount': amount }), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
     return
 
 

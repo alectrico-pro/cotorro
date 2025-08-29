@@ -359,7 +359,7 @@ async def on_fetch(request, env):
                            descripcion  = 'no indica'
                            email        = 'user@alectrico.cl'
                            name         = 'no indica'
-                           amount       = env.PRECIO_visita
+                           amount       = env.PRECIO_VISITA
                            try:
                              await guardar_pedido( env, buy_order, wa_id, name, email, direccion, comuna, descripcion, amount)
                            except:

@@ -294,7 +294,7 @@ async def on_fetch(request, env):
 
 
                try:
-                 async def difundir(env, buy_order, 'no-indica', 'no-indica', 'no-indica', wa_id, 'user@alectrico.cl', 'no-indica', env.AMOUNT):
+                 difundir(env, buy_order, 'no-indica', 'no-indica', 'no-indica', wa_id, 'user@alectrico.cl', 'no-indica', env.AMOUNT):
                except:
                  pass
 

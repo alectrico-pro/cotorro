@@ -400,8 +400,8 @@ def webhook_get(request, env):
 #----------------------------- FUNCIONES ------------------------------------------------------
 
 
-async def save_text_message( env, id, wa_id, buy_order, descripcion, amount ):
-    await env.BUY_ORDER.put( str(id), json.dumps( { "wa_id": wa_id, 'buy_order': buy_order, 'descripcion': descripcion, 'amount': amount }), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+async def save_text_message( env, id, fono, buy_order, descripcion, amount ):
+    await env.BUY_ORDER.put( str(buy_order), json.dumps( {"pedido": { "email": "user@alectrico.cl", "fono": fono, 'buy_order': buy_order, 'descripcion': descripcion, 'amount': amount }}), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
     return
 
 

@@ -278,14 +278,17 @@ async def on_fetch(request, env):
             if hasattr(value.messages[0], 'text') == True :
                console.log("Es text")
                console.log(f"body {value.messages[0].text.body}")
-               body = value.messages[0].text.body
-               id   = value.messages[0].id
-               await save_text_message(env, id, body)
-               wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
+               descripcion = value.messages[0].text.body
+               id          = value.messages[0].id
+               wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
+               buy_order   = str( random.randint(1, 10000))
+               amount      = env.AMOUNT
+
+               await save_text_message(env, id, wa_id, buy_order, amount, descripcion)
+
                #no puedo difundir aquí porque el cliente no ha introducido datos
                #envío al cuestionario flow para obtener los datos
-
-               #no enviando nada por pruebas
+             
                await enviar_template_say_visita_flow_reserva( request, env, wa_id )
                #await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
                return Response( "Procesado", status="200")
@@ -342,6 +345,12 @@ async def on_fetch(request, env):
                            wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                            buy_order    = str( random.randint(1, 10000))
 
+                           try:
+                             await guardar_pedido( env, buy_order, wa_id, 'no_indica', "user@alectrico.cl", 'no informa', 'no informa', 'no dice', env.AMOUNT)
+                           except:
+                             pass
+
+
                            #intentaré enviar un mensaje, pero eso funciona solo en le ventana de anteción
                            link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"
                            msg = (f"Por favor pague la visita siguiendo el link:\n"
@@ -391,8 +400,8 @@ def webhook_get(request, env):
 #----------------------------- FUNCIONES ------------------------------------------------------
 
 
-async def save_text_message( env, id, body ):
-    await env.BUY_ORDER.put( str(id), body, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+async def save_text_message( env, id, wa_id, buy_order, descripcion, amount ):
+    await env.BUY_ORDER.put( str(id), { "wa_id": wa_id, 'buy_order': buy_order, 'descripcion': descripcion, 'amount': amount }, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
     return
 
 

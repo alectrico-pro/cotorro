@@ -344,12 +344,16 @@ async def on_fetch(request, env):
 
                            wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                            buy_order    = str( random.randint(1, 10000))
-
+                           direccion    = 'no indica'
+                           comuna       = 'no indica'
+                           descripcion  = 'no indica'
+                           email        = 'user@alectrico.cl'
+                           name         = 'no indica'
+                           amount       = env.AMOUNT
                            try:
-                             await guardar_pedido( env, buy_order, wa_id, 'no_indica', "user@alectrico.cl", 'no informa', 'no informa', 'no dice', env.AMOUNT)
+                             await guardar_pedido( env, buy_order, wa_id, name, email, direccion, comuna, descripcion, amount)
                            except:
                              pass
-
 
                            #intentaré enviar un mensaje, pero eso funciona solo en le ventana de anteción
                            link_de_pago = f"{env.API_URL}/transbank?amount={env.AMOUNT}&session_id={wa_id}&buy_order={buy_order}"

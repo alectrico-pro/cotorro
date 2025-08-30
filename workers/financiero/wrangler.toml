@@ -19,7 +19,7 @@ account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
 
 
 [[routes]]
-pattern = "work.alectrico.cl"
+pattern = "recarga.alectrico.cl"
 custom_domain = true
 
 

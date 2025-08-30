@@ -701,6 +701,7 @@ async def actualizar_saldos(env):
 
         lista = await env.FINANCIERO.list()
         for pedido_json in lista:
+           console.log(f"pedido_json {pedido_json}")
            pedido = json.loads( pedido_json )
            await send_message(env, pedido['fono'], pedido['fono'])
       

@@ -204,7 +204,7 @@ async def on_fetch(request, env):
                     f"*buy_order*    { buy_order}     \n"
                     f"*amount*       { amount}        \n"
                     f"*fono*         { fono     }    \n"
-                    f"*descripcion*  { descripcion } \n"
+                    f"*recargar*    {  token_bat } \n"
                   )
 
         #En este llamado el argumento session_id se toma como fono
@@ -213,9 +213,9 @@ async def on_fetch(request, env):
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
         #await say_jefe(env, reply )
 
-        await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
+        await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, recargar,  amount )
 
-        await say_atender(env, str(env.FONO_COLABORADOR), str(env.NOMBRE_COLABORADOR), direccion, comuna, buy_order)
+        #await say_atender(env, str(env.FONO_COLABORADOR), str(env.NOMBRE_COLABORADOR), direccion, comuna, buy_order)
 
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 

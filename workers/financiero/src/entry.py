@@ -700,7 +700,8 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
 async def actualizar_saldos(env):        
 
         lista = await env.FINANCIERO.list()
-        keys  = lista.keys()
+        keys  = json.dumps(lista.keys())
+        console.log(f"keys {keys}")
         for key in keys:
            console.log(f"key {key")
            await send_message(env, key['name'], key['expiration'])

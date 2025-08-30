@@ -6,7 +6,7 @@ workers_dev = true
 
 account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
 kv_namespaces = [ { binding = "BUY_ORDER",  id = "7a20ea90007a4f99a6a02e864f358144" },
-                  { bindind = "NOMINA", id = 'e2688fc220714a60bd0aee142c341e28'}]
+                  { binding = "NOMINA", id = 'e2688fc220714a60bd0aee142c341e28'}]
  
 
 [observability.logs]
@@ -38,7 +38,7 @@ custom_domain = true
 name = "cotorro"
 account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
 kv_namespaces = [ { binding = "BUY_ORDER",  id = "7a20ea90007a4f99a6a02e864f358144" }, 
-                  { bindind = "NOMINA", id = 'e2688fc220714a60bd0aee142c341e28'}]
+                  { binding = "NOMINA", id = 'e2688fc220714a60bd0aee142c341e28'}]
 
 
 

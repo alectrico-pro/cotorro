@@ -193,12 +193,7 @@ async def on_fetch(request, env):
         console.log(f"Params en /agendar {params}")
         buy_order   = str( random.randint(1, 10000))
         fono        = params['fono'][0]
-        descripcion = params['descripcion'][0]
         amount      = params['amount'][0]
-        name        = params['nombre'][0]
-        direccion   = params['direccion'][0]
-        comuna      = params['comuna'][0]
-        email       = params['email'][0]
 
         #no se envía el cuestionario, porque se vería repetido
         #await enviar_template_say_visita_flow_reserva(request, env, fono )

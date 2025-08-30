@@ -119,7 +119,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         id = result_dict['messages'][0]['id']
         console.log(f"id {id}")
         try:
-          await env.FINANCIERO.put( id, 'say_visita -> flow reserva', 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION )
+          await env.FINANCIERO.put( id, 'say_visita -> flow reserva', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION} )
         except:
           pass
         #---------------------------------------------------------------------------------------

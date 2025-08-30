@@ -33,6 +33,8 @@ from js import console
 import uuid
 from js import Object, fetch, Headers
 
+from datetime import date
+
 #from clips import Environment, Symbol
 
 
@@ -117,7 +119,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         id = result_dict['messages'][0]['id']
         console.log(f"id {id}")
         try:
-          await env.BUY_ORDER.put( id, 'say_visita -> flow reserva', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+          await env.FINANCIERO.put( id, 'say_visita -> flow reserva', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
         except:
           pass
         #---------------------------------------------------------------------------------------
@@ -151,7 +153,7 @@ async def on_fetch(request, env):
         comuna       = params['data[4][]'][1]
         direccion    = params['data[5][]'][1]
         #landing_page = params['data[6][]'][1]
-        await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
+        await guardar_pedido( env, buy_order, fono, amount )
 
         await derivar_jefe(env, name, descripcion, direccion, buy_order, comuna)
         headers =  { "Access-Control-Allow-Origin": "*" }
@@ -331,7 +333,7 @@ async def on_fetch(request, env):
             match status:
                  case 'failed':
                     #Busco el objeto que ha fallado
-                    resultado = await env.BUY_ORDER.get(str(id) )
+                    resultado = await env.FINANCIERO.get(str(id) )
                      
                     #Compruebo que haya sido un fallo al enviar el template say_visita
                     #Verifico que el error sea de Message undeliverable 
@@ -344,7 +346,7 @@ async def on_fetch(request, env):
                            #Se usa try porque el kv_name está limitado a 1000 operaciones diarias
                            #Si falla algo aquí no podré otorgar Response 200
                            try:
-                              await env.BUY_ORDER.delete(str(id))
+                              await env.FINANCIERO.delete(str(id))
                            except:
                               await save_status(env, id, 'failed' )
 
@@ -412,13 +414,13 @@ def webhook_get(request, env):
 
 
 async def save_text_message( env, id, fono, buy_order, descripcion, amount ):
-    await env.BUY_ORDER.put( str(buy_order), json.dumps( {"pedido": { "email": "user@alectrico.cl", "fono": fono, 'buy_order': buy_order, 'descripcion': descripcion, 'amount': amount }}), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+    await env.FINANCIERO.put( str(buy_order), json.dumps( {"pedido": { "email": "user@alectrico.cl", "fono": fono, 'buy_order': buy_order, 'descripcion': descripcion, 'amount': amount }}), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
     return
 
 
 
 async def save_status( env, id, status ):
-    await env.BUY_ORDER.put( str(id), status, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+    await env.FINANCIERO.put( str(id), status, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
     return
 
 
@@ -426,16 +428,16 @@ async def save_status( env, id, status ):
 async def get_fono_cliente(env, buy_order):
     console.log("En get_fono_cliente")
     console.log(f"buy_order {buy_order}")
-    pedido_json = await env.BUY_ORDER.get(str(buy_order))
+    pedido_json = await env.FINANCIERO.get(str(buy_order))
     pedido = json.loads(pedido_json)
     console.log(f"pedido {pedido}")
     return pedido['pedido']['fono']
 
 
 
-async def guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion, amount):
-    pedido = { 'pedido': {'fono': fono, "name": name, "email": email, "direccion":direccion, "comuna":comuna, "descripcion":descripcion, "amount": amount }}
-    return await env.BUY_ORDER.put( buy_order, json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+async def guardar_pedido( env, buy_order, fono, amount):
+    pedido = { 'pedido': {'fono': fono, "amount": amount, "fecha": date.today() }}
+    return await env.FINANCIERO.put( buy_order, json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
   
 
 async def post_tbk( uri, env):

@@ -174,7 +174,7 @@ async def on_fetch(request, env):
     #entrypoint cuando se llama directamente a www.alectrico.cl
     #--------------------  PRESENTA UN FORMULARIO QUE TERMINA EN AGENDAR ----------
     elif url.path == '/':
-        return agendar(env, 'Ingrese los datos para Agendar una Visita a Domicilio')
+        return agendar(env, 'Ingrese su número de Whatsapp para recargar Créditos de Atención en Alectrico')
     #-----------------------------------------------------------------------------------
 
     #--------------------- EL COLABADORADOR DESEOSO DE ATENDER LLEGA CON EL BUY ORDER -----

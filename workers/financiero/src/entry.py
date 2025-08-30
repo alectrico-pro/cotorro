@@ -1684,21 +1684,12 @@ def agendar( env, mensaje):
               <div class="col-md-12" data-for="direccion">
                 <textarea class="form-control input" name="direccion" rows="3" data-form-field="Direccion" placeholder="Escriba la dirección del lugar en Providencia, donde se requiere un eléctrico" required="" style="resize:none" id="message-form4-8f"></textarea>
               </div>
-              <div  onclick="getLocation()"  class="input-group-btn col-md-4" style="margin-top: 1px;">
-               <button href="" type="button" class="btn btn-secondary btn-form display-4">Agregar mi ubicación:</button>
-              </div>
 
-              <div class="col-md-4" data-for="latitude">
-                <input type="text" readonly="" class="form-control input" id="latitude" name="latitude" data-form-field="latitude" placeholder="Latitud" required="" value=''>
-              </div>
-              <div class="col-md-4" data-for="longitude">
-                <input type="text" readonly="" class="form-control input" id="longitude" name="longitude" data-form-field="longitude" placeholder="Longitud" required="" value=''>
-              </div>
               <div class="col-md-4" data-for="amount">
                 <input type="text" readonly="" hidden="" value = {env.PRECIO_VISITA} class="form-control input" id="amount" name="amount" data-form-field="amount" placeholder="Monto a Pagar" required="">
               </div>
 
-              <div class="input-group-btn col-md-12" style="margin-top: 10px;"><button href="" type="submit" class="btn btn-primary btn-form display-4">Agendar</button>
+              <div class="input-group-btn col-md-12" style="margin-top: 10px;"><button href="" type="submit" class="btn btn-primary btn-form display-4">Recargar</button>
               </div>
             </div>
           </form>

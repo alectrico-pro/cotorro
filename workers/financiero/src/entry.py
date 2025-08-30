@@ -1672,17 +1672,14 @@ def agendar( env, mensaje):
                 <input type="email" class="form-control input" hidden="" name="email" data-form-field="Email" placeholder="Email" id="email-form4-8e">
               </div>
               <div class="col-md-4" data-for="comuna">
-                <input type="text" class="form-control input" name="comuna" data-form-field="Comuna" placeholder="Comuna" required="" id="comuna-form4-8e" value='Providencia'>
+                <input type="text" class="form-control input" hidden="" name="comuna" data-form-field="Comuna" placeholder="Comuna" id="comuna-form4-8e" value='Providencia'>
               </div>
               <div class="col-md-12" data-for="descripcion">
-                <textarea class="form-control input" name="descripcion" rows="3" data-form-field="Descripcion" placeholder="Describa su problema" style="resize:none" required="" id="message-form4-8e"></textarea>
+                <textarea class="form-control input" hidden="" name="descripcion" rows="3" data-form-field="Descripcion" placeholder="Describa su problema" style="resize:none" id="message-form4-8e"></textarea>
               </div>
-              <div class="container">
-                <iframe frameborder="0" style="border:0;width:525; height:400" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCx3d07zxHPLvkFBLlAR3Ng8a9wsAsGoJ8&amp;q=place_id:ChIJ92aDbnzPYpYRfI1HCsD874c" allowfullscreen="">
-                </iframe>
-              </div>
+
               <div class="col-md-12" data-for="direccion">
-                <textarea class="form-control input" name="direccion" rows="3" data-form-field="Direccion" placeholder="Escriba la dirección del lugar en Providencia, donde se requiere un eléctrico" required="" style="resize:none" id="message-form4-8f"></textarea>
+                <textarea class="form-control input" hidden="" name="direccion" rows="3" data-form-field="Direccion" placeholder="Escriba la dirección del lugar en Providencia, donde se requiere un eléctrico" style="resize:none" id="message-form4-8f"></textarea>
               </div>
 
               <div class="col-md-4" data-for="amount">

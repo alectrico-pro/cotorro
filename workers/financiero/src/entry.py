@@ -1657,7 +1657,7 @@ def agendar( env, mensaje):
 
         <div data-form-type="formoid">
 
-          <form class="block mbr-form" action="https://www.alectrico.cl/agendar" method="get" data-form-title="Agendar Form">
+          <form class="block mbr-form" action="https://recarga.alectrico.cl/agendar" method="get" data-form-title="Agendar Form">
             <div class="row">
               <div class="col-md-6 multi-horizontal" data-for="fono">
                 <input type="text" class="form-control input" name="fono" data-form-field="Fono" placeholder="Fono" required="" id="phone-form4-8e">

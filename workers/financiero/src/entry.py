@@ -701,8 +701,8 @@ async def actualizar_saldos(env):
 
         lista = await env.FINANCIERO.list()
         keys  = lista.keys()
-        for key in keys:
-           console.log(f"key {key}")
+        key_names = [key_obj.name for key_obj in lista.keys]
+        console.log(f"key {key_names}")
       
         colaboradores_string = await env.NOMINA.get('colaboradores')
         colaboradores   = json.loads( lista_string)

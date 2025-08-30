@@ -216,10 +216,9 @@ async def on_fetch(request, env):
         #await say_jefe(env, reply )
 
         await guardar_pedido( env, buy_order, fono, amount )
-
-        #await say_atender(env, str(env.FONO_COLABORADOR), str(env.NOMBRE_COLABORADOR), direccion, comuna, buy_order)
-
+        await actualizar_saldos( env) 
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
+
 
     #--------------------------------------------------------------------------------------------
 
@@ -369,7 +368,7 @@ async def on_fetch(request, env):
                            #msg = (f"Por favor pague la visita siguiendo el link:\n"
                            #f"link_de_pago: {link_de_pago} {resultado}\n\n")
                            #try:
-                           #  await send_msg(env, wa_id, msg)
+                           #  await send_message(env, wa_id, msg)
                            # except:
                            #  pass
 
@@ -698,6 +697,20 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
         return
 
 
+async def actualiza_saldos(env):        
+
+        lista_string = await env.FINANCIERO.list()
+        lista         = json.loads( lista_string )
+        for pedido in lista:
+           await send_message(env, pedido['fono'], pedido['fono'])
+      
+        colaboradores_string = await env.FINANCIERO.get('colaboradores')
+        colaboradores   = json.loads( lista_string)
+        for colaborador in colaboradores:
+           console.log(f"colaborador {colaborador}")
+
+        return
+
 
 #Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
 #Ese botón, permite a un colaboraodr tomar la orden dada por buy_order
@@ -851,9 +864,8 @@ async def say_link_de_pago( env, wa_id, nombre, amount, path_de_pago ):
         return
 
 
-
-async def send_msg( env, wa_id, msg):
-        console.log( "En send_msg")
+async def send_message( env, wa_id, msg):
+        console.log( "En send_message")
         console.log(f"wa_id {wa_id}")
         console.log( f"msg  {msg}")
 

@@ -697,14 +697,14 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
         return
 
 
-async def actualiza_saldos(env):        
+async def actualizar_saldos(env):        
 
         lista_string = await env.FINANCIERO.list()
         lista         = json.loads( lista_string )
         for pedido in lista:
            await send_message(env, pedido['fono'], pedido['fono'])
       
-        colaboradores_string = await env.FINANCIERO.get('colaboradores')
+        colaboradores_string = await env.NOMINA.get('colaboradores')
         colaboradores   = json.loads( lista_string)
         for colaborador in colaboradores:
            console.log(f"colaborador {colaborador}")

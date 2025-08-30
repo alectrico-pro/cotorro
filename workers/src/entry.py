@@ -690,7 +690,7 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount):
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, email, env)
         await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
-        lista_string = await env.FINANCIERO.get('colaboradores')
+        lista_string = await env.NOMINA.get('colaboradores')
         console.log(f"lista_string {lista_string}")
         lista   = json.loads( lista_string)
         console.log(f"lista {lista}")

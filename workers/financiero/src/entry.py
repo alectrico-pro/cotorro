@@ -189,7 +189,7 @@ async def on_fetch(request, env):
     #landing_pages
 
        #agendar?nombre=oipoi+upoi&fono=987654321&email=hjhkjh%40lkjlkj.ll&comuna=Providencia&descripcion=lkñ+jñlkj&direccion=o+ṕoiṕoiṕo&latitude=&longitude=&amount=68000
-    elif url.path == '/agendar':
+    elif url.path == '/recargar':
         console.log(f"Params en /agendar {params}")
         buy_order   = str( random.randint(1, 10000))
         fono        = params['fono'][0]
@@ -197,7 +197,7 @@ async def on_fetch(request, env):
 
         #no se envía el cuestionario, porque se vería repetido
         #await enviar_template_say_visita_flow_reserva(request, env, fono )
-        await say_jefe( env, f"en agendar {fono} {descripcion}")
+        await say_jefe( env, f"en recargar {fono}")
 
 
         reply   = (
@@ -1652,7 +1652,7 @@ def agendar( env, mensaje):
 
         <div data-form-type="formoid">
 
-          <form class="block mbr-form" action="https://recarga.alectrico.cl/agendar" method="get" data-form-title="Agendar Form">
+          <form class="block mbr-form" action="https://recarga.alectrico.cl/recargar" method="get" data-form-title="Agendar Form">
             <div class="row">
               <div class="col-md-6 multi-horizontal" data-for="fono">
                 <input type="text" class="form-control input" name="fono" data-form-field="Fono" placeholder="Fono" required="" id="phone-form4-8e">

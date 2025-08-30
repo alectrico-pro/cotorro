@@ -699,7 +699,7 @@ async def actualizar_saldos(env):
 
         lista = await env.FINANCIERO.list()
         for recarga in lista.keys:
-           console.log(f"recargas {recarga.name} {recarga.expirationTtl}")
+           console.log(f"recargas {recarga.name}")
       
         colaboradores_string = await env.NOMINA.get('colaboradores')
         colaboradores   = json.loads( colaboradores_string)

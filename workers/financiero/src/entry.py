@@ -434,7 +434,7 @@ async def get_fono_cliente(env, buy_order):
 
 async def guardar_pedido( env, buy_order, fono, amount):
     pedido = { 'pedido': {'fono': fono, "amount": amount, "fecha": json.dumps( date.today().isoformat()) }}
-    return await env.FINANCIERO.put( f"{fono}:{buy_order}:{json.dumps( date.today().isoformat())}", pedido, {'expirationTtl': 120}  )
+    return await env.FINANCIERO.put( f"{fono}:{buy_order}:{json.dumps( date.today().isoformat())}", pedido )
   
 
 async def post_tbk( uri, env):

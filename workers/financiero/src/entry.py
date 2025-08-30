@@ -204,7 +204,7 @@ async def on_fetch(request, env):
                     f"*buy_order*    { buy_order}     \n"
                     f"*amount*       { amount}        \n"
                     f"*fono*         { fono     }    \n"
-                    f"*recargar*    {  token_bat } \n"
+                    f"*recargar*     token_bat  \n"
                   )
 
         #En este llamado el argumento session_id se toma como fono

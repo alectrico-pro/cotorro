@@ -213,7 +213,7 @@ async def on_fetch(request, env):
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
         #await say_jefe(env, reply )
 
-        await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, recargar,  amount )
+        await guardar_pedido( env, buy_order, fono, "name","email","direccion", "comuna", "recargar",  amount )
 
         #await say_atender(env, str(env.FONO_COLABORADOR), str(env.NOMBRE_COLABORADOR), direccion, comuna, buy_order)
 

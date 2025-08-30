@@ -119,7 +119,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         id = result_dict['messages'][0]['id']
         console.log(f"id {id}")
         try:
-          await env.FINANCIERO.put( id, 'say_visita -> flow reserva', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+          await env.FINANCIERO.put( id, 'say_visita -> flow reserva', 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION )
         except:
           pass
         #---------------------------------------------------------------------------------------
@@ -213,8 +213,6 @@ async def on_fetch(request, env):
         #Eso es porque uso la defininción de transbank para enviar el fono
         #Porque lo necesito en def tbk_commit para enviar el voucher al cliente
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
-        #await say_jefe(env, reply )
-
         await guardar_pedido( env, buy_order, fono, amount )
         await actualizar_saldos( env) 
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
@@ -424,19 +422,19 @@ async def save_status( env, id, status ):
 
 
 
-async def get_fono_cliente(env, buy_order):
-    console.log("En get_fono_cliente")
-    console.log(f"buy_order {buy_order}")
-    pedido_json = await env.FINANCIERO.get(str(buy_order))
-    pedido = json.loads(pedido_json)
-    console.log(f"pedido {pedido}")
-    return pedido['pedido']['fono']
+    async def get_fono_cliente(env, buy_order):
+	    console.log("En get_fono_cliente")
+	    console.log(f"buy_order {buy_order}")
+	pedido_json = await env.FINANCIERO.get(str(buy_order))
+pedido = json.loads(pedido_json)
+	console.log(f"pedido {pedido}")
+	return pedido['pedido']['fono']
 
 
 
 async def guardar_pedido( env, buy_order, fono, amount):
     pedido = { 'pedido': {'expirationTtl': 60, 'fono': fono, "amount": amount, "fecha": json.dumps( date.today().isoformat()) }}
-    return await env.FINANCIERO.put( buy_order, json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+    return await env.FINANCIERO.put( f"{fono}:{buy_order}:{json.dumps( date.today().isoformat())}", { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
   
 
 async def post_tbk( uri, env):
@@ -700,9 +698,8 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
 async def actualizar_saldos(env):        
 
         lista = await env.FINANCIERO.list()
-        #key_names = [key_obj.name for key_obj in lista.keys]
         for recarga in lista.keys:
-           console.log(f"recargas {recarga.name} {recarga.expiration}")
+           console.log(f"recargas {recarga.name} {recarga.expirationTtl}")
       
         colaboradores_string = await env.NOMINA.get('colaboradores')
         colaboradores   = json.loads( colaboradores_string)

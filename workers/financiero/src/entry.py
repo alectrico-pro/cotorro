@@ -1659,14 +1659,17 @@ def agendar( env, mensaje):
 
           <form class="block mbr-form" action="https://www.alectrico.cl/agendar" method="get" data-form-title="Agendar Form">
             <div class="row">
-              <div class="col-md-6 multi-horizontal" data-for="nombre">
-                <input type="text" class="form-control input" name="nombre" data-form-field="Name" placeholder="Su nombre" required="" id="name-form4-8e">
-              </div>
               <div class="col-md-6 multi-horizontal" data-for="fono">
                 <input type="text" class="form-control input" name="fono" data-form-field="Fono" placeholder="Fono" required="" id="phone-form4-8e">
               </div>
+
+
+              <div class="col-md-6 multi-horizontal" data-for="nombre">
+                <input type="text" class="form-control input" hidden="" name="nombre" data-form-field="Name" placeholder="Su nombre" id="name-form4-8e">
+              </div>
+
               <div class="col-md-8" data-for="email">
-                <input type="email" class="form-control input" name="email" data-form-field="Email" placeholder="Email" required="" id="email-form4-8e">
+                <input type="email" class="form-control input" hidden="" name="email" data-form-field="Email" placeholder="Email" id="email-form4-8e">
               </div>
               <div class="col-md-4" data-for="comuna">
                 <input type="text" class="form-control input" name="comuna" data-form-field="Comuna" placeholder="Comuna" required="" id="comuna-form4-8e" value='Providencia'>

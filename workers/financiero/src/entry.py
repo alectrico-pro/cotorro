@@ -700,11 +700,12 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
 async def actualizar_saldos(env):        
 
         lista = await env.FINANCIERO.list()
-        key_names = [key_obj.name for key_obj in lista.keys]
-        console.log(f"key {key_names}")
+        #key_names = [key_obj.name for key_obj in lista.keys]
+        for recarga in lista.keys:
+           console.log("recargas {recarga.name}")
       
         colaboradores_string = await env.NOMINA.get('colaboradores')
-        colaboradores   = json.loads( lista_string)
+        colaboradores   = json.loads( colaboradores_string)
         for colaborador in colaboradores:
            console.log(f"colaborador {colaborador}")
 

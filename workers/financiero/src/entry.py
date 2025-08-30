@@ -423,12 +423,12 @@ async def save_status( env, id, status ):
 
 
 async def get_fono_cliente(env, buy_order):
-        console.log("En get_fono_cliente")
-	console.log(f"buy_order {buy_order}")
-	pedido_json = await env.FINANCIERO.get(str(buy_order))
-        pedido = json.loads(pedido_json)
-	console.log(f"pedido {pedido}")
-	return pedido['pedido']['fono']
+     console.log("En get_fono_cliente")
+     console.log(f"buy_order {buy_order}")
+     pedido_json = await env.FINANCIERO.get(str(buy_order))
+     pedido = json.loads(pedido_json)
+     console.log(f"pedido {pedido}")
+     return pedido['pedido']['fono']
 
 
 

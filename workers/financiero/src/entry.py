@@ -435,7 +435,7 @@ async def get_fono_cliente(env, buy_order):
 
 
 async def guardar_pedido( env, buy_order, fono, amount):
-    pedido = { 'pedido': {'fono': fono, "amount": amount, "fecha": json.dumps( date.today().isoformat()) }}
+    pedido = { 'pedido': {'expirationTtl': 60, 'fono': fono, "amount": amount, "fecha": json.dumps( date.today().isoformat()) }}
     return await env.FINANCIERO.put( buy_order, json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
   
 

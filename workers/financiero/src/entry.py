@@ -704,7 +704,6 @@ async def actualizar_saldos(env):
         console.log(f"keys {keys}")
         for key in keys:
            console.log(f"key {key")
-           await send_message(env, key['name'], key['expiration'])
       
         colaboradores_string = await env.NOMINA.get('colaboradores')
         colaboradores   = json.loads( lista_string)

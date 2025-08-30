@@ -34,6 +34,8 @@ import uuid
 from js import Object, fetch, Headers
 
 from datetime import date
+from datetime import datetime
+from datetime import timedelta
 
 #from clips import Environment, Symbol
 
@@ -431,10 +433,19 @@ async def get_fono_cliente(env, buy_order):
      return pedido['pedido']['fono']
 
 
+#from datetime import datetime
+#from datetime import timedelta
+
+#Sumar dos días a la fecha actual
+#now = datetime.now()
+#new_date = now + timedelta(days=2)
+#print(new_date)
 
 async def guardar_pedido( env, buy_order, fono, amount):
+    now = datetime.now()
+    fecha_en_el_vencimiento = now + timedelta(days = env.VENCIMIENTO_TOKEN_DIAS)
     pedido = { 'pedido': {'buy_order': buy_order, 'fono': fono, "amount": amount, "fecha": json.dumps( date.today().isoformat()) }}
-    return await env.FINANCIERO.put( f"{fono}:{buy_order}", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+    return await env.FINANCIERO.put( f"{fono}:{fecha_en_el_vencimiento}:{buy_order}", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
 
 
 async def post_tbk( uri, env):
@@ -698,8 +709,8 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
 async def actualizar_saldos(env):        
 
         lista = await env.FINANCIERO.list()
-        for recarga in lista.keys:
-           console.log(f"recargas {recarga.name}")
+        for key in lista.keys:
+           console.log(f"key {key.name}")
       
         colaboradores_string = await env.NOMINA.get('colaboradores')
         colaboradores   = json.loads( colaboradores_string)

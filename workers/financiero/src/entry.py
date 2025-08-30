@@ -1637,7 +1637,7 @@ def agendar( env, mensaje):
       <div class='row'>
 
 <div class='offset-md-3 col-md-6'>
-          <h2 class='pb-3 align-left mbr-fonts-style display-2'>Visita de Electricista a Domicilio</h2>
+          <h2 class='pb-3 align-left mbr-fonts-style display-2'>Recarga Token Bat</h2>
           <div>
             <div class='icon-block pb-3'>
               <span class='icon-block__icon'>
@@ -1645,7 +1645,7 @@ def agendar( env, mensaje):
               </span>
               <h4 class='icon-block__title align-left mbr-fonts-style display-5'>Este servicio tiene un costo de:</h4>
               <div class='col-md-4' data-for='amount'>
-                <input type='text' readonly='' value = {env.PRECIO_VISITA} class='form-control input' id='amount' name='amount' data-form-field='amount' placeholder='Monto a Pagar' required=''>
+                <input type='text' readonly='' value = {env.PRECIO_TOKEN} class='form-control input' id='amount' name='amount' data-form-field='amount' placeholder='Monto a Pagar' required=''>
               </div>
             </div>
         </div>
@@ -1683,7 +1683,7 @@ def agendar( env, mensaje):
               </div>
 
               <div class="col-md-4" data-for="amount">
-                <input type="text" readonly="" hidden="" value = {env.PRECIO_VISITA} class="form-control input" id="amount" name="amount" data-form-field="amount" placeholder="Monto a Pagar" required="">
+                <input type="text" readonly="" hidden="" value = {env.PRECIO_TOKEN} class="form-control input" id="amount" name="amount" data-form-field="amount" placeholder="Monto a Pagar" required="">
               </div>
 
               <div class="input-group-btn col-md-12" style="margin-top: 10px;"><button href="" type="submit" class="btn btn-primary btn-form display-4">Recargar</button>

@@ -174,7 +174,7 @@ async def on_fetch(request, env):
         #Porque lo necesito en def tbk_commit para enviar el voucher al cliente
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
         await anotar_token( env, buy_order, fono, amount )
-        await actualizar_saldos( env) 
+        await actualizar_saldos( env, fono, buy_order)
         return pedir_confirmacion_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 
@@ -509,9 +509,9 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 
 
 
-async def actualizar_saldos(env):        
+async def actualizar_saldos(env, fono, buy_order)
 
-        lista = await env.FINANCIERO.list({'prefix': 'token')
+        lista = await env.FINANCIERO.list({'prefix': f"{fono}:{buy_order}"})
         for key in lista.keys:
            console.log(f"key {key.name}")
       

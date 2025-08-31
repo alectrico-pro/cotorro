@@ -528,7 +528,7 @@ async def actualizar_saldos(env, fono, buy_order):
                    console.log(f"Expira en: {json.loads(token)['token']['expira_en']}")
                    token_dict = json.loads(token)
                    expira_en  = token_dict['token']['expira_en']
-                   await env.FINANCIERO.put(f"{fono}:{buy_order}:{token}:{expira_en}:pagado", token)
+                   await env.FINANCIERO.put(f"{fono}:{buy_order}:token:{expira_en}:pagado", token)
                    await env.FINANCIERO.delete( F"{fono}:{buy_order}:token" )
 
       

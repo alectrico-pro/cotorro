@@ -509,7 +509,7 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 
 
 
-async def actualizar_saldos(env, fono, buy_order)
+async def actualizar_saldos(env, fono, buy_order):
 
         lista = await env.FINANCIERO.list({'prefix': f"{fono}:{buy_order}"})
         for key in lista.keys:

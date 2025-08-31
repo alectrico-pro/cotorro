@@ -173,7 +173,7 @@ async def on_fetch(request, env):
         #Eso es porque uso la defininción de transbank para enviar el fono
         #Porque lo necesito en def tbk_commit para enviar el voucher al cliente
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
-        await guardar_token( env, buy_order, fono, amount )
+        await anotar_token( env, buy_order, fono, amount )
         await actualizar_saldos( env) 
         return mostrar_confirmacion_de_pago(request, env, buy_order, amount, uri, token_ws)
 
@@ -361,11 +361,11 @@ async def save_text_message( env, id, fono, buy_order, descripcion, amount ):
 
 
 
-async def guardar_token( env, buy_order, fono, amount):
+async def anotar_token( env, buy_order, fono, amount):
     now = datetime.now()
     fecha_en_el_vencimiento = now + timedelta(days = env.VENCIMIENTO_TOKEN_DIAS)
     pedido = { 'token': {'buy_order': buy_order, 'fono': fono, "amount": amount, "fecha": json.dumps( date.today().isoformat()) }}
-    return await env.FINANCIERO.put( f"token:{fecha_en_el_vencimiento.timestamp()}:{fono}:{buy_order}", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+    return await env.FINANCIERO.put( f"token:{fono}:{buy_order}:{fecha_en_el_vencimiento.timestamp()}", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
 
 
 async def post_tbk( uri, env):
@@ -397,7 +397,7 @@ async def tbk_commit( token_ws, env):
    console.log(f"response {response}")
    response_json = await response.json()
    console.log(f"response_json {response_json}")
-   await send_voucher( response_json, '56940338057', env)
+   await anotar_voucher( env, response_json)
    return await say_jefe(env, f"Pagado {response_json.buy_order}----{response_json.session_id}" )
    #respondo ok sin esperar al resultado de send_voucher
    return Response('ok', status="200")
@@ -418,11 +418,11 @@ def to_markdown( voucher):
       return TXT
 
 
-async def send_voucher( voucher_json, wa_id, env):
+async def anotar_voucher( env, voucher_json):
    console.log(f"voucher_json {voucher_json}")
    reply = to_markdown( voucher_json )
    console.log(f"reply {reply}")
-   await env.FINANCIERO.put( f"{datetime.now()}", reply, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+   await env.FINANCIERO.put( f"voucher:{voucher_json.session_id}:{voucher_json.buy_order}", reply, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
    return await send_reply(env, wa_id, reply)
 
 

@@ -423,7 +423,7 @@ async def anotar_voucher( env, voucher_json):
    reply = to_markdown( voucher_json )
    console.log(f"reply {reply}")
    await env.FINANCIERO.put( f"voucher:{voucher_json.session_id}:{voucher_json.buy_order}", reply, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
-   return await send_reply(env, wa_id, reply)
+   return await send_reply(env, voucher_json.session_id, reply)
 
 
 #crea un link de pago tbk

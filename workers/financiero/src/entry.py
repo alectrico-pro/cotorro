@@ -138,7 +138,7 @@ async def on_fetch(request, env):
     console.log(f"Handling request {url.path} with params {params}")
 
 
-    elif url.path == "/favicon.ico":
+    if url.path == "/favicon.ico":
           return Response("")
 
 

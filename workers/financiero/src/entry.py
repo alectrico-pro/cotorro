@@ -175,7 +175,7 @@ async def on_fetch(request, env):
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
         await anotar_token( env, buy_order, fono, amount )
         await actualizar_saldos( env) 
-        return mostrar_confirmacion_de_pago(request, env, buy_order, amount, uri, token_ws)
+        return pedir_confirmacion_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 
     #--------------------------------------------------------------------------------------------
@@ -512,7 +512,7 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 
 async def actualizar_saldos(env):        
 
-        lista = await env.FINANCIERO.list()
+        lista = await env.FINANCIERO.list({'prefix': 'token')
         for key in lista.keys:
            console.log(f"key {key.name}")
       
@@ -595,7 +595,7 @@ async def send_reply( env, wa_id, reply):
 #Muestra un aviso de que se le cobrará un amount
 #Y al presionar Pagar
 #Se va a Transbank
-def mostrar_confirmacion_de_pago(request, env, buy_order, amount, pago_url, token_ws):
+def pedir_confirmacion_de_pago(request, env, buy_order, amount, pago_url, token_ws):
   avisar = True
   CSS = "body { color: red; }"
   HTML = f"""<!DOCTYPE html>

@@ -398,8 +398,7 @@ async def tbk_commit( token_ws, env):
    response_json = await response.json()
    console.log(f"response_json {response_json}")
    await anotar_pago( env, response_json)
-   return await say_jefe(env, f"Pagado {response_json.buy_order}----{response_json.session_id}" )
-   #respondo ok sin esperar al resultado de send_voucher
+   await say_jefe(env, f"Pagado {response_json.buy_order}----{response_json.session_id}" )
    return Response('ok', status="200")
    
 
@@ -418,12 +417,12 @@ def to_markdown( voucher):
       return TXT
 
 
-async def anotar_voucher( env, voucher_json):
-   console.log(f"voucher_json {voucher_json}")
-   reply = to_markdown( voucher_json )
+async def anotar_pago( env, response_json):
+   console.log(f"response_json {response_json}")
+   reply = to_markdown( response_json )
    console.log(f"reply {reply}")
-   await env.FINANCIERO.put( f"{voucher_json.session_id}:{voucher_json.buy_order}:pago", reply, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
-   return await send_reply(env, voucher_json.session_id, reply)
+   await env.FINANCIERO.put( f"{response_json.session_id}:{response_json.buy_order}:pago", reply, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+   return await send_reply(env, response_json.session_id, reply)
 
 
 #crea un link de pago tbk

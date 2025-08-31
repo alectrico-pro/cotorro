@@ -397,7 +397,7 @@ async def tbk_commit( token_ws, env):
    response_json = await response.json()
    console.log(f"response_json {response_json}")
    await anotar_pago( env, response_json)
-   await actualizar_saldos( env, response.json.session_id, response_json.buy_order)
+   await actualizar_saldos( env, response_json.session_id, response_json.buy_order)
    await say_jefe(env, f"Pagado {response_json.buy_order}----{response_json.session_id}" )
    return Response('ok', status="200")
    

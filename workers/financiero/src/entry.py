@@ -137,31 +137,6 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
 
-    #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------
-    if url.path == '/create_from_landing_page' and method== 'POST':
-        console.log(f"Params en /create_from_landing_page {params}")
-
-        body = await request.text()
-        buy_order    = str( random.randint(1, 10000))
-
-        session_id   = buy_order
-        amount       = env.PRECIO_VISITA
-        params       = parse_qs( body )
-
-        name         = params['data[0][]'][1]
-        fono         = params['data[1][]'][1]
-        email        = params['data[2][]'][1]
-        descripcion  = params['data[3][]'][1]
-        comuna       = params['data[4][]'][1]
-        direccion    = params['data[5][]'][1]
-        #landing_page = params['data[6][]'][1]
-        await guardar_pedido( env, buy_order, fono, amount )
-
-        await derivar_jefe(env, name, descripcion, direccion, buy_order, comuna)
-        headers =  { "Access-Control-Allow-Origin": "*" }
-        return Response( 'ok', status="200", headers=headers )
-   #-----------------------------------------------------------------------------------
-
 
     elif url.path == "/favicon.ico":
           return Response("")
@@ -172,14 +147,6 @@ async def on_fetch(request, env):
         return agendar(env, 'Ingrese su número de Whatsapp para recargar Créditos de Atención en Alectrico')
     #-----------------------------------------------------------------------------------
 
-    #--------------------- EL COLABADORADOR DESEOSO DE ATENDER LLEGA CON EL BUY ORDER -----
-    elif url.path == '/atender':
-        console.log(f"Params en /atender {params}")
-        buy_order = params['buy_order'][0]
-        fono = await get_fono_cliente( env, buy_order)
-        return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
-    #------------------------------------------------------------------------------------------------
-    #----------------------------------------- FORMULARIOS WEBS LLAMAN A AGENDAR ---------------------
     #Esos formularios son un poco diferentes a los usuales usan un assets llamado formoide en las
     #landing_pages
 
@@ -375,12 +342,6 @@ async def on_fetch(request, env):
 
     #----------------------------------------------------------------------------------------
 
-    #-------------------- APOYO PARA LAS LANDING PAGES  EN ---------------------------------
-
-    elif url.path.startswith('/fonos.json'):
-        console.log("En fonos.json")
-        return fonos(env)
-    #-------------------------------------------------------------------------------------
 
     else:     
       console.log("No se ha identificado")
@@ -410,20 +371,11 @@ async def save_text_message( env, id, fono, buy_order, descripcion, amount ):
 
 
 
-async def get_fono_cliente(env, buy_order):
-     console.log("En get_fono_cliente")
-     console.log(f"buy_order {buy_order}")
-     pedido_json = await env.FINANCIERO.get(str(buy_order))
-     pedido = json.loads(pedido_json)
-     console.log(f"pedido {pedido}")
-     return pedido['pedido']['fono']
-
-
 async def guardar_pedido( env, buy_order, fono, amount):
     now = datetime.now()
     fecha_en_el_vencimiento = now + timedelta(days = env.VENCIMIENTO_TOKEN_DIAS)
-    pedido = { 'pedido': {'buy_order': buy_order, 'fono': fono, "amount": amount, "fecha": json.dumps( date.today().isoformat()) }}
-    return await env.FINANCIERO.put( f"{fecha_en_el_vencimiento.timestamp()}:{fono}:{buy_order}", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+    pedido = { 'pedido_de_token': {'buy_order': buy_order, 'fono': fono, "amount": amount, "fecha": json.dumps( date.today().isoformat()) }}
+    return await env.FINANCIERO.put( f"token:{fecha_en_el_vencimiento.timestamp()}:{fono}:{buy_order}", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
 
 
 async def post_tbk( uri, env):

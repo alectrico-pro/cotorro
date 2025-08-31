@@ -525,7 +525,7 @@ async def actualizar_saldos(env, fono, buy_order):
                 token = await env.FINANCIERO.get( F"{fono}:{buy_order}:token")
                 if token:
                    console.log(f"Encontrado token {token}")
-                   console.log(f"Expira en: {json.loads(token).token.expira_en}")
+                   console.log(f"Expira en: {json.loads(token)['token']['expira_en']}")
                   
 
       

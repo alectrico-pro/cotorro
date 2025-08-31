@@ -173,9 +173,9 @@ async def on_fetch(request, env):
         #Eso es porque uso la defininción de transbank para enviar el fono
         #Porque lo necesito en def tbk_commit para enviar el voucher al cliente
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
-        await guardar_pedido( env, buy_order, fono, amount )
+        await guardar_token( env, buy_order, fono, amount )
         await actualizar_saldos( env) 
-        return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
+        return mostrar_confirmacion_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 
     #--------------------------------------------------------------------------------------------
@@ -317,20 +317,10 @@ async def on_fetch(request, env):
                            amount       = env.PRECIO_VISITA
 
                            try:
-                             await guardar_pedido( env, buy_order, wa_id, name, email, direccion, comuna, descripcion, amount)
+                             await guardar_token( env, buy_order, wa_id, name, email, direccion, comuna, descripcion, amount)
                            except:
                              pass
 
-                           #intentaré enviar un mensaje, pero eso funciona solo en le ventana de anteción
-                           #link_de_pago = f"{env.API_URL}/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
-                           #msg = (f"Por favor pague la visita siguiendo el link:\n"
-                           #f"link_de_pago: {link_de_pago} {resultado}\n\n")
-                           #try:
-                           #  await send_message(env, wa_id, msg)
-                           # except:
-                           #  pass
-
-                           #envío este que debiera funcionar siempre, pero a veces no llega
                            path_de_pago = f"/transbank?amount={amount}&session_id={wa_id}&buy_order={buy_order}"
                            try:
                              await say_pagar_visita( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
@@ -371,10 +361,10 @@ async def save_text_message( env, id, fono, buy_order, descripcion, amount ):
 
 
 
-async def guardar_pedido( env, buy_order, fono, amount):
+async def guardar_token( env, buy_order, fono, amount):
     now = datetime.now()
     fecha_en_el_vencimiento = now + timedelta(days = env.VENCIMIENTO_TOKEN_DIAS)
-    pedido = { 'pedido_de_token': {'buy_order': buy_order, 'fono': fono, "amount": amount, "fecha": json.dumps( date.today().isoformat()) }}
+    pedido = { 'token': {'buy_order': buy_order, 'fono': fono, "amount": amount, "fecha": json.dumps( date.today().isoformat()) }}
     return await env.FINANCIERO.put( f"token:{fecha_en_el_vencimiento.timestamp()}:{fono}:{buy_order}", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
 
 
@@ -605,7 +595,7 @@ async def send_reply( env, wa_id, reply):
 #Muestra un aviso de que se le cobrará un amount
 #Y al presionar Pagar
 #Se va a Transbank
-def mostrar_formulario_de_pago(request, env, buy_order, amount, pago_url, token_ws):
+def mostrar_confirmacion_de_pago(request, env, buy_order, amount, pago_url, token_ws):
   avisar = True
   CSS = "body { color: red; }"
   HTML = f"""<!DOCTYPE html>

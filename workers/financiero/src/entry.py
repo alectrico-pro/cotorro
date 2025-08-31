@@ -167,15 +167,6 @@ async def on_fetch(request, env):
           return Response("")
 
 
-    #Esto viende del QR de la chaqueta -----------------------------------------------
-    #https://www.alectrico.cl/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user
-    elif url.path == '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user':
-        await say_jefe(env, f"Hola Jefe, alguien llegó a verifica_user" )
-        return Response.redirect( env.ALEC_SEC_URL, 307)
-        #return agendar(env, '/v/uR21SF_P0pnd8rQAMGSfEg/verifica_user')
-    #-----------------------------------------------------------------------------------
-
-    #entrypoint cuando se llama directamente a www.alectrico.cl
     #--------------------  PRESENTA UN FORMULARIO QUE TERMINA EN AGENDAR ----------
     elif url.path == '/':
         return agendar(env, 'Ingrese su número de Whatsapp para recargar Créditos de Atención en Alectrico')
@@ -418,11 +409,6 @@ async def save_text_message( env, id, fono, buy_order, descripcion, amount ):
 
 
 
-async def save_status( env, id, status ):
-    await env.FINANCIERO.put( str(id), status, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
-    return
-
-
 
 async def get_fono_cliente(env, buy_order):
      console.log("En get_fono_cliente")
@@ -533,107 +519,6 @@ async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env
         return token, url
 
 
-#Se le envía un resumen de las respuestas del cuestionario
-#Al que llenó el cuestionario
-async def flow_reply_processor(request_json, env):
-        console.log("En flow_reply_processor")
-        console.log( f"request_json {request_json}")
-        value = request_json.entry[0].changes[0].value.contacts[0]
-        console.log(f"value {value}")
-        wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
-        console.log(f"wa_id: {wa_id}")
-        response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
-
-        console.log(f"response_json {response_json}")
-
-
-        #---- procesando los campos
-        flow_data = json.loads(response_json)
-
-
-        sintoma_1=''
-        sintoma_2=''
-        sintoma_3=''
-        sintoma_4=''
-        sintoma_5=''
-        sintoma_6=''
-
-        console.log(f"flow_data {flow_data}")
-        if 'sintomas' in flow_data:
-
-            sintoma_id = flow_data['sintomas']
-
-            console.log(f"sintoma_id {sintoma_id}")
-
-            match sintoma_id[0]:
-                case "0":
-                    sintoma_1 = 'Sentí un ruido de cuetazo'
-                case "1":
-                    sintoma_2 = 'Tengo enchufe(s) malo(s)'
-                case "2":
-                    sintoma_3 = 'Necesito Instalar Luminarias'
-                case "3":
-                    sintoma_4 = 'Necesito Presentar un TE1'
-                case "4":
-                    sintoma_5 = 'Necesito más Circuitos'
-                case "5":
-                    sintoma_6 = 'No tengo luz'
-
-        nombre      = flow_data['nombre']
-        apellido    = flow_data['apellido']
-        fono        = flow_data['fono']
-        email       = flow_data['email']
-        direccion   = flow_data['direccion']
-        descripcion = flow_data['descripcion']
-        fecha       = flow_data['fecha']
-        comuna      = flow_data['comuna']
-        flow_token  = flow_data['flow_token']
-
-        #un número único por exigencia de Transbank
-        #uy_order  = str(uuid.uuid())
-
-        buy_order  = str( random.randint(1, 10000))
-        #amount debe ser calculado en base a lo ingresado en el cuestionario
-        #por simplicidad se cobra solo la visita por ahora
-
-        precio_visita = env.PRECIO_VISITA
-        link_de_pago_tbk_url = env.GO_TBK_URL+"/?buy_order="+ buy_order +"&amount="+ precio_visita + "&session_id=" + str(wa_id)
-
-        reply = (
-            f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"
-            f"*Síntomas*\n\n"
-            f"{sintoma_1}\n"
-            f"{sintoma_2}\n"
-            f"{sintoma_3}\n"
-            f"{sintoma_4}\n"
-            f"{sintoma_5}\n"
-            f"{sintoma_6}\n\n"
-            f"*Nombre:*\t{nombre}\n\n"
-            f"*Apellido:*\t{apellido}\n\n"
-            f"*Fono:*\t{fono}\n\n"
-            f"*email:*\t{email}\n\n"
-            f"*Dirección:*\t{direccion}\n\n"
-            f"*Descripción:*\t{descripcion}\n\n"
-            f"*Fecha:*\t{fecha}\n\n"
-            f"*Comuna:*\t{comuna}\n\n"
-            "------------------------------ \n\n"
-            f"*Orden*:\t{buy_order}\n\n"
-            "Por favor siga el link para pagar la visita en Transbank.\n"
-            "Solo se paga la mano de obra.\n"
-            "Ofrecemos crédito propio en seis cuotas mensuales sin interés con tarjeta de Crédito.\n"
-            "Transbank captura el total pero UD. solo paga cuotas mensuales.\n\n"
-            f"*Link_de_pago:*\t{link_de_pago_tbk_url}\n\n"
-            "------------------------------ \n\n"
-        )
-        console.log(f"reply {reply}")
-        await send_reply(env, wa_id, reply)
-
-        #envió el path de pago de nuevo con un perrito
-        path_de_pago = f"/transbank/?buy_order="+ buy_order +"&amount="+ precio_visita + "&session_id=" + str(wa_id)
-        await say_pagar_visita( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
-        await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
-
-
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def say_jefe(env, descripcion):
@@ -683,21 +568,6 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 
 
 
-#Difundi un peido a los colaboradores
-async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount):
-        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, email, env)
-        await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
-        lista_string = await env.FINANCIERO.get('colaboradores')
-        console.log(f"lista_string {lista_string}")
-        lista   = json.loads( lista_string)
-        console.log(f"lista {lista}")
-        for colaborador in lista:
-           console.log(f"colaborador {colaborador}")
-           await say_atender(env, colaborador['fono'], colaborador['nombre'], descripcion, comuna, buy_order)
-        path_de_pago = f"/transbank?amount={env.PRECIO_TOKEN}&session_id={fono}&buy_order={buy_order}"
-        return
-
-
 async def actualizar_saldos(env):        
 
         lista = await env.FINANCIERO.list()
@@ -711,157 +581,6 @@ async def actualizar_saldos(env):
 
         return
 
-
-#Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
-#Ese botón, permite a un colaboraodr tomar la orden dada por buy_order
-async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
-        console.log("En say_atender")
-        console.log(f"wa_id {wa_id}")
-        console.log( f"descripcion  {descripcion}")
-        imagen_url = f"{env.API_URL}/{env.TAKEME_IMAGE_PATH}"
-
-
-        body =  { "messaging_product": "whatsapp",
-                   "to": wa_id,
-                   "type": "template",
-                   "template": { "name": "say_atender",
-                                 "language": {"code": "es"},
-                    "components": [
-                   { "type": "body",
-                     "parameters": [
-                         { "type": "text", "parameter_name": "nombre", "text": nombre },
-                         { "type": "text", "parameter_name": "reporte", "text": descripcion },
-                         { "type": "text", "parameter_name": "comuna", "text": comuna }
-                     ]
-                   },
-                   { "type": "header",  "parameters": [
-                    { "type" : "image",
-                     "image": { "link": imagen_url } } ] },
-                    { "type": "button", "sub_type": "url", "index": "0", 
-                     "parameters": [ { "type": "text", "text": buy_order } ] } ] } }
-
-        console.log( f"{body}" )
-
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {env.META_USER_TOKEN}"
-        }
-        options = {
-               "body": json.dumps(body),
-               "method": "POST",
-               "headers": {
-                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
-                 "content-type": "application/json;charset=UTF-8"
-               },
-        }
-        response = await fetch(uri, to_js(options))
-        console.log(f"response {response}")
-        content_type, result = await gather_response(response)
-        console.log(f"result {result}")
-        return
-
-
-
-async def say_pagar_visita( env, wa_id, nombre, amount, path_de_pago ):
-        console.log("En say_pagar_visita")
-        console.log(f"wa_id {wa_id}")
-        console.log( f"amount  {amount}")
-        console.log( f"nombre  {nombre}")
-        console.log( f"link_de_pago  {path_de_pago}")
-
-        imagen_url = f"{env.API_URL}/{env.JEFE_IMAGE_PATH}"
-
-        body = {"messaging_product"    :  "whatsapp", 
-                "to"                   :  wa_id,
-                "type"                 : "template",
-                "template"             : { "name" : "say_pagar",
-                                       "language" : { "code" : "es" },
-                "components"           : [
-                { "type": "header",  "parameters": [
-                   { "type" : "image",
-                     "image": { "link": imagen_url } } ] },
-                { "type" :   "body", "parameters" : [
-                    { "type"            :   "text", "parameter_name": "nombre",   "text" : nombre   } ,
-                    { "type"            :   "text", "parameter_name": "amount", "text" : amount } ] },
-                { "type"    : "button",
-                     "sub_type": "url",
-                     "index"   : "0",
-                   "parameters": [ { "type": "text", "text": path_de_pago}]}]}}
-
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {env.META_USER_TOKEN}"
-        }
-        options = {
-               "body": json.dumps(body),
-               "method": "POST",
-               "headers": {
-                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
-                 "content-type": "application/json;charset=UTF-8"
-               },
-        }
-        console.log(f"body {body}")
-        response = await fetch(uri, to_js(options))
-        console.log(f"response {response}")
-        content_type, result = await gather_response(response)
-        console.log(f"result {result}")
-        return
-
-
-
-
-
-
-#el template fue borrado porque facebook insistió en categorizarlo como de marketing
-async def say_link_de_pago( env, wa_id, nombre, amount, path_de_pago ):
-        console.log("En say_link_de_pago")
-        console.log(f"wa_id {wa_id}")
-        console.log( f"amount  {amount}")
-        console.log( f"nombre  {nombre}")
-        console.log( f"link_de_pago  {path_de_pago}")
-
-        imagen_url = f"{env.API_URL}/{env.TAKEME_IMAGE_PATH}"
-
-
-        body = {"messaging_product"    :  "whatsapp",
-                "to"                   :  wa_id,
-                "type"                 : "template",
-                "template"             : { "name" : "say_pagar",
-                                       "language" : { "code" : "es" },
-                "components"           : [
-                { "type": "header",  "parameters": [
-                   { "type" : "image",
-                     "image": { "link": imagen_url } } ] },
-                { "type" :   "body", "parameters" : [
-                    { "type"            :   "text", "parameter_name": "nombre",   "text" : nombre   } ,
-                    { "type"            :   "text", "parameter_name": "amount", "text" : amount } ] },
-                { "type"    : "button",
-                     "sub_type": "url", 
-                     "index"   : "0",
-                   "parameters": [ { "type": "text", "text": path_de_pago}]}]}}
-
-
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {env.META_USER_TOKEN}"
-        }
-        options = {
-               "body": json.dumps(body),
-               "method": "POST",
-               "headers": {
-                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
-                 "content-type": "application/json;charset=UTF-8"
-               },
-        }
-        console.log(f"body {body}")
-        response = await fetch(uri, to_js(options))
-        console.log(f"response {response}")
-        content_type, result = await gather_response(response)
-        console.log(f"result {result}")
-        return
 
 
 async def send_message( env, wa_id, msg):
@@ -1810,24 +1529,5 @@ def agendar( env, mensaje):
 
 
 
-#Actuliza los fonos en la landing page
-def fonos( env):
-   headers = {  'Access-Control-Allow-Origin'      :'*',
-                'Access-Control-Allow-Credentials' : True,
-                'content-type'                     : 'application/json'
-   }
-
-   body_json = { "fonos" :
-        { "colaborador": { "publico" : "colaborador",
-                           "numero"  : str(env.PUBLICO_CLIENTE), 
-                           "html"    : str(env.PUBLICO_CLIENTE_HTML)
-                         },
-              "cliente": { "publico" : "cliente",
-                           "numero"  : str(env.PUBLICO_COLABORADOR),
-                           "html"    : str(env.PUBLICO_COLABORADOR_HTML)
-                         }
-      }
-   }
-   return Response.json(body_json, headers=headers, status='200' )
 
 

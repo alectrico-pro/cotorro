@@ -469,7 +469,7 @@ async def tbk_commit( token_ws, env):
    console.log(f"response {response}")
    response_json = await response.json()
    console.log(f"response_json {response_json}")
-   await send_voucher( response_json, response_json.session_id, env)
+   await send_voucher( response_json, '56981370042', env)
    return await say_jefe(env, f"Pagado {response_json.buy_order}----{response_json.session_id}" )
    #respondo ok sin esperar al resultado de send_voucher
    return Response('ok', status="200")

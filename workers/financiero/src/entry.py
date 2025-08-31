@@ -365,7 +365,7 @@ async def anotar_token( env, buy_order, fono, amount):
     now = datetime.now()
     fecha_en_el_vencimiento = now + timedelta(days = env.VENCIMIENTO_TOKEN_DIAS)
     pedido = { 'token': {'buy_order': buy_order, 'fono': fono, "amount": amount, "fecha": json.dumps( date.today().isoformat()) }}
-    return await env.FINANCIERO.put( f"token:{fono}:{buy_order}:{fecha_en_el_vencimiento.timestamp()}", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+    return await env.FINANCIERO.put( f"{fono}:{buy_order}:token:{fecha_en_el_vencimiento.timestamp()}", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
 
 
 async def post_tbk( uri, env):
@@ -397,7 +397,7 @@ async def tbk_commit( token_ws, env):
    console.log(f"response {response}")
    response_json = await response.json()
    console.log(f"response_json {response_json}")
-   await anotar_voucher( env, response_json)
+   await anotar_pago( env, response_json)
    return await say_jefe(env, f"Pagado {response_json.buy_order}----{response_json.session_id}" )
    #respondo ok sin esperar al resultado de send_voucher
    return Response('ok', status="200")
@@ -422,7 +422,7 @@ async def anotar_voucher( env, voucher_json):
    console.log(f"voucher_json {voucher_json}")
    reply = to_markdown( voucher_json )
    console.log(f"reply {reply}")
-   await env.FINANCIERO.put( f"voucher:{voucher_json.session_id}:{voucher_json.buy_order}", reply, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+   await env.FINANCIERO.put( f"{voucher_json.session_id}:{voucher_json.buy_order}:pago", reply, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
    return await send_reply(env, voucher_json.session_id, reply)
 
 

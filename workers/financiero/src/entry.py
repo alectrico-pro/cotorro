@@ -433,14 +433,6 @@ async def get_fono_cliente(env, buy_order):
      return pedido['pedido']['fono']
 
 
-#from datetime import datetime
-#from datetime import timedelta
-
-#Sumar dos días a la fecha actual
-#now = datetime.now()
-#new_date = now + timedelta(days=2)
-#print(new_date)
-
 async def guardar_pedido( env, buy_order, fono, amount):
     now = datetime.now()
     fecha_en_el_vencimiento = now + timedelta(days = env.VENCIMIENTO_TOKEN_DIAS)
@@ -503,6 +495,7 @@ async def send_voucher( voucher_json, wa_id, env):
    reply = to_markdown( voucher_json )
    console.log(f"reply {reply}")
    await env.FINANCIERO.put( f"{datetime.now()}", reply, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+   await send_reply(env, wa_id, reply)
    return await send_reply(env, wa_id, reply)
 
 
@@ -638,7 +631,6 @@ async def flow_reply_processor(request_json, env):
 
         #envió el path de pago de nuevo con un perrito
         path_de_pago = f"/transbank/?buy_order="+ buy_order +"&amount="+ precio_visita + "&session_id=" + str(wa_id)
-        #wait say_link_de_pago( env, wa_id, '\uD83D\uDE01', precio_visita, path_de_pago )
         await say_pagar_visita( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
         await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
 

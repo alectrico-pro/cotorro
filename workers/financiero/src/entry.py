@@ -529,9 +529,13 @@ async def actualizar_saldos(env, fono, buy_order):
                    token_dict = json.loads(token)
                    expira_en  = token_dict['token']['expira_en']
                    await env.FINANCIERO.put(f"{fono}:token:pagado:{expira_en}:{buy_order}", token)
-                   await env.FINANCIERO.delete( F"{fono}:{buy_order}:token" )
+                   if datetime.today() > expira_en:
+                     await env.FINANCIERO.put(f"{fono}:token:pagado:expirado", token)
+                   elif
+                     await env.FINANCIERO.put(f"{fono}:token:pagado:{expira_en}:{buy_order}", token)
 
-      
+                   await env.FINANCIERO.delete( F"{fono}:{buy_order}:token" )
+     
         colaboradores_string = await env.NOMINA.get('colaboradores')
         colaboradores   = json.loads( colaboradores_string)
         for colaborador in colaboradores:

@@ -599,7 +599,10 @@ async def flow_reply_processor(request_json, env):
         #por simplicidad se cobra solo la visita por ahora
 
         precio_visita = env.PRECIO_VISITA
-        link_de_pago_tbk_url = env.GO_TBK_URL+"/?buy_order="+ buy_order +"&amount="+ precio_visita + "&session_id=" + str(wa_id)
+        console.log(f"precio_visita {precio_visita}")
+        console.log(f"GO_TBK_URL {env.GO_TBK_URL}")
+        console.log(f"buy_order {buy_order}")
+        link_de_pago_tbk_url = env.GO_TBK_URL+"/?buy_order="+ str(buy_order) +"&amount="+ str(precio_visita) + "&session_id=" + str(wa_id)
 
         reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"

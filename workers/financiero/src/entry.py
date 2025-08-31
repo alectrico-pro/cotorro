@@ -898,6 +898,8 @@ async def send_message( env, wa_id, msg):
 
 
 #sujeto a eror de reenganche en waba
+#Hay que usar un template que acepte el texto
+#con
 async def send_reply( env, wa_id, reply):
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"

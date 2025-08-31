@@ -313,7 +313,10 @@ async def on_fetch(request, env):
                    if hasattr(value.messages[0].interactive.nfm_reply, 'response_json') == True :
                        console.log("Tiene response_json")
                        #no puedeo difundir_a_colaboradores aquí, lo hago desde dentro del flow_reply_processor
-                       await flow_reply_processor( request_json, env)
+                       try:
+                         await flow_reply_processor( request_json, env)
+                       except:
+                         pass
                        return Response( "Procesado", status="200")
 
 
@@ -634,9 +637,9 @@ async def flow_reply_processor(request_json, env):
         await send_reply(env, wa_id, reply)
 
         #envió el path de pago de nuevo con un perrito
-        path_de_pago = f"/transbank/?buy_order="+ buy_order +"&amount="+ precio_visita + "&session_id=" + str(wa_id)
+        path_de_pago = f"/transbank/?buy_order="+ str/buy_order) +"&amount="+ str(precio_visita) + "&session_id=" + str(wa_id)
         #wait say_link_de_pago( env, wa_id, '\uD83D\uDE01', precio_visita, path_de_pago )
-        await say_pagar_visita( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
+        await say_pagar_visita( env, wa_id, '\uD83D\uDE01', str(precio_visita), path_de_pago )
         await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
 
 

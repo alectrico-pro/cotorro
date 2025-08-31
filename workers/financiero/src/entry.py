@@ -520,8 +520,8 @@ async def actualizar_saldos(env, fono, buy_order):
         if len( lista.keys ) >= 2:
            for key in lista.keys:
              console.log(f"key name {key.name}")
-             if key.name.endswith("pagado"):
-                console.log("Encontrado pagado")
+             if key.name.endswith("pago"):
+                console.log("Encontrado pago")
                 token = await env.FINANCIERO.ger( F"{fono}:{buy_order}:{token}")
                 if token:
                   console.log("Encontrado token")

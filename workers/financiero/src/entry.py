@@ -502,6 +502,7 @@ async def send_voucher( voucher_json, wa_id, env):
    console.log(f"voucher_json {voucher_json}")
    reply = to_markdown( voucher_json )
    console.log(f"reply {reply}")
+   await env.FINANCIERO.put( f"{datetime.now()}", reply, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
    return await send_reply(env, wa_id, reply)
 
 

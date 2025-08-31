@@ -174,7 +174,6 @@ async def on_fetch(request, env):
         #Porque lo necesito en def tbk_commit para enviar el voucher al cliente
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
         await anotar_token( env, buy_order, fono, amount )
-        await actualizar_saldos( env, fono, buy_order)
         return pedir_confirmacion_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 
@@ -398,6 +397,7 @@ async def tbk_commit( token_ws, env):
    response_json = await response.json()
    console.log(f"response_json {response_json}")
    await anotar_pago( env, response_json)
+   await actualizar_saldos( env, response.json.session_id, response_json.buy_order)
    await say_jefe(env, f"Pagado {response_json.buy_order}----{response_json.session_id}" )
    return Response('ok', status="200")
    

@@ -514,7 +514,9 @@ async def actualizar_saldos(env, fono, buy_order):
         console.log("En actualizar saldos")
         console.log(f"Fono {fono}")
         console.log(f"buy_order {buy_order}")
-        lista = await env.FINANCIERO.list({'prefix': f"'{fono}:{buy_order}:'"})
+        list_options = {"prefix": f"{fono}:{buy_order}:"}
+        console.log(f"list_options {list_options}")
+        lista = await env.FINANCIERO.list(list_options)
         for key in lista.keys:
            console.log(f"key {key.name}")
       

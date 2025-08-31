@@ -524,7 +524,7 @@ async def actualizar_saldos(env, fono, buy_order):
                 console.log("Encontrado pago")
                 token = await env.FINANCIERO.get( F"{fono}:{buy_order}:token")
                 if token:
-                  console.log("Encontrado token {token}")
+                  console.log(f"Encontrado token {token}")
                   
 
       

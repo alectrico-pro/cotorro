@@ -52,9 +52,9 @@ FONO_JEFE=56981370042
 FONO_COLABORADOR=5699351576
 
 ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
-API_URL = "https://www.alectrico.cl" 
+API_URL = "https://recarga.alectrico.cl" 
 VERIFY_TOKEN = "1"
-GO_TBK_URL="https://www.alectrico.cl/transbank"
+GO_TBK_URL="https://recarga.alectrico.cl/transbank"
 LOGUITO_PATH='loguito.jpeg'
 META_USER_TOKEN="EAAN6V6gyZCSMBPClhLAnayqa8vBkDLXrCQYqCkH5iA3ZCWy42eeH97ZAcwYqvcZB6e2KEfbqaXZBcyS4CP0hJz7RTVwAyc7BFaZA9sXelj0AjMi1nwARvsZAjr6NnHZAJHPnKkDhP5iSk61pIZCh6aoZBCZBlqPTCZBjua1QnEYcNlqFSZAeyHixKYPUffcjSmmmoZCaVH"
 WHATSAPP_BUSINESS_ACCOUNT_ID="107728605282500"
@@ -81,7 +81,7 @@ PUBLICO_CLIENTE_HTML="932-000-849"
 PUBLICO_COLABORADOR_HTML="932-000-849"
 PUBLICO_CLIENTE=56932000849
 PUBLICO_COLABORADOR=56932000849
-API_URL = "https://www.alectrico.cl"
+API_URL = "https://recarga.alectrico.cl"
 ASSETS_SERVER_URL="https://alectrica.github.io/pay/assets"
 TLD="alectrico"
 MISION="Misión: Ayudar a progeter la vida y la propiedad"
@@ -94,8 +94,8 @@ PRECIO_VISITA=68000
 PRECIO_TOKEN=5000
 PRECIO_PROCESO=1000
 
-RETURN_URL="https://www.alectrico.cl/return_url"
-GO_TBK_URL="https://www.alectrico.cl/transbank"
+RETURN_URL="https://recarga.alectrico.cl/return_url"
+GO_TBK_URL="https://recarga.alectrico.cl/transbank"
 WEBPAY_API_KEY="597036225750"
 WEBPAY_SHARED_SECRET="2438ac00992d73fe1c3a0b501e8a90bb"
 TBK_ENDPOINT="https://webpay3g.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions"
@@ -124,7 +124,7 @@ PUBLICO_CLIENTE=56932000849
 PUBLICO_CLIENTE_HTML="932-000-849"
 PUBLICO_COLABORADOR_HTML="932-000-849"
 PUBLICO_COLABORADOR=56932000849
-API_URL = "https://www.alectrico.cl"
+API_URL = "https://recarga.alectrico.cl"
 ASSETS_SERVER_URL="https://alectrica.github.io/pay/assets"
 TLD="alectrico"
 MISION="Misión: Ayudar a progeter la vida y la propiedad"
@@ -138,8 +138,8 @@ PRECIO_TOKEN=5000
 PRECIO_PROCESO=1000
 
 
-RETURN_URL="https://www.alectrico.cl/return_url"
-GO_TBK_URL="https://www.alectrico.cl/transbank"
+RETURN_URL="https://recarga.alectrico.cl/return_url"
+GO_TBK_URL="https://recarga.alectrico.cl/transbank"
 WEBPAY_API_KEY="597055555532"
 WEBPAY_SHARED_SECRET="579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C"
 TBK_ENDPOINT="https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions"

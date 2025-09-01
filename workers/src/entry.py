@@ -33,6 +33,8 @@ from js import console
 import uuid
 from js import Object, fetch, Headers
 
+import operator
+
 #from clips import Environment, Symbol
 
 

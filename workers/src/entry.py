@@ -190,6 +190,7 @@ async def on_fetch(request, env):
           names = []
           for key in lista.keys:
              console.log(f"key {key.name}")
+             names.append( key.name )
           names_sorted = names.sort()
           console.log(f"sorted {names_sorted}")
           name_key_mas_expirable = names_sorted[0]

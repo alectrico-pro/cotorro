@@ -168,7 +168,7 @@ async def on_fetch(request, env):
         #Eso es porque uso la defininción de transbank para enviar el fono
         #Porque lo necesito en def tbk_commit para enviar el voucher al cliente
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, total, env.RETURN_URL, fono, env)
-        await anotar_token( env, buy_order, fono, total )
+        await anotar_tokens( env, buy_order, fono, amount, cantidad )
         return pedir_confirmacion_de_pago(request, env, buy_order, total, uri, token_ws)
 
 
@@ -359,11 +359,13 @@ async def save_text_message( env, id, fono, buy_order, descripcion, amount ):
 
 
 
-async def anotar_token( env, buy_order, fono, amount):
+async def anotar_tokens( env, buy_order, fono, amount, cantidad ):
     now = datetime.now()
     fecha_en_el_vencimiento = now + timedelta(days = env.VENCIMIENTO_TOKEN_DIAS)
-    pedido = { 'token': {'expira_en': str(fecha_en_el_vencimiento), 'buy_order': buy_order, 'fono': fono, "amount": amount, "acuñado_en": json.dumps( date.today().isoformat()) }}
-    return await env.FINANCIERO.put( f"{fono}:{buy_order}:token", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+    for numero in range( cantidad ):
+      pedido = { 'token': {'expira_en': str(fecha_en_el_vencimiento), 'buy_order': buy_order, 'fono': fono, "amount": amount, "acuñado_en": json.dumps( date.today().isoformat()) }}
+      await env.FINANCIERO.put( f"{fono}:{buy_order}:token", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+    return
 
 
 async def post_tbk( uri, env):

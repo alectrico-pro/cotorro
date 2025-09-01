@@ -183,7 +183,7 @@ async def on_fetch(request, env):
         buy_order = params['buy_order'][0]
         fono = await get_fono_cliente( env, buy_order)
         lista = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado")
-        if fono and len(lista.keys()) > 0 :
+        if fono and len(lista.keys) > 0 :
           return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
         else:
           return mostrar_not_found( env, f"Lo sentimos, este pedido {buy_order} ya no está vigente.")

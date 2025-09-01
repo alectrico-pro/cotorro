@@ -189,7 +189,7 @@ async def on_fetch(request, env):
           #data.sort( key=lambda x: x['name']) #Esto no funciona, exception que indica que debe usarse una función o nada
           names = []
           for key in lista.keys:
-             names.append(key.name)
+             names.append(key['name'])
           names_sorted = names.sort()
           name_key_mas_expirable = names_sorted[0]
           token = await env.FINANCIERO.get( name_key_mas_expirable )

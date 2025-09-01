@@ -189,7 +189,7 @@ async def on_fetch(request, env):
           #data.sort( key=lambda x: x['name']) #Esto no funciona, exception que indica que debe usarse una función o nada
           names = []
           for key in lista.keys:
-             console.log(f"key {key}")
+             console.log(f"key {key.name}")
           names_sorted = names.sort()
           console.log(f"sorted {names_sorted}")
           name_key_mas_expirable = names_sorted[0]

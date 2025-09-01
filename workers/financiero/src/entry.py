@@ -158,24 +158,18 @@ async def on_fetch(request, env):
         amount      = params['amount'][0]
         cantidad    = params['cantidad'][0]
 
+        total       = int( amount ) * int( cantidad )
+
         #no se envía el cuestionario, porque se vería repetido
         #await enviar_template_say_visita_flow_reserva(request, env, fono )
         await say_jefe( env, f"en recargar {fono}")
 
-
-        reply   = (
-                    f"*buy_order*    { buy_order}     \n"
-                    f"*amount*       { amount}        \n"
-                    f"*fono*         { fono     }    \n"
-                    f"*recargar*     token_bat  \n"
-                  )
-
         #En este llamado el argumento session_id se toma como fono
         #Eso es porque uso la defininción de transbank para enviar el fono
         #Porque lo necesito en def tbk_commit para enviar el voucher al cliente
-        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount*cantidad, env.RETURN_URL, fono, env)
-        await anotar_token( env, buy_order, fono, amount )
-        return pedir_confirmacion_de_pago(request, env, buy_order, amount*cantidad, uri, token_ws)
+        token_ws, uri = await genera_link_de_pago_tbk( buy_order, total, env.RETURN_URL, fono, env)
+        await anotar_token( env, buy_order, fono, total )
+        return pedir_confirmacion_de_pago(request, env, buy_order, total, uri, token_ws)
 
 
     #--------------------------------------------------------------------------------------------

@@ -182,9 +182,16 @@ async def on_fetch(request, env):
         console.log(f"Params en /atender {params}")
         buy_order = params['buy_order'][0]
         fono = await get_fono_cliente( env, buy_order)
-        lista = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado")
-        if fono and len(lista.keys) > 0 :
-          return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
+        lista = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
+
+        if len(lista.keys()) > 0:
+          key_de_token_mas_antiguo = list.keys.sort(reverse=True)[0]
+          token = await env.FINANCIERO.get( key_de_token_mas_antiguo.name )
+          try:
+            await env.FINANCIERO.delete( key_de_token_mas_antiguo.name)
+            return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
+          except:
+            return mostrar_not_found( env, f"Lo sentimos, este pedido {buy_order} ya no está vigente.")
         else:
           return mostrar_not_found( env, f"Lo sentimos, este pedido {buy_order} ya no está vigente.")
     #------------------------------------------------------------------------------------------------

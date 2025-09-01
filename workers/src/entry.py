@@ -182,7 +182,7 @@ async def on_fetch(request, env):
         console.log(f"Params en /atender {params}")
         buy_order = params['buy_order'][0]
         fono = await get_fono_cliente( env, buy_order)
-        lista = await env.FINANCIERO.list(prefix = f"{fono}:{token}:pagado")
+        lista = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado")
         if fono and len(lista) > 0 :
           return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
         else:

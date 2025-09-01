@@ -531,7 +531,7 @@ async def pagar_token(env, fono, buy_order):
                    await env.FINANCIERO.put(f"{fono}:token:pagado:{expira_en}:{buy_order}", token)
                    if datetime.today() > expira_en:
                      await env.FINANCIERO.put(f"{fono}:token:pagado:expirado", token)
-                   elif:
+                   else:
                      await env.FINANCIERO.put(f"{fono}:token:pagado:{expira_en}:{buy_order}", token)
 
                    await env.FINANCIERO.delete( F"{fono}:{buy_order}:token" )

@@ -156,6 +156,7 @@ async def on_fetch(request, env):
         buy_order   = str( random.randint(1, 10000))
         fono        = params['fono'][0]
         amount      = params['amount'][0]
+        cantidad    = params['cantidad'][0]
 
         #no se envía el cuestionario, porque se vería repetido
         #await enviar_template_say_visita_flow_reserva(request, env, fono )
@@ -172,9 +173,9 @@ async def on_fetch(request, env):
         #En este llamado el argumento session_id se toma como fono
         #Eso es porque uso la defininción de transbank para enviar el fono
         #Porque lo necesito en def tbk_commit para enviar el voucher al cliente
-        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
+        token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount*cantidad, env.RETURN_URL, fono, env)
         await anotar_token( env, buy_order, fono, amount )
-        return pedir_confirmacion_de_pago(request, env, buy_order, amount, uri, token_ws)
+        return pedir_confirmacion_de_pago(request, env, buy_order, amount*cantidad, uri, token_ws)
 
 
     #--------------------------------------------------------------------------------------------
@@ -193,6 +194,7 @@ async def on_fetch(request, env):
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 
+
     elif url.path == "/return_url" and 'token_ws' in params:
         token_ws = params['token_ws'][0]
         console.log(f"En return_url token_ws: {token_ws}")
@@ -200,11 +202,14 @@ async def on_fetch(request, env):
         return mostrar_success(env, " Envíamos el Comprobante del Pago, a Su Whatsapp ")
 
 
+
+
     elif url.path == "/return_url" and 'TBK_TOKEN' in params:
         console.log("En return_url TKB_TOKEN {TKB_TOKEN}")
         return mostrar_not_found(env, "El Pago fue Cancelado! ")
+   #--------------------------------------------------------------------------------------------
 
-    #--------------------------------------------------------------------------------------------
+
 
     #----------------- WEBHOOK DE WABA ---------------------------------------------------------
     elif url.path.startswith("/webhook"): # or url.path.startswith("/api/v1/santum/webhook"):

@@ -182,7 +182,10 @@ async def on_fetch(request, env):
         console.log(f"Params en /atender {params}")
         buy_order = params['buy_order'][0]
         fono = await get_fono_cliente( env, buy_order)
-        return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
+        if fono:
+          return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
+        else:
+          return mostrar_not_found( env, f"Lo sentimos, este pedido {buy_order} ya no está vigente.")
     #------------------------------------------------------------------------------------------------
     #----------------------------------------- FORMULARIOS WEBS LLAMAN A AGENDAR ---------------------
     #Esos formularios son un poco diferentes a los usuales usan un assets llamado formoide en las
@@ -435,9 +438,12 @@ async def get_fono_cliente(env, buy_order):
     console.log("En get_fono_cliente")
     console.log(f"buy_order {buy_order}")
     pedido_json = await env.BUY_ORDER.get(str(buy_order))
-    pedido = json.loads(pedido_json)
-    console.log(f"pedido {pedido}")
-    return pedido['pedido']['fono']
+    if pedido_json:
+      pedido = json.loads(pedido_json)
+      console.log(f"pedido {pedido}")
+      return pedido['pedido']['fono']
+    else:
+      return None
 
 
 

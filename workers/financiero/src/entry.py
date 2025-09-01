@@ -364,7 +364,7 @@ async def anotar_tokens( env, buy_order, fono, amount, cantidad ):
     fecha_en_el_vencimiento = now + timedelta(days = env.VENCIMIENTO_TOKEN_DIAS)
     for numero in range(1, cantidad ):
       pedido = { 'token': {'expira_en': str(fecha_en_el_vencimiento), 'buy_order': buy_order, 'fono': fono, "amount": amount, "acuñado_en": json.dumps( date.today().isoformat()) }}
-      await env.FINANCIERO.put( f"{fono}:{buy_order}:{numero}:token", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+      await env.FINANCIERO.put( f"{fono}:{buy_order}:token:{numero}:acuñado", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
     return
 
 
@@ -398,7 +398,7 @@ async def tbk_commit( token_ws, env):
    response_json = await response.json()
    console.log(f"response_json {response_json}")
    await anotar_pago( env, response_json)
-   await pagar_token( env, response_json.session_id, response_json.buy_order)
+   await pagar_tokens( env, response_json.session_id, response_json.buy_order)
    await say_jefe(env, f"Pagado {response_json.buy_order}----{response_json.session_id}" )
    return Response('ok', status="200")
    
@@ -510,7 +510,7 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 
 
 
-async def pagar_token(env, fono, buy_order):
+async def pagar_tokens(env, fono, buy_order):
 
         console.log("En actualizar saldos")
         console.log(f"Fono {fono}")
@@ -529,13 +529,13 @@ async def pagar_token(env, fono, buy_order):
                    console.log(f"Expira en: {json.loads(token)['token']['expira_en']}")
                    token_dict = json.loads(token)
                    expira_en  = token_dict['token']['expira_en']
-                   await env.FINANCIERO.put(f"{fono}:token:pagado:{expira_en}:{buy_order}", token)
+                   #wait env.FINANCIERO.put(f"{key_name}:pagado:{expira_en}:{buy_order}", token)
                    if datetime.today() > expira_en:
-                     await env.FINANCIERO.put(f"{fono}:token:pagado:expirado", token)
+                     await env.FINANCIERO.put(f"{key.name}:pagado:expirado", token)
                    else:
-                     await env.FINANCIERO.put(f"{fono}:token:pagado:{expira_en}:{buy_order}", token)
+                     await env.FINANCIERO.put(f"{key.name}:pagado:{expira_en}", token)
 
-                   await env.FINANCIERO.delete( F"{fono}:{buy_order}:token" )
+                   await env.FINANCIERO.delete( F"{key.name}" )
      
         colaboradores_string = await env.NOMINA.get('colaboradores')
         colaboradores   = json.loads( colaboradores_string)

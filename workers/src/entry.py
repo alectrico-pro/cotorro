@@ -33,7 +33,6 @@ from js import console
 import uuid
 from js import Object, fetch, Headers
 
-import operator
 
 #from clips import Environment, Symbol
 
@@ -187,8 +186,14 @@ async def on_fetch(request, env):
         lista = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
         if len(lista.keys) > 0:
           data = lista.keys 
-          data.sort( key=lambda x: x['name'])
-          token = await env.FINANCIERO.get( key_de_token_mas_antiguo.name )
+          #data.sort( key=lambda x: x['name']) #Esto no funciona, exception que indica que debe usarse una función o nada
+          names = []
+          for key in lista.keys:
+             names.append(key.name)
+          names_sorted = names.sorted()
+          name_key_mas_expirable = names_sorted[0]
+          token = await env.FINANCIERO.get( name_key_mas_expirable )
+
           try:
             await env.FINANCIERO.delete( key_de_token_mas_antiguo.name)
             return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )

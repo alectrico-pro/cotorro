@@ -195,7 +195,7 @@ async def on_fetch(request, env):
           token = await env.FINANCIERO.get( name_key_mas_expirable )
 
           try:
-            await env.FINANCIERO.delete( key_de_token_mas_antiguo.name)
+            await env.FINANCIERO.delete( name_key_mas_expirable)
             return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
           except:
             return mostrar_not_found( env, f"Lo sentimos, este pedido {buy_order} ya no está vigente.")

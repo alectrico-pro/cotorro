@@ -184,7 +184,7 @@ async def on_fetch(request, env):
         fono = await get_fono_cliente( env, buy_order)
         lista = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
 
-        if len(lista.keys()) > 0:
+        if len(lista.keys) > 0:
           key_de_token_mas_antiguo = list.keys.sort(reverse=True)[0]
           token = await env.FINANCIERO.get( key_de_token_mas_antiguo.name )
           try:

@@ -192,8 +192,8 @@ async def on_fetch(request, env):
              console.log(f"key {key.name}")
              names.append( key.name )
           names_sorted = names.sort()
-          console.log(f"sorted {names_sorted}")
           name_key_mas_expirable = names_sorted[0]
+          console.log("name_key_mas_expirable {name_key_mas_expirable}")
           token = await env.FINANCIERO.get( name_key_mas_expirable )
 
           try:

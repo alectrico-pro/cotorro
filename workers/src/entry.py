@@ -225,7 +225,7 @@ async def on_fetch(request, env):
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
 
         #El jefe siempre puede atender antes que el resto
-        await say_atender(env, str(env.FONO_JEFE), str(env.NOMBRE_JEFE), direccion, comuna, buy_order)
+        await say_atender(env, str(env.FONO_JEFE), 'JEFE ALEX', direccion, comuna, buy_order)
 
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 

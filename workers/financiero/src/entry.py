@@ -530,6 +530,7 @@ async def pagar_tokens(env, fono, buy_order):
                      token = await env.FINANCIERO.get( key.name )
                      token_dict = json.loads(token)
                      expira_en  = token_dict['token']['expira_en']
+                     console.log(f"expira en {expira_en}")
                      if datetime.today() > expira_en:
                        await env.FINANCIERO.put(f"{key.name}:pagado:expirado", token)
                      else:

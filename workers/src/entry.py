@@ -183,10 +183,10 @@ async def on_fetch(request, env):
         buy_order = params['buy_order'][0]
         fono = await get_fono_cliente( env, buy_order)
         lista = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
-
-        if len(lista.keys) > 0:
+        claves = lista.keys
+        if len(claves) > 0:
           console.log(f"lista.keys {lista.keys}")
-          key_de_token_mas_antiguo = lista.keys.sort(reverse=True)[0]
+          key_de_token_mas_antiguo = claves.sort( key = lambda token_key: token_key.name, reverse=True)[0]
           token = await env.FINANCIERO.get( key_de_token_mas_antiguo.name )
           try:
             await env.FINANCIERO.delete( key_de_token_mas_antiguo.name)

@@ -187,7 +187,9 @@ async def on_fetch(request, env):
         lista = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
         if len(lista.keys) > 0:
           console.log(f"lista.keys {lista.keys}")
-          key_de_token_mas_antiguo = lista.keys.sort( key = operator.itemgetter('name'), reverse=True)[0]
+          data = json.loads( lista.keys )
+          console.log(f"data {data}")
+          key_de_token_mas_antiguo = data.sort( key=lambda x:x['name'], reverse=True)[0]
           token = await env.FINANCIERO.get( key_de_token_mas_antiguo.name )
           try:
             await env.FINANCIERO.delete( key_de_token_mas_antiguo.name)

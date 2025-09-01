@@ -500,7 +500,7 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
                "headers": {
                  "Authorization": f"Bearer {env.META_USER_TOKEN}",
                  "content-type": "application/json;charset=UTF-8"
-               },g
+               },
         }
         response = await fetch(uri, to_js(options))
         console.log(f"response {response}")

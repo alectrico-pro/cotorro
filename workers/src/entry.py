@@ -182,7 +182,8 @@ async def on_fetch(request, env):
         console.log(f"Params en /atender {params}")
         buy_order = params['buy_order'][0]
         fono = await get_fono_cliente( env, buy_order)
-        if fono:
+        lista = await env.FINANCIERO.list(prefix = f"{fono}:{token}:pagado")
+        if fono and len(lista) > 0 :
           return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
         else:
           return mostrar_not_found( env, f"Lo sentimos, este pedido {buy_order} ya no está vigente.")
@@ -223,7 +224,8 @@ async def on_fetch(request, env):
 
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
 
-        await say_atender(env, str(env.FONO_COLABORADOR), str(env.NOMBRE_COLABORADOR), direccion, comuna, buy_order)
+        #El jefe siempre puede atender antes que el resto
+        await say_atender(env, str(env.FONO_JEFE), str(env.NOMBRE_JEFE), direccion, comuna, buy_order)
 
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 

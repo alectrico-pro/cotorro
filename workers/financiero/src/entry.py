@@ -363,7 +363,7 @@ async def anotar_tokens( env, buy_order, fono, amount, cantidad ):
     now = datetime.now()
     fecha_en_el_vencimiento = now + timedelta(days = env.VENCIMIENTO_TOKEN_DIAS)
     for numero in range(1, cantidad + 1 ):
-      pedido = { 'token': {'expira_en': str(fecha_en_el_vencimiento), 'buy_order': buy_order, 'fono': fono, "amount": amount, "acuñado_en": json.dumps( date.today().isoformat()) }}
+      pedido = { 'token': {'orden': numero, 'expira_en': str(fecha_en_el_vencimiento), 'buy_order': buy_order, 'fono': fono, "amount": amount, "acuñado_en": json.dumps( date.today().isoformat()) }}
       await env.FINANCIERO.put( f"{fono}:{buy_order}:token:{numero}", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
     return
 
@@ -500,7 +500,7 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
                "headers": {
                  "Authorization": f"Bearer {env.META_USER_TOKEN}",
                  "content-type": "application/json;charset=UTF-8"
-               },
+               },g
         }
         response = await fetch(uri, to_js(options))
         console.log(f"response {response}")
@@ -530,11 +530,12 @@ async def pagar_tokens(env, fono, buy_order):
                      token = await env.FINANCIERO.get( key.name )
                      token_dict = json.loads(token)
                      expira_en  = token_dict['token']['expira_en']
+                     orden      = token_dict['token']['orden']
                      console.log(f"expira en {expira_en}")
                      if datetime.today() > datetime.fromisoformat( expira_en ):
-                       await env.FINANCIERO.put(f"{key.name}:pagado:expirado", token)
+                       await env.FINANCIERO.put(f"{fono}:token:pagado:expirado:{orden}", token)
                      else:
-                       await env.FINANCIERO.put(f"{key.name}:pagado:{expira_en}", token)
+                       await env.FINANCIERO.put(f"{fono}:token:pagado:no_expirado:{orden}", token)
 
                      await env.FINANCIERO.delete( F"{key.name}" )
      

@@ -362,7 +362,7 @@ async def save_text_message( env, id, fono, buy_order, descripcion, amount ):
 async def anotar_tokens( env, buy_order, fono, amount, cantidad ):
     now = datetime.now()
     fecha_en_el_vencimiento = now + timedelta(days = env.VENCIMIENTO_TOKEN_DIAS)
-    for numero in range( cantidad ):
+    for numero in range(1, cantidad ):
       pedido = { 'token': {'expira_en': str(fecha_en_el_vencimiento), 'buy_order': buy_order, 'fono': fono, "amount": amount, "acuñado_en": json.dumps( date.today().isoformat()) }}
       await env.FINANCIERO.put( f"{fono}:{buy_order}:{numero}:token", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
     return

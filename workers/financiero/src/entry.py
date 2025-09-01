@@ -1355,6 +1355,9 @@ def agendar( env, mensaje):
                 <input type="text" class="form-control input" name="fono" data-form-field="Fono" placeholder="Fono" required="" id="phone-form4-8e">
               </div>
 
+              <div class="col-md-6 multi-horizontal" data-for="cantidad">
+                <input type="number" class="form-control input" name="cantidad" data-form-field="Fono" placeholder="Cantidad" required="" id="phone-form4-8e">
+              </div>
 
               <div class="col-md-6 multi-horizontal" data-for="nombre">
                 <input type="text" class="form-control input" hidden="" name="nombre" data-form-field="Name" placeholder="Su nombre" id="name-form4-8e">

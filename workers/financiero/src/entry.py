@@ -364,7 +364,7 @@ async def anotar_tokens( env, buy_order, fono, amount, cantidad ):
     fecha_en_el_vencimiento = now + timedelta(days = env.VENCIMIENTO_TOKEN_DIAS)
     for numero in range(1, cantidad + 1 ):
       pedido = { 'token': {'expira_en': str(fecha_en_el_vencimiento), 'buy_order': buy_order, 'fono': fono, "amount": amount, "acuñado_en": json.dumps( date.today().isoformat()) }}
-      await env.FINANCIERO.put( f"{fono}:{buy_order}:token:{numero}:acuñado", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+      await env.FINANCIERO.put( f"{fono}:{buy_order}:token:{numero}", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
     return
 
 
@@ -517,25 +517,25 @@ async def pagar_tokens(env, fono, buy_order):
         console.log(f"buy_order {buy_order}")
         list_options = {"prefix": f"{fono}:{buy_order}:"}
         console.log(f"list_options {list_options}")
-        lista = await env.FINANCIERO.list(prefix= f"{fono}:{buy_order}")
+        lista = await env.FINANCIERO.list( prefix = f"{fono}:{buy_order}")
         if len( lista.keys ) >= 2:
            for key in lista.keys:
              console.log(f"key name {key.name}")
              if key.name.endswith("pago"):
                 console.log("Encontrado pago")
-                token = await env.FINANCIERO.get( F"{fono}:{buy_order}:token")
-                if token:
-                   console.log(f"Encontrado token {token}")
-                   console.log(f"Expira en: {json.loads(token)['token']['expira_en']}")
-                   token_dict = json.loads(token)
-                   expira_en  = token_dict['token']['expira_en']
-                   #wait env.FINANCIERO.put(f"{key_name}:pagado:{expira_en}:{buy_order}", token)
-                   if datetime.today() > expira_en:
-                     await env.FINANCIERO.put(f"{key.name}:pagado:expirado", token)
-                   else:
-                     await env.FINANCIERO.put(f"{key.name}:pagado:{expira_en}", token)
+                tokens = await env.FINANCIERO.list( prefix = f"{fono}:{buy_order}:token" )
+                if len( tokens ) > 1:
+                   console.log(f"Encontrado token")
+                   for token in tokens:
+                     console.log(f"Expira en: {json.loads(token)['token']['expira_en']}")
+                     token_dict = json.loads(token)
+                     expira_en  = token_dict['token']['expira_en']
+                     if datetime.today() > expira_en:
+                       await env.FINANCIERO.put(f"{key.name}:pagado:expirado", token)
+                     else:
+                       await env.FINANCIERO.put(f"{key.name}:pagado:{expira_en}", token)
 
-                   await env.FINANCIERO.delete( F"{key.name}" )
+                     await env.FINANCIERO.delete( F"{key.name}" )
      
         colaboradores_string = await env.NOMINA.get('colaboradores')
         colaboradores   = json.loads( colaboradores_string)

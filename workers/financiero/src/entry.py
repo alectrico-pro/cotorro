@@ -524,10 +524,10 @@ async def pagar_tokens(env, fono, buy_order):
              if key.name.endswith("pago"):
                 console.log("Encontrado pago")
                 tokens = await env.FINANCIERO.list( prefix = f"{fono}:{buy_order}:token" )
-                if len( tokens.keys ) > 1:
+                if len( tokens.keys ) > 0:
                    console.log(f"Encontrado token")
-                   for token in tokens.keys:
-                     console.log(f"Expira en: {json.loads(token)['token']['expira_en']}")
+                   for key in tokens.keys:
+                     token = await env.FINANCIERO.get( key )
                      token_dict = json.loads(token)
                      expira_en  = token_dict['token']['expira_en']
                      if datetime.today() > expira_en:

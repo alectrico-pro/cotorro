@@ -199,13 +199,21 @@ async def on_fetch(request, env):
           pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
           pagados_count = len(pagados.keys)
           for key in pagados.keys:
+                 try:
                      token = await env.FINANCIERO.get( key.name )
                      token_dict = json.loads(token)
                      expira_en  = token_dict['token']['expira_en']
                      orden      = token_dict['token']['orden']
                      console.log(f"expira en {expira_en}")
                      if datetime.today() > datetime.fromisoformat( expira_en ):
-                       await env.FINANCIERO.put(f"{fono}:token:pagado:expirado:{orden}", token)
+                       try:
+                         await env.FINANCIERO.put(f"{fono}:token:pagado:expirado:{orden}", token)
+                       except:
+                         return mostrar_not_found( env, f"{token} Lo sentimos, hubo un error al guardar en la base de datos. Refresque la página en unos momentos.")
+
+                  except:
+                    return mostrar_not_found( env, f"{token} Lo sentimos, hubo un error al leer de la base de datos. Refresque la página en unos momentos.")
+
 
           no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
           if len(no_expirados.keys) > 0:
@@ -215,7 +223,7 @@ async def on_fetch(request, env):
                names.append( key.name )
              names_sorted = names.sort()
              name_key_mas_expirable = names[0]
-             console.log("name_key_mas_expirable {name_key_mas_expirable}")
+             console.log(f"name_key_mas_expirable {name_key_mas_expirable}")
              try:
                token = await env.FINANCIERO.get( name_key_mas_expirable )
              except:

@@ -191,7 +191,7 @@ async def on_fetch(request, env):
         fono_str = str(fono)
         if fono:
           if '56' in fono_str[0:2]:
-             console.log("Encontré 56 en {fono_str[0:1]}")
+             console.log("Encontré 56 en {fono_str[0:2]}")
              fono = fono_str.replace('56','',1)
           else:
              console.log("fono no tiene 56")       
@@ -515,7 +515,7 @@ async def get_fono_cliente(env, buy_order):
     if pedido_json:
       pedido = json.loads(pedido_json)
       console.log(f"pedido {pedido}")
-      return pedido['pedido']['fono'], pedido
+      return pedido['pedido']['fono']
     else:
       return None
 

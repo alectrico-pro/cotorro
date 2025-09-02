@@ -198,6 +198,7 @@ async def on_fetch(request, env):
           console.log(f"fono {fono}")
           pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
           pagados_count = len(pagados.keys)
+          consolo.log("Tokens pagados en total")
           for key in pagados.keys:
                  try:
                      token = await env.FINANCIERO.get( key.name )
@@ -207,14 +208,16 @@ async def on_fetch(request, env):
                      console.log(f"expira en {expira_en}")
                      if datetime.today() > datetime.fromisoformat( expira_en ):
                        try:
-                         await env.FINANCIERO.put(f"{fono}:token:pagado:expirado:{orden}", token)
+                         token_expirado = f"{fono}:token:pagado:expirado:{orden}"
+                         await env.FINANCIERO.put(f"{token_expirado}", token)
+                         console.log(f"token marcado como expirado {token_expirado}")
                        except:
                          return mostrar_not_found( env, f"{token} Lo sentimos, hubo un error al guardar en la base de datos. Refresque la página en unos momentos.")
 
                  except:
                     return mostrar_not_found( env, f"{token} Lo sentimos, hubo un error al leer de la base de datos. Refresque la página en unos momentos.")
 
-
+          console.log("Token no expirados, uno de los cuales será eliminado"
           no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
           #Caso de uso
           #En mi rol de alectrico
@@ -237,6 +240,7 @@ async def on_fetch(request, env):
                return mostrar_not_found( env, f"Lo sentimos, hubo un error al leer de la base de datos. Refresque la página en unos momentos.")
              try:
                 await env.FINANCIERO.delete( name_key_mas_expirable)
+                console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
                 return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
              except:
                 return mostrar_not_found( env, f"Lo sentimos, este pedido {buy_order} ya no está vigente.")

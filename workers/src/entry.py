@@ -178,31 +178,36 @@ async def on_fetch(request, env):
         return agendar(env, 'Ingrese los datos para Agendar una Visita a Domicilio')
     #-----------------------------------------------------------------------------------
 
+
+
     #--------------------- EL COLABADORADOR DESEOSO DE ATENDER LLEGA CON EL BUY ORDER -----
     elif url.path == '/atender':
         console.log(f"Params en /atender {params}")
         buy_order = params['buy_order'][0]
         fono = await get_fono_cliente( env, buy_order)
-        lista = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
-        if len(lista.keys) > 0:
-          data = lista.keys 
-          #data.sort( key=lambda x: x['name']) #Esto no funciona, exception que indica que debe usarse una función o nada
-          names = []
-          for key in lista.keys:
-             console.log(f"key {key.name}")
-             names.append( key.name )
-          names_sorted = names.sort()
-          name_key_mas_expirable = names[0]
-          console.log("name_key_mas_expirable {name_key_mas_expirable}")
-          token = await env.FINANCIERO.get( name_key_mas_expirable )
-
-          try:
-            await env.FINANCIERO.delete( name_key_mas_expirable)
-            return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
-          except:
-            return mostrar_not_found( env, f"Lo sentimos, este pedido {buy_order} ya no está vigente.")
+        if fono:
+          console.log(f"fono {fono}")
+          lista = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
+          if len(lista.keys) > 0:
+             names = []
+             for key in lista.keys:
+               console.log(f"key {key.name}")
+               names.append( key.name )
+             names_sorted = names.sort()
+             name_key_mas_expirable = names[0]
+             console.log("name_key_mas_expirable {name_key_mas_expirable}")
+             token = await env.FINANCIERO.get( name_key_mas_expirable )
+             try:
+                await env.FINANCIERO.delete( name_key_mas_expirable)
+                return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
+             except:
+                return mostrar_not_found( env, f"Lo sentimos, este pedido {buy_order} ya no está vigente.")
+          else:
+            return mostrar_not_found( env, f"No hay tokens disponibles. Debe comprar más en https://recarga.alectrico.cl ")
         else:
           return mostrar_not_found( env, f"Lo sentimos, este pedido {buy_order} ya no está vigente.")
+
+
     #------------------------------------------------------------------------------------------------
     #----------------------------------------- FORMULARIOS WEBS LLAMAN A AGENDAR ---------------------
     #Esos formularios son un poco diferentes a los usuales usan un assets llamado formoide en las
@@ -261,6 +266,8 @@ async def on_fetch(request, env):
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
 
+
+
     elif url.path == "/return_url" and 'token_ws' in params:
         token_ws = params['token_ws'][0]
         console.log(f"En return_url token_ws: {token_ws}")
@@ -268,11 +275,14 @@ async def on_fetch(request, env):
         return mostrar_success(env, " Envíamos el Comprobante del Pago, a Su Whatsapp ")
 
 
+
     elif url.path == "/return_url" and 'TBK_TOKEN' in params:
         console.log("En return_url TKB_TOKEN {TKB_TOKEN}")
         return mostrar_not_found(env, "El Pago fue Cancelado! ")
 
     #--------------------------------------------------------------------------------------------
+
+
 
     #----------------- WEBHOOK DE WABA ---------------------------------------------------------
     elif url.path.startswith("/webhook"): # or url.path.startswith("/api/v1/santum/webhook"):

@@ -185,9 +185,10 @@ async def on_fetch(request, env):
         console.log(f"Params en /atender {params}")
         buy_order = params['buy_order'][0]
         fono = await get_fono_cliente( env, buy_order)
+        fono_str = str(fono)
         if fono:
-          if '56' in fono[0:1]:
-             fono.replace('56','',1)
+          if '56' in fono_str[0:1]:
+             fono = fono_str.replace('56','',1)
           console.log(f"fono {fono}")
           lista = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
           if len(lista.keys) > 0:

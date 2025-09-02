@@ -187,7 +187,7 @@ async def on_fetch(request, env):
     elif url.path == '/atender':
         console.log(f"Params en /atender {params}")
         buy_order = params['buy_order'][0]
-        fono = await get_fono_cliente( env, buy_order)
+        fono, pago = await get_fono_cliente( env, buy_order)
         fono_str = str(fono)
         if fono:
           if '56' in fono_str[0:2]:
@@ -213,12 +213,11 @@ async def on_fetch(request, env):
                          console.log(f"token marcado como expirado {token_expirado}")
                        except:
                          return mostrar_not_found( env, f"{token} Lo sentimos, hubo un error al guardar en la base de datos. Refresque la página en unos momentos.")
-
                  except:
                     return mostrar_not_found( env, f"{token} Lo sentimos, hubo un error al leer de la base de datos. Refresque la página en unos momentos.")
 
-          console.log("Token no expirados, uno de los cuales será eliminado"
-          no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
+          console.log("Token no expirados, uno de los cuales será eliminado")
+          no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado}")
           #Caso de uso
           #En mi rol de alectrico
           #Dado que quiero un trato justo
@@ -240,6 +239,7 @@ async def on_fetch(request, env):
                return mostrar_not_found( env, f"Lo sentimos, hubo un error al leer de la base de datos. Refresque la página en unos momentos.")
              try:
                 await env.FINANCIERO.delete( name_key_mas_expirable)
+                await env.FINANCIERO.delete(
                 console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
                 return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
              except:
@@ -511,7 +511,7 @@ async def get_fono_cliente(env, buy_order):
     if pedido_json:
       pedido = json.loads(pedido_json)
       console.log(f"pedido {pedido}")
-      return pedido['pedido']['fono']
+      return pedido['pedido']['fono'], pedido
     else:
       return None
 

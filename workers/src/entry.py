@@ -217,7 +217,7 @@ async def on_fetch(request, env):
                     return mostrar_not_found( env, f"{token} Lo sentimos, hubo un error al leer de la base de datos. Refresque la página en unos momentos.")
 
           console.log("Token no expirados, uno de los cuales será eliminado")
-          no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado}")
+          no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
           #Caso de uso
           #En mi rol de alectrico
           #Dado que quiero un trato justo

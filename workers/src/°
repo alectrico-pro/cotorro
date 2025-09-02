@@ -32,9 +32,6 @@ import json
 from js import console
 import uuid
 from js import Object, fetch, Headers
-from datetime import date
-from datetime import datetime
-from datetime import timedelta
 
 
 #from clips import Environment, Symbol
@@ -196,56 +193,27 @@ async def on_fetch(request, env):
           else:
              console.log("fono no tiene 56")       
           console.log(f"fono {fono}")
-          pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
-          pagados_count = len(pagados.keys)
-
-          console.log("Tokens pagados en total {pagados_count} para el fono {fono}")
+          pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:"}
+          pagados_count = len(pagados)
           for key in pagados.keys:
-                 try:
-                     token = await env.FINANCIERO.get( key.name )
-                     token_dict = json.loads(token)
-                     expira_en  = token_dict['token']['expira_en']
-                     orden      = token_dict['token']['orden']
-                     console.log(f"expira en {expira_en}")
-                     if datetime.today() > datetime.fromisoformat( expira_en ):
-                       try:
-                          token_expirado = f"{fono}:token:pagado:expirado:{orden}"
-                          await env.FINANCIERO.put(f"{token_expirado}", token)
-                          console.log(f"token marcado como expirado {token_expirado}")
-                       except:
-                          return mostrar_not_found( env, f"{token} Lo sentimos, hubo un error al guardar en la base de datos. Refresque la página en unos momentos.")
-                 except:
-                    return mostrar_not_found( env, f"{token} Lo sentimos, hubo un error al leer de la base de datos. Refresque la página en unos momentos.")
+            token = await env.FINANCIERO.get( key.name )
+            if datetime.today() > datetime.fromisoformat( expira_en ):
+               await env.FINANCIERO.put( f"{key.name}:expirado", token )
+
 
           no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
-
-          console.log("Token no expirados en todal  {len( no_expirados.keys)}, uno de los cuales será eliminado")
-          #Caso de uso
-          #En mi rol de alectrico
-          #Dado que quiero un trato justo
-          #Debo usar primero los tokens que expiran más temprano
           if len(no_expirados.keys) > 0:
              names = []
              for key in no_expirados.keys:
                console.log(f"key {key.name}")
                names.append( key.name )
-             names_sorted = names.sort
-
-             #Este expira más temprano que el resto
+             names_sorted = names.sort()
              name_key_mas_expirable = names[0]
-
-             console.log(f"name_key_mas_expirable {name_key_mas_expirable}")
-             try:
-               token = await env.FINANCIERO.get( name_key_mas_expirable )
-             except:
-               return mostrar_not_found( env, f"Lo sentimos, hubo un error al leer de la base de datos. Refresque la página en unos momentos.")
+             console.log("name_key_mas_expirable {name_key_mas_expirable}")
+             token = await env.FINANCIERO.get( name_key_mas_expirable )
              try:
                 await env.FINANCIERO.delete( name_key_mas_expirable)
-                console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
-                try:
-                  await env.BUY_ORDER.delete( str(buy_order))
-                except:
-                  return mostrar_not_found( env, f"Ya ha pagado, pero la orden {buy_order} sigue vigente. No intente pagar de nuevo esta orden. Avise a alectrico de este error.")
+                return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
              except:
                 return mostrar_not_found( env, f"Lo sentimos, este pedido {buy_order} ya no está vigente.")
           else:
@@ -515,7 +483,7 @@ async def get_fono_cliente(env, buy_order):
     if pedido_json:
       pedido = json.loads(pedido_json)
       console.log(f"pedido {pedido}")
-      return pedido['pedido']['fono'], pedido
+      return pedido['pedido']['fono']
     else:
       return None
 

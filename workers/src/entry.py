@@ -198,7 +198,7 @@ async def on_fetch(request, env):
           console.log(f"fono {fono}")
           pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
           pagados_count = len(pagados.keys)
-          consolo.log("Tokens pagados en total")
+          console.log("Tokens pagados en total")
           for key in pagados.keys:
                  try:
                      token = await env.FINANCIERO.get( key.name )

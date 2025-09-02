@@ -199,7 +199,7 @@ async def on_fetch(request, env):
           pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
           pagados_count = len(pagados.keys)
 
-          console.log("Tokens pagados en total {pagados_count} para el fono {fono}")
+          console.log(f"Tokens pagados en total {pagados_count} para el fono {fono}")
           for key in pagados.keys:
                  try:
                      token = await env.FINANCIERO.get( key.name )
@@ -219,7 +219,7 @@ async def on_fetch(request, env):
 
           no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
 
-          console.log("Token no expirados en todal  {len( no_expirados.keys)}, uno de los cuales será eliminado")
+          console.log(f"Token no expirados en todal  {len( no_expirados.keys)}, uno de los cuales será eliminado")
           #Caso de uso
           #En mi rol de alectrico
           #Dado que quiero un trato justo

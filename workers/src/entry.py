@@ -221,7 +221,7 @@ async def on_fetch(request, env):
              for key in no_expirados.keys:
                console.log(f"key {key.name}")
                names.append( key.name )
-             names_sorted = names.sort()
+             names_sorted = names.sort( reverse = True)
              name_key_mas_expirable = names[0]
              console.log(f"name_key_mas_expirable {name_key_mas_expirable}")
              try:

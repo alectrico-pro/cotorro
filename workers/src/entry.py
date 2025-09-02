@@ -186,6 +186,8 @@ async def on_fetch(request, env):
         buy_order = params['buy_order'][0]
         fono = await get_fono_cliente( env, buy_order)
         if fono:
+          if '56' in fono[0:1]:
+             fono.replace('56','',1)
           console.log(f"fono {fono}")
           lista = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
           if len(lista.keys) > 0:
@@ -537,6 +539,7 @@ async def send_voucher( voucher_json, wa_id, env):
    return await send_reply(env, wa_id, reply)
 
 
+
 #crea un link de pago tbk
 async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env):
 
@@ -683,9 +686,11 @@ async def say_jefe(env, descripcion):
         return await say_tomar( env, str(env.FONO_JEFE), 'ALE JEFE', descripcion, 'PROVIDENCIA')
 
 
+
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def derivar_jefe(env, nombre, descripcion, direccion, buy_order, comuna):
         return await say_atender(env, str(env.FONO_JEFE), nombre, direccion, comuna, buy_order)
+
 
 
 

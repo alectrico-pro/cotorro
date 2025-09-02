@@ -188,6 +188,7 @@ async def on_fetch(request, env):
         fono_str = str(fono)
         if fono:
           if '56' in fono_str[0:1]:
+             console.log("Encontré 56 en {fono_str[0:1]}")
              fono = fono_str.replace('56','',1)
           console.log(f"fono {fono}")
           lista = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")

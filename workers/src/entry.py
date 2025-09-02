@@ -187,7 +187,7 @@ async def on_fetch(request, env):
     elif url.path == '/atender':
         console.log(f"Params en /atender {params}")
         buy_order = params['buy_order'][0]
-        fono, pago = await get_fono_cliente( env, buy_order)
+        fono = await get_fono_cliente( env, buy_order)
         fono_str = str(fono)
         if fono:
           if '56' in fono_str[0:2]:
@@ -208,11 +208,11 @@ async def on_fetch(request, env):
                      console.log(f"expira en {expira_en}")
                      if datetime.today() > datetime.fromisoformat( expira_en ):
                        try:
-                         token_expirado = f"{fono}:token:pagado:expirado:{orden}"
-                         await env.FINANCIERO.put(f"{token_expirado}", token)
-                         console.log(f"token marcado como expirado {token_expirado}")
+                          token_expirado = f"{fono}:token:pagado:expirado:{orden}"
+                          await env.FINANCIERO.put(f"{token_expirado}", token)
+                          console.log(f"token marcado como expirado {token_expirado}")
                        except:
-                         return mostrar_not_found( env, f"{token} Lo sentimos, hubo un error al guardar en la base de datos. Refresque la página en unos momentos.")
+                          return mostrar_not_found( env, f"{token} Lo sentimos, hubo un error al guardar en la base de datos. Refresque la página en unos momentos.")
                  except:
                     return mostrar_not_found( env, f"{token} Lo sentimos, hubo un error al leer de la base de datos. Refresque la página en unos momentos.")
 
@@ -239,9 +239,11 @@ async def on_fetch(request, env):
                return mostrar_not_found( env, f"Lo sentimos, hubo un error al leer de la base de datos. Refresque la página en unos momentos.")
              try:
                 await env.FINANCIERO.delete( name_key_mas_expirable)
-                await env.FINANCIERO.delete(
                 console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
-                return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )
+                try:
+                  await env.BUY_ORDER.delete( str(buy_order))
+                except:
+                  return mostrar_not_found( env, f"Ya ha pagado, pero la orden {buy_order} sigue vigente. No intente pagar de nuevo esta orden. Avise a alectrico de este error.")
              except:
                 return mostrar_not_found( env, f"Lo sentimos, este pedido {buy_order} ya no está vigente.")
           else:

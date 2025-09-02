@@ -364,7 +364,7 @@ async def anotar_tokens( env, buy_order, fono, amount, cantidad ):
     fecha_en_el_vencimiento = now + timedelta(days = env.VENCIMIENTO_TOKEN_DIAS)
     for numero in range(1, cantidad + 1 ):
       pedido = { 'token': {'orden': numero, 'expira_en': str(fecha_en_el_vencimiento), 'buy_order': buy_order, 'fono': fono, "amount": amount, "acuñado_en": json.dumps( date.today().isoformat()) }}
-      await env.FINANCIERO.put( f"{fono}:{buy_order}:token:{numero}", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+      await env.FINANCIERO.put( f"{fono}:{buy_order}:token:{ datetime.timestamp(now)}:{orden}", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
     return
 
 

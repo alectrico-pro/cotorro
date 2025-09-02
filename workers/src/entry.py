@@ -193,7 +193,7 @@ async def on_fetch(request, env):
           else:
              console.log("fono no tiene 56")       
           console.log(f"fono {fono}")
-          pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:"}
+          pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
           pagados_count = len(pagados)
           for key in pagados.keys
                      token = await env.FINANCIERO.get( key.name )

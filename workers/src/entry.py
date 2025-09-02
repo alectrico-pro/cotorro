@@ -216,7 +216,10 @@ async def on_fetch(request, env):
              names_sorted = names.sort()
              name_key_mas_expirable = names[0]
              console.log("name_key_mas_expirable {name_key_mas_expirable}")
-             token = await env.FINANCIERO.get( name_key_mas_expirable )
+             try:
+               token = await env.FINANCIERO.get( name_key_mas_expirable )
+             except:
+               return mostrar_not_found( env, f"Lo sentimos, hubo un error al leer de la base de datos. Refresque la página en unos momentos.")
              try:
                 await env.FINANCIERO.delete( name_key_mas_expirable)
                 return success_mostrar_fono(env, f"Felicitaciones, ahora puede llamar al cliente al fono {fono}.", fono )

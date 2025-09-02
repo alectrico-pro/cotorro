@@ -216,13 +216,20 @@ async def on_fetch(request, env):
 
 
           no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
+          #Caso de uso
+          #En mi rol de alectrico
+          #Dado que quiero un trato justo
+          #Debo usar primero los tokens que expiran más temprano
           if len(no_expirados.keys) > 0:
              names = []
              for key in no_expirados.keys:
                console.log(f"key {key.name}")
                names.append( key.name )
-             names_sorted = names.sort( reverse = True)
+             names_sorted = names.sort
+
+             #Este expira más temprano que el resto
              name_key_mas_expirable = names[0]
+
              console.log(f"name_key_mas_expirable {name_key_mas_expirable}")
              try:
                token = await env.FINANCIERO.get( name_key_mas_expirable )

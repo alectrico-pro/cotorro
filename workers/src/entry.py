@@ -193,10 +193,21 @@ async def on_fetch(request, env):
           else:
              console.log("fono no tiene 56")       
           console.log(f"fono {fono}")
-          lista = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
-          if len(lista.keys) > 0:
+          pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:"}
+          pagados_count = len(pagados)
+          for key in pagados.keys
+                     token = await env.FINANCIERO.get( key.name )
+                     token_dict = json.loads(token)
+                     expira_en  = token_dict['token']['expira_en']
+                     orden      = token_dict['token']['orden']
+                     console.log(f"expira en {expira_en}")
+                     if datetime.today() > datetime.fromisoformat( expira_en ):
+                       await env.FINANCIERO.put(f"{fono}:token:pagado:expirado:{orden}", token)
+
+          no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
+          if len(no_expirados.keys) > 0:
              names = []
-             for key in lista.keys:
+             for key in no_expirados.keys:
                console.log(f"key {key.name}")
                names.append( key.name )
              names_sorted = names.sort()

@@ -293,8 +293,8 @@ async def on_fetch(request, env):
 
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
 
-        #El jefe siempre puede atender antes que el resto
-        await say_atender(env, str(env.FONO_JEFE), 'JEFE ALEX', direccion, comuna, buy_order)
+        #await say_atender(env, str(env.FONO_JEFE), 'JEFE ALEX', direccion, comuna, buy_order)
+        await difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
 
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
@@ -722,8 +722,8 @@ async def flow_reply_processor(request_json, env):
         #envió el path de pago de nuevo con un perrito
         path_de_pago = f"/transbank/?buy_order="+ str(buy_order) +"&amount="+ str(precio_visita) + "&session_id=" + str(wa_id)
         #wait say_link_de_pago( env, wa_id, '\uD83D\uDE01', precio_visita, path_de_pago )
-        await say_pagar_visita( env, wa_id, '\uD83D\uDE01', str(precio_visita), path_de_pago )
-        await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
+        #await say_pagar_visita( env, wa_id, '\uD83D\uDE01', str(precio_visita), path_de_pago )
+        #await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
 
 
 

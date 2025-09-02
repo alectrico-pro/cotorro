@@ -211,7 +211,7 @@ async def on_fetch(request, env):
                        except:
                          return mostrar_not_found( env, f"{token} Lo sentimos, hubo un error al guardar en la base de datos. Refresque la página en unos momentos.")
 
-                  except:
+                 except:
                     return mostrar_not_found( env, f"{token} Lo sentimos, hubo un error al leer de la base de datos. Refresque la página en unos momentos.")
 
 

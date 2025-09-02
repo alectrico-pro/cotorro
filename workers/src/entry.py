@@ -242,10 +242,10 @@ async def on_fetch(request, env):
              try:
                 await env.FINANCIERO.delete( name_key_mas_expirable)
                 console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
-                  return success_mostrar_fono(env, "Felicitaciones, ha tomado el pedido  con éxito.", fono )
+
                 try:
                   await env.BUY_ORDER.delete( str(buy_order))
-
+                  return success_mostrar_fono(env, "Felicitaciones, ha tomado el pedido  con éxito.", fono )
                 except:
                   return mostrar_not_found( env, f"Ya ha pagado, pero la orden {buy_order} sigue vigente. No intente pagar de nuevo esta orden. Avise a alectrico de este error.")
              except:

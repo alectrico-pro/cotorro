@@ -511,6 +511,7 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 
 
 async def pagar_tokens(env, fono, buy_order):
+        now = datetime.now()
 
         console.log("En actualizar saldos")
         console.log(f"Fono {fono}")
@@ -535,7 +536,7 @@ async def pagar_tokens(env, fono, buy_order):
                      if datetime.today() > datetime.fromisoformat( expira_en ):
                        await env.FINANCIERO.put(f"{fono}:token:pagado:expirado:{orden}", token)
                      else:
-                       await env.FINANCIERO.put(f"{fono}:token:pagado:no_expirado:{datetime.timestamp( expira_en)}:{orden}", token)
+                       await env.FINANCIERO.put(f"{fono}:token:pagado:no_expirado:{datetime.timestamp( datetime.fromisoformat( expira_en ))}:{orden}", token)
 
                      await env.FINANCIERO.delete( F"{key.name}" )
      

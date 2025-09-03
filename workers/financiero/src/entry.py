@@ -161,7 +161,9 @@ async def on_fetch(request, env):
              console.log("Hay colaboradores registrados")
           for key in colaboradores.keys:
              console.log(f"{key.name}")           
-             return success_mostrar_fono( env, key.name, key.name)
+             colaborador_json = it env.NOMINA.get( key.name )
+             colaborador = json.loads( colaborador_json )
+             return success_mostrar_fono( env, colaborador.nombre, colaborador.fono)
         except:
           pass
         return mostrar_not_found(env, "Ocurrió un error al listar colaboradores")

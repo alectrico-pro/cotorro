@@ -1,4 +1,10 @@
 #
+#ono=56981370042
+fono=56975193944
+nombre="Valentina"
+descripcion="Prueba"
+comuna="Providencia"
+imagen_url="https://www.alectrico.cl/etherdog.png"
 phone_id=150477064807758
 token_cotorro=EAAN6V6gyZCSMBPClhLAnayqa8vBkDLXrCQYqCkH5iA3ZCWy42eeH97ZAcwYqvcZB6e2KEfbqaXZBcyS4CP0hJz7RTVwAyc7BFaZA9sXelj0AjMi1nwARvsZAjr6NnHZAJHPnKkDhP5iSk61pIZCh6aoZBCZBlqPTCZBjua1QnEYcNlqFSZAeyHixKYPUffcjSmmmoZCaVH
 curl -X  POST \
@@ -6,17 +12,23 @@ curl -X  POST \
  -H "Authorization: Bearer $token_cotorro" \
  -H 'Content-Type: application/json' \
  --data @/dev/stdin<<EOF
-{
- 'messaging_product': 'whatsapp',
- 'to': '56981370042',
- 'type': 'template',
- 'template': { 'name': 'say_atender',
-               'language': {'code': 'es'},
-  "components": [
-    { "type": "button", "sub_type": "url", "index":"0",
-      "parameters": [ { "type": "text", "text": "url_de_pago_de_ofertar" } ] } ] }
-
- }
-
+{ "messaging_product": "whatsapp",
+                   "to": "$fono",
+                   "type": "template",
+                   "template": { "name": "say_atender",
+                                 "language": {"code": "es"},
+                    "components": [
+                   { "type": "body",
+                     "parameters": [
+                         { "type": "text", "parameter_name": "nombre", "text": "$nombre" },
+                         { "type": "text", "parameter_name": "reporte", "text": "$descripcion" },
+                         { "type": "text", "parameter_name": "comuna", "text": "$comuna" }
+                     ]
+                   },
+                   { "type": "header",  "parameters": [
+                    { "type" : "image",
+                     "image": { "link": "$imagen_url" } } ] },
+                    { "type": "button", "sub_type": "url", "index": "0",
+                     "parameters": [ { "type": "text", "text": "fono_colaborador={23}" } ] } ] }  }
 EOF
 

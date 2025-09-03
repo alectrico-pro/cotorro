@@ -151,6 +151,15 @@ async def on_fetch(request, env):
     #landing_pages
 
        #agendar?nombre=oipoi+upoi&fono=987654321&email=hjhkjh%40lkjlkj.ll&comuna=Providencia&descripcion=lkñ+jñlkj&direccion=o+ṕoiṕoiṕo&latitude=&longitude=&amount=68000
+    elif url.path == '/listar':
+        console.log("En listar")
+        try:
+          colaboradores = await env.NOMINA.list()
+          return success_mostrar_fono( env, colaboradores.key, colaboradores.key[0].fono)
+        except:
+          pass
+        return mostrar_not_found(env, "Ocurrió un error al listar colaboradores")
+
     elif url.path == '/recargar':
         console.log(f"Params en /agendar {params}")
         buy_order   = str( random.randint(1, 10000))

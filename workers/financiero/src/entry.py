@@ -157,9 +157,9 @@ async def on_fetch(request, env):
           console.log("En try")
           colaboradores = await env.NOMINA.list()
           console.log("Después de list")
-          if len(colaboradores.key) > 0:
+          if len(colaboradores.keys) > 0:
              console.log("Hay colaboradores registrados")
-          for key in colaboradores.key:
+          for key in colaboradores.keys:
              console.log(f"{key.name}")           
              return success_mostrar_fono( env, key.name, key.name)
         except:

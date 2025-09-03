@@ -790,10 +790,10 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
              console.log("Hay colaboradores registrados")
           for key in colaboradores.keys:
              console.log(f"{key.name}")
-             fono = key.name
              try:
-               nombre = await env.NOMINA.get( key.name )
-               await say_atender(env, fono, nombre, descripcion, comuna, buy_order)
+               colaborador_json = await env.NOMINA.get( key.name )
+               colaborador = json.loads( colaborador_json )
+               await say_atender(env, colaborador.fono, colaborador.nombre, descripcion, comuna, buy_order)
              except:
                pass
         except:

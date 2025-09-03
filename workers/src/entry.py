@@ -363,6 +363,9 @@ async def on_fetch(request, env):
                descripcion = value.messages[0].text.body
                id          = value.messages[0].id
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
+               if es_colaborador(wa_id):
+                  return Response( "Es Colaborador", status="200")
+
                buy_order   = str( random.randint(1, 10000))
 
                #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
@@ -779,6 +782,19 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
         return
 
 
+async def es_colaborador( env, wa_id):
+          colaboradores = await env.NOMINA.list()
+          if fix_fono( wa_id) in colaboradores.keys:
+             return True
+          else:
+             return False
+
+def fix_fono( fono ):
+          fono_str = str(fono)
+          if '56' in fono_str[0:2]:
+             fono = fono_str.replace('56','',1)
+          return fono
+          
 
 #Difundi un peido a los colaboradores
 async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount):

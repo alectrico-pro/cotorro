@@ -363,7 +363,7 @@ async def on_fetch(request, env):
                descripcion = value.messages[0].text.body
                id          = value.messages[0].id
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               if es_colaborador(wa_id):
+               if es_colaborador(env, wa_id):
                   return Response( "Es Colaborador", status="200")
 
                buy_order   = str( random.randint(1, 10000))

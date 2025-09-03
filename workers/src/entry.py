@@ -187,6 +187,8 @@ async def on_fetch(request, env):
     elif url.path == '/atender':
         console.log(f"Params en /atender {params}")
         buy_order = params['buy_order'][0]
+        fono_colaborador = params['fono_colaborador'][0]
+
         fono = await get_fono_cliente( env, buy_order)
         fono_str = str(fono)
         if fono:
@@ -196,6 +198,11 @@ async def on_fetch(request, env):
           else:
              console.log("fono no tiene 56")       
           console.log(f"fono {fono}")
+
+          fono_cliente = fono
+          #------------------ identificar al colaborador ------
+
+          fono = fono_colaborador
           pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
           pagados_count = len(pagados.keys)
 
@@ -245,7 +252,7 @@ async def on_fetch(request, env):
 
                 try:
                   await env.BUY_ORDER.delete( str(buy_order))
-                  return success_mostrar_fono(env,  f"Felicitaciones, ha tomado el pedido  con éxito. Puede llamar ahora al cliente al {fono}.", fono )
+                  return success_mostrar_fono(env,  f"Felicitaciones, ha tomado el pedido  con éxito. Puede llamar ahora al cliente al {fono_cliente}.", fono_cliente)
                 except:
                   return mostrar_not_found( env, f"Ya ha pagado, pero la orden {buy_order} sigue vigente. No intente pagar de nuevo esta orden. Avise a alectrico de este error.")
              except:
@@ -285,17 +292,9 @@ async def on_fetch(request, env):
                     f"*descripcion*  { descripcion } \n"
                   )
 
-        #En este llamado el argumento session_id se toma como fono
-        #Eso es porque uso la defininción de transbank para enviar el fono
-        #Porque lo necesito en def tbk_commit para enviar el voucher al cliente
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
-        #await say_jefe(env, reply )
-
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
-
-        #await say_atender(env, str(env.FONO_JEFE), 'JEFE ALEX', direccion, comuna, buy_order)
         await difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
-
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)
 
     #--------------------------------------------------------------------------------------------
@@ -828,7 +827,7 @@ async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
                     { "type" : "image",
                      "image": { "link": imagen_url } } ] },
                     { "type": "button", "sub_type": "url", "index": "0", 
-                     "parameters": [ { "type": "text", "text": buy_order } ] } ] } }
+                     "parameters": [ { "type": "text", "text": f"{buy_order}&fono_colaborador={wa_id}" } ] } ] } }
 
         console.log( f"{body}" )
 

@@ -154,11 +154,14 @@ async def on_fetch(request, env):
     elif url.path == '/listar':
         console.log("En listar")
         try:
+          console.log("En try")
           colaboradores = await env.NOMINA.list()
+          console.log("Después de list")
+          if len(colaboradores.key) > 0:
+             console.log("Hay colaboradores registrados")
           for key in colaboradores.key:
-             console.log(f"{key.name}")
-            
-          return success_mostrar_fono( env, colaboradores.key, colaboradores.key[0].fono)
+             console.log(f"{key.name}")           
+             return success_mostrar_fono( env, key.name, key.name)
         except:
           pass
         return mostrar_not_found(env, "Ocurrió un error al listar colaboradores")
@@ -552,10 +555,10 @@ async def pagar_tokens(env, fono, buy_order):
 
                      await env.FINANCIERO.delete( F"{key.name}" )
      
-        colaboradores_string = await env.NOMINA.get('colaboradores')
-        colaboradores   = json.loads( colaboradores_string)
-        for colaborador in colaboradores:
-           console.log(f"colaborador {colaborador}")
+        #colaboradores_string = await env.NOMINA.get('colaboradores')
+        #colaboradores   = json.loads( colaboradores_string)
+        #for colaborador in colaboradores:
+        #   console.log(f"colaborador {colaborador}")
 
         return
 

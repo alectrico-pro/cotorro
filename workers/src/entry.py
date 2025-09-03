@@ -419,7 +419,7 @@ async def on_fetch(request, env):
             #Solo envío el cuestiari y el link de pago al comienzo
             match status:
                  case 'failed':
-                    console.log(f"value.statuses[0].errors[0].title")
+                    console.log(f"{value.statuses[0].errors[0].title}")
                     #Busco el objeto que ha fallado
                     resultado = await env.BUY_ORDER.get(str(id) )
                      

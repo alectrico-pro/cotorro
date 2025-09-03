@@ -794,7 +794,10 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
              try:
                nombre = await env.NOMINA.get( key.name )
                await say_atender(env, fono, nombre, descripcion, comuna, buy_order)
-
+             except:
+               pass
+        except:
+          pass
         return
 
 

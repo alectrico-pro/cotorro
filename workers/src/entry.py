@@ -186,8 +186,11 @@ async def on_fetch(request, env):
     #--------------------- EL COLABADORADOR DESEOSO DE ATENDER LLEGA CON EL BUY ORDER -----
     elif url.path == '/atender':
         console.log(f"Params en /atender {params}")
-        buy_order = params['buy_order'][0]
-        fono_colaborador = params['fono_colaborador'][0]
+        try:
+          buy_order = params['buy_order'][0]
+          fono_colaborador = params['fono_colaborador'][0]
+        except:
+          return mostrar_not_found(env, "Ocurrió un error al procesar los parámetros. Lo sentimos.")
 
         fono = await get_fono_cliente( env, buy_order)
         fono_str = str(fono)

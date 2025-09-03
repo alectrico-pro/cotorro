@@ -793,7 +793,7 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
              try:
                colaborador_json = await env.NOMINA.get( key.name )
                colaborador = json.loads( colaborador_json )
-               await say_atender(env, colaborador.fono, colaborador.nombre, descripcion, comuna, buy_order)
+               await say_atender(env, colaborador['fono'], colaborador['nombre'], descripcion, comuna, buy_order)
              except:
                pass
         except:

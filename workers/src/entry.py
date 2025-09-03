@@ -781,14 +781,20 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount):
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, email, env)
         await guardar_pedido(env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
-        lista_string = await env.NOMINA.get('colaboradores')
-        console.log(f"lista_string {lista_string}")
-        lista   = json.loads( lista_string)
-        console.log(f"lista {lista}")
-        for colaborador in lista:
-           console.log(f"colaborador {colaborador}")
-           await say_atender(env, colaborador['fono'], colaborador['nombre'], descripcion, comuna, buy_order)
-        path_de_pago = f"/transbank?amount={env.PRECIO_TOKEN}&session_id={fono}&buy_order={buy_order}"
+        console.log("En difundir a colaboradores")
+        try:
+          console.log("En try")
+          colaboradores = await env.NOMINA.list()
+          console.log("Después de list")
+          if len(colaboradores.keys) > 0:
+             console.log("Hay colaboradores registrados")
+          for key in colaboradores.keys:
+             console.log(f"{key.name}")
+             fono = key.name
+             try:
+               nombre = await env.NOMINA.get( key.name )
+               await say_atender(env, fono, nombre, descripcion, comuna, buy_order)
+
         return
 
 

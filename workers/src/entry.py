@@ -792,7 +792,13 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
              try:
                colaborador_json = await env.NOMINA.get( key.name )
                colaborador = json.loads( colaborador_json )
-               await say_atender(env, colaborador['fono'], colaborador['nombre'], descripcion, comuna, buy_order)
+               wa_id       = colaborador['fono']
+               taker_fono  = key.name
+               #NOTA: Se envía a wa_id pero el que cobra es taker_fono
+               #De esta forma puedo probar cómo funciona
+               #Cambiando en env.NOMINA el record {"fono": wa_id}
+               #En production ambos serán iguales
+               await say_atender(env, wa_id, taker_fono, colaborador['nombre'], descripcion, comuna, buy_order)
              except:
                pass
         except:
@@ -803,7 +809,7 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
 
 #Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
 #Ese botón, permite a un colaboraodr tomar la orden dada por buy_order
-async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
+async def say_atender( env, taker_fono, wa_id, nombre, descripcion, comuna, buy_order ):
         console.log("En say_atender")
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
@@ -827,7 +833,7 @@ async def say_atender( env, wa_id, nombre, descripcion, comuna, buy_order ):
                     { "type" : "image",
                      "image": { "link": imagen_url } } ] },
                     { "type": "button", "sub_type": "url", "index": "0", 
-                     "parameters": [ { "type": "text", "text": f"{buy_order}&fono_colaborador={wa_id}" } ] } ] } }
+                     "parameters": [ { "type": "text", "text": f"{buy_order}&fono_colaborador={taker_fono}" } ] } ] } }
 
         console.log( f"{body}" )
 

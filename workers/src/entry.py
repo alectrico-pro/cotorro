@@ -363,7 +363,7 @@ async def on_fetch(request, env):
                descripcion = value.messages[0].text.body
                id          = value.messages[0].id
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               if es_colaborador(env, wa_id):
+               if await es_colaborador(env, wa_id):
                   return Response( "Es Colaborador", status="200")
 
                buy_order   = str( random.randint(1, 10000))
@@ -735,7 +735,8 @@ async def flow_reply_processor(request_json, env):
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def say_jefe(env, descripcion):
-        return await say_tomar( env, str(env.FONO_JEFE), 'ALE JEFE', descripcion, 'PROVIDENCIA')
+        pass
+        #return await say_tomar( env, str(env.FONO_JEFE), 'ALE JEFE', descripcion, 'PROVIDENCIA')
 
 
 

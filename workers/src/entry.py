@@ -802,7 +802,7 @@ def fix_fono( fono ):
           if '56' in fono_str[0:2]:
              fono = fono_str.replace('56','',1)
              console.log(f"fono {fono}")
-          return fono
+          return int(fono)
           
 
 #Difundi un peido a los colaboradores

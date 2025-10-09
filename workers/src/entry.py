@@ -364,7 +364,10 @@ async def on_fetch(request, env):
                id          = value.messages[0].id
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
                if await es_colaborador(env, wa_id):
+                  console.log("f{wa_id} es colaborador")
                   return Response( "Es Colaborador", status="200")
+               else:
+                  console.log("f{wa_id} no es colaborador")
 
                buy_order   = str( random.randint(1, 10000))
 

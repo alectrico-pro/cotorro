@@ -364,10 +364,10 @@ async def on_fetch(request, env):
                id          = value.messages[0].id
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
                if await es_colaborador(env, wa_id):
-                  console.log("f{wa_id} es colaborador")
+                  console.log(f"{wa_id} es colaborador")
                   return Response( "Es Colaborador", status="200")
                else:
-                  console.log("f{wa_id} no es colaborador")
+                  console.log(f"{wa_id} no es colaborador")
 
                buy_order   = str( random.randint(1, 10000))
 
@@ -796,9 +796,12 @@ async def es_colaborador( env, wa_id):
              return False
 
 def fix_fono( fono ):
+          console.log("En fix_fono")
           fono_str = str(fono)
+          console.log(f"fono_str{fono_str}")
           if '56' in fono_str[0:2]:
              fono = fono_str.replace('56','',1)
+             console.log(f"fono {fono}")
           return fono
           
 

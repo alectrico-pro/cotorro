@@ -788,6 +788,11 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
 
 async def es_colaborador( env, wa_id):
           colaboradores = await env.NOMINA.list()
+          console.log(f"keys {colaboradors.keys}")
+
+          if 981370042 in colaboradores.keys:
+            console.log(f"981 .. está en colaboradores.keys")
+
           if fix_fono( wa_id) in colaboradores.keys:
             console.log(f"{wa_id} es de un colaborador") 
             return True

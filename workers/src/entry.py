@@ -1800,7 +1800,7 @@ def agendar( env, mensaje):
                 <input type="text" class="form-control input" name="comuna" data-form-field="Comuna" placeholder="Comuna" required="" id="comuna-form4-8e" value='Providencia'>
               </div>
               <div class="col-md-12" data-for="descripcion">
-                <textarea class="form-control input" name="descripcion" rows="3" data-form-field="Descripcion" placeholder="Describa su problema" style="resize:none" required="" id="message-form4-8e"></textarea>
+                <textarea class="form-control input" name="descripcion" rows="3" data-form-field="Descripcion" placeholder="Describa su problema e indique si está limitado en presupuesto y cuándo es lo máximo que está disponible. Considere que los trabajos eléctricos priorizan la seguridad por sobre cualquier otra consideración. Aclare que Ud. es el responsable si no quisiera un trabajo seguro y que solo quiere algo rápido por motivos personales. Ud. será responsable de cualquier daño en esa situación." style="resize:none" required="" id="message-form4-8e"></textarea>
               </div>
               <div class="container">
                 <iframe frameborder="0" style="border:0;width:525; height:400" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCx3d07zxHPLvkFBLlAR3Ng8a9wsAsGoJ8&amp;q=place_id:ChIJ92aDbnzPYpYRfI1HCsD874c" allowfullscreen="">

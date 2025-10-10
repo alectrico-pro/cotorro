@@ -276,7 +276,7 @@ async def on_fetch(request, env):
                        return Response( "Procesado", status="200")
 
 
-            console.log(f"Es un mensaje y nada más: {value}")
+            console.log(f"Es un mensaje y nada más: {value.messages[0]}")
             return Response( "no procesado", status="200")
 
 

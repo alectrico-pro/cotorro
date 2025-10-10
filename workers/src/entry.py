@@ -158,7 +158,7 @@ async def on_fetch(request, env):
         #landing_page = params['data[6][]'][1]
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
 
-        await derivar_jefe(env, name, descripcion, direccion, buy_order, comuna)
+        await derivar_jefe(env, name, descripcion, direccion, buy_order, comuna, buy_order)
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
    #-----------------------------------------------------------------------------------

@@ -349,7 +349,6 @@ async def on_fetch(request, env):
         console.log( f"hasattr contacts    {hasattr(value, 'contacts')} " )
         console.log( f"hasattr contacts    {hasattr(value, 'statuses')} " )
 
-
         if hasattr(value, 'messages') == True :
 
             console.log("Es un mensaje")
@@ -357,7 +356,7 @@ async def on_fetch(request, env):
             #Cuando alguien escribe un texto en los canales de publico suscritos
             #Se recibe aquí
 
-            if hasattr(value.messages[0], 'buttont') == True :
+            if hasattr(value.messages[0], 'button') == True :
                console.log("Es button")
                return Response( "Procesado", status="200")
 
@@ -411,19 +410,6 @@ async def on_fetch(request, env):
                        except:
                          pass
                        return Response( "Procesado", status="200")
-
-
-               if hasattr(value.messages[0].interactive, 'button_reply') == True :
-                   console.log("Es button_reply")
-                   if hasattr(value.messages[0].interactive.button_reply, 'response_json') == True :
-                       console.log("Tiene response_json")
-                       #no puedo difundir_a_colaboradores aquí, lo hago desde dentro del button_reply_processor
-                       try:
-                         await button_reply_processor( request_json, env)
-                       except:
-                         pass
-                       return Response( "Procesado", status="200")
-
 
 
 

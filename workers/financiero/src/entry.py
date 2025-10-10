@@ -135,7 +135,7 @@ async def on_fetch(request, env):
     params = parse_qs(url.query)
     method = request.method
     META_USER_TOKEN = env.META
-
+    console.log(f"META_USER_TOKEN {env.META}")
     console.log(f"Handling request {url.path} with params {params}")
 
 

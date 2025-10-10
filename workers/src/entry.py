@@ -362,6 +362,9 @@ async def on_fetch(request, env):
             print( f"request_json{json.dumps(request_json)}" )
 
 
+            if hasattr(value.messages[0], 'buttont') == True :
+               console.log("Es button")
+               return Response( "Procesado", status="200")
 
 
 

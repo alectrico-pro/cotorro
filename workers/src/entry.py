@@ -206,7 +206,7 @@ async def on_fetch(request, env):
           fono_cliente = fono
           #------------------ identificar al colaborador ------
 
-          fono = fono_colaborador
+          fono = fix_fono( fono_colaborador )
           pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
           pagados_count = len(pagados.keys)
 

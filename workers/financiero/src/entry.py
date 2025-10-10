@@ -154,22 +154,9 @@ async def on_fetch(request, env):
     elif url.path == '/listar':
         console.log("En listar")
         colaboradores = await env.NOMINA.list()
-        console.log(f"keys {colaboradores.keys}")
         keys = [key_info.name for key_info in colaboradores.keys]
         console.log(f"keys {keys}")
-
-
-        colaboradores = await env.NOMINA.list()
-        console.log("Después de list")
-        if len(colaboradores.keys) > 0:
-             console.log("Hay colaboradores registrados")
-             for key in colaboradores.keys:
-               console.log(f"{key.name}")           
-               colaborador_json = await env.NOMINA.get( key.name )
-               colaborador = json.loads( colaborador_json )
-               return success_mostrar_fono( env, colaborador.nombre, colaborador.fono)
-        else:
-          return mostrar_not_found(env, "Ocurrió un error al listar colaboradores")
+        return success_mostrar_fono( env, 'colaboradores', keys)
 
     elif url.path == '/recargar':
         console.log(f"Params en /agendar {params}")

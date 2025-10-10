@@ -156,7 +156,7 @@ async def on_fetch(request, env):
         colaboradores = await env.NOMINA.list()
         keys = [key_info.name for key_info in colaboradores.keys]
         console.log(f"keys {keys}")
-        return success_mostrar_fono( env, 'colaboradores', f"{keys}"
+        return success_mostrar_fono( env, 'colaboradores', f"{keys}")
 
     elif url.path == '/recargar':
         console.log(f"Params en /agendar {params}")

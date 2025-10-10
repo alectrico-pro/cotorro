@@ -365,7 +365,15 @@ async def on_fetch(request, env):
                   buy_order   = str( random.randint(1, 10000))
                   path_de_pago = f"/transbank?amount={env.PRECIO_TOKEN}&session_id={wa_id}&buy_order={buy_order}"
                   try:
-                    await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
+                    buy_order   = str( random.randint(1, 10000))
+                    fono        = wa_id
+                    amount      = env.PRECIO_TOKEN
+                    cantidad    = 1
+                    total       = int( amount ) * int( cantidad )
+                    await say_jefe( env, f"en recargar {fono}")
+                    token_ws, uri = await genera_link_de_pago_tbk( buy_order, total, env.RETURN_URL, fono, env)
+                    await anotar_tokens( env, buy_order, fono, amount, int(cantidad) )
+                    return pedir_confirmacion_de_pago(request, env, buy_order, total, uri, token_ws)
                   except:
                    pass
                return Response( "Procesado", status="200")

@@ -356,11 +356,6 @@ async def on_fetch(request, env):
 
             #Cuando alguien escribe un texto en los canales de publico suscritos
             #Se recibe aquí
-            #REspondo con un cuestionario
-
-
-            print( f"request_json{json.dumps(request_json)}" )
-
 
             if hasattr(value.messages[0], 'buttont') == True :
                console.log("Es button")

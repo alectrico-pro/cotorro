@@ -24,7 +24,7 @@ custom_domain = true
 
 
 [env.production]
-name = "cotorro"
+name = "financiero"
 account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
 kv_namespaces = [ { binding = "NOMINA",     id = "e2688fc220714a60bd0aee142c341e28" },
                   { binding = "FINANCIERO", id = "21111b7a045f4f8190416bbf08801cc6" }]
@@ -36,7 +36,7 @@ secrets_store_secrets = [
 
 
 [env.development]
-name = "cotorro"
+name = "financiero"
 account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
 kv_namespaces = [ { binding = "NOMINA",     id = "e2688fc220714a60bd0aee142c341e28" },
                   { binding = "FINANCIERO", id = "21111b7a045f4f8190416bbf08801cc6" }]

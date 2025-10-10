@@ -400,12 +400,27 @@ async def on_fetch(request, env):
                    console.log("Es nfm_reply")
                    if hasattr(value.messages[0].interactive.nfm_reply, 'response_json') == True :
                        console.log("Tiene response_json")
-                       #no puedeo difundir_a_colaboradores aquí, lo hago desde dentro del flow_reply_processor
+                       #no puedo difundir_a_colaboradores aquí, lo hago desde dentro del flow_reply_processor
                        try:
                          await flow_reply_processor( request_json, env)
                        except:
                          pass
                        return Response( "Procesado", status="200")
+
+
+               if hasattr(value.messages[0].interactive, 'button_reply') == True :
+                   console.log("Es button_reply")
+                   if hasattr(value.messages[0].interactive.button_reply, 'response_json') == True :
+                       console.log("Tiene response_json")
+                       #no puedo difundir_a_colaboradores aquí, lo hago desde dentro del button_reply_processor
+                       try:
+                         await button_reply_processor( request_json, env)
+                       except:
+                         pass
+                       return Response( "Procesado", status="200")
+
+
+
 
 
             console.log(f"Es un mensaje y nada más: {value}")
@@ -629,6 +644,46 @@ async def genera_link_de_pago_tbk(buy_order, amount, return_url, session_id, env
         console.log(f"token {token}")
         console.log(f"url {url}")
         return token, url
+
+
+
+
+#Se prepara y luego envía un botón de pago 
+#Al que llenó el cuestionario
+async def button_reply_processor(request_json, env):
+        console.log("En button_reply_processor")
+        console.log( f"request_json {request_json}")
+        value = request_json.entry[0].changes[0].value.contacts[0]
+        console.log(f"value {value}")
+        wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
+        console.log(f"wa_id: {wa_id}")
+        response_json = request_json.entry[0].changes[0].value.messages[0].interactive.button_reply.response_json
+
+        console.log(f"response_json {response_json}")
+
+        button_data = json.loads(response_json)
+
+        if 'id' in button_data:
+          console.log("Fue econtrado id")
+        if 'title' in button_data:
+          console.log("Fue encontrado title")
+
+        precio_recarga = env.PRECIO_TOKEN
+        console.log(f"precio_recarga {precio_recarga}")
+        console.log(f"GO_TBK_URL {env.GO_TBK_URL}")
+        console.log(f"buy_order {buy_order}")
+        link_de_pago_tbk_url = env.GO_TBK_URL+"/?buy_order="+ str(buy_order) +"&amount="+ str(precio_recarga) + "&session_id=" + str(wa_id)
+
+        reply = (
+            "------------------------------ \n\n"
+            f"*Orden*:\t{buy_order}\n\n"
+            "Por favor siga el link para recargar un token, en Transbank.\n"
+            f"*Link_de_pago:*\t{link_de_pago_tbk_url}\n\n"
+            "------------------------------ \n\n"
+        )
+        console.log(f"reply {reply}")
+        await send_reply(env, wa_id, reply)
+
 
 
 #Se le envía un resumen de las respuestas del cuestionario

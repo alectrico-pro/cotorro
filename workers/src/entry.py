@@ -359,7 +359,7 @@ async def on_fetch(request, env):
             #REspondo con un cuestionario
 
 
-            console.log( f"request_json{json.dumps(request_json)}" )
+            print( f"request_json{json.dumps(request_json)}" )
 
 
 

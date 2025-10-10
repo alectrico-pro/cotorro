@@ -134,7 +134,7 @@ async def on_fetch(request, env):
     url = urlparse(request.url)
     params = parse_qs(url.query)
     method = request.method
-    META_USER_TOKEN = await env.META.get()
+    META_USER_TOKEN = env.META
     console.log(f"Handling request {url.path} with params {params}")
 
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------

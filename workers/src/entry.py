@@ -358,6 +358,21 @@ async def on_fetch(request, env):
 
             if hasattr(value.messages[0], 'button') == True :
                console.log("Es button")
+               descripcion = value.messages[0].text.body
+               id          = value.messages[0].id
+               wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
+               if await es_colaborador(env, wa_id):
+                  console.log(f"{wa_id} es colaborador")
+                  return Response( "Es Colaborador", status="200")
+               else:
+                  console.log(f"{wa_id} no es colaborador")
+
+               buy_order   = str( random.randint(1, 10000))
+               path_de_pago = f"/transbank?amount={env.PRECIO_TOKEN}&session_id={wa_id}&buy_order={buy_order}"
+               try:
+                 await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
+               except:
+                 pass
                return Response( "Procesado", status="200")
 
 

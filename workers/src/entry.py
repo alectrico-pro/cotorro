@@ -358,8 +358,7 @@ async def on_fetch(request, env):
 
             if hasattr(value.messages[0], 'button') == True :
                console.log("Es button")
-               descripcion = value.messages[0].button.title
-               id          = value.messages[0].id
+               descripcion = value.messages[0].button.payload.text
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")

@@ -358,6 +358,12 @@ async def on_fetch(request, env):
             #Se recibe aquí
             #REspondo con un cuestionario
 
+
+            console.log( f"{json.loads(value.messages[0])}")
+
+
+
+
             if hasattr(value.messages[0], 'text') == True :
                console.log("Es text")
                console.log(f"body {value.messages[0].text.body}")

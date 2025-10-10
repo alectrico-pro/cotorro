@@ -87,7 +87,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {env.META_USER_TOKEN}"
+            "Authorization": f"Bearer {META_USER_TOKEN}"
         }
         body = {
           "messaging_product": "whatsapp",
@@ -109,7 +109,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
            "body": json.dumps(body),
            "method": "POST",
            "headers": {
-             "Authorization": f"Bearer {env.META_USER_TOKEN}",
+             "Authorization": f"Bearer {META_USER_TOKEN}",
              "content-type": "application/json;charset=UTF-8"
            },
         }
@@ -134,7 +134,7 @@ async def on_fetch(request, env):
     url = urlparse(request.url)
     params = parse_qs(url.query)
     method = request.method
-
+    META_USER_TOKEN = await env.META.USER_TOKEN.get()
     console.log(f"Handling request {url.path} with params {params}")
 
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------
@@ -769,13 +769,13 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {env.META_USER_TOKEN}"
+                "Authorization": f"Bearer {META_USER_TOKEN}"
         }
         options = {
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                 "Authorization": f"Bearer {META_USER_TOKEN}",
                  "content-type": "application/json;charset=UTF-8"
                },
         }
@@ -873,13 +873,13 @@ async def say_atender( env, wa_id, taker_fono, nombre, descripcion, comuna, buy_
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {env.META_USER_TOKEN}"
+                "Authorization": f"Bearer {META_USER_TOKEN}"
         }
         options = {
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                 "Authorization": f"Bearer {META_USER_TOKEN}",
                  "content-type": "application/json;charset=UTF-8"
                },
         }
@@ -920,13 +920,13 @@ async def say_pagar_visita( env, wa_id, nombre, amount, path_de_pago ):
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {env.META_USER_TOKEN}"
+                "Authorization": f"Bearer {META_USER_TOKEN}"
         }
         options = {
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                 "Authorization": f"Bearer {META_USER_TOKEN}",
                  "content-type": "application/json;charset=UTF-8"
                },
         }
@@ -974,13 +974,13 @@ async def say_link_de_pago( env, wa_id, nombre, amount, path_de_pago ):
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {env.META_USER_TOKEN}"
+                "Authorization": f"Bearer {META_USER_TOKEN}"
         }
         options = {
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                 "Authorization": f"Bearer {META_USER_TOKEN}",
                  "content-type": "application/json;charset=UTF-8"
                },
         }
@@ -1001,7 +1001,7 @@ async def send_msg( env, wa_id, msg):
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {env.META_USER_TOKEN}"
+                "Authorization": f"Bearer {META_USER_TOKEN}"
         }
         body = {
                     "messaging_product" :  "whatsapp",
@@ -1015,7 +1015,7 @@ async def send_msg( env, wa_id, msg):
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                 "Authorization": f"Bearer {META_USER_TOKEN}",
                  "content-type": "application/json;charset=UTF-8"
                },
         }
@@ -1032,7 +1032,7 @@ async def send_reply( env, wa_id, reply):
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {env.META_USER_TOKEN}"
+                "Authorization": f"Bearer {META_USER_TOKEN}"
         }
         body = {
                     "messaging_product" :  "whatsapp",
@@ -1046,7 +1046,7 @@ async def send_reply( env, wa_id, reply):
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Authorization": f"Bearer {env.META_USER_TOKEN}",
+                 "Authorization": f"Bearer {META_USER_TOKEN}",
                  "content-type": "application/json;charset=UTF-8"
                },
         }

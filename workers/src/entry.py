@@ -344,7 +344,6 @@ async def on_fetch(request, env):
 
         value = request_json.entry[0].changes[0].value
 
-        console.log( f"value {value}")
         console.log( f"hasattr messages    {hasattr(value, 'messages')} " )
         console.log( f"hasattr contacts    {hasattr(value, 'contacts')} " )
         console.log( f"hasattr contacts    {hasattr(value, 'statuses')} " )
@@ -360,29 +359,20 @@ async def on_fetch(request, env):
                console.log("Es button")
                descripcion = value.messages[0].button.payload
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               if descripcion == "Recargar" and  await es_colaborador(env, wa_id):
+               if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
                   buy_order   = str( random.randint(1, 10000))
-                  path_de_pago = f"/recargar?fono={wa_id}&cantidad=1&nombre=&email=&comuna=Providencia&descripcion=&direccion=&amount={env.PRECIO_TOKEN}"
-                  await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
+                  
+                  match descripcion: 
+                    case "Recargar":
+                      console.log("Es Recargar")
+                      path_de_pago = f"/recargar?fono={wa_id}&cantidad=1&nombre=&email=&comuna=Providencia&descripcion=&direccion=&amount={env.PRECIO_TOKEN}"
+                      await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
+                    case "Tomar":
+                       console.log("Es Tomar")
+                       path_de_pago = f"/recargar?fono={wa_id}&cantidad=1&nombre=&email=&comuna=Providencia&descripcion=&direccion=&amount={env.PRECIO_TOKEN}"
+                       await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
                   return Response( "Procesado", status="200")
-
-               else:
-                  return Response( "No Procesado", status="200")
-
-
-
-            if hasattr(value.messages[0], 'button') == True :
-               console.log("Es button")
-               descripcion = value.messages[0].button.payload
-               wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               if descripcion == "Tomar" and  await es_colaborador(env, wa_id):
-                  console.log(f"{wa_id} es colaborador")
-                  buy_order   = str( random.randint(1, 10000))
-                  path_de_pago = f"/recargar?fono={wa_id}&cantidad=1&nombre=&email=&comuna=Providencia&descripcion=&direccion=&amount={env.PRECIO_TOKEN}"
-                  await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
-                  return Response( "Procesado", status="200")
-
                else:
                   return Response( "No Procesado", status="200")
 

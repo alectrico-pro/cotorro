@@ -372,6 +372,7 @@ async def on_fetch(request, env):
                          buy_order = await env.DICT.get(id)
                          if buy_order:
                             console.log(f"buy_order {buy_order}")
+                            await mantener_tokens( wa_id )
                          else:
                             console.log(f"id {id} no tiene buy_order")
                        except:
@@ -534,6 +535,35 @@ def webhook_get(request, env):
 
 
 #----------------------------- FUNCIONES ------------------------------------------------------
+#marca como expirados a los tokens que corresponda
+#solo afecta a los tokens del fono proporcionado
+async def mantener_tokens( fono )
+          fono = fix_fono( fono )
+          pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
+          pagados_count = len(pagados.keys)
+
+          console.log(f"Tokens pagados en total {pagados_count} para el fono {fono}")
+          for key in pagados.keys:
+                 try:
+                     token = await env.FINANCIERO.get( key.name )
+                     token_dict = json.loads(token)
+                     expira_en  = token_dict['token']['expira_en']
+                     orden      = token_dict['token']['orden']
+                     console.log(f"expira en {expira_en}")
+                     if datetime.today() > datetime.fromisoformat( expira_en ):
+                       try:
+                          token_expirado = f"{fono}:token:pagado:expirado:{orden}"
+                          await env.FINANCIERO.put(f"{token_expirado}", token)
+                          console.log(f"token marcado como expirado {token_expirado}")
+                       except:
+                          return
+                 except:
+                    return
+
+          no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
+          console.log(f"Token no expirados en todal  {len( no_expirados.keys)}, uno de los cuales será eliminado")
+          return
+
 
 
 async def save_text_message( env, id, fono, buy_order, descripcion, amount ):

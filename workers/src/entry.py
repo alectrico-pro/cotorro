@@ -363,7 +363,7 @@ async def on_fetch(request, env):
                       await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
                     case "Tomar":
                        console.log("Es Tomar")
-                       id = result_dict['messages'][0]['context']['id']
+                       id = value['messages'][0]['context']['id']
                        path_de_pago = id 
                        await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
                   return Response( "Procesado", status="200")

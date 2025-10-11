@@ -364,8 +364,10 @@ async def on_fetch(request, env):
                     case "Tomar":
                        console.log("Es Tomar")
                        say_atender_id = value.messages[0].context.id
+                       console.log(f"id {say_atender_id")
+
                        try:
-                         key =  env.DICT.keys(say_atender_id)
+                         key = env.DICT.get(say_atender_id)
                          buy_order = key.value
                          console.log("buy_order {buy_order}")
                        except:

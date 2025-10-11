@@ -373,7 +373,7 @@ async def on_fetch(request, env):
                          if key:
                             buy_order = key.value
                             console.log(f"buy_order {buy_order}")
-                         elsef:
+                         else:
                             console.log(f"id {id} no tiene buy_order")
                        except:
                          pass

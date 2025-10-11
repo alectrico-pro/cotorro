@@ -363,7 +363,7 @@ async def on_fetch(request, env):
                       await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
                     case "Tomar":
                        console.log("Es Tomar")
-                       say_atender_id = value['messages'][0]['context']['id']
+                       say_atender_id = value.messages[0].context.id
                        try:
                          key =  env.DICT.keys(say_atender_id)
                          buy_order = key.value

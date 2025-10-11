@@ -365,7 +365,7 @@ async def on_fetch(request, env):
                        console.log("Es Tomar")
                        request_dict = json.loads( request_json )
                        id = result_dict['entry'][0]['changes'][0]['value']['messages'][0]['context']['id']
-                       console.log(f"id {id")
+                       console.log(f"id {id}")
 
                        try:
                          key = env.DICT.get(id)

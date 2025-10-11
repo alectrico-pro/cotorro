@@ -368,7 +368,7 @@ async def on_fetch(request, env):
                        console.log(f"id {id")
 
                        try:
-                         key = env.DICT.get(say_atender_id)
+                         key = env.DICT.get(id)
                          buy_order = key.value
                          console.log("buy_order {buy_order}")
                        except:

@@ -196,14 +196,7 @@ async def on_fetch(request, env):
         fono = await get_fono_cliente( env, buy_order)
         fono_str = str(fono)
         if fono:
-          if '56' in fono_str[0:2]:
-             console.log("Encontré 56 en {fono_str[0:2]}")
-             fono = fono_str.replace('56','',1)
-          else:
-             console.log("fono no tiene 56")       
-          console.log(f"fono {fono}")
-
-          fono_cliente = fono
+          fono_cliente = fix_fono( fono )
           #------------------ identificar al colaborador ------
 
           fono = fix_fono( fono_colaborador )
@@ -952,6 +945,15 @@ async def say_atender( env, wa_id, taker_fono, nombre, descripcion, comuna, buy_
         console.log(f"response {response}")
         content_type, result = await gather_response(response)
         console.log(f"result {result}")
+        result_dict = json.loads( result )
+        id = result_dict['messages'][0]['id']
+        console.log(f"id {id}")
+        try:
+          await env.DICT.put( id, buy_order, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+        except:
+          pass
+
+
         return
 
 

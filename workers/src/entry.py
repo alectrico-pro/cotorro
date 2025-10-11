@@ -370,8 +370,11 @@ async def on_fetch(request, env):
 
                        try:
                          key = await env.DICT.get(id)
-                         buy_order = key.value
-                         console.log("buy_order {buy_order}")
+                         if key:
+                            buy_order = key.value
+                            console.log(f"buy_order {buy_order}")
+                         elsef:
+                            console.log(f"id {id} no tiene buy_order")
                        except:
                          pass
                   return Response( "Procesado", status="200")

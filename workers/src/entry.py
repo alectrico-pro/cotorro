@@ -546,7 +546,8 @@ async def mantener_tokens( fono ):
               console.log(f"Tokens pagados en total {pagados_count} para el fono {fono}")
             else:
               return
-          except:
+          except Exception as e: 
+              print(e)
               console.log("Ocurrió un error al leer tokens")
               return
 

@@ -539,10 +539,17 @@ def webhook_get(request, env):
 #solo afecta a los tokens del fono proporcionado
 async def mantener_tokens( fono ):
           fono = fix_fono( fono )
-          pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
-          if pagados:
-            pagados_count = len(pagados.keys)
-            console.log(f"Tokens pagados en total {pagados_count} para el fono {fono}")
+          try:
+            pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
+            if pagados:
+              pagados_count = len(pagados.keys)
+              console.log(f"Tokens pagados en total {pagados_count} para el fono {fono}")
+            else:
+              return
+          except:
+              console.log("Ocurrió un error al leer tokens")
+              return
+
           for key in pagados.keys:
                  try:
                      token = await env.FINANCIERO.get( key.name )

@@ -350,7 +350,7 @@ async def on_fetch(request, env):
 
             if hasattr(value.messages[0], 'button') == True :
                console.log("Es button")
-               descripcion = value.messages[0].button.payload
+               descripcion = value.messages[0].button.payload.text
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
@@ -369,9 +369,8 @@ async def on_fetch(request, env):
                        console.log(f"id {id}")
 
                        try:
-                         key = await env.DICT.get(id)
-                         if key:
-                            buy_order = key.value
+                         buy_order = await env.DICT.get(id)
+                         if buy_order:
                             console.log(f"buy_order {buy_order}")
                          else:
                             console.log(f"id {id} no tiene buy_order")

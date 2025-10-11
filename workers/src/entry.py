@@ -364,7 +364,7 @@ async def on_fetch(request, env):
                   console.log(f"{wa_id} es colaborador")
                   buy_order   = str( random.randint(1, 10000))
                   path_de_pago = f"https://recarga.alectrico.cl/recargar?fono={wa_id}&cantidad=1&nombre=&email=&comuna=Providencia&descripcion=&direccion=&amount={env.PRECIO_TOKEN}"
-                  await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
+                  await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
             return Response( "Procesado", status="200")
 
 

@@ -360,11 +360,11 @@ async def on_fetch(request, env):
                console.log("Es button")
                descripcion = value.messages[0].button.payload
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               if await es_colaborador(env, wa_id):
+               if descripcion == "Recargar" and  await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
                   buy_order   = str( random.randint(1, 10000))
-                  path_de_pago = f"https://recarga.alectrico.cl/recargar?fono={wa_id}&cantidad=1&nombre=&email=&comuna=Providencia&descripcion=&direccion=&amount={env.PRECIO_TOKEN}"
-                  await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
+                  path_de_pago = f"/recargar?fono={wa_id}&cantidad=1&nombre=&email=&comuna=Providencia&descripcion=&direccion=&amount={env.PRECIO_TOKEN}"
+                  await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
             return Response( "Procesado", status="200")
 
 
@@ -996,7 +996,6 @@ async def say_pagar_visita( env, wa_id, nombre, amount, path_de_pago ):
 
 
 
-#el template fue borrado porque facebook insistió en categorizarlo como de marketing
 async def say_link_de_pago( env, wa_id, nombre, amount, path_de_pago ):
         console.log("En say_link_de_pago")
         console.log(f"wa_id {wa_id}")
@@ -1045,6 +1044,54 @@ async def say_link_de_pago( env, wa_id, nombre, amount, path_de_pago ):
         console.log(f"result {result}")
         return
 
+
+async def say_link_de_recarga( env, wa_id, nombre, amount, path_de_pago ):
+        console.log("En say_link_de_recarga")
+        console.log(f"wa_id {wa_id}")
+        console.log( f"amount  {amount}")
+        console.log( f"nombre  {nombre}")
+        console.log( f"link_de_pago  {path_de_pago}")
+
+        imagen_url = f"{env.API_URL}/{env.TAKEME_IMAGE_PATH}"
+
+
+        body = {"messaging_product"    :  "whatsapp",
+                "to"                   :  wa_id,
+                "type"                 : "template",
+                "template"             : { "name" : "say_pagar",
+                                       "language" : { "code" : "es" },
+                "components"           : [
+                { "type": "header",  "parameters": [
+                   { "type" : "image",
+                     "image": { "link": imagen_url } } ] },
+                { "type" :   "body", "parameters" : [
+                    { "type"            :   "text", "parameter_name": "nombre",   "text" : nombre   } ,
+                    { "type"            :   "text", "parameter_name": "amount", "text" : amount } ] },
+                { "type"    : "button",
+                     "sub_type": "url",
+                     "index"   : "0",
+                   "parameters": [ { "type": "text", "text": path_de_pago}]}]}}
+
+
+        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
+        }
+        options = {
+               "body": json.dumps(body),
+               "method": "POST",
+               "headers": {
+                 "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+                 "content-type": "application/json;charset=UTF-8"
+               },
+        }
+        console.log(f"body {body}")
+        response = await fetch(uri, to_js(options))
+        console.log(f"response {response}")
+        content_type, result = await gather_response(response)
+        console.log(f"result {result}")
+        return
 
 
 async def send_msg( env, wa_id, msg):

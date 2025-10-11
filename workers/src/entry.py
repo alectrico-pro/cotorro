@@ -363,8 +363,9 @@ async def on_fetch(request, env):
                       await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
                     case "Tomar":
                        console.log("Es Tomar")
-                       request_dict = json.loads( request_json )
-                       id = result_dict['entry'][0]['changes'][0]['value']['messages'][0]['context']['id']
+                       id = request_json.entry[0].changes[0].value.messages[0].context.id
+
+
                        console.log(f"id {id}")
 
                        try:

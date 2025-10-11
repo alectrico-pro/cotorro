@@ -367,6 +367,8 @@ async def on_fetch(request, env):
                   await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
                   return Response( "Procesado", status="200")
 
+               else:
+                  return Response( "No Procesado", status="200")
 
 
             if hasattr(value.messages[0], 'text') == True :

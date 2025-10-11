@@ -365,7 +365,7 @@ async def on_fetch(request, env):
                   buy_order   = str( random.randint(1, 10000))
                   path_de_pago = f"/recargar?fono={wa_id}&cantidad=1&nombre=&email=&comuna=Providencia&descripcion=&direccion=&amount={env.PRECIO_TOKEN}"
                   await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
-            return Response( "Procesado", status="200")
+                  return Response( "Procesado", status="200")
 
 
 
@@ -1058,15 +1058,14 @@ async def say_link_de_recarga( env, wa_id, nombre, amount, path_de_pago ):
         body = {"messaging_product"    :  "whatsapp",
                 "to"                   :  wa_id,
                 "type"                 : "template",
-                "template"             : { "name" : "say_pagar",
+                "template"             : { "name" : "say_recargar",
                                        "language" : { "code" : "es" },
                 "components"           : [
                 { "type": "header",  "parameters": [
                    { "type" : "image",
                      "image": { "link": imagen_url } } ] },
                 { "type" :   "body", "parameters" : [
-                    { "type"            :   "text", "parameter_name": "nombre",   "text" : nombre   } ,
-                    { "type"            :   "text", "parameter_name": "amount", "text" : amount } ] },
+                    { "type"            :   "text", "parameter_name": "precio", "text" : amount } ] },
                 { "type"    : "button",
                      "sub_type": "url",
                      "index"   : "0",

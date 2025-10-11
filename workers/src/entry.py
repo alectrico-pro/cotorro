@@ -537,7 +537,7 @@ def webhook_get(request, env):
 #----------------------------- FUNCIONES ------------------------------------------------------
 #marca como expirados a los tokens que corresponda
 #solo afecta a los tokens del fono proporcionado
-async def mantener_tokens( fono )
+async def mantener_tokens( fono ):
           fono = fix_fono( fono )
           pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
           pagados_count = len(pagados.keys)

@@ -363,9 +363,13 @@ async def on_fetch(request, env):
                       await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
                     case "Tomar":
                        console.log("Es Tomar")
-                       id = value['messages'][0]['context']['id']
-                       path_de_pago = id 
-                       await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
+                       say_atender_id = value['messages'][0]['context']['id']
+                       try:
+                         key =  env.DICT.keys(say_atender_id)
+                         buy_order = key.value
+                         console.log("buy_order {buy_order}")
+                       except:
+                         pass
                   return Response( "Procesado", status="200")
                else:
                   return Response( "No Procesado", status="200")

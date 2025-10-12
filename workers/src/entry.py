@@ -349,7 +349,6 @@ async def on_fetch(request, env):
                                fono_cliente = value.contacts[0].wa_id
                                de            = value.calls[0].to
                                to           = value.calls[0].to
-                               console.log(f"from {from}")
                                console.log(f"to {to}")
 
                                reply = (

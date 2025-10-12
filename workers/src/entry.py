@@ -372,7 +372,7 @@ async def on_fetch(request, env):
                          buy_order = await env.DICT.get(id)
                          if buy_order:
                             console.log(f"buy_order {buy_order}")
-                            await mantener_tokens( wa_id )
+                            await mantener_tokens(env, wa_id )
                          else:
                             console.log(f"id {id} no tiene buy_order")
                        except:
@@ -537,7 +537,7 @@ def webhook_get(request, env):
 #----------------------------- FUNCIONES ------------------------------------------------------
 #marca como expirados a los tokens que corresponda
 #solo afecta a los tokens del fono proporcionado
-async def mantener_tokens( fono ):
+async def mantener_tokens(env, fono ):
           fono = fix_fono( fono )
           try:
             pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")

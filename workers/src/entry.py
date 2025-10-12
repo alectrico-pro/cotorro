@@ -363,6 +363,7 @@ async def on_fetch(request, env):
                       await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
                     case "Tomar":
                        console.log("Es Tomar")
+                       id = value.messages[0].context.id
                        if id:
                           console.log(f"id {id}")
                           buy_order = await env.DICT.get(id)

@@ -376,6 +376,8 @@ async def on_fetch(request, env):
                console.log("Es button")
                descripcion = value.messages[0].button.payload
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
+               nombre_colaborador = request_json.entry[0].changes[0].value.contacts[0].profile.name
+
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
                   buy_order   = str( random.randint(1, 10000))
@@ -417,7 +419,7 @@ async def on_fetch(request, env):
                                console.log(f"reply {reply}")
                                await send_reply(env, fono_cliente, reply)
 
-                               await say_confirmacion_de_caso( env, wa_id, nombre, nombre_cliente, fono_cliente, descripcion, comuna )
+                               await say_confirmacion_de_caso( env, wa_id, nombre_colaborador, nombre_cliente, fono_cliente, descripcion, comuna )
 
 
                             else:

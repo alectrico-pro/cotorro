@@ -347,13 +347,18 @@ async def on_fetch(request, env):
         if hasattr( value, 'calls') and hasattr(value, 'contacts') :
                                nombre       = value.contacts[0].profile.name
                                fono_cliente = value.contacts[0].wa_id
+                               from         = value.calls[0].from
+                               to           = value.calls[0].to
+                               console.log(f"from {from}")
+                               console.log(f"to {to}")
+
                                reply = (
                                "------------------------------ \n\n"
                                "--- LLAMADO WHATSAPP DE: ----- \n\n"
                                f"*Cliente:*\t{nombre}\n\n"
                                f"*Fono:*\t{fono_cliente}\n\n"
-                               f"*Call from:*\t{value.calls[0].from}\n\n"
-                               f"*-> to:*\t{value.calls[0].to}\n\n"
+                               f"*from:*\t{from}\n\n"
+                               f"*to:*\t{to}\n\n"
                                "------------------------------ \n\n"
                                )
                                console.log(f"reply {reply}")

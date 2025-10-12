@@ -645,8 +645,8 @@ async def tomar_token(env, fono, buy_order ):
              nombre_cliente = await get_nombre_cliente( env, buy_order)
              fono_cliente   = await get_fono_cliente( env, buy_order)
 
-             descripcion_cliente = await get_descripcion_cliente( env, buy_order)
-             comuna_cliente   = await get_comuna_cliente( env, buy_order)
+             descripcion = await get_descripcion_cliente( env, buy_order)
+             comuna  = await get_comuna_cliente( env, buy_order)
              await env.BUY_ORDER.delete( str(buy_order))
              return nombre_cliente, fono_cliente, descripcion, comuna
           return None
@@ -676,7 +676,7 @@ async def get_nombre_cliente(env, buy_order):
 
 
 async def get_descripcion_cliente(env, buy_order):
-    console.log("En get_datos_cliente")
+    console.log("En get_descripcion_cliente")
     console.log(f"buy_order {buy_order}")
     pedido_json = await env.BUY_ORDER.get(str(buy_order))
     if pedido_json:
@@ -687,7 +687,7 @@ async def get_descripcion_cliente(env, buy_order):
       return None
 
 async def get_comuna_cliente(env, buy_order):
-    console.log("En get_datos_cliente")
+    console.log("En get_comuna_cliente")
     console.log(f"buy_order {buy_order}")
     pedido_json = await env.BUY_ORDER.get(str(buy_order))
     if pedido_json:

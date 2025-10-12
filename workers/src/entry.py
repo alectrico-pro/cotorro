@@ -363,15 +363,15 @@ async def on_fetch(request, env):
                       await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
                     case "Tomar":
                        console.log("Es Tomar")
-                       id = request_json.entry[0].changes[0].value.messages[0].context.id
-
-
                        console.log(f"id {id}")
-
                        buy_order = await env.DICT.get(id)
                        if buy_order:
                             console.log(f"buy_order {buy_order}")
-                            await tomar_token(env, wa_id, buy_order )
+                            fono_cliente = await tomar_token(env, wa_id, buy_order )
+                            if fono_cliente:
+                               console.log(f"fono_cliente {fono_cliente}")
+                            else:
+                               console.log("No se pudo obtener fono de cliente")
                        else:
                             console.log(f"id {id} no tiene buy_order")
                   return Response( "Procesado", status="200")
@@ -594,11 +594,22 @@ async def tomar_token(env, fono, buy_order ):
              token = await env.FINANCIERO.get( name_key_mas_expirable )
              await env.FINANCIERO.delete( name_key_mas_expirable)
              console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
+             fono_cliente = await get_fono_cliente( env, buy_order)
              await env.BUY_ORDER.delete( str(buy_order))
-             return True
-          return False
+             return fono_cliente
+          return None
 
 
+async def get_fono_cliente(env, buy_order):
+    console.log("En get_fono_cliente")
+    console.log(f"buy_order {buy_order}")
+    pedido_json = await env.BUY_ORDER.get(str(buy_order))
+    if pedido_json:
+      pedido = json.loads(pedido_json)
+      console.log(f"pedido {pedido}")
+      return pedido['pedido']['fono']
+    else:
+      return None
 
 async def save_text_message( env, id, fono, buy_order, descripcion, amount ):
     await env.BUY_ORDER.put( str(buy_order), json.dumps( {"pedido": { "email": "user@alectrico.cl", "fono": fono, 'buy_order': buy_order, 'descripcion': descripcion, 'amount': amount }}), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )

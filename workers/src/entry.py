@@ -375,11 +375,21 @@ async def on_fetch(request, env):
                                reply = (
                                "------------------------------ \n\n"
                                f"*Orden*:\t{buy_order}\n\n"
-                               f"*Fono de su Cliente: *\t{fono_cliente}\n\n"
+                               f"*Fono de su Cliente:*\t{fono_cliente}\n\n"
                                "------------------------------ \n\n"
                                )
                                console.log(f"reply {reply}")
                                await send_reply(env, wa_id, reply)
+
+
+                               reply = (
+                               "------------------------------ \n\n"
+                               f"*Orden*:\t{buy_order}\n\n"
+                               f"*Fono de su Colaborador:*\t{wa_id}\n\n"
+                               "------------------------------ \n\n"
+                               )
+                               console.log(f"reply {reply}")
+                               await send_reply(env, fono_cliente, reply)
 
                             else:
                                console.log("No se pudo obtener fono de cliente")

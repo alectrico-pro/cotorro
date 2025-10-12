@@ -329,11 +329,27 @@ async def on_fetch(request, env):
 
 
     #----------------- WEBHOOK DE WABA ---------------------------------------------------------
-    elif url.path.startswith("/webhook"): # or url.path.startswith("/api/v1/santum/webhook"):
+    elif url.path.startswith("/webhook"): # la url que sigue es un eco del pasado or url.path.startswith("/api/v1/santum/webhook"):
         console.log("En webhook")
 
         request_json = await request.json()
         console.log( f"request_json {request_json}")
+
+        #Atiende los llamados VoIP de Whatsapp ---
+        if hasattr( request_json, 'field') and hasattr( request_json.field, 'calls'):
+                               nombre = request_json.contacts[0].profile.name
+                               fono_cliente = request_json.contacts[0].profile.wa_id
+                               reply = (
+                               "------------------------------ \n\n"
+                               "--- LLAMADO WHATSAPP DE: ----- \n\n"
+                               f"*Cliente:*\t{nombre}\n\n"
+                               f"*Fono:*\t{fono_cliente}\n\n"
+                               "------------------------------ \n\n"
+                               )
+                               console.log(f"reply {reply}")
+                               await send_reply(env, env.FONO_JEFE , reply)
+                               return Response( "Procesado", status="200")
+
 
         value = request_json.entry[0].changes[0].value
 

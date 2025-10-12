@@ -375,6 +375,7 @@ async def on_fetch(request, env):
             if hasattr(value.messages[0], 'button') == True :
                console.log("Es button")
                descripcion = value.messages[0].button.payload
+               nombre_cliente = value.contacts[0].profile.name
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
@@ -399,6 +400,8 @@ async def on_fetch(request, env):
                                reply = (
                                "------------------------------ \n\n"
                                f"*Orden*:\t{buy_order}\n\n"
+                               f"*Cliente Nombre:*\t{nombre_cliente}\n\n"
+
                                f"*Fono de su Cliente:*\t{fono_cliente}\n\n"
                                "------------------------------ \n\n"
                                )

@@ -345,8 +345,8 @@ async def on_fetch(request, env):
 
 
         if hasattr( value, 'contacts'):
-                               nombre       = request_json.contacts[0].profile.name
-                               fono_cliente = request_json.contacts[0].wa_id
+                               nombre       = value.contacts[0].profile.name
+                               fono_cliente = value.contacts[0].wa_id
                                reply = (
                                "------------------------------ \n\n"
                                "--- LLAMADO WHATSAPP DE: ----- \n\n"

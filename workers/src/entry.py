@@ -993,7 +993,7 @@ async def derivar_jefe(env, nombre, descripcion, direccion, buy_order, comuna):
 
 
 
-async def say_confirmacion_de_caso( env, wa_id, nombre, descripcion, comuna ):
+async def say_confirmacion_de_caso( env, wa_id, nombre, nombre_cliente, fono_cliente, descripcion, comuna ):
         console.log("En say_confirmacion_de_casor")
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")

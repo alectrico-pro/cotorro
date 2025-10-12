@@ -354,8 +354,6 @@ async def on_fetch(request, env):
                                reply = (
                                "------------------------------ \n\n"
                                "--- LLAMADO WHATSAPP DE: ----- \n\n"
-                               f"*Cliente:*\t{nombre}\n\n"
-                               f"*Fono:*\t{fono_cliente}\n\n"
                                f"*from:*\t{de}\n\n"
                                f"*to:*\t{to}\n\n"
                                "------------------------------ \n\n"

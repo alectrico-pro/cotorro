@@ -363,9 +363,10 @@ async def on_fetch(request, env):
                       await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
                     case "Tomar":
                        console.log("Es Tomar")
-                       console.log(f"id {id}")
-                       buy_order = await env.DICT.get(id)
-                       if buy_order:
+                       console.log(f"id {id}") 
+                       if id:
+                          buy_order = await env.DICT.get(id)
+                          if buy_order:
                             console.log(f"buy_order {buy_order}")
                             fono_cliente = await tomar_token(env, wa_id, buy_order )
                             if fono_cliente:
@@ -374,9 +375,7 @@ async def on_fetch(request, env):
                                console.log("No se pudo obtener fono de cliente")
                        else:
                             console.log(f"id {id} no tiene buy_order")
-                  return Response( "Procesado", status="200")
-               else:
-                  return Response( "No Procesado", status="200")
+            return Response( "No Procesado", status="200")
 
 
 

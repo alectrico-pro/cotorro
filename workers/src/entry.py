@@ -532,14 +532,23 @@ def webhook_get(request, env):
 
 
 
+
+async def anotar_tokens_pagados_promocionales( env, buy_order, fono, amount, cantidad ):
+    now = datetime.now()
+    fecha_en_el_vencimiento = now + timedelta(days = env.VENCIMIENTO_TOKEN_DIAS)
+    for orden in range(1, cantidad + 1 ):
+      pedido = { 'token': {'orden': orden, 'expira_en': str(fecha_en_el_vencimiento), 'buy_order': buy_order, 'fono': fono, "amount": amount, "acuñado_en": json.dumps( date.today().isoformat()) }}
+      await env.FINANCIERO.put( f"{fono}:token:pagado:no_expirado:promocional:{orden}", json.dumps(pedido), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION })
+    return
+
+
           #----------------------------- FUNCIONES ------------------------------------------------------
 #marca como expirados a los tokens que corresponda
 #solo afecta a los tokens del fono proporcionado
 async def tomar_token(env, fono, buy_order ):
-          
-          await env.FINANCIERO.put(f"981370042:token:pagado:no_expirado:1760231850.02:1", {"token": {"orden": 1, "expira_en": "2026-04-10 01:17:30.020000", "buy_order": "5852", "fono": "981370042", "amount": "3000", "acuñado_en": "2025-10-12"}})
-
-          await env.FINANCIERO.put(f"981370042:token:pagado:no_expirado:1760231850.02:1", {"token": {"orden": 2, "expira_en": "2026-04-10 01:17:30.020000", "buy_order": "5852", "fono": "981370042", "amount": "3000", "acuñado_en": "2025-10-12"}})
+          await anotar_tokens( env, 88, fono, 3000, 20) 
+          buy_order   = str( random.randint(1, 10000))
+          await anotar_tokens_pagados_promocionales( env, buy_order, fono, 0, 5 ):
 
           fono = fix_fono( fono )
           try:

@@ -372,7 +372,7 @@ async def on_fetch(request, env):
                          buy_order = await env.DICT.get(id)
                          if buy_order:
                             console.log(f"buy_order {buy_order}")
-                            await mantener_tokens(env, wa_id )
+                            await tomar_token(env, wa_id, buy_order )
                          else:
                             console.log(f"id {id} no tiene buy_order")
                        except:
@@ -537,7 +537,8 @@ def webhook_get(request, env):
 #----------------------------- FUNCIONES ------------------------------------------------------
 #marca como expirados a los tokens que corresponda
 #solo afecta a los tokens del fono proporcionado
-async def mantener_tokens(env, fono ):
+async def tomar_token(env, fono, buy_order ):
+          #-- hacer mantención primero, los tokens que expiran deben ser etiquetados como expirados
           fono = fix_fono( fono )
           try:
             pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
@@ -545,11 +546,11 @@ async def mantener_tokens(env, fono ):
               pagados_count = len(pagados.keys)
               console.log(f"Tokens pagados en total {pagados_count} para el fono {fono}")
             else:
-              return
+              return false
           except Exception as e: 
               print(e)
               console.log("Ocurrió un error al leer tokens")
-              return
+              return false
 
           for key in pagados.keys:
                  try:
@@ -564,13 +565,39 @@ async def mantener_tokens(env, fono ):
                           await env.FINANCIERO.put(f"{token_expirado}", token)
                           console.log(f"token marcado como expirado {token_expirado}")
                        except:
-                          return
+                          return false
                  except:
-                    return
+                    return false
 
           no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
           console.log(f"Token no expirados en todal  {len( no_expirados.keys)}, uno de los cuales será eliminado")
-          return
+
+          #eliminar el más próximo en expirar --------------
+
+          if len(no_expirados.keys) > 0:
+             names = []
+             for key in no_expirados.keys:
+               console.log(f"key {key.name}")
+               names.append( key.name )
+             names_sorted = names.sort
+
+             #Este expira más temprano que el resto
+             name_key_mas_expirable = names[0]
+
+             console.log(f"name_key_mas_expirable {name_key_mas_expirable}")
+             try:
+               token = await env.FINANCIERO.get( name_key_mas_expirable )
+             except:
+               return false 
+             try:
+                await env.FINANCIERO.delete( name_key_mas_expirable)
+                console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
+                try:
+                  await env.BUY_ORDER.delete( str(buy_order))
+                  return true 
+                except:
+                  return false
+          return false
 
 
 

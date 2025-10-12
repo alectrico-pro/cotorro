@@ -546,9 +546,8 @@ async def anotar_tokens_pagados_promocionales( env, buy_order, fono, amount, can
 #marca como expirados a los tokens que corresponda
 #solo afecta a los tokens del fono proporcionado
 async def tomar_token(env, fono, buy_order ):
-          await anotar_tokens( env, 88, fono, 3000, 20) 
           buy_order   = str( random.randint(1, 10000))
-          await anotar_tokens_pagados_promocionales( env, buy_order, fono, 0, 5 ):
+          await anotar_tokens_pagados_promocionales( env, buy_order, fono, 0, 5 )
 
           fono = fix_fono( fono )
           try:

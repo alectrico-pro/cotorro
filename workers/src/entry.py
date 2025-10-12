@@ -372,6 +372,15 @@ async def on_fetch(request, env):
                             fono_cliente = await tomar_token(env, wa_id, buy_order )
                             if fono_cliente:
                                console.log(f"fono_cliente {fono_cliente}")
+                               reply = (
+                               "------------------------------ \n\n"
+                               f"*Orden*:\t{buy_order}\n\n"
+                               f"*Fono de su Cliente: *\t{fono_cliente}\n\n"
+                               "------------------------------ \n\n"
+                               )
+                               console.log(f"reply {reply}")
+                               await send_reply(env, wa_id, reply)
+
                             else:
                                console.log("No se pudo obtener fono de cliente")
                        else:

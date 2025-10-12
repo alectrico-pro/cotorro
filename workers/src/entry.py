@@ -375,7 +375,6 @@ async def on_fetch(request, env):
             if hasattr(value.messages[0], 'button') == True :
                console.log("Es button")
                descripcion = value.messages[0].button.payload
-               nombre_cliente = value.contacts[0].profile.name
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
@@ -394,7 +393,7 @@ async def on_fetch(request, env):
                           buy_order = await env.DICT.get(id)
                           if buy_order:
                             console.log(f"buy_order {buy_order}")
-                            fono_cliente = await tomar_token(env, wa_id, buy_order )
+                            fono_cliente, nombre_cliente = await tomar_token(env, wa_id, buy_order )
                             if fono_cliente:
                                console.log(f"fono_cliente {fono_cliente}")
                                reply = (
@@ -641,8 +640,9 @@ async def tomar_token(env, fono, buy_order ):
              await env.FINANCIERO.delete( name_key_mas_expirable)
              console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
              fono_cliente = await get_fono_cliente( env, buy_order)
+             nombre_cliente = await get_nombre_cliente(env, buy_order)
              await env.BUY_ORDER.delete( str(buy_order))
-             return fono_cliente
+             return fono_cliente, nombre_cliente
           return None
 
 
@@ -656,6 +656,19 @@ async def get_fono_cliente(env, buy_order):
       return pedido['pedido']['fono']
     else:
       return None
+
+async def get_nombre_cliente(env, buy_order):
+    console.log("En get_nombre_cliente")
+    console.log(f"buy_order {buy_order}")
+    pedido_json = await env.BUY_ORDER.get(str(buy_order))
+    if pedido_json:
+      pedido = json.loads(pedido_json)
+      console.log(f"pedido {pedido}")
+      return pedido['pedido']['name']
+    else:
+      return None
+
+
 
 async def save_text_message( env, id, fono, buy_order, descripcion, amount ):
     await env.BUY_ORDER.put( str(buy_order), json.dumps( {"pedido": { "email": "user@alectrico.cl", "fono": fono, 'buy_order': buy_order, 'descripcion': descripcion, 'amount': amount }}), { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )

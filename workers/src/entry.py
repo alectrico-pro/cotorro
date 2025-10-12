@@ -336,7 +336,15 @@ async def on_fetch(request, env):
         console.log( f"request_json {request_json}")
 
         #Atiende los llamados VoIP de Whatsapp ---
-        if hasattr( request_json, 'field') and hasattr( request_json.field, 'calls'):
+        value = request_json.entry[0].changes[0].value
+
+        console.log( f"hasattr messages    {hasattr(value, 'messages')} " )
+        console.log( f"hasattr contacts    {hasattr(value, 'contacts')} " )
+        console.log( f"hasattr statuses    {hasattr(value, 'statuses')} " )
+        console.log( f"hasattr calls       {hasattr(value, 'calls')} " )
+
+
+        if hasattr( value, 'contacts'):
                                nombre       = request_json.contacts[0].profile.name
                                fono_cliente = request_json.contacts[0].wa_id
                                reply = (
@@ -350,12 +358,6 @@ async def on_fetch(request, env):
                                await send_reply(env, env.FONO_JEFE , reply)
                                return Response( "Procesado", status="200")
 
-
-        value = request_json.entry[0].changes[0].value
-
-        console.log( f"hasattr messages    {hasattr(value, 'messages')} " )
-        console.log( f"hasattr contacts    {hasattr(value, 'contacts')} " )
-        console.log( f"hasattr contacts    {hasattr(value, 'statuses')} " )
 
         if hasattr(value, 'messages') == True :
 

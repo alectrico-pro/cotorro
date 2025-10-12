@@ -337,7 +337,7 @@ async def on_fetch(request, env):
 
         #Atiende los llamados VoIP de Whatsapp ---
         if hasattr( request_json, 'field') and hasattr( request_json.field, 'calls'):
-                               nombre = request_json.contacts[le.name
+                               nombre       = request_json.contacts[0].profile.name
                                fono_cliente = request_json.contacts[0].wa_id
                                reply = (
                                "------------------------------ \n\n"

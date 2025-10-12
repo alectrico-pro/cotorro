@@ -538,6 +538,9 @@ def webhook_get(request, env):
 async def tomar_token(env, fono, buy_order ):
           
           await env.FINANCIERO.put(f"981370042:token:pagado:no_expirado:1760231850.02:1", {"token": {"orden": 1, "expira_en": "2026-04-10 01:17:30.020000", "buy_order": "5852", "fono": "981370042", "amount": "3000", "acuñado_en": "2025-10-12"}})
+
+          await env.FINANCIERO.put(f"981370042:token:pagado:no_expirado:1760231850.02:1", {"token": {"orden": 2, "expira_en": "2026-04-10 01:17:30.020000", "buy_order": "5852", "fono": "981370042", "amount": "3000", "acuñado_en": "2025-10-12"}})
+
           fono = fix_fono( fono )
           try:
             pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")

@@ -376,7 +376,8 @@ async def on_fetch(request, env):
                console.log("Es button")
                descripcion = value.messages[0].button.payload
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               nombre_colaborador = await env.NOMINA.get( str( fix_fono( wa_id ) ))
+               colaborador_key = await env.NOMINA.get( str( fix_fono( wa_id ) ))
+               nombre_colaborador = colaborador_key.nombre
 
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")

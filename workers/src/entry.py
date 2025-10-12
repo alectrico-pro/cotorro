@@ -642,7 +642,9 @@ async def tomar_token(env, fono, buy_order ):
              token = await env.FINANCIERO.get( name_key_mas_expirable )
              await env.FINANCIERO.delete( name_key_mas_expirable)
              console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
-             nombre_cliente, fono_cliente, descripcion, comuna    = await get_datos_cliente(env, buy_order)
+             nombre_cliente = await get_nombre_cliente( env, buy_order)
+             fono_cliente   = await get_fono_cliente( env, buy_order)
+             descripcion, comuna  = await get_datos_cliente(env, buy_order)
              await env.BUY_ORDER.delete( str(buy_order))
              return nombre_cliente, fono_cliente, descripcion, comuna
           return None
@@ -678,7 +680,7 @@ async def get_datos_cliente(env, buy_order):
     if pedido_json:
       pedido = json.loads(pedido_json)
       console.log(f"pedido {pedido}")
-      return pedido['pedido']['name'], pedido['pedido']['fono'], pedido['pedido']['descripcion'],  pedido['pedido']['comuna']
+      return pedido['pedido']['descripcion'], pedido['pedido']['comuna']
     else:
       return None
 

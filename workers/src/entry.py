@@ -1121,11 +1121,67 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
           pass
         return
 
+#Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
+#Ese botón, permite a un colaboraodr tomar la orden dada por buy_order
+async def say_atender( env, wa_id, taker_fono, nombre, descripcion, comuna, buy_order ):
+        console.log("En say_atender")
+        console.log(f"wa_id {wa_id}")
+        console.log( f"descripcion  {descripcion}")
+        imagen_url = f"{env.API_URL}/{env.TAKEME_IMAGE_PATH}"
+
+
+        body =  { "messaging_product": "whatsapp",
+                   "to": wa_id,
+                   "type": "template",
+                   "template": { "name": "say_atender",
+                                 "language": {"code": "es"},
+                    "components": [
+                   { "type": "body",
+                     "parameters": [
+                         { "type": "text", "parameter_name": "nombre", "text": nombre },
+                         { "type": "text", "parameter_name": "reporte", "text": descripcion },
+                         { "type": "text", "parameter_name": "comuna", "text": comuna }
+                     ]
+                   },
+                   { "type": "header",  "parameters": [
+                    { "type" : "image",
+                     "image": { "link": imagen_url } } ] }
+                     ] } }
+
+        console.log( f"{body}" )
+
+        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
+        }
+        options = {
+               "body": json.dumps(body),
+               "method": "POST",
+               "headers": {
+                 "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+                 "content-type": "application/json;charset=UTF-8"
+               },
+        }
+        response = await fetch(uri, to_js(options))
+        console.log(f"response {response}")
+        content_type, result = await gather_response(response)
+        console.log(f"result {result}")
+        result_dict = json.loads( result )
+        id = result_dict['messages'][0]['id']
+        console.log(f"id {id}")
+        try:
+          await env.DICT.put( id, buy_order, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+        except:
+          pass
+
+
+        return
 
 
 #Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
 #Ese botón, permite a un colaboraodr tomar la orden dada por buy_order
-async def say_atender( env, wa_id, taker_fono, nombre, descripcion, comuna, buy_order ):
+async def say_atender_antiguo( env, wa_id, taker_fono, nombre, descripcion, comuna, buy_order ):
         console.log("En say_atender")
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")

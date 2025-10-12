@@ -535,7 +535,6 @@ def webhook_get(request, env):
 #marca como expirados a los tokens que corresponda
 #solo afecta a los tokens del fono proporcionado
 async def tomar_token(env, fono, buy_order ):
-          #-- hacer mantención primero, los tokens que expiran deben ser etiquetados como expirados
           fono = fix_fono( fono )
           try:
             pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
@@ -569,26 +568,14 @@ async def tomar_token(env, fono, buy_order ):
           no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
           console.log(f"Token no expirados en todal  {len( no_expirados.keys)}, uno de los cuales será eliminado")
 
-          #eliminar el más próximo en expirar --------------
-
-          if len(no_expirados.keys) > 0:
-             names = [key_info.name for key_info in no_expirados.keys]
-             names_sorted = names.sort
-             name_key_mas_expirable = names[0]
-
-             console.log(f"name_key_mas_expirable {name_key_mas_expirable}")
-             try:
-               token = await env.FINANCIERO.get( name_key_mas_expirable )
-             except:
-               return false 
-             try:
-                await env.FINANCIERO.delete( name_key_mas_expirable)
-                console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
-                try:
-                  await env.BUY_ORDER.delete( str(buy_order))
-                  return true 
-                except:
-                  return false
+          names = [key_info.name for key_info in no_expirados.keys]
+          names_sorted = names.sort
+          name_key_mas_expirable = names[0]
+          console.log(f"name_key_mas_expirable {name_key_mas_expirable}")
+          token = await env.FINANCIERO.get( name_key_mas_expirable )
+          await env.FINANCIERO.delete( name_key_mas_expirable)
+          console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
+          await env.BUY_ORDER.delete( str(buy_order))
           return false
 
 

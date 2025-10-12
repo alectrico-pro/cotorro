@@ -387,6 +387,8 @@ async def on_fetch(request, env):
                       console.log("Es Recargar")
                       path_de_pago = f"/recargar?fono={fix_fono(wa_id)}&cantidad=1&nombre=&email=&comuna=Providencia&descripcion=&direccion=&amount={env.PRECIO_TOKEN}"
                       await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
+
+
                     case "Tomar":
                        console.log("Es Tomar")
                        id = value.messages[0].context.id
@@ -395,7 +397,16 @@ async def on_fetch(request, env):
                           buy_order = await env.DICT.get(id)
                           if buy_order:
                             console.log(f"buy_order {buy_order}")
-                            nombre_cliente, fono_cliente, descripcion, comuna = await tomar_token(env, wa_id, buy_order )
+
+                            nombre_cliente = await get_nombre_cliente( env, buy_order)
+                            fono_cliente   = await get_fono_cliente( env, buy_order)
+
+                            descripcion = await get_descripcion_cliente( env, buy_order)
+                            comuna  = await get_comuna_cliente( env, buy_order)
+
+                            #NOTA: tomar_tokn borrará el pedido dadopor buy_order
+                            #no se puede usar nada de los cuatros gets de arriba
+                            await tomar_token(env, wa_id, buy_order )
                             if fono_cliente:
                                console.log(f"fono_cliente {fono_cliente}")
                                reply = (
@@ -644,13 +655,9 @@ async def tomar_token(env, fono, buy_order ):
              token = await env.FINANCIERO.get( name_key_mas_expirable )
              await env.FINANCIERO.delete( name_key_mas_expirable)
              console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
-             nombre_cliente = await get_nombre_cliente( env, buy_order)
-             fono_cliente   = await get_fono_cliente( env, buy_order)
-
-             descripcion = await get_descripcion_cliente( env, buy_order)
-             comuna  = await get_comuna_cliente( env, buy_order)
              await env.BUY_ORDER.delete( str(buy_order))
-             return nombre_cliente, fono_cliente, descripcion, comuna
+             return true
+
           return None
 
 

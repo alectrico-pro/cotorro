@@ -393,7 +393,7 @@ async def on_fetch(request, env):
                           buy_order = await env.DICT.get(id)
                           if buy_order:
                             console.log(f"buy_order {buy_order}")
-                            fono_cliente, nombre_cliente = await tomar_token(env, wa_id, buy_order )
+                            nombre_cliente, fono_cliente, descripcion, comuna = await tomar_token(env, wa_id, buy_order )
                             if fono_cliente:
                                console.log(f"fono_cliente {fono_cliente}")
                                reply = (
@@ -416,6 +416,9 @@ async def on_fetch(request, env):
                                )
                                console.log(f"reply {reply}")
                                await send_reply(env, fono_cliente, reply)
+
+                               await say_confirmacion_de_caso( env, wa_id, nombre, nombre_cliente, fono_cliente, descripcion, comuna )
+
 
                             else:
                                console.log("No se pudo obtener fono de cliente")
@@ -639,10 +642,9 @@ async def tomar_token(env, fono, buy_order ):
              token = await env.FINANCIERO.get( name_key_mas_expirable )
              await env.FINANCIERO.delete( name_key_mas_expirable)
              console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
-             fono_cliente = await get_fono_cliente( env, buy_order)
-             nombre_cliente = await get_nombre_cliente(env, buy_order)
+             nombre_cliente, fono_cliente, descripcion, comuna    = await get_datos_cliente(env, buy_order)
              await env.BUY_ORDER.delete( str(buy_order))
-             return fono_cliente, nombre_cliente
+             return nombre_cliente, fono_cliente, descripcion, comuna
           return None
 
 
@@ -665,6 +667,18 @@ async def get_nombre_cliente(env, buy_order):
       pedido = json.loads(pedido_json)
       console.log(f"pedido {pedido}")
       return pedido['pedido']['name']
+    else:
+      return None
+
+
+async def get_datos_cliente(env, buy_order):
+    console.log("En get_datos_cliente")
+    console.log(f"buy_order {buy_order}")
+    pedido_json = await env.BUY_ORDER.get(str(buy_order))
+    if pedido_json:
+      pedido = json.loads(pedido_json)
+      console.log(f"pedido {pedido}")
+      return pedido['pedido']['name'], pedido['pedido']['fono'], pedido['pedido']['descripcion'],  pedido['pedido']['comuna']
     else:
       return None
 
@@ -950,6 +964,44 @@ async def say_jefe(env, descripcion):
 async def derivar_jefe(env, nombre, descripcion, direccion, buy_order, comuna):
         return await say_atender(env, str(env.FONO_JEFE), str(env.FONO_JEFE), nombre, direccion, comuna, buy_order)
 
+
+
+async def say_confirmacion_de_caso( env, wa_id, nombre, descripcion, comuna ):
+        console.log("En say_confirmacion_de_casor")
+        console.log(f"wa_id {wa_id}")
+        console.log( f"descripcion  {descripcion}")
+
+        body = { "messaging_product" :  "whatsapp",
+                "to"                   :  wa_id,
+                "type"                 :  "template",
+                "template"             : { "name" : "confirmacion_de_caso", "language" : { "code" : "es" },
+                    "components"           : [  { "type" :   "body",
+                        "parameters" : [
+              { "type"             :   "text", "text" : nombre    } ,
+              { "type"             :   "text", "text" : descripcion } ,
+              { "type"             :   "text", "text" : comuna    },
+              { "type"             :   "text", "text" : nombre_cliente } ,
+              { "type"             :   "text", "text" : fono_cliente    }
+            ] } ] }}
+
+        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
+        }
+        options = {
+               "body": json.dumps(body),
+               "method": "POST",
+               "headers": {
+                 "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+                 "content-type": "application/json;charset=UTF-8"
+               },
+        }
+        response = await fetch(uri, to_js(options))
+        console.log(f"response {response}")
+        content_type, result = await gather_response(response)
+        console.log(f"result {result}")
+        return
 
 
 

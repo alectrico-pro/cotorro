@@ -401,8 +401,8 @@ async def on_fetch(request, env):
                             nombre_cliente = await get_nombre_cliente( env, buy_order)
                             fono_cliente   = await get_fono_cliente( env, buy_order)
 
-                            descripcion = await get_descripcion_cliente( env, buy_order)
-                            comuna  = await get_comuna_cliente( env, buy_order)
+                            descripcion    = await get_descripcion_cliente( env, buy_order)
+                            comuna         = await get_comuna_cliente( env, buy_order)
 
                             #NOTA: tomar_tokn borrará el pedido dadopor buy_order
                             #no se puede usar nada de los cuatros gets de arriba
@@ -656,7 +656,7 @@ async def tomar_token(env, fono, buy_order ):
              await env.FINANCIERO.delete( name_key_mas_expirable)
              console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
              await env.BUY_ORDER.delete( str(buy_order))
-             return true
+             return True
 
           return None
 

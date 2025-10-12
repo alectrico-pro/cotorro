@@ -561,9 +561,10 @@ async def tomar_token(env, fono, buy_order ):
                           await env.FINANCIERO.put(f"{token_expirado}", token)
                           console.log(f"token marcado como expirado {token_expirado}")
                        except:
-                          return false
-                 except:
-                    return false
+                          return False
+                 except Exception as e:
+                    print( e )
+                    return False
 
           no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
           console.log(f"Token no expirados en todal  {len( no_expirados.keys)}, uno de los cuales será eliminado")
@@ -576,7 +577,7 @@ async def tomar_token(env, fono, buy_order ):
           await env.FINANCIERO.delete( name_key_mas_expirable)
           console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
           await env.BUY_ORDER.delete( str(buy_order))
-          return false
+          return False
 
 
 

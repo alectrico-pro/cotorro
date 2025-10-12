@@ -329,41 +329,17 @@ async def on_fetch(request, env):
 
 
     #----------------- WEBHOOK DE WABA ---------------------------------------------------------
-    elif url.path.startswith("/webhook"): # la url que sigue es un eco del pasado or url.path.startswith("/api/v1/santum/webhook"):
+    elif url.path.startswith("/webhook"): # or url.path.startswith("/api/v1/santum/webhook"):
         console.log("En webhook")
 
         request_json = await request.json()
         console.log( f"request_json {request_json}")
 
-        #Atiende los llamados VoIP de Whatsapp ---
         value = request_json.entry[0].changes[0].value
 
         console.log( f"hasattr messages    {hasattr(value, 'messages')} " )
         console.log( f"hasattr contacts    {hasattr(value, 'contacts')} " )
-        console.log( f"hasattr statuses    {hasattr(value, 'statuses')} " )
-        console.log( f"hasattr calls       {hasattr(value, 'calls')} " )
-
-
-        if hasattr( value, 'calls') and hasattr(value, 'contacts') :
-                               nombre       = value.contacts[0].profile.name
-                               fono_cliente = value.contacts[0].wa_id
-                               de            = value.calls[0].to
-                               to           = value.calls[0].to
-                               console.log(f"to {to}")
-
-                               reply = (
-                               "------------------------------ \n\n"
-                               "--- LLAMADO WHATSAPP DE: ----- \n\n"
-                               f"*Cliente:*\t{nombre}\n\n"
-                               f"*Fono:*\t{fono_cliente}\n\n"
-                               f"*from:*\t{de}\n\n"
-                               f"*to:*\t{to}\n\n"
-                               "------------------------------ \n\n"
-                               )
-                               console.log(f"reply {reply}")
-                               await send_reply(env, env.FONO_JEFE , reply)
-                               return Response( "Procesado", status="200")
-
+        console.log( f"hasattr contacts    {hasattr(value, 'statuses')} " )
 
         if hasattr(value, 'messages') == True :
 
@@ -376,10 +352,6 @@ async def on_fetch(request, env):
                console.log("Es button")
                descripcion = value.messages[0].button.payload
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               colaborador_json = await env.NOMINA.get( str( fix_fono( wa_id) ))
-               colaborador = json.loads( colaborador_json )
-               nombre_colaborador = colaborador['nombre']
-
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
                   buy_order   = str( random.randint(1, 10000))
@@ -387,61 +359,24 @@ async def on_fetch(request, env):
                   match descripcion: 
                     case "Recargar":
                       console.log("Es Recargar")
-                      path_de_pago = f"/recargar?fono={fix_fono(wa_id)}&cantidad=1&nombre=&email=&comuna=Providencia&descripcion=&direccion=&amount={env.PRECIO_TOKEN}"
+                      path_de_pago = f"/recargar?fono={wa_id}&cantidad=1&nombre=&email=&comuna=Providencia&descripcion=&direccion=&amount={env.PRECIO_TOKEN}"
                       await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
-                      return Response( "No Procesado", status="200")
-
-
                     case "Tomar":
                        console.log("Es Tomar")
-                       id = value.messages[0].context.id
-                       if id:
-                          console.log(f"id {id}")
-                          buy_order = await env.DICT.get(id)
-                          if buy_order:
+                       id = request_json.entry[0].changes[0].value.messages[0].context.id
+
+
+                       console.log(f"id {id}")
+
+                       buy_order = await env.DICT.get(id)
+                       if buy_order:
                             console.log(f"buy_order {buy_order}")
-
-                            nombre_cliente = await get_nombre_cliente( env, buy_order)
-                            fono_cliente   = await get_fono_cliente( env, buy_order)
-                            console.log(f"fono_cliente {fono_cliente}")
-
-                            descripcion    = await get_descripcion_cliente( env, buy_order)
-                            comuna         = await get_comuna_cliente( env, buy_order)
-
-                            #NOTA: tomar_tokn borrará el pedido dadopor buy_order
-                            #no se puede usar nada de los cuatros gets de arriba
                             await tomar_token(env, wa_id, buy_order )
-                            if fono_cliente:
-                               console.log(f"fono_cliente {fono_cliente}")
-                               reply = (
-                               "------------------------------ \n\n"
-                               f"*Orden*:\t{buy_order}\n\n"
-                               f"*Cliente Nombre:*\t{nombre_cliente}\n\n"
-
-                               f"*Fono de su Cliente:*\t{fono_cliente}\n\n"
-                               "------------------------------ \n\n"
-                               )
-                               console.log(f"reply {reply}")
-                               await send_reply(env, wa_id, reply)
-
-
-                               reply = (
-                               "------------------------------ \n\n"
-                               f"*Orden*:\t{buy_order}\n\n"
-                               f"*Fono de su Colaborador:*\t{wa_id}\n\n"
-                               "------------------------------ \n\n"
-                               )
-                               console.log(f"reply {reply}")
-                               await send_reply(env, fono_cliente, reply)
-
-                               await say_confirmacion_de_caso( env, wa_id, nombre_colaborador, nombre_cliente, fono_cliente, descripcion, comuna )
-
-
-                            else:
-                               console.log("No se pudo obtener fono de cliente")
                        else:
                             console.log(f"id {id} no tiene buy_order")
-            return Response( "No Procesado", status="200")
+                  return Response( "Procesado", status="200")
+               else:
+                  return Response( "No Procesado", status="200")
 
 
 
@@ -596,25 +531,10 @@ def webhook_get(request, env):
         return Response("Error", status=403)
 
 
-
-
-async def anotar_tokens_pagados_promocionales( env, buy_order, fono, cantidad ):
-    fono = fix_fono( fono )
-    now = datetime.now()
-    fecha_en_el_vencimiento = now + timedelta(days = int( await env.TOKEN_VENCIMIENTO.get()))
-    for orden in range(1, cantidad + 1 ):
-      pedido = { 'token': {'orden': orden, 'expira_en': str(fecha_en_el_vencimiento), 'buy_order': buy_order, 'fono': fono, "amount": 0, "acuñado_en": json.dumps( date.today().isoformat()) }}
-      await env.FINANCIERO.put( f"{fono}:token:pagado:no_expirado:promocional:{orden}", json.dumps(pedido), { 'expirationTtl': await env.TOKEN_VENCIMIENTO.get() })
-    return
-
-
-          #----------------------------- FUNCIONES ------------------------------------------------------
+#----------------------------- FUNCIONES ------------------------------------------------------
 #marca como expirados a los tokens que corresponda
 #solo afecta a los tokens del fono proporcionado
 async def tomar_token(env, fono, buy_order ):
-          buy_order_de_pedido_de_token   = str( random.randint(1, 10000))
-          await anotar_tokens_pagados_promocionales( env, buy_order_de_pedido_de_token, fono, 5 )
-
           fono = fix_fono( fono )
           try:
             pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
@@ -647,70 +567,17 @@ async def tomar_token(env, fono, buy_order ):
                     return False
 
           no_expirados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado")
-          console.log(f"Token no expirados en total  {len( no_expirados.keys)}, uno de los cuales será eliminado")
-          if len(no_expirados.keys) > 0:
-             names = []
-             for key in no_expirados.keys:
-               console.log(f"key {key.name}")
-               names.append( key.name )
-             names_sorted = names.sort
-             name_key_mas_expirable = names[0]
-             console.log(f"name_key_mas_expirable {name_key_mas_expirable}")
-             token = await env.FINANCIERO.get( name_key_mas_expirable )
-             await env.FINANCIERO.delete( name_key_mas_expirable)
-             console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
-             await env.BUY_ORDER.delete( str(buy_order))
-             return True
+          console.log(f"Token no expirados en todal  {len( no_expirados.keys)}, uno de los cuales será eliminado")
 
-          return None
-
-
-async def get_fono_cliente(env, buy_order):
-    console.log("En get_fono_cliente")
-    console.log(f"buy_order {buy_order}")
-    pedido_json = await env.BUY_ORDER.get(str(buy_order))
-    if pedido_json:
-      pedido = json.loads(pedido_json)
-      console.log(f"pedido {pedido}")
-      return pedido['pedido']['fono']
-    else:
-      return None
-
-async def get_nombre_cliente(env, buy_order):
-    console.log("En get_nombre_cliente")
-    console.log(f"buy_order {buy_order}")
-    pedido_json = await env.BUY_ORDER.get(str(buy_order))
-    if pedido_json:
-      pedido = json.loads(pedido_json)
-      console.log(f"pedido {pedido}")
-      return pedido['pedido']['name']
-    else:
-      return None
-
-
-async def get_descripcion_cliente(env, buy_order):
-    console.log("En get_descripcion_cliente")
-    console.log(f"buy_order {buy_order}")
-    pedido_json = await env.BUY_ORDER.get(str(buy_order))
-    if pedido_json:
-      pedido = json.loads(pedido_json)
-      console.log(f"pedido {pedido}")
-      return pedido['pedido']['descripcion']
-    else:
-      return None
-
-async def get_comuna_cliente(env, buy_order):
-    console.log("En get_comuna_cliente")
-    console.log(f"buy_order {buy_order}")
-    pedido_json = await env.BUY_ORDER.get(str(buy_order))
-    if pedido_json:
-      pedido = json.loads(pedido_json)
-      console.log(f"pedido {pedido}")
-      return pedido['pedido']['comuna']
-    else:
-      return None
-
-
+          names = [key_info.name for key_info in no_expirados.keys]
+          names_sorted = names.sort
+          name_key_mas_expirable = names[0]
+          console.log(f"name_key_mas_expirable {name_key_mas_expirable}")
+          token = await env.FINANCIERO.get( name_key_mas_expirable )
+          await env.FINANCIERO.delete( name_key_mas_expirable)
+          console.log(f"Se ha eliminado el token más expirable {name_key_mas_expirable}")
+          await env.BUY_ORDER.delete( str(buy_order))
+          return False
 
 
 
@@ -991,47 +858,9 @@ async def say_jefe(env, descripcion):
 
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado as, buy_orderí
-async def derivar_jefe(env, nombre_cliente, descripcion, direccion, buy_order, comuna):
-        return await say_atender(env, str(env.FONO_JEFE), str(env.FONO_JEFE), 'JEFE', direccion, comuna, buy_order)
+async def derivar_jefe(env, nombre, descripcion, direccion, buy_order, comuna):
+        return await say_atender(env, str(env.FONO_JEFE), str(env.FONO_JEFE), nombre, direccion, comuna, buy_order)
 
-
-
-async def say_confirmacion_de_caso( env, wa_id, nombre, nombre_cliente, fono_cliente, descripcion, comuna ):
-        console.log("En say_confirmacion_de_casor")
-        console.log(f"wa_id {wa_id}")
-        console.log( f"descripcion  {descripcion}")
-
-        body = { "messaging_product" :  "whatsapp",
-                "to"                   :  wa_id,
-                "type"                 :  "template",
-                "template"             : { "name" : "confirmacion_de_caso", "language" : { "code" : "es" },
-                    "components"           : [  { "type" :   "body",
-                        "parameters" : [
-              { "type"             :   "text", "text" : nombre    } ,
-              { "type"             :   "text", "text" : descripcion } ,
-              { "type"             :   "text", "text" : comuna    },
-              { "type"             :   "text", "text" : nombre_cliente } ,
-              { "type"             :   "text", "text" : fono_cliente    }
-            ] } ] }}
-
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
-        }
-        options = {
-               "body": json.dumps(body),
-               "method": "POST",
-               "headers": {
-                 "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
-                 "content-type": "application/json;charset=UTF-8"
-               },
-        }
-        response = await fetch(uri, to_js(options))
-        console.log(f"response {response}")
-        content_type, result = await gather_response(response)
-        console.log(f"result {result}")
-        return
 
 
 

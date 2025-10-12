@@ -534,10 +534,11 @@ def webhook_get(request, env):
 
 
 async def anotar_tokens_pagados_promocionales( env, buy_order, fono, cantidad ):
+    fono = fix_fono( fono )
     now = datetime.now()
     fecha_en_el_vencimiento = now + timedelta(days = int( await env.TOKEN_VENCIMIENTO.get()))
     for orden in range(1, cantidad + 1 ):
-      pedido = { 'token': {'orden': orden, 'expira_en': str(fecha_en_el_vencimiento), 'buy_order': buy_order, 'fono': fix_fono( fono), "amount": 0, "acuñado_en": json.dumps( date.today().isoformat()) }}
+      pedido = { 'token': {'orden': orden, 'expira_en': str(fecha_en_el_vencimiento), 'buy_order': buy_order, 'fono': fono, "amount": 0, "acuñado_en": json.dumps( date.today().isoformat()) }}
       await env.FINANCIERO.put( f"{fono}:token:pagado:no_expirado:promocional:{orden}", json.dumps(pedido), { 'expirationTtl': await env.TOKEN_VENCIMIENTO.get() })
     return
 

@@ -400,6 +400,7 @@ async def on_fetch(request, env):
 
                             nombre_cliente = await get_nombre_cliente( env, buy_order)
                             fono_cliente   = await get_fono_cliente( env, buy_order)
+                            console.log(f"fono_cliente {fono_cliente}")
 
                             descripcion    = await get_descripcion_cliente( env, buy_order)
                             comuna         = await get_comuna_cliente( env, buy_order)

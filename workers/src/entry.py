@@ -680,7 +680,7 @@ async def get_datos_cliente(env, buy_order):
     if pedido_json:
       pedido = json.loads(pedido_json)
       console.log(f"pedido {pedido}")
-      return pedido['pedido']['descripcion'], pedido['pedido']['comuna']
+      return pedido['pedido']['comuna'], pedido['pedido']['comuna']
     else:
       return None
 

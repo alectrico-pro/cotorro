@@ -368,15 +368,12 @@ async def on_fetch(request, env):
 
                        console.log(f"id {id}")
 
-                       try:
-                         buy_order = await env.DICT.get(id)
-                         if buy_order:
+                       buy_order = await env.DICT.get(id)
+                       if buy_order:
                             console.log(f"buy_order {buy_order}")
                             await tomar_token(env, wa_id, buy_order )
-                         else:
+                       else:
                             console.log(f"id {id} no tiene buy_order")
-                       except:
-                         pass
                   return Response( "Procesado", status="200")
                else:
                   return Response( "No Procesado", status="200")
@@ -575,13 +572,8 @@ async def tomar_token(env, fono, buy_order ):
           #eliminar el más próximo en expirar --------------
 
           if len(no_expirados.keys) > 0:
-             names = []
-             for key in no_expirados.keys:
-               console.log(f"key {key.name}")
-               names.append( key.name )
+             names = [key_info.name for key_info in no_expirados.keys]
              names_sorted = names.sort
-
-             #Este expira más temprano que el resto
              name_key_mas_expirable = names[0]
 
              console.log(f"name_key_mas_expirable {name_key_mas_expirable}")

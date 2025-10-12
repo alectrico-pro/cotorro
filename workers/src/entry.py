@@ -346,8 +346,8 @@ async def on_fetch(request, env):
 
         if hasattr( value, 'calls') and hasattr(value, 'contacts') :
                                nombre       = value.contacts[0].profile.name
-                               fono_cliente = value.contacts[0].wa_id
-                               de            = value.calls[0].to
+                               fono_client = value.contacts[0].wa_id
+                               de           = getattr( value.calls[0], 'from' )
                                to           = value.calls[0].to
                                console.log(f"to {to}")
 

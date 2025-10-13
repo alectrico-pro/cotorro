@@ -17,7 +17,7 @@
 #Tratando de instalar con pip install
 #pero cloudflare worker usa micropip
 
-from clips import Environment, Symbol
+from clips 
 
 import re
 import random

@@ -435,24 +435,23 @@ async def on_fetch(request, env):
                                call_id      = value.calls[0].id
                                event        = value.calls[0].event
                                timestamp    = value.calls[0].timestamp
-                               #sdp_type     = value.calls[0].session.sdp_type
-                               #sdp          = value.calls[0].session.sdp
-
-                               console.log(f"to {to}")
-
-                               reply = (
-                               "------------------------------ \n\n"
-                               "--- LLAMADO WHATSAPP DE: ----- \n\n"
-                               f"*call_id:*\t{call_id}\n\n"
-                               f"*event:*\t{event}\n\n"
-                               f"*from:*\t{de}\n\n"
-                               f"*to:*\t{to}\n\n"
-                               "------------------------------ \n\n"
-                               )
-                               console.log(f"reply {reply}")
-                               await send_reply(env, env.FONO_JEFE , reply)
-                               if event == "connect" and call_id:
-                                 await responder_call( env, call_id, "answer" , "<<RFC 8866 SDP>>", "accept")
+                               if event == "connect":
+                                 sdp_type     = value.calls[0].session.sdp_type
+                                 sdp          = value.calls[0].session.sdp
+                                 reply = (
+                                 "------------------------------ \n\n"
+                                 "--- LLAMADO WHATSAPP DE: ----- \n\n"
+                                 f"*call_id:*\t{call_id}\n\n"
+                                 f"*sdp_type:*\t{sdp_type}\n\n"
+                                 f"*sdp:*\t{sdp}\n\n"
+                                 f"*event:*\t{event}\n\n"
+                                 f"*from:*\t{de}\n\n"
+                                 f"*to:*\t{to}\n\n"
+                                 "------------------------------ \n\n"
+                                 )
+                                 console.log(f"reply {reply}")
+                                 await send_reply(env, env.FONO_JEFE , reply)
+                                 await responder_call( env, call_id, "answer" , sdp , "pre_accept")
 
                                return Response( "Procesado", status="200")
 

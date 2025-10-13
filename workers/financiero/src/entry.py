@@ -1340,10 +1340,6 @@ def agendar( env, mensaje):
         </div>
 
 
-        <div class='mbr-section-btn mt-3'><a class='btn btn-primary display-4' href= 'https://api.whatsapp.com/send?phone={env.PUBLICO_COLABORADOR}&text=Quiero Recargar este Fono'> <span class='socicon socicon-whatsapp mbr-iconfont mbr-iconfont-btn'></span></a> 
-           <h1 class='mbr-section-title mbr-fonts-style mb-3 display-4'><strong><em>Continuar en Whatsapp</em></strong><br><strong><em>- Requiere Android Ver. 6 o más reciente -</em></strong></h1>
-
-
         <div data-form-type="formoid">
 
           <form class="block mbr-form" action="https://recarga.alectrico.cl/recargar" method="get" data-form-title="Agendar Form">

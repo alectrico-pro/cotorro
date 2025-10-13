@@ -1069,6 +1069,26 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
         return
 
 
+
+#Obtiene el saldo en tokens de un colaborador
+#presupone que los algoritmos de anotar y tomar tokens
+#mantinen bien el regenv, stro de tokens
+#anotando pagado:env, o_expirado
+async def get_saldo( env, wa_id):
+            fono = fix_fono( wa_id )
+            pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
+            for key in pagados.keys:
+                     token = await env.FINANCIERO.get( key.name )
+                     token_dict = json.loads(token)
+                     expira_en  = token_dict['token']['expira_en']
+                     orden      = token_dict['token']['orden']
+                     if datetime.today() > datetime.fromisoformat( expira_en ):
+                          token_expirado = f"{fono}:token:pagado:expirado:{orden}"
+                          await env.FINANCIERO.put(f"{token_expirado}", token)
+
+          return len( await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado") )
+
+
 async def es_colaborador( env, wa_id):
           colaboradores = await env.NOMINA.list()
           console.log(f"keys {colaboradores.keys}")
@@ -1123,13 +1143,13 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
 
 #Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
 #Ese botón, permite a un colaboraodr tomar la orden dada por buy_order
-async def say_atender( env, wa_id, taker_fono, nombre, descripcion, comuna, buy_order, saldo=0 ):
+async def say_atender( env, wa_id, taker_fono, nombre, descripcion, comuna, buy_order ):
         console.log("En say_atender")
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
 
         #-cuando no tenga saldo la imagen deb ser ilustrativa de los pasos para lograr 
-        if saldo > 0:
+        if await get_saldo(env, wa_id) > 0:
           imagen_url = f"{env.API_URL}/{env.TAKEME_IMAGE_PATH}"
         else:
           imagen_url = f"{env.API_URL}/{env.FIRST_TAKEME_IMAGE_PATH}"

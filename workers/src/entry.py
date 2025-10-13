@@ -211,7 +211,7 @@ async def on_fetch(request, env):
     #console.log(f"META_USER_TOKEN {await env.META.get('USER_TOKEN')}")
 
     console.log(f"Handling request {url.path} with params {params}")
-    if url.path == 'testing_flow':
+    if url.path == '/testing_flow':
         return Response( 'ok', status="200", headers=headers )
 
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------

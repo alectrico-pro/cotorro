@@ -222,7 +222,7 @@ async def on_fetch(request, env):
         return success_mostrar_fono(env,  f"Felicitaciones, el flow ha sido probado con éxito.", 9)
 
     elif url.path == '/instrucciones':
-      await say_instrucciones( env, env.FONO_JEFE, await get_saldo( env, env.FONO_JEFE), "JEFE", "*Tomar:* Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos.", "*Recargar:* Presione Recargar para comprar un token", "*recarga.alectrico.cl*: Visite recarga.alectrico.cl para comprar más de un token (requiere que Id. tenga bolsa de datos (o plan de telefonía que incluya acceso a datos).", env.FONO_JEFE)
+      await say_instrucciones( env, env.FONO_JEFE, await get_saldo( env, env.FONO_JEFE), "JEFE", "*Tomar:* Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos.", "*Recargar:* Presione Recargar para comprar un token", env.FONO_JEFE)
       return success_mostrar_fono(env,  f"Instrucciones enviadas.", 9)
 
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------
@@ -1101,7 +1101,6 @@ async def say_jefe(env, descripcion):
 async def say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, instruccion_3, fono ):
         console.log("En say_instrucciones")
         console.log(f"wa_id {wa_id}")
-        console.log( f"titulo  {titulodes}")
         imagen_url = f"{env.API_URL}/{env.FIRST_TAKEME_IMAGE_PATH}"
 
         body = { "messaging_product" :  "whatsapp",
@@ -1114,7 +1113,6 @@ async def say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instrucci
               { "type"             :   "text", "text" : saldo        } ,
               { "type"             :   "text", "text" : instruccion_1},
               { "type"             :   "text", "text" : instruccion_2},
-              { "type"             :   "text", "text" : instruccion_3},
               { "type"             :   "text", "text" : fono    }
             ] } ] }}
 

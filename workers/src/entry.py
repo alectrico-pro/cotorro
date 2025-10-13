@@ -36,6 +36,13 @@ from datetime import date
 from datetime import datetime
 from datetime import timedelta
 
+#Para decodificar flows endpoint
+import os
+from base64 import b64decode, b64encode
+from cryptography.hazmat.primitives.asymmetric.padding import OAEP, MGF1, hashes
+from cryptography.hazmat.primitives.ciphers import algorithms, Cipher, modes
+from cryptography.hazmat.primitives.serialization import load_pem_private_key
+
 
 #from clips import Environment, Symbol
 

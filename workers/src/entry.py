@@ -221,6 +221,10 @@ async def on_fetch(request, env):
         console.log(f"Params en /testing_flow {params}")
         return success_mostrar_fono(env,  f"Felicitaciones, el flow ha sido probado con éxito.", 9)
 
+    elif url.path == '/instrucciones':
+      say_instrucciones( env, env.FONO_JEFE, "JEFE", "Instrucciones", "Tomar: ", "Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos.", "Recargar: ", "Presione Recargar para comprar un token", "recarga.alectrico.cl: ", "Viste recarga.alectrico.cl para comprar más de un token (requiere que Id. tenga bolsa de datos (o plan de telefonía que incluya acceso a datos).", "Suerte!")
+      return success_mostrar_fono(env,  f"Instrucciones enviadas.", 9)
+
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------
     elif url.path == '/create_from_landing_page' and method== 'POST':
         console.log(f"Params en /create_from_landing_page {params}")
@@ -1092,7 +1096,52 @@ async def flow_reply_processor(request_json, env):
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado así
 async def say_jefe(env, descripcion):
         pass
-        #return await say_tomar( env, str(env.FONO_JEFE), 'ALE JEFE', descripcion, 'PROVIDENCIA')
+
+
+async def say_instrucciones( env, wa_id, nombre, titulo, subtitulo_1, instruccion_1, subtitulo_2, instruccion_2, subtitulo_3, instruccion_3, despedida):
+        console.log("En say_instrucciones")
+        console.log(f"wa_id {wa_id}")
+        console.log( f"titulo  {titulodes}")
+        imagen_url = f"{env.API_URL}/{env.FIRST_TAKEME_IMAGE_PATH}"
+
+        body = { "messaging_product" :  "whatsapp",
+                "to"                   :  wa_id,
+                "type"                 :  "template",
+                "template"             : { "name" : "say_instrucciones", "language" : { "code" : "es" },
+                    "components"           : [ 
+              { "type": "header",  "parameters": [ { "type" : "image", "image": { "link": imagen_url } } ] },
+              { "type" :   "body",    "parameters" : [
+              { "type"             :   "text", "text" : nombre       } , 
+              { "type"             :   "text", "text" : titulo       } ,
+              { "type"             :   "text", "text" : subtitulo_1  } ,
+              { "type"             :   "text", "text" : instruccion_1},
+              { "type"             :   "text", "text" : subtitulo_2  } ,
+              { "type"             :   "text", "text" : instruccion_2}
+              { "type"             :   "text", "text" : subtitulo_3  } ,
+              { "type"             :   "text", "text" : instruccion_3},
+              { "type"             :   "text", "text" : despedida    }
+            ] } ] }}
+
+        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
+        }
+        options = {
+               "body": json.dumps(body),
+               "method": "POST",
+               "headers": {
+                 "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+                 "content-type": "application/json;charset=UTF-8"
+               },
+        }
+        response = await fetch(uri, to_js(options))
+        console.log(f"response {response}")
+        content_type, result = await gather_response(response)
+        console.log(f"result {result}")
+        return
+
+
 
 
 
@@ -1141,7 +1190,7 @@ async def say_confirmacion_de_caso( env, wa_id, nombre, nombre_cliente, fono_cli
 
 
 
-async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
+async def say_tomar( env, wa_id, nombre, descripcion, comuna, buy_order ):
         console.log("En say_tomar")
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
@@ -1174,6 +1223,16 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna ):
         console.log(f"response {response}")
         content_type, result = await gather_response(response)
         console.log(f"result {result}")
+        content_type, result = await gather_response(response)
+        console.log(f"result {result}")
+        result_dict = json.loads( result )
+        id = result_dict['messages'][0]['id']
+        console.log(f"id {id}") 
+        try:
+          await env.DICT.put( id, buy_order, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+        except:
+          pass
+
         return
 
 
@@ -1287,7 +1346,7 @@ async def responder_call( env, call_id, sdp_type, sdp, action):
 
 
 
-#Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
+#Envía un template say_atender buy_order que responde con un botón que lleva buy_order
 #Ese botón, permite a un colaboraodr tomar la orden dada por buy_order
 async def say_atender( env, wa_id, taker_fono, nombre, descripcion, comuna, buy_order ):
         console.log("En say_atender")

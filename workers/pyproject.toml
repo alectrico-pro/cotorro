@@ -5,7 +5,7 @@
     description = "Usando clips en un worker de alectrico"
     requires-python = ">=3.12"
     dependencies = [
-       "clipspy==1.0.0"
+       "clipspy==1.0.5"
     ]
 
     [dependency-groups]

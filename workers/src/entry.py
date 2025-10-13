@@ -1123,11 +1123,16 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
 
 #Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
 #Ese botón, permite a un colaboraodr tomar la orden dada por buy_order
-async def say_atender( env, wa_id, taker_fono, nombre, descripcion, comuna, buy_order ):
+async def say_atender( env, wa_id, taker_fono, nombre, descripcion, comuna, buy_order, saldo=0 ):
         console.log("En say_atender")
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
-        imagen_url = f"{env.API_URL}/{env.TAKEME_IMAGE_PATH}"
+
+        #-cuando no tenga saldo la imagen deb ser ilustrativa de los pasos para lograr 
+        if saldo > 0:
+          imagen_url = f"{env.API_URL}/{env.TAKEME_IMAGE_PATH}"
+        else:
+          imagen_url = f"{env.API_URL}/{env.FIRST_TAKEME_IMAGE_PATH}"
 
 
         body =  { "messaging_product": "whatsapp",

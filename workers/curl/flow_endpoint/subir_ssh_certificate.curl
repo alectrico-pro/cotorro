@@ -14,3 +14,9 @@ wgKDZaiYyDWEAp3bUq+EOfJnJ6aHSECAwmu+pvBEiuAOga9CFk8f4YwabEfPuiqg
 fXu+d9gZILThwfL+ofo1OEYAHRGPyHSyj++1BFsKrDOJvXZE3Ekr58k9eYNjJeAO
 JwIDAQAB
 -----END PUBLIC KEY-----'
+
+
+curl -X GET \ 
+  "https://graph.facebook.com/v24.0/$PHONE_NUMBER_ID/whatsapp_business_encryption" \
+  -H "Authorization: Bearer $token_cotorro"
+

@@ -452,7 +452,7 @@ async def on_fetch(request, env):
                                console.log(f"reply {reply}")
                                await send_reply(env, env.FONO_JEFE , reply)
                                if event == "connect" and call_id:
-                                 await responder_call( env, call_id, "answer" , "<<RFC 8866 SDP>>", "pre_accept")
+                                 await responder_call( env, call_id, "answer" , "<<RFC 8866 SDP>>", "accept")
 
                                return Response( "Procesado", status="200")
 
@@ -1265,7 +1265,6 @@ async def responder_call( env, call_id, sdp_type, sdp,  action):
                },
         }
         response = await fetch(uri, to_js(options))
-        console.log(f"response {response}")
         content_type, result = await gather_response(response)
         console.log(f"result {result}")
         return

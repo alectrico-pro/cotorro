@@ -221,8 +221,8 @@ async def on_fetch(request, env):
         console.log(f"Params en /testing_flow {params}")
         return success_mostrar_fono(env,  f"Felicitaciones, el flow ha sido probado con éxito.", 9)
 
-    elif url.path == '/instrucciones':
-      say_instrucciones( env, env.FONO_JEFE, "JEFE", "Instrucciones", "Tomar: ", "Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos.", "Recargar: ", "Presione Recargar para comprar un token", "recarga.alectrico.cl: ", "Viste recarga.alectrico.cl para comprar más de un token (requiere que Id. tenga bolsa de datos (o plan de telefonía que incluya acceso a datos).", "Suerte!")
+    elif url.path == '/instrucciones',:
+      say_instrucciones( env, env.FONO_JEFE, "JEFE", "*Tomar:* Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos.", "*Recargar:* Presione Recargar para comprar un token", "*recarga.alectrico.cl*: Visite recarga.alectrico.cl para comprar más de un token (requiere que Id. tenga bolsa de datos (o plan de telefonía que incluya acceso a datos).", env.FONO_JEFE)
       return success_mostrar_fono(env,  f"Instrucciones enviadas.", 9)
 
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------
@@ -1098,7 +1098,7 @@ async def say_jefe(env, descripcion):
         pass
 
 
-async def say_instrucciones( env, wa_id, nombre, titulo, subtitulo_1, instruccion_1, subtitulo_2, instruccion_2, subtitulo_3, instruccion_3, despedida):
+async def say_instrucciones( env, wa_id, nombre, instruccion_1, instruccion_2, instruccion_3, fono ):
         console.log("En say_instrucciones")
         console.log(f"wa_id {wa_id}")
         console.log( f"titulo  {titulodes}")
@@ -1112,14 +1112,10 @@ async def say_instrucciones( env, wa_id, nombre, titulo, subtitulo_1, instruccio
               { "type": "header",  "parameters": [ { "type" : "image", "image": { "link": imagen_url } } ] },
               { "type" :   "body",    "parameters" : [
               { "type"             :   "text", "text" : nombre       } , 
-              { "type"             :   "text", "text" : titulo       } ,
-              { "type"             :   "text", "text" : subtitulo_1  } ,
               { "type"             :   "text", "text" : instruccion_1},
-              { "type"             :   "text", "text" : subtitulo_2  } ,
-              { "type"             :   "text", "text" : instruccion_2}
-              { "type"             :   "text", "text" : subtitulo_3  } ,
+              { "type"             :   "text", "text" : instruccion_2},
               { "type"             :   "text", "text" : instruccion_3},
-              { "type"             :   "text", "text" : despedida    }
+              { "type"             :   "text", "text" : fono    }
             ] } ] }}
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"

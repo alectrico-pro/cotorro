@@ -547,7 +547,7 @@ async def on_fetch(request, env):
                                console.log("No se pudo obtener fono de cliente")
                        else:
                             console.log(f"id {id} no tiene buy_order")
-            return Response( "No Procesado", status="200")
+               return Response( "No Procesado", status="200")
 
 
 
@@ -1250,10 +1250,10 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
           pass
         return
 
-async def responder_call( env, call_id, sdp_type, sdp,  action):
+async def responder_call( env, call_id, sdp_type, sdp, action):
         console.log("En responder_call")
         console.log(f"call_id {call_id}")
-        console.log( f"sdp_type  {sdp_type}")
+        console.log(f"sdp_type  {sdp_type}")
         body = {  "messaging_product": "whatsapp",
               "call_id": call_id,
                "action": action,

@@ -228,8 +228,10 @@ async def on_fetch(request, env):
       nombre = "jefe"
       fono   = wa_id
       instruccion_1="*Tomar:* Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos."
-      instruccion_2= "*Recargar:* Presione Recargar para comprar un token"
-      await say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, fono )
+      instruccion_2= "*Recargar:* Presione Recargar para comprar un token."
+      instruccion_3= "*recarga.alectrico.cl:* Visite https://recarga.alectrico.cl para comprar más de un token."
+
+      await say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, instruccion_3 )
 
       return success_mostrar_fono(env,  f"Instrucciones enviadas.", 9)
 
@@ -1106,7 +1108,7 @@ async def say_jefe(env, descripcion):
         pass
 
 
-async def say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, fono ):
+async def say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, instruccion_3 ):
         console.log("En say_instrucciones")
         console.log(f"wa_id {wa_id}")
         imagen_url = f"{env.API_URL}/{env.FIRST_TAKEME_IMAGE_PATH}"

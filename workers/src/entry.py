@@ -24,7 +24,8 @@
 #    pure Python wheels from PyPI with micropip.
 
 #    pure Python and binary wasm32/emscripten wheels (also informally known as “Pyodide packages” or “packages built by Pyodide”) from the JsDelivr CDN and custom URLs. micropip.install() is an async Python function which returns a coroutine, so it need to be called with an await clause to run.
-clips = pyodide.pyimport("clips")
+
+#import clips no funciona, a pesar de que el package se carga bien
 
 import re
 import random
@@ -48,6 +49,9 @@ from datetime import timedelta
 #Para decodificar flows endpoint
 import os
 from base64 import b64decode, b64encode
+
+
+#criyptography es un paquete oficial de pyodide
 #from cryptography.hazmat.primitives.asymmetric.padding import OAEP, MGF1, hashes
 #from cryptography.hazmat.primitives.ciphers import algorithms, Cipher, modes
 #from cryptography.hazmat.primitives.serialization import load_pem_private_key

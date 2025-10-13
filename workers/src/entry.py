@@ -14,12 +14,8 @@
 #from transbank.webpay.webpay_plus import WebpayPlus
 #pip install transbank-sdk
 
-#Tratando de instalar con pip install
-#pero cloudflare worker usa micropip
-import sys
-# Hay que ejecutar esta línea antes de importar el módulo.
-sys.path.append("C:/Users/usuario/Documents/modulos")
-# Ahora se puede importar el módulo.
+
+import clips
 
 import re
 import random
@@ -114,13 +110,6 @@ def encrypt_response(response, aes_key, iv):
 
 
 #------------------------------------------------ FLOW ENDPOINT ---
-
-#from clips import Environment, Symbol
-
-
-#const globals = pyodide.toPy({})
-#globals.set('x', 123)
-#globals.set('y', { a: 1, b: 2 } )
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

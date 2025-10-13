@@ -16,7 +16,8 @@
 
 #Tratando de instalar con pip install
 #pero cloudflare worker usa micropip
-import clips
+from clipspy import clips
+
 import re
 import random
 import logging

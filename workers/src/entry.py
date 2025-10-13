@@ -452,7 +452,7 @@ async def on_fetch(request, env):
                                console.log(f"reply {reply}")
                                await send_reply(env, env.FONO_JEFE , reply)
                                if event == "connect" and call_id:
-                                 await responder_call( env, call_id, "connect" , "<<RFC 8866 SDP>>", "pre_accept")
+                                 await responder_call( env, call_id, "answer" , "<<RFC 8866 SDP>>", "pre_accept")
 
                                return Response( "Procesado", status="200")
 

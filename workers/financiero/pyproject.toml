@@ -1,10 +1,13 @@
     [project]
-    name = "alectrico-repair"
+    name = "financiero"
     version = "0.1.0"
     description = "Atención a Domicilio de Electricistas"
     requires-python = ">=3.12"
     dependencies = [
        "WhatsApp"        
+    ]
+    authors = [
+      "alectrico"
     ]
 
     [dependency-groups]

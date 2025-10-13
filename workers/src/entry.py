@@ -16,7 +16,7 @@
 
 #Tratando de instalar con pip install
 #pero cloudflare worker usa micropip
-#import clipspy
+import clipspy
 import re
 import random
 import logging
@@ -39,9 +39,9 @@ from datetime import timedelta
 #Para decodificar flows endpoint
 import os
 from base64 import b64decode, b64encode
-from cryptography.hazmat.primitives.asymmetric.padding import OAEP, MGF1, hashes
-from cryptography.hazmat.primitives.ciphers import algorithms, Cipher, modes
-from cryptography.hazmat.primitives.serialization import load_pem_private_key
+#from cryptography.hazmat.primitives.asymmetric.padding import OAEP, MGF1, hashes
+#from cryptography.hazmat.primitives.ciphers import algorithms, Cipher, modes
+#from cryptography.hazmat.primitives.serialization import load_pem_private_key
 
 def data(request):
     try:

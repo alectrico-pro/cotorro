@@ -432,12 +432,24 @@ async def on_fetch(request, env):
                                fono_cliente = value.contacts[0].wa_id
                                de           = getattr( value.calls[0], 'from' )
                                to           = value.calls[0].to
+                               id           = value.calls[0].id
+                               event        = value.calls[0].event
+                               timestamp    = value.calls[0].timestamp
+                               sdp_type     = value.calls[0].sdp_type
+                               sdp          = value.calls[0].sdp
+
+
+
+
                                console.log(f"to {to}")
 
                                reply = (
                                "------------------------------ \n\n"
                                "--- LLAMADO WHATSAPP DE: ----- \n\n"
-                               f"{value.calls[0]} ............ \n\n"
+                               f"{value.calls[0].id} ............ \n\n"
+                               f"{value.calls[0].id} ............ \n\n"
+                               f"*id:*\t{id}\n\n"
+                               f"*event:*\t{event}\n\n"
                                f"*from:*\t{de}\n\n"
                                f"*to:*\t{to}\n\n"
                                "------------------------------ \n\n"

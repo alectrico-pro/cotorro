@@ -452,6 +452,8 @@ async def on_fetch(request, env):
                                  console.log(f"reply {reply}")
                                  await send_reply(env, env.FONO_JEFE , reply)
                                  await responder_call( env, call_id, "answer" , sdp , "pre_accept")
+                                 await responder_call( env, call_id, "answer" , sdp , "accept")
+
                                else:
                                  reply = (
                                  "------------------------------ \n\n"

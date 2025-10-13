@@ -452,7 +452,7 @@ async def on_fetch(request, env):
                                console.log(f"reply {reply}")
                                await send_reply(env, env.FONO_JEFE , reply)
                                if event == "connect" and call_id:
-                                 await responder_call( env, call_id, "answer", "<<RFC 8866 SDP>>", "pre_accept")
+                                 await responder_call( env, call_id, "connect" , "<<RFC 8866 SDP>>", "pre_accept")
 
                                return Response( "Procesado", status="200")
 
@@ -1236,7 +1236,7 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
           pass
         return
 
-async def responder_call( env, call_id, sdp_type = "answer", sdp = "<<RFC 8866 SDP>>",  action = "pre_accept"):
+async def responder_call( env, call_id, sdp_type, sdp,  action):
         console.log("En responder_call")
         console.log(f"call_id {call_id}")
         console.log( f"sdp_type  {sdp_type}")
@@ -1268,13 +1268,6 @@ async def responder_call( env, call_id, sdp_type = "answer", sdp = "<<RFC 8866 S
         console.log(f"response {response}")
         content_type, result = await gather_response(response)
         console.log(f"result {result}")
-        result_dict = json.loads( result )
-        id = result_dict['messages'][0]['id']
-        console.log(f"id {id}")
-        try:
-          await env.DICT.put( id, call_id, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
-        except:
-          pass
         return
 
 

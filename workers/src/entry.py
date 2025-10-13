@@ -435,16 +435,14 @@ async def on_fetch(request, env):
                                call_id      = value.calls[0].id
                                event        = value.calls[0].event
                                timestamp    = value.calls[0].timestamp
-                               sdp_type     = value.calls[0].session.sdp_type
-                               sdp          = value.calls[0].session.sdp
+                               #sdp_type     = value.calls[0].session.sdp_type
+                               #sdp          = value.calls[0].session.sdp
 
                                console.log(f"to {to}")
 
                                reply = (
                                "------------------------------ \n\n"
                                "--- LLAMADO WHATSAPP DE: ----- \n\n"
-                               f"sdp_type {value.calls[0].sdp_type} ............ \n\n"
-                               f"sdp {value.calls[0].sdp} ............ \n\n"
                                f"*call_id:*\t{call_id}\n\n"
                                f"*event:*\t{event}\n\n"
                                f"*from:*\t{de}\n\n"
@@ -454,7 +452,7 @@ async def on_fetch(request, env):
                                console.log(f"reply {reply}")
                                await send_reply(env, env.FONO_JEFE , reply)
                                if event == "connect" and call_id:
-                                 responder_call( env, call_id, sdp_type = "answer", sdp = sdp)
+                                 responder_call( env, call_id, sdp_type = "answer", sdp = "<<RFC 8866 SDP>>")
 
                                return Response( "Procesado", status="200")
 

@@ -222,7 +222,15 @@ async def on_fetch(request, env):
         return success_mostrar_fono(env,  f"Felicitaciones, el flow ha sido probado con éxito.", 9)
 
     elif url.path == '/instrucciones':
-      await say_instrucciones( env, env.FONO_JEFE, await get_saldo( env, env.FONO_JEFE), "JEFE", "*Tomar:* Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos.", "*Recargar:* Presione Recargar para comprar un token", env.FONO_JEFE)
+      #async def say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, fono ):
+      saldo = await get_saldo( env, env.FONO_JEFE)
+      wa_id  = env.FONO_JEFE
+      nombre = "jefe"
+      fono   = wa_id
+      instruccion_1="*Tomar:* Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos."
+      instruccion_2= "*Recargar:* Presione Recargar para comprar un token"
+      say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, fono ):
+
       return success_mostrar_fono(env,  f"Instrucciones enviadas.", 9)
 
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------
@@ -1098,7 +1106,7 @@ async def say_jefe(env, descripcion):
         pass
 
 
-async def say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, instruccion_3, fono ):
+async def say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, fono ):
         console.log("En say_instrucciones")
         console.log(f"wa_id {wa_id}")
         imagen_url = f"{env.API_URL}/{env.FIRST_TAKEME_IMAGE_PATH}"

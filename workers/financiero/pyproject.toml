@@ -4,7 +4,7 @@
     description = "Atención a Domicilio de Electricistas"
     requires-python = ">=3.12"
     dependencies = [
-       "WhatsApp"        
+       "auto-whatsapp"        
     ]
     [dependency-groups]
     dev = ["workers-py"]

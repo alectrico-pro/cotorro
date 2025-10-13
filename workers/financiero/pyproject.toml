@@ -6,9 +6,5 @@
     dependencies = [
        "WhatsApp"        
     ]
-    authors = [
-      "alectrico"
-    ]
-
     [dependency-groups]
     dev = ["workers-py"]

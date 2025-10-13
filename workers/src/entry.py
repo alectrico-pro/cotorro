@@ -435,11 +435,8 @@ async def on_fetch(request, env):
                                id           = value.calls[0].id
                                event        = value.calls[0].event
                                timestamp    = value.calls[0].timestamp
-                               sdp_type     = value.calls[0].sdp_type
-                               sdp          = value.calls[0].sdp
-
-
-
+                               sdp_type     = value.calls[0].session.sdp_type
+                               sdp          = value.calls[0].session.sdp
 
                                console.log(f"to {to}")
 

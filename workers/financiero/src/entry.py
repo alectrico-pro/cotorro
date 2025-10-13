@@ -1,4 +1,3 @@
-#https://pypi.org
 
 #Esto ahorra conexiones simulatneas
 #Están limitdas a solo 6

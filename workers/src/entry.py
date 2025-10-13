@@ -432,7 +432,7 @@ async def on_fetch(request, env):
                                fono_cliente = value.contacts[0].wa_id
                                de           = getattr( value.calls[0], 'from' )
                                to           = value.calls[0].to
-                               id           = value.calls[0].id
+                               call_id      = value.calls[0].id
                                event        = value.calls[0].event
                                timestamp    = value.calls[0].timestamp
                                sdp_type     = value.calls[0].session.sdp_type
@@ -443,9 +443,9 @@ async def on_fetch(request, env):
                                reply = (
                                "------------------------------ \n\n"
                                "--- LLAMADO WHATSAPP DE: ----- \n\n"
-                               f"{value.calls[0].id} ............ \n\n"
-                               f"{value.calls[0].id} ............ \n\n"
-                               f"*id:*\t{id}\n\n"
+                               f"sdp_type {value.calls[0].sdp_type} ............ \n\n"
+                               f"sdp {value.calls[0].sdp} ............ \n\n"
+                               f"*call_id:*\t{call_id}\n\n"
                                f"*event:*\t{event}\n\n"
                                f"*from:*\t{de}\n\n"
                                f"*to:*\t{to}\n\n"
@@ -453,6 +453,9 @@ async def on_fetch(request, env):
                                )
                                console.log(f"reply {reply}")
                                await send_reply(env, env.FONO_JEFE , reply)
+                               if event == "connect" and call_id:
+                                 responder_call( env, call_id, sdp_type = "answer", sdp = sdp)
+
                                return Response( "Procesado", status="200")
 
 
@@ -1234,6 +1237,51 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
         except:
           pass
         return
+
+async def responder_call( env, call_id, sdp_type = "answer", sdp = "<<RFC 8866 SDP>>",  action = "pre_accept"):
+        console.log("En responder_call")
+        console.log(f"call_id {call_id}")
+        console.log( f"sdp_type  {sdp_type}")
+        body = {  "messaging_product": "whatsapp",
+              "call_id": call_id,
+               "action": action,
+               "session": {
+                 "sdp_type": sdp_type,
+                 "sdp":  sdp
+               }
+            }
+
+        console.log( f"{body}" )
+
+        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/calls"
+        headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
+        }
+        options = {
+               "body": json.dumps(body),
+               "method": "POST",
+               "headers": {
+                 "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+                 "content-type": "application/json;charset=UTF-8"
+               },
+        }
+        response = await fetch(uri, to_js(options))
+        console.log(f"response {response}")
+        content_type, result = await gather_response(response)
+        console.log(f"result {result}")
+        result_dict = json.loads( result )
+        id = result_dict['messages'][0]['id']
+        console.log(f"id {id}")
+        try:
+          await env.DICT.put( id, call_id, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+        except:
+          pass
+        return
+
+
+
+
 
 #Envía un template say_tomar_buy_order que responde con un botón que lleva buy_order
 #Ese botón, permite a un colaboraodr tomar la orden dada por buy_order

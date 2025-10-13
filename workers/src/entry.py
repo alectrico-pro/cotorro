@@ -222,7 +222,7 @@ async def on_fetch(request, env):
         return success_mostrar_fono(env,  f"Felicitaciones, el flow ha sido probado con éxito.", 9)
 
     elif url.path == '/instrucciones':
-      say_instrucciones( env, env.FONO_JEFE, await get_saldo( env.FONO_JEFE), "JEFE", "*Tomar:* Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos.", "*Recargar:* Presione Recargar para comprar un token", "*recarga.alectrico.cl*: Visite recarga.alectrico.cl para comprar más de un token (requiere que Id. tenga bolsa de datos (o plan de telefonía que incluya acceso a datos).", env.FONO_JEFE)
+      say_instrucciones( env, env.FONO_JEFE, await get_saldo( env, env.FONO_JEFE), "JEFE", "*Tomar:* Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos.", "*Recargar:* Presione Recargar para comprar un token", "*recarga.alectrico.cl*: Visite recarga.alectrico.cl para comprar más de un token (requiere que Id. tenga bolsa de datos (o plan de telefonía que incluya acceso a datos).", env.FONO_JEFE)
       return success_mostrar_fono(env,  f"Instrucciones enviadas.", 9)
 
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------

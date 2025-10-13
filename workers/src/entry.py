@@ -24,10 +24,7 @@
 #    pure Python wheels from PyPI with micropip.
 
 #    pure Python and binary wasm32/emscripten wheels (also informally known as “Pyodide packages” or “packages built by Pyodide”) from the JsDelivr CDN and custom URLs. micropip.install() is an async Python function which returns a coroutine, so it need to be called with an await clause to run.
-
-#https://pypi.org/project/clipspy/
-await pyodide.loadPackage("micropip");
-clips = pyodide.pyimport("clips");
+clips = pyodide.pyimport("clips")
 
 import re
 import random

@@ -16,8 +16,10 @@
 
 #Tratando de instalar con pip install
 #pero cloudflare worker usa micropip
-
-import clips 
+import sys
+# Hay que ejecutar esta línea antes de importar el módulo.
+sys.path.append("C:/Users/usuario/Documents/modulos")
+# Ahora se puede importar el módulo.
 
 import re
 import random

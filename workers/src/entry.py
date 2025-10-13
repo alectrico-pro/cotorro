@@ -43,6 +43,34 @@ from cryptography.hazmat.primitives.asymmetric.padding import OAEP, MGF1, hashes
 from cryptography.hazmat.primitives.ciphers import algorithms, Cipher, modes
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
 
+def data(request):
+    try:
+        # Parse the request body
+        body = json.loads(request.body)
+
+        # Read the request fields
+        encrypted_flow_data_b64 = body['encrypted_flow_data']
+        encrypted_aes_key_b64 = body['encrypted_aes_key']
+        initial_vector_b64 = body['initial_vector']
+
+        decrypted_data, aes_key, iv = decrypt_request(
+            encrypted_flow_data_b64, encrypted_aes_key_b64, initial_vector_b64)
+        print(decrypted_data)
+
+        # Return the next screen & data to the client
+        response = {
+            "screen": "SCREEN_NAME",
+            "data": {
+                "some_key": "some_value"
+            }
+        }
+
+        # Return the response as plaintext
+        return HttpResponse(encrypt_response(response, aes_key, iv), content_type='text/plain')
+    except Exception as e:
+        print(e)
+        return JsonResponse({}, status=500)
+
 def decrypt_request(encrypted_flow_data_b64, encrypted_aes_key_b64, initial_vector_b64):
     flow_data = b64decode(encrypted_flow_data_b64)
     iv = b64decode(initial_vector_b64)

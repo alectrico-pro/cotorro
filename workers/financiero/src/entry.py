@@ -1,3 +1,5 @@
+#https://pypi.org
+
 #Esto ahorra conexiones simulatneas
 #Están limitdas a solo 6
 #const response = await fetch(url);
@@ -54,6 +56,8 @@ logger = logging.getLogger(__name__)
 #Probando workflows ------------------------------
 
 from workers import WorkflowEntrypoint
+from auto_whatsapp import auto_whatsapp
+
 
 #Esta siendo llamado desde fech/
 class MyWorkflow(WorkflowEntrypoint):

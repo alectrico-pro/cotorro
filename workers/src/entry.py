@@ -27,7 +27,7 @@
 
 #https://pypi.org/project/clipspy/
 await pyodide.loadPackage("micropip");
-const micropip = pyodide.pyimport("micropip");
+micropip = pyodide.pyimport("micropip");
 await micropip.install('clipspy');
 pyodide.runPython(`
   import clips

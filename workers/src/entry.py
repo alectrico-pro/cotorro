@@ -212,10 +212,11 @@ async def on_fetch(request, env):
 
     console.log(f"Handling request {url.path} with params {params}")
     if url.path == '/testing_flow':
+        console.log(f"Params en /testing_flow {params}")
         return success_mostrar_fono(env,  f"Felicitaciones, el flow ha sido probado con éxito.", 9)
 
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------
-    if url.path == '/create_from_landing_page' and method== 'POST':
+    elif url.path == '/create_from_landing_page' and method== 'POST':
         console.log(f"Params en /create_from_landing_page {params}")
 
         body = await request.text()

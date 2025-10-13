@@ -27,12 +27,8 @@
 
 #https://pypi.org/project/clipspy/
 await pyodide.loadPackage("micropip");
-micropip = pyodide.pyimport("micropip");
-await micropip.install('clipspy');
-pyodide.runPython(`
-  import clips
-  environment = clips.Environment()
-`);
+clips = pyodide.pyimport("clips");
+
 import re
 import random
 import logging

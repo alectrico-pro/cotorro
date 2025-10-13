@@ -229,7 +229,7 @@ async def on_fetch(request, env):
       fono   = wa_id
       instruccion_1="*Tomar:* Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos."
       instruccion_2= "*Recargar:* Presione Recargar para comprar un token"
-      say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, fono )
+      await say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, fono )
 
       return success_mostrar_fono(env,  f"Instrucciones enviadas.", 9)
 

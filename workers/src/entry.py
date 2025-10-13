@@ -15,8 +15,24 @@
 #pip install transbank-sdk
 
 
-import clips
+#-3¿import clips
+#$$https://pyodide.org/en/stable/usage/loading-packages.html
+#Installing packages
 
+#Pyodide supports installing following types of packages with micropip,
+
+#    pure Python wheels from PyPI with micropip.
+
+#    pure Python and binary wasm32/emscripten wheels (also informally known as “Pyodide packages” or “packages built by Pyodide”) from the JsDelivr CDN and custom URLs. micropip.install() is an async Python function which returns a coroutine, so it need to be called with an await clause to run.
+
+#https://pypi.org/project/clipspy/
+await pyodide.loadPackage("micropip");
+const micropip = pyodide.pyimport("micropip");
+await micropip.install('clipspy');
+pyodide.runPython(`
+  import clips
+  environment = clips.Environment()
+`);
 import re
 import random
 import logging

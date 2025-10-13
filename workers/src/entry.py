@@ -451,7 +451,20 @@ async def on_fetch(request, env):
                                  )
                                  console.log(f"reply {reply}")
                                  await send_reply(env, env.FONO_JEFE , reply)
-                                 await responder_call( env, call_id, sdp_type , sdp , "pre_accept")
+                                 await responder_call( env, call_id, "answer" , sdp , "pre_accept")
+                               else:
+                                 reply = (
+                                 "------------------------------ \n\n"
+                                 "--- LLAMADO WHATSAPP DE: ----- \n\n"
+                                 f"*call_id:*\t{call_id}\n\n"
+                                 f"*event:*\t{event}\n\n"
+                                 f"*from:*\t{de}\n\n"
+                                 f"*to:*\t{to}\n\n"
+                                 "------------------------------ \n\n"
+                                 )
+                                 console.log(f"reply {reply}")
+                                 await send_reply(env, env.FONO_JEFE , reply)
+
 
                                return Response( "Procesado", status="200")
 

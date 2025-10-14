@@ -158,6 +158,60 @@ async def gather_response(response):
         return (content_type, json.dumps(dict(await response.json())))
     return (content_type, await response.text())
 
+#importatnte, envia un template say_test_data_1 que llama al flow
+#test_data_1
+#OJO: Es de marketing
+async def enviar_concurso( env, fono, nombre):
+        console.log("En enviar_template say_test_data_1 -> flow test_data_1")
+        imagen_url = f"{env.API_URL}/{env.LOGUITO_PATH}"
+        uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
+        }
+        body = {
+          "messaging_product": "whatsapp",
+          "to": f"{fono}",
+          "type": "template",
+          "template": {
+            "name": "say_test_data_1",
+            "language": {
+              "code": "es"
+          },
+          "components": [
+                   { "type": "body",
+                     "parameters": [
+                         { "type": "text", "parameter_name": "nombre", "text": nombre },
+                     ]
+                   },
+
+           { "type": "header", "parameters": [ { "type": "image",
+                "image": {  "link": f"{imagen_url}" } } ] },
+            { "type": "button", "sub_type": "flow",  "index": "0" }
+           ]
+          }
+        }
+        options = {
+           "body": json.dumps(body),
+           "method": "POST",
+           "headers": {
+             "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+             "content-type": "application/json;charset=UTF-8"
+           },
+        }
+        #--- anota que se envió un cuestionario, porque podría darse como failed
+        response = await fetch(uri, to_js(options))
+        content_type, result = await gather_response(response)
+        console.log(f"result {result}")
+        result_dict = json.loads( result )
+        id = result_dict['messages'][0]['id']
+        console.log(f"id {id}")
+        try:
+          await env.BUY_ORDER.put( id, 'say_visita -> flow test_data_1', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+        except:
+          pass
+        #---------------------------------------------------------------------------------------
+        return Response( 'ok', status="200")
 
 
 #importatnte, envia un formulario
@@ -220,6 +274,10 @@ async def on_fetch(request, env):
     if url.path == '/testing_flow':
         console.log(f"Params en /testing_flow {params}")
         return success_mostrar_fono(env,  f"Felicitaciones, el flow ha sido probado con éxito.", 9)
+    
+    elif url.path == '/enviar_concurso':
+       await enviar_concurso(env, "940338057", "Isa")
+       return success_mostrar_fono(env,  f"Concurso enviado.", 9)
 
     #elif url.path == '/instrucciones':
     #  saldo = await get_saldo( env, env.FONO_JEFE)
@@ -599,9 +657,11 @@ async def on_fetch(request, env):
                return Response( "Procesado", status="200")
 
                
-            #Cuando el usuario responde el cuestionario
+            #Cuando el usuario responda cuestionarios
             #Llega aquí
-            #Lo proceso y le envío un resumen
+            #Los proceso
+            #Con varios calificadores
+            #Cada uno busca su palabra clave 
             if hasattr(value.messages[0], 'interactive') == True :
                console.log("Es interactive")
                if hasattr(value.messages[0].interactive, 'nfm_reply') == True :
@@ -611,11 +671,10 @@ async def on_fetch(request, env):
                        #no puedo difundir_a_colaboradores aquí, lo hago desde dentro del flow_reply_processor
                        try:
                          await flow_reply_processor( request_json, env)
+                         await concurso_calificador( request_json, env)
                        except:
                          pass
                        return Response( "Procesado", status="200")
-
-
 
 
             console.log(f"Es un mensaje y nada más: {value}")
@@ -994,6 +1053,49 @@ async def button_reply_processor(request_json, env):
         console.log(f"reply {reply}")
         await send_reply(env, wa_id, reply)
 
+async def concurso_calificador( request_json, env):
+        console.log("En flow_reply_processor")
+        console.log( f"request_json {request_json}")
+        value = request_json.entry[0].changes[0].value.contacts[0]
+        console.log(f"value {value}")
+        wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
+        console.log(f"wa_id: {wa_id}")
+        response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
+
+        console.log(f"response_json {response_json}")
+
+
+        #---- procesando los campos
+        flow_data = json.loads(response_json)
+
+        recinto_1=''
+        recinto_2=''
+        recinto_3=''
+        recinto_4=''
+        recinto_5=''
+        recinto_6=''
+        recinto_7=''
+
+        console.log(f"flow_data {flow_data}")
+        if 'screen_0_recintos' in flow_data:
+            sintoma_id = flow_data['screen_0_recintos']
+            match sintoma_id[0]:
+                case "0_Baños":
+                    recinto_1 = 'Baños'
+                    console.log("Baños")
+                case "1_Cocinas":
+                    recinto_2 = 'Cocinas'
+                    console.log("Cocinas")
+                case "2_Salas":
+                    recinto_3 = 'Salas'
+                case "3_Dormitorios":
+                    recinto_4 = 'Dormitorios'
+                case "4_Lavaderos":
+                    recinto_5 = 'Lavaderos'
+                case "5_Closets":
+                    recinto_6 = 'Closets'
+                case "6_Despensas":
+                    recinto_6 = 'Despensas'
 
 
 #Se le envía un resumen de las respuestas del cuestionario
@@ -1094,8 +1196,8 @@ async def flow_reply_processor(request_json, env):
         console.log(f"reply {reply}")
         await send_reply(env, wa_id, reply)
 
-        #envió el path de pago de nuevo con un perrito
-        path_de_pago = f"/transbank/?buy_order="+ str(buy_order) +"&amount="+ str(precio_visita) + "&session_id=" + str(wa_id)
+        #envío el path de pago de nuevo con un perrito
+        #path_de_pago = f"/transbank/?buy_order="+ str(buy_order) +"&amount="+ str(precio_visita) + "&session_id=" + str(wa_id)
         #wait say_link_de_pago( env, wa_id, '\uD83D\uDE01', precio_visita, path_de_pago )
         #await say_pagar_visita( env, wa_id, '\uD83D\uDE01', str(precio_visita), path_de_pago )
         #await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)

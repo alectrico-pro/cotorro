@@ -1102,7 +1102,7 @@ async def concurso_calificador( request_json, env):
             if "5_Closets" in sintomas:
                 recinto_6 = 'Closets'
                 console.log( "Closets" )
-            if "6_Despensas" in sintomas
+            if "6_Despensas" in sintomas:
                 recinto_7 = 'Despensas'
                 console.log("Despensas")
 

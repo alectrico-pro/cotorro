@@ -1083,25 +1083,35 @@ async def concurso_calificador( request_json, env):
 
         console.log(f"flow_data {flow_data}")
         if 'screen_0_recintos' in flow_data:
-            sintoma_id = flow_data['screen_0_recintos']
-            match sintoma_id[0]:
-                case "0_Baños":
-                    recinto_1 = 'Baños'
-                    console.log("Baños")
-                case "1_Cocinas":
-                    recinto_2 = 'Cocinas'
-                    console.log("Cocinas")
+            sintomas = flow_data['screen_0_recintos']
+            if '0_Baños' in sintomas
+                recinto_1 = 'Baños'
+                console.log("Baños")
+            if "1_Cocinas" in sintomas
                 case "2_Salas":
-                    recinto_3 = 'Salas'
-                case "3_Dormitorios":
-                    recinto_4 = 'Dormitorios'
-                case "4_Lavaderos":
-                    recinto_5 = 'Lavaderos'
-                case "5_Closets":
-                    recinto_6 = 'Closets'
-                case "6_Despensas":
-                    recinto_6 = 'Despensas'
+                recinto_3 = 'Salas'
+            if "3_Dormitorios":
+                recinto_4 = 'Dormitorios'
+            if "4_Lavaderos":
+                recinto_5 = 'Lavaderos'
+            if "5_Closets":
+                recinto_6 = 'Closets'
+            if "6_Despensas":
+                recinto_6 = 'Despensas'
 
+       reply = (
+            f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"
+            f"*Recintos*\n\n"
+            f"{recinto_1}\n"
+            f"{recinto_2}\n"
+            f"{recinto_3}\n"
+            f"{recinto_4}\n"
+            f"{recinto_5}\n"
+            f"{recinto_6}\n\n"
+            "------------------------------ \n\n"
+        )
+        console.log(f"reply {reply}")
+        await send_reply(env, wa_id, reply)
 
 #Se le envía un resumen de las respuestas del cuestionario
 #Al que llenó el cuestionario
@@ -1148,6 +1158,36 @@ async def flow_reply_processor(request_json, env):
                     sintoma_5 = 'Necesito más Circuitos'
                 case "5":
                     sintoma_6 = 'No tengo luz'
+
+        reply = (
+            f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"
+            f"*Síntomas*\n\n"
+            f"{sintoma_1}\n"
+            f"{sintoma_2}\n"
+            f"{sintoma_3}\n"
+            f"{sintoma_4}\n"
+            f"{sintoma_5}\n"
+            f"{sintoma_6}\n\n"
+            f"*Nombre:*\t{nombre}\n\n"
+            f"*Apellido:*\t{apellido}\n\n"
+            f"*Fono:*\t{fono}\n\n"
+            f"*email:*\t{email}\n\n"
+            f"*Dirección:*\t{direccion}\n\n"
+            f"*Descripción:*\t{descripcion}\n\n"
+            f"*Fecha:*\t{fecha}\n\n"
+            f"*Comuna:*\t{comuna}\n\n"
+            "------------------------------ \n\n"
+            f"*Orden*:\t{buy_order}\n\n"
+            "Por favor siga el link para pagar la visita en Transbank.\n"
+            "Solo se paga la mano de obra.\n"
+            "Ofrecemos crédito propio en seis cuotas mensuales sin interés con tarjeta de Crédito.\n"
+            "Transbank captura el total pero UD. solo paga cuotas mensuales.\n\n"
+            f"*Link_de_pago:*\t{link_de_pago_tbk_url}\n\n"
+            "------------------------------ \n\n"
+        )
+        console.log(f"reply {reply}")
+        await send_reply(env, wa_id, reply)
+
 
         nombre      = flow_data['nombre']
         apellido    = flow_data['apellido']

@@ -231,7 +231,7 @@ async def on_fetch(request, env):
       instruccion_3= "*recarga.alectrico.cl:* Visite https://recarga.alectrico.cl para comprar más de un token."
 
       await say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, instruccion_3 )
-
+      await difundir_saldos( env)
       return success_mostrar_fono(env,  f"Instrucciones enviadas.", 9)
 
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------
@@ -1282,6 +1282,33 @@ def fix_fono( fono ):
              console.log(f"fono {fono}")
           return int(fono)
           
+
+#Difundi un peido a los colaboradores
+async def difundir_saldos(env):
+        instruccion_1="*Tomar:* Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos."
+        instruccion_2= "*Recargar:* Presione Recargar para comprar un token."
+        instruccion_3= "*recarga.alectrico.cl:* Visite https://recarga.alectrico.cl para comprar más de un token."
+
+        console.log("En difundir saldo")
+        try:
+          console.log("En try")
+          colaboradores = await env.NOMINA.list()
+          if len(colaboradores.keys) > 0:
+             console.log("Hay colaboradores registrados")
+             for key in colaboradores.keys:
+               wa_id = key.name
+               try:
+                 colaborador_json = await env.NOMINA.get( key.name )
+                 colaborador = json.loads( colaborador_json )
+                 saldo = await get_saldo( env, wa_id)
+                 nombre = colaborador['nombre']
+                 await say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, instruccion_3 )
+               except:
+                 pass
+        except:
+          pass
+        return
+
 
 #Difundi un peido a los colaboradores
 async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fono, email, direccion, amount):

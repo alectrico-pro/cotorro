@@ -1088,16 +1088,23 @@ async def concurso_calificador( request_json, env):
                 recinto_1 = 'Baños'
                 console.log("Baños")
             if "1_Cocinas" in sintomas:
-                case "2_Salas":
+                recinto_2 = '1_Cocinas'
+                console.log("Cocinas")
+            if "2_Salas" in sintomas:
                 recinto_3 = 'Salas'
+                console.log("Salas")
             if "3_Dormitorios" in sintomas:
                 recinto_4 = 'Dormitorios'
+                console.log("Dormitorios")
             if "4_Lavaderos" in sintomas:
                 recinto_5 = 'Lavaderos'
+                console.log("Lavaderos")
             if "5_Closets" in sintomas:
                 recinto_6 = 'Closets'
+                console.log( "Closets" )
             if "6_Despensas" in sintomas
                 recinto_7 = 'Despensas'
+                console.log("Despensas")
 
        reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"

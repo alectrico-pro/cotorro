@@ -163,7 +163,7 @@ async def gather_response(response):
 #OJO: Es de marketing
 async def enviar_concurso( env, fono, nombre):
         console.log("En enviar_template say_test_tda_1 -> flow test_TDA_1")
-        imagen_url = f"{env.API_URL}/{env.LOGUITO_PATH}"
+        imagen_url = f"{env.API_URL}/{env.CONCURSO_PATH}"
         uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
             "Content-Type": "application/json",

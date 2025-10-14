@@ -1084,20 +1084,20 @@ async def concurso_calificador( request_json, env):
         console.log(f"flow_data {flow_data}")
         if 'screen_0_recintos' in flow_data:
             sintomas = flow_data['screen_0_recintos']
-            if '0_Baños' in sintomas
+            if '0_Baños' in sintomas:
                 recinto_1 = 'Baños'
                 console.log("Baños")
-            if "1_Cocinas" in sintomas
+            if "1_Cocinas" in sintomas:
                 case "2_Salas":
                 recinto_3 = 'Salas'
-            if "3_Dormitorios":
+            if "3_Dormitorios" in sintomas:
                 recinto_4 = 'Dormitorios'
-            if "4_Lavaderos":
+            if "4_Lavaderos" in sintomas:
                 recinto_5 = 'Lavaderos'
-            if "5_Closets":
+            if "5_Closets" in sintomas:
                 recinto_6 = 'Closets'
-            if "6_Despensas":
-                recinto_6 = 'Despensas'
+            if "6_Despensas" in sintomas
+                recinto_7 = 'Despensas'
 
        reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"
@@ -1107,7 +1107,8 @@ async def concurso_calificador( request_json, env):
             f"{recinto_3}\n"
             f"{recinto_4}\n"
             f"{recinto_5}\n"
-            f"{recinto_6}\n\n"
+            f"{recinto_6}\n"
+            f"{recinto_7}\n"
             "------------------------------ \n\n"
         )
         console.log(f"reply {reply}")

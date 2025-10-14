@@ -674,7 +674,9 @@ async def on_fetch(request, env):
                          flow_data = json.loads(response_json)
 
                          if flow_data['screen_0_recintos']:
+                             await enviar_saldo( env, "940338057" )
                              await concurso_calificador( request_json, env)
+                             await enviar_saldo( env, "940338057" )
                          elif flow_data['sintomas']:
                              await flow_reply_processor( request_json, env)
                        except:
@@ -1442,8 +1444,7 @@ def fix_fono( fono ):
              console.log(f"fono {fono}")
           return int(fono)
           
-
-#Difundi un peido a los colaboradores
+#Difundi los saldos e instrucciones a los colaboradores
 async def difundir_saldos(env):
         instruccion_1="*Tomar:* Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos."
         instruccion_2= "*Recargar:* Presione Recargar para comprar un token."
@@ -1467,6 +1468,19 @@ async def difundir_saldos(env):
                  pass
         except:
           pass
+        return
+
+#Difundi un peido a los colaboradores
+async def enviar_saldo(env, wa_ido):
+        instruccion_1=""
+        instruccion_2= ""
+        instruccion_3= ""
+        console.log("En enviar saldo")
+        colaborador_json = await env.NOMINA.get( key.name )
+        colaborador = json.loads( colaborador_json )
+        saldo = await get_saldo( env, wa_id)
+        nombre = colaborador['nombre']
+        await say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, instruccion_3 )
         return
 
 

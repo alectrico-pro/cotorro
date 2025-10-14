@@ -222,7 +222,6 @@ async def on_fetch(request, env):
         return success_mostrar_fono(env,  f"Felicitaciones, el flow ha sido probado con éxito.", 9)
 
     elif url.path == '/instrucciones':
-      #async def say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, fono ):
       saldo = await get_saldo( env, env.FONO_JEFE)
       wa_id  = env.FONO_JEFE
       nombre = "jefe"
@@ -1123,7 +1122,7 @@ async def say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instrucci
               { "type"             :   "text", "text" : saldo        } ,
               { "type"             :   "text", "text" : instruccion_1},
               { "type"             :   "text", "text" : instruccion_2},
-              { "type"             :   "text", "text" : fono    }
+              { "type"             :   "text", "text" : instruccion_3}
             ] } ] }}
 
         uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"

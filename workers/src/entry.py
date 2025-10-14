@@ -159,10 +159,10 @@ async def gather_response(response):
     return (content_type, await response.text())
 
 #importatnte, envia un template say_test_data_1 que llama al flow
-#test_data_1
+#test_TDA_1
 #OJO: Es de marketing
 async def enviar_concurso( env, fono, nombre):
-        console.log("En enviar_template say_test_data_1 -> flow test_data_1")
+        console.log("En enviar_template say_test_tda_1 -> flow test_TDA_1")
         imagen_url = f"{env.API_URL}/{env.LOGUITO_PATH}"
         uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {
@@ -174,7 +174,7 @@ async def enviar_concurso( env, fono, nombre):
           "to": f"{fono}",
           "type": "template",
           "template": {
-            "name": "say_test_data_1",
+            "name": "say_test_tda_1",
             "language": {
               "code": "es"
           },

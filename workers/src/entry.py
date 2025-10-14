@@ -674,7 +674,6 @@ async def on_fetch(request, env):
                          flow_data = json.loads(response_json)
 
                          if flow_data['screen_0_recintos']:
-                             await enviar_saldo( env, "940338057" )
                              await concurso_calificador( request_json, env)
                              await enviar_saldo( env, "940338057" )
                          elif flow_data['sintomas']:
@@ -1472,9 +1471,6 @@ async def difundir_saldos(env):
 
 #Difundi un peido a los colaboradores
 async def enviar_saldo(env, wa_id):
-        instruccion_1= ""
-        instruccion_2= ""
-        instruccion_3= ""
         console.log("En enviar saldo")
         colaborador_json = await env.NOMINA.get( fix_fono( wa_id))
         colaborador = json.loads( colaborador_json )
@@ -1487,6 +1483,7 @@ async def enviar_saldo(env, wa_id):
                     f"*Su saldo:    \n"
                     f"*Tokens*       { saldo}        \n"
                   )
+       console.log(f"replay")
        await send_reply( env, wa_id, reply)
        return
 

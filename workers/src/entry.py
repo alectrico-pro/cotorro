@@ -207,7 +207,7 @@ async def enviar_concurso( env, fono, nombre):
         id = result_dict['messages'][0]['id']
         console.log(f"id {id}")
         try:
-          await env.BUY_ORDER.put( id, 'say_visita -> flow test_data_1', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+          await env.BUY_ORDER.put( id, 'say_visita -> flow test_TDA_1', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
         except:
           pass
         #---------------------------------------------------------------------------------------

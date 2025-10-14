@@ -1482,8 +1482,13 @@ async def enviar_saldo(env, wa_id):
         console.log(f"saldo")
         nombre = colaborador['nombre']
         console.log(f"nombre")
-        await say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, instruccion_3 )
-        return
+
+        reply   = (
+                    f"*Su saldo:    \n"
+                    f"*Tokens*       { saldo}        \n"
+                  )
+       await send_reply( env, wa_id, reply)
+       return
 
 
 #Difundi un peido a los colaboradores

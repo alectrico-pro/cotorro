@@ -670,8 +670,10 @@ async def on_fetch(request, env):
                        console.log("Tiene response_json")
                        #no puedo difundir_a_colaboradores aquí, lo hago desde dentro del flow_reply_processor
                        try:
-                         await flow_reply_processor( request_json, env)
-                         await concurso_calificador( request_json, env)
+                         if flow_data['screen_0_recintos']:
+                             await concurso_calificador( request_json, env)
+                         elif flow_data['sintomas']:
+                             await flow_reply_processor( request_json, env)
                        except:
                          pass
                        return Response( "Procesado", status="200")
@@ -1054,7 +1056,7 @@ async def button_reply_processor(request_json, env):
         await send_reply(env, wa_id, reply)
 
 async def concurso_calificador( request_json, env):
-        console.log("En flow_reply_processor")
+        console.log("En concurso_clasificador")
         console.log( f"request_json {request_json}")
         value = request_json.entry[0].changes[0].value.contacts[0]
         console.log(f"value {value}")

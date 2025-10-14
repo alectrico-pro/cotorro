@@ -670,9 +670,9 @@ async def on_fetch(request, env):
                        console.log("Tiene response_json")
                        #no puedo difundir_a_colaboradores aquí, lo hago desde dentro del flow_reply_processor
                        try:
-                         if flow_data['screen_0_recintos']:
+                         if flow_data['screen_0_recintos'][0]:
                              await concurso_calificador( request_json, env)
-                         elif flow_data['sintomas']:
+                         elif flow_data['sintomas'][0]:
                              await flow_reply_processor( request_json, env)
                        except:
                          pass

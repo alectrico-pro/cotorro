@@ -1105,8 +1105,8 @@ async def concurso_calificador( request_json, env):
             if "6_Despensas" in sintomas:
                 recinto_7 = 'Despensas'
                 console.log("Despensas")
-
-       reply = (
+ 
+        reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"
             f"*Recintos*\n\n"
             f"{recinto_1}\n"

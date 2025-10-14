@@ -1105,7 +1105,11 @@ async def concurso_calificador( request_json, env):
             if "6_Despensas" in sintomas:
                 recinto_7 = 'Despensas'
                 console.log("Despensas")
- 
+            if (recinto_2 and recinto_3) and  not (recinto_1 or recinto_4 or recinto_5 or recinto_6 or recinto_7):
+              respuesta = "Su respuesta es correcta"
+            else:
+              respuesta = "Su respuesta es incorrecta"
+
         reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"
             f"*Recintos*\n\n"
@@ -1116,10 +1120,7 @@ async def concurso_calificador( request_json, env):
             f"{recinto_5}\n"
             f"{recinto_6}\n"
             f"{recinto_7}\n"
-            if (recinto_2 and recinto_3) and  not (recinto_1 or recinto_4 or recinto_5 or recinto_6 or recinto_7):
-              f"su respuesta es correcta"\n
-            else:
-              f"Su respuesta es incorrecta"\n
+            f"{respuesta}\n"
             "------------------------------ \n\n"
         )
         console.log(f"reply {reply}")

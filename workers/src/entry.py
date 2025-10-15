@@ -675,7 +675,6 @@ async def on_fetch(request, env):
 
                          if flow_data['screen_0_recintos']:
                              await concurso_calificador( request_json, env)
-                             await enviar_saldo( env, "940338057" )
                          elif flow_data['sintomas']:
                              await flow_reply_processor( request_json, env)
                        except:
@@ -1066,6 +1065,8 @@ async def concurso_calificador( request_json, env):
         console.log(f"value {value}")
         wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
         console.log(f"wa_id: {wa_id}")
+        #enviar saldo antes
+        await enviar_saldo( env, "940338057" )
         response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
 
         console.log(f"response_json {response_json}")
@@ -1110,7 +1111,7 @@ async def concurso_calificador( request_json, env):
               respuesta = "Su respuesta es correcta"
             else:
               respuesta = "Su respuesta es incorrecta"
-
+              await anotar_tokens_pagados_promocionales(env, wa_id, 1)
         reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"
             f"*Recintos*\n\n"
@@ -1126,6 +1127,7 @@ async def concurso_calificador( request_json, env):
         )
         console.log(f"reply {reply}")
         await send_reply(env, wa_id, reply)
+        await enviar_saldo( env, "940338057" )
 
 #Se le envía un resumen de las respuestas del cuestionario
 #Al que llenó el cuestionario

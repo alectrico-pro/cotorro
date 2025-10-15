@@ -1109,9 +1109,10 @@ async def concurso_calificador( request_json, env):
                 console.log("Despensas")
             if (recinto_2 and recinto_3) and  not (recinto_1 or recinto_4 or recinto_5 or recinto_6 or recinto_7):
               respuesta = "Su respuesta es correcta"
+              await anotar_tokens_pagados_promocionales(env, wa_id, 1)
+
             else:
               respuesta = "Su respuesta es incorrecta"
-              await anotar_tokens_pagados_promocionales(env, wa_id, 1)
         reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"
             f"*Recintos*\n\n"

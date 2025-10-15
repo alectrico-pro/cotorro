@@ -740,14 +740,14 @@ async def on_fetch(request, env):
                              pass
 
                       #Los envíos del concurso, pueden ser rechazados por los colaboradores y se devuelven como failed
-                      if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].errors[0].title == 'Message undeliverable':
+                    if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].errors[0].title == 'Message undeliverable':
                            #Marco el status como failed
                            try:
                               await env.BUY_ORDER.delete(str(id))
                            except:
                               await save_status(env, id, 'failed -> Message undeliverable' )
 
-                      if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].errors[0].title == 'This message was not delivered to maintain healthy ecosystem engagement.':
+                    if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].errors[0].title == 'This message was not delivered to maintain healthy ecosystem engagement.':
                            try:
                               await env.BUY_ORDER.delete(str(id))
                            except:

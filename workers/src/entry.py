@@ -1471,12 +1471,14 @@ async def enviar_saldo(env, wa_id):
         console.log(f"nombre")
         tokens = ""
         if saldo:
-           for int( saldo):
+           for i in range(0, int(saldo)):
              tokens = tokens + '\u1F50B'
+             tok    = tok + 🪫
         reply   = (
                     f"*Su saldo:    \n"
                     f"*Tokens*  { saldo}        \n"
                     f"{tokens}    \n"
+                    f"{tok}    \n"
                   )
         console.log(f"replay")
         await send_reply( env, wa_id, reply)

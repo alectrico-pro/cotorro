@@ -705,7 +705,8 @@ async def on_fetch(request, env):
                            #Se usa try porque el kv_name está limitado a 1000 operaciones diarias
                            #Si falla algo aquí no podré otorgar Response 200
                            #Esto ocurre para un cliente al que le envíe el formulario para que especifique la visita
-                           await save_status(env, id, 'failed', wa_id )
+                           await save_status(env, id, 'failed -> Message undeliverable', wa_id )
+
                            wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                            buy_order    = str( random.randint(1, 10000))
                            direccion    = 'no indica'
@@ -744,13 +745,13 @@ async def on_fetch(request, env):
                     if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].errors[0].title == 'This message was not delivered to maintain healthy ecosystem engagement.':
                            await save_status(env, id, 'failed -> This message was not delivered to maintain healthy ecosystem engagement', wa_id )
 
-                    if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0]== 'read':
+                    if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].status == 'read':
                            await save_status(env, id, 'read', wa_id )
 
-                    if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0] == 'delivered':
+                    if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].status == 'delivered':
                            await save_status(env, id, 'delivered', wa_id )
 
-                    if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0] == 'sent':
+                    if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].status  == 'sent':
                            await save_status(env, id, 'sent', wa_id )
 
 

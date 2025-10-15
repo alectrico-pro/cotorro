@@ -1097,12 +1097,12 @@ async def concurso_calificador( request_json, env):
                 recinto_7 = 'Despensas'
                 console.log("Despensas")
             if (recinto_2 and recinto_3) and  not (recinto_1 or recinto_4 or recinto_5 or recinto_6 or recinto_7):
-              respuesta = "Su respuesta es correcta"
+              respuesta = "Su respuesta es correcta! Le hemos regalado un token."
               buy_order  = str( random.randint(1, 10000))
               await anotar_tokens_pagados_promocionales(env, buy_order ,wa_id, 1)
 
             else:
-              respuesta = "Su respuesta es incorrecta!. Le hemos regalado un token."
+              respuesta = "Su respuesta es incorrecta!"
         reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"
             f"*Recintos*\n\n"

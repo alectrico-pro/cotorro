@@ -1066,7 +1066,6 @@ async def concurso_calificador( request_json, env):
         wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
         console.log(f"wa_id: {wa_id}")
         #enviar saldo antes
-        await enviar_saldo( env, "940338057" )
         response_json = request_json.entry[0].changes[0].value.messages[0].interactive.nfm_reply.response_json
 
         console.log(f"response_json {response_json}")
@@ -1109,7 +1108,8 @@ async def concurso_calificador( request_json, env):
                 console.log("Despensas")
             if (recinto_2 and recinto_3) and  not (recinto_1 or recinto_4 or recinto_5 or recinto_6 or recinto_7):
               respuesta = "Su respuesta es correcta"
-              await anotar_tokens_pagados_promocionales(env, wa_id, 1)
+              buy_order  = str( random.randint(1, 10000))
+              await anotar_tokens_pagados_promocionales(env, buy_order ,wa_id, 1)
 
             else:
               respuesta = "Su respuesta es incorrecta"

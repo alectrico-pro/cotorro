@@ -1470,6 +1470,7 @@ async def enviar_saldo(env, wa_id):
         nombre = colaborador['nombre']
         console.log(f"nombre")
         tokens = ""
+        tok = ""
         if saldo:
            for i in range(0, int(saldo)):
              tokens = tokens + '\u1F50B'

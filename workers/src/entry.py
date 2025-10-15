@@ -692,7 +692,8 @@ async def on_fetch(request, env):
                     console.log(f"{value.statuses[0].errors[0].title}")
                     #Busco el objeto que ha fallado
                     resultado = await env.BUY_ORDER.get(str(id) )
-                     
+                    wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
+
                     #Compruebo que haya sido un fallo al enviar el template say_visita
                     #Verifico que el error sea de Message undeliverable 
                     #Eso cubre a los fonos inexisentes, redes que no funcionan con waba
@@ -704,9 +705,7 @@ async def on_fetch(request, env):
                            #Se usa try porque el kv_name está limitado a 1000 operaciones diarias
                            #Si falla algo aquí no podré otorgar Response 200
                            #Esto ocurre para un cliente al que le envíe el formulario para que especifique la visita
-                           await env.BUY_ORDER.delete(str(id))
-                           await save_status(env, id, 'failed' )
-
+                           await save_status(env, id, 'failed', wa_id )
                            wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
                            buy_order    = str( random.randint(1, 10000))
                            direccion    = 'no indica'
@@ -740,13 +739,16 @@ async def on_fetch(request, env):
                       #Los envíos del concurso, pueden ser rechazados por los colaboradores y se devuelven como failed
                     if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].errors[0].title == 'Message undeliverable':
                            #Marco el status como failed
-                           await env.BUY_ORDER.delete(str(id))
-                           await save_status(env, id, 'failed -> Message undeliverable' )
+                           await save_status(env, id, 'failed -> Message undeliverable', wa_id )
 
                     if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].errors[0].title == 'This message was not delivered to maintain healthy ecosystem engagement.':
-                           await env.BUY_ORDER.delete(str(id))
-                           await save_status(env, id, 'failed -> This message was not delivered to maintain healthy ecosystem engagement' )
+                           await save_status(env, id, 'failed -> This message was not delivered to maintain healthy ecosystem engagement', wa_id )
 
+                    if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0]== 'read':
+                           await save_status(env, id, 'read', wa_id )
+
+                    if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0] == 'delivered':
+                           await save_status(env, id, 'delivered', wa_id )
 
 
             return Response( "ok", status="200")
@@ -904,9 +906,9 @@ async def save_text_message( env, id, fono, buy_order, descripcion, amount ):
 
 
 
-async def save_status( env, id, status ):
+async def save_status( env, id, status, fono) :
     console.log(f"Guardando status {id} {status}")
-    await env.BUY_ORDER.put( str(id), status, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+    await env.BUY_ORDER.put( str(fono)+':'+ status + ":" + str(id), status, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
     return
 
 

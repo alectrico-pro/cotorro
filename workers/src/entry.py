@@ -703,6 +703,7 @@ async def on_fetch(request, env):
                            #De esa forma evito que se vuelva a reaccionar sobre lo mismo, más adelante
                            #Se usa try porque el kv_name está limitado a 1000 operaciones diarias
                            #Si falla algo aquí no podré otorgar Response 200
+                           #Esto ocurre para un cliente al que le envíe el formulario para que especifique la visita
                            try:
                               await env.BUY_ORDER.delete(str(id))
                            except:
@@ -737,6 +738,22 @@ async def on_fetch(request, env):
                              await say_pagar_visita( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
                            except:
                              pass
+
+                      #Los envíos del concurso, pueden ser rechazados por los colaboradores y se devuelven como failed
+                      if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].errors[0].title == 'Message undeliverable':
+                           #Marco el status como failed
+                           try:
+                              await env.BUY_ORDER.delete(str(id))
+                           except:
+                              await save_status(env, id, 'failed -> Message undeliverable' )
+
+                      if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].errors[0].title == 'This message was not delivered to maintain healthy ecosystem engagement.':
+                           try:
+                              await env.BUY_ORDER.delete(str(id))
+                           except:
+                              await save_status(env, id, 'failed -> This message was not delivered to maintain healthy ecosystem engagement' )
+
+
 
             return Response( "ok", status="200")
 

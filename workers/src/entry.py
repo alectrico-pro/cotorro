@@ -158,6 +158,8 @@ async def gather_response(response):
         return (content_type, json.dumps(dict(await response.json())))
     return (content_type, await response.text())
 
+
+
 #importatnte, envia un template say_test_data_1 que llama al flow
 #test_TDA_1
 #OJO: Es de marketing
@@ -276,7 +278,7 @@ async def on_fetch(request, env):
         return success_mostrar_fono(env,  f"Felicitaciones, el flow ha sido probado con éxito.", 9)
     
     elif url.path == '/enviar_concurso':
-       await enviar_concurso(env, "940338057", "Isa")
+       await difundir_concurso(env)
        return success_mostrar_fono(env,  f"Concurso enviado.", 9)
 
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------
@@ -1433,6 +1435,23 @@ def fix_fono( fono ):
              fono = fono_str.replace('56','',1)
              console.log(f"fono {fono}")
           return int(fono)
+
+async def difundir_concurso(env):
+          console.log("En difundir_concurso")
+          colaboradores = await env.NOMINA.list()
+          if len(colaboradores.keys) > 0:
+             console.log("Hay colaboradores registrados")
+             for key in colaboradores.keys:
+               wa_id = key.name
+               try:
+                 colaborador_json = await env.NOMINA.get( key.name )
+                 colaborador = json.loads( colaborador_json )
+                 nombre = colaborador['nombre']
+                 await enviar_concurso( env, wa_id, nombre )
+               except:
+                 pass
+
+
           
 #Difundi los saldos e instrucciones a los colaboradores
 async def difundir_saldos(env):

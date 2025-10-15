@@ -750,6 +750,10 @@ async def on_fetch(request, env):
                     if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0] == 'delivered':
                            await save_status(env, id, 'delivered', wa_id )
 
+                    if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0] == 'sent':
+                           await save_status(env, id, 'sent', wa_id )
+
+
 
             return Response( "ok", status="200")
 

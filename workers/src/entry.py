@@ -1473,7 +1473,7 @@ async def enviar_saldo(env, wa_id):
         if saldo:
            for i in range(0, int(saldo)):
              tokens = tokens + '\u1F50B'
-             tok    = tok + 🪫
+             tok    = tok + '\u1FAAB'
         reply   = (
                     f"*Su saldo:    \n"
                     f"*Tokens*  { saldo}        \n"

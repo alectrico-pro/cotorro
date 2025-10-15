@@ -279,19 +279,6 @@ async def on_fetch(request, env):
        await enviar_concurso(env, "940338057", "Isa")
        return success_mostrar_fono(env,  f"Concurso enviado.", 9)
 
-    #elif url.path == '/instrucciones':
-    #  saldo = await get_saldo( env, env.FONO_JEFE)
-    #  wa_id  = env.FONO_JEFE
-    #  nombre = "jefe"
-    #  fono   = wa_id
-    #  instruccion_1="*Tomar:* Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos."
-    #  instruccion_2= "*Recargar:* Presione Recargar para comprar un token."
-    #  instruccion_3= "*recarga.alectrico.cl:* Visite https://recarga.alectrico.cl para comprar más de un token."
-
-     ## await say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, instruccion_3 )
-    #  await difundir_saldos( env)
-    #  return success_mostrar_fono(env,  f"Instrucciones enviadas.", 9)
-
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------
     elif url.path == '/create_from_landing_page' and method== 'POST':
         console.log(f"Params en /create_from_landing_page {params}")
@@ -1482,10 +1469,14 @@ async def enviar_saldo(env, wa_id):
         console.log(f"saldo")
         nombre = colaborador['nombre']
         console.log(f"nombre")
-
+        tokens = ""
+        if saldo:
+           for int( saldo):
+             tokens = tokens + 🔋
         reply   = (
                     f"*Su saldo:    \n"
-                    f"*Tokens*       { saldo}        \n"
+                    f"*Tokens*  { saldo}        \n"
+                    f"{tokens}    \n"
                   )
         console.log(f"replay")
         await send_reply( env, wa_id, reply)

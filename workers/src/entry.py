@@ -1100,7 +1100,7 @@ async def concurso_calificador( request_json, env):
               await anotar_tokens_pagados_promocionales(env, buy_order ,wa_id, 1)
 
             else:
-              respuesta = "Su respuesta es incorrecta"
+              respuesta = "Su respuesta es incorrecta!. Le hemos regalado un token."
         reply = (
             f"Gracias por llenar el cuestionario. Estas son las respuestas que hemos guardado:\n\n"
             f"*Recintos*\n\n"
@@ -1472,6 +1472,7 @@ async def enviar_saldo(env, wa_id):
         reply   = (
                     f"*Su saldo:    \n"
                     f"*Tokens*  { saldo}        \n"
+                    f"Nota: El saldo demorará un poco en actualizarse si se ha agregado un token recientemente. \n"
                   )
         console.log(f"replay")
         await send_reply( env, wa_id, reply)

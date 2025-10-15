@@ -279,7 +279,7 @@ async def on_fetch(request, env):
     
     elif url.path == '/enviar_concurso':
        await difundir_concurso(env)
-       return success_mostrar_fono(env,  f"Concurso enviado.", 9)
+       return success_mostrar_fono(env,  f"Concurso difundido.", 9)
 
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------
     elif url.path == '/create_from_landing_page' and method== 'POST':
@@ -1443,13 +1443,10 @@ async def difundir_concurso(env):
              console.log("Hay colaboradores registrados")
              for key in colaboradores.keys:
                wa_id = key.name
-               try:
-                 colaborador_json = await env.NOMINA.get( key.name )
-                 colaborador = json.loads( colaborador_json )
-                 nombre = colaborador['nombre']
-                 await enviar_concurso( env, wa_id, nombre )
-               except:
-                 pass
+               colaborador_json = await env.NOMINA.get( key.name )
+               colaborador = json.loads( colaborador_json )
+               nombre = colaborador['nombre']
+               await enviar_concurso( env, fix_fono( wa_id), nombre )
 
 
           

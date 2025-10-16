@@ -624,7 +624,7 @@ async def on_fetch(request, env):
 
                   result = await env.AI.run(await env.I.get('MODELO'), to_js(
                   { 'messages': [
-                  { "role": "system", "content": "Eres un electricista a domicilio en Chile y solo hablas español."},
+                  { "role": "system", "content": "Eres un electricista a domicilio en Chile y solo hablas español. Eres Gerente de una empresa que contacta a las personas con electricistas a domicilio." }
                   { 'role': 'client', 'content': descripcion } ],} ) );
 
                   console.log(f"{result.response}")
@@ -643,8 +643,17 @@ async def on_fetch(request, env):
                   # await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
                   #except:
                   # pass
+                  result = await env.AI.run(await env.I.get('MODELO'), to_js(
+                  { 'messages': [
+                  { "role": "system", "content": "Eres un electricista a domicilio en Chile y solo hablas español."},
+                  { 'role': 'client', 'content': descripcion } ],} ) );
 
-                  await difundir_a_colaboradores(env, buy_order, 'no-indica', descripcion, 'no-indica', wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
+                  console.log(f"{result.response}")
+                  reply = (
+                   f"{result.response}"
+                  )
+                  await send_reply(env, env.FONO_JEFE,  reply )
+                  await difundir_a_colaboradores(env, buy_order, 'no-indica', descripcion, result.response , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
 
                   #no puedo difundir_a_colaboradores aquí porque el cliente no ha introducido datos
                   #envío al cuestionario flow para obtener los datos

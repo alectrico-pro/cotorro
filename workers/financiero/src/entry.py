@@ -154,7 +154,7 @@ async def on_fetch(request, env):
        #agendar?nombre=oipoi+upoi&fono=987654321&email=hjhkjh%40lkjlkj.ll&comuna=Providencia&descripcion=lkñ+jñlkj&direccion=o+ṕoiṕoiṕo&latitude=&longitude=&amount=68000
     elif url.path == '/listar':
         console.log("En listar")
-        colaboradores = await env.NOMINA.list(prefix = f"{fono}:activo")
+        colaboradores = await env.NOMINA.list(prefix = "activo:")
 
         keys = [key_info.name for key_info in colaboradores.keys]
         console.log(f"keys {keys}")

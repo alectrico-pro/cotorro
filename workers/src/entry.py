@@ -1491,7 +1491,7 @@ async def difundir_saldos(env):
 #Difundi un peido a los colaboradores
 async def enviar_saldo(env, wa_id):
         console.log("En enviar saldo")
-        colaborador_json = await env.NOMINA.get( fix_fono( wa_id))
+        colaborador_json = await env.NOMINA.get( "activo:" + fix_fono( wa_id))
         colaborador = json.loads( colaborador_json )
         saldo = await get_saldo( env, wa_id)
         console.log(f"saldo")

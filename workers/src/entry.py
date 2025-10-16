@@ -670,7 +670,7 @@ async def on_fetch(request, env):
                      "Escriba *Chao* para terminar \n "
                     )
                     await send_reply(env, env.FONO_JEFE,  reply )
-                    await difundir_a_colaboradores(env, buy_order, nombre, descripcion, no-indica , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
+                    await difundir_a_colaboradores(env, buy_order, nombre, descripcion, 'no-indica' , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
                    
                     #await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
 

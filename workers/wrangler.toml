@@ -1,5 +1,6 @@
 #arjeta_de_prueba_aprobada="4051 8856 0044 6623"
 
+
 name = "cotorro"
 compatibility_date = "2025-08-01"
 compatibility_flags = ["python_workers"]
@@ -17,7 +18,7 @@ binding='ASSETS'
 account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
 
  [[ai_bindings]]
-binding = "AE"
+name = "AE"
 
 [[routes]]
 pattern = "api.alectrico.cl"

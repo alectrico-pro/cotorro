@@ -685,7 +685,7 @@ async def on_fetch(request, env):
 
             console.log(status)
             #Guardando el status para futura referencia
-            #await save_status(env, id, status )
+            await save_status(env, id, status, wa_id )
 
             #ya no estoy vigilando failed,
             #Solo envío el cuestiari y el link de pago al comienzo
@@ -744,8 +744,6 @@ async def on_fetch(request, env):
                     if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].errors[0].title == 'This message was not delivered to maintain healthy ecosystem engagement.':
                            await save_status(env, id, 'failed -> This message was not delivered to maintain healthy ecosystem engagement', wa_id )
 
-                 else:
-                    await save_status(env, id, status, wa_id )
 
 
 

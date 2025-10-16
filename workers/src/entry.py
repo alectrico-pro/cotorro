@@ -637,7 +637,7 @@ async def on_fetch(request, env):
                     reply = (
                      f"{result.response} \n"
                      "..................... \n "
-                     "Escriba *Chao* para terminar \n "
+                     "Escriba *No* para terminar \n "
                     ) 
                     await send_reply(env, wa_id,  reply )
                     return Response( "Es Colaborador", status="200")
@@ -667,7 +667,7 @@ async def on_fetch(request, env):
                     reply = (
                      f"{result.response} \n"
                      "..................... \n "
-                     "Escriba *Chao* para terminar \n "
+                     "Escriba *No* para terminar \n "
                     )
                     await send_reply(env, env.FONO_JEFE,  reply )
                     await difundir_a_colaboradores(env, buy_order, nombre, descripcion, 'no-indica' , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
@@ -679,8 +679,7 @@ async def on_fetch(request, env):
              
                     await enviar_template_say_visita_flow_reserva( request, env, wa_id )
                     #await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
-                  return Response( "Procesado", status="200")
-
+                  return Response( "Procesado", status="20No
                
             #Cuando el usuario responda cuestionarios
             #Llega aquí

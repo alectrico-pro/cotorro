@@ -650,6 +650,11 @@ async def on_fetch(request, env):
                   #except:
                   # pass
                   if 'Chao' in descripcion:
+                    reply = (
+                      "Bien, hasta pronto! \n\n "
+                      "Alexander Espinosa \n "
+                      "CREO en alectrico® \n"
+                    )
                   else:
                     result = await env.AI.run(await env.I.get('MODELO'), to_js(
                     { 'messages': [

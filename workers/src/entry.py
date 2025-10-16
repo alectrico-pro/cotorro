@@ -633,15 +633,9 @@ async def on_fetch(request, env):
                     { "role": "gerente", "content": "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."},
                     { 'role': 'cliente', 'content': descripcion } ],} ) );
                     reply = (
-                      "--------------------- \n "
-                      "Necesita a alguien en terreno! \n "
-                      "No se puede resolver un problema eléctrico a distancia! \n "
-                      "Necesita instrumentos, manos, piernas y cerebro de un electricista \n "
-                      "con experiencia y eso tiene un gran valor \n\n "
-                      "alectrico® | Alexander\n "
-                      "..................... \n "
-                      "Escriba -Chao- para terminar \n "
-                     f"{result.response}"
+                     f"{result.response} \n"
+                     "..................... \n "
+                     "Escriba *Chao* para terminar \n "
                     ) 
                     await send_reply(env, wa_id,  reply )
                     return Response( "Es Colaborador", status="200")
@@ -655,18 +649,21 @@ async def on_fetch(request, env):
                   # await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
                   #except:
                   # pass
+                  if 'Chao' in descripcion:
+                  else:
+                    result = await env.AI.run(await env.I.get('MODELO'), to_js(
+                    { 'messages': [
+                    { 'role': 'gerente', 'content': "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlos si antes han comprado tokens." },
+                    { 'role': 'electricista', 'content': descripcion } ],} ) );
 
-                  result = await env.AI.run(await env.I.get('MODELO'), to_js(
-                  { 'messages': [
-                  { 'role': 'gerente', 'content': "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlos si antes han comprado tokens." },
-                  { 'role': 'electricista', 'content': descripcion } ],} ) );
-
-                  console.log(f"{result.response}")
-                  reply = (
-                   f"{result.response}"
-                  )
-                  await send_reply(env, env.FONO_JEFE,  reply )
-                  await difundir_a_colaboradores(env, buy_order, 'no-indica', descripcion, result.response , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
+                    console.log(f"{result.response}")
+                    reply = (
+                     f"{result.response} \n"
+                     "..................... \n "
+                     "Escriba *Chao* para terminar \n "
+                    )
+                    await send_reply(env, env.FONO_JEFE,  reply )
+                    await difundir_a_colaboradores(env, buy_order, 'no-indica', descripcion, result.response , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
 
                   #no puedo difundir_a_colaboradores aquí porque el cliente no ha introducido datos
                   #envío al cuestionario flow para obtener los datos

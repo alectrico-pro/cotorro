@@ -47,10 +47,6 @@ kv_namespaces = [ { binding = "BUY_ORDER",  id = "7a20ea90007a4f99a6a02e864f3581
 
 [[ai_bindings]]
 name = "AI"
-
-
-[[unsafe.bindings]]
-name = "AE"
 service = "ai"
 
 secrets_store_secrets = [

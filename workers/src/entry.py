@@ -622,7 +622,7 @@ async def on_fetch(request, env):
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
                   reply = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
-                    prompt: descripcion })
+                    prompt: descripcion, })
 
                   await send_reply(env, wa_id, reply )
                   return Response( "Es Colaborador", status="200")
@@ -637,15 +637,14 @@ async def on_fetch(request, env):
                   #except:
                   # pass
 
-                 await difundir_a_colaboradores(env, buy_order, 'no-indica', descripcion, 'no-indica', wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
+                  await difundir_a_colaboradores(env, buy_order, 'no-indica', descripcion, 'no-indica', wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
 
-
-                 #no puedo difundir_a_colaboradores aquí porque el cliente no ha introducido datos
-                 #envío al cuestionario flow para obtener los datos
+                  #no puedo difundir_a_colaboradores aquí porque el cliente no ha introducido datos
+                  #envío al cuestionario flow para obtener los datos
              
-                 #await enviar_template_say_visita_flow_reserva( request, env, wa_id )
-                 #await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
-                 return Response( "Procesado", status="200")
+                  #await enviar_template_say_visita_flow_reserva( request, env, wa_id )
+                  #await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
+                  return Response( "Procesado", status="200")
 
                
             #Cuando el usuario responda cuestionarios

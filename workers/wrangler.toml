@@ -56,6 +56,12 @@ secrets_store_secrets = [
   { binding = "TOKEN_VENCIMIENTO", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "TOKEN_VENCIMIENTO" }
 ]
 
+[[ai_bindings]]
+name = "AI"
+service = "ai"
+
+
+
 [env.development]
 name = "cotorro"
 account_id = "cc28cf159fc984d8f45fd0f4864a8a28"

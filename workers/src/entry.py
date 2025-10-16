@@ -626,6 +626,11 @@ async def on_fetch(request, env):
 
                   console.log(f"{dir(result)}")
 
+                  console.log(f"{ object_entries}")
+                  console.log(f"{ object_keys}")
+                  console.log(f"{ object_values}")
+
+
                   await send_reply(env, wa_id,  result.text )
                   return Response( "Es Colaborador", status="200")
                else:

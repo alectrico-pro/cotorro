@@ -642,9 +642,9 @@ async def on_fetch(request, env):
                       "..................... \n "
                       "Escriba -Chao- para terminar \n "
                      f"{result.response}"
-                     ) 
-                     await send_reply(env, wa_id,  reply )
-                     return Response( "Es Colaborador", status="200")
+                    ) 
+                    await send_reply(env, wa_id,  reply )
+                    return Response( "Es Colaborador", status="200")
                else:
                   console.log(f"{wa_id} no es colaborador")
                   buy_order   = str( random.randint(1, 10000))

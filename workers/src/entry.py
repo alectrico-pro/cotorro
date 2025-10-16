@@ -621,36 +621,30 @@ async def on_fetch(request, env):
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
-                  if 'No' in descripcion:
-                    result = await env.AI.run(await env.I.get('MODELO'), to_js(
-                    { 'messages': [
-                    { "role": "gerente", "content": "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."},
-                    { 'role': 'cliente', 'content': descripcion } ],} ) );
-                  else:
+                  if 'Chao' in descripcion:
                     reply = (
                       "Bien, hasta pronto! \n\n "
                       "Alexander Espinosa \n "
                       "CREO en alectrico® \n"
                     )
-                    await send_reply(env, wa_id,  reply )
-
-                  
-
-
-                  console.log(f"{result.response}")
-                  reply = (
-                   "--------------------- \n "
-                   "Necesita a alguien en terreno! \n "
-                   "No se puede resolver un problema eléctrico a distancia! \n "
-                   "Necesita instrumentos, manos, piernas y cerebro de un electricista \n "
-                   "con experiencia y eso tiene un gran valor \n\n "
-                    "alectrico® | Alexander\n "
-                   "..................... \n "
-                   "Escriba -No- para terminar \n "
-                   f"{result.response}"
-                  ) 
-                  await send_reply(env, wa_id,  reply )
-                  return Response( "Es Colaborador", status="200")
+                  else:
+                    result = await env.AI.run(await env.I.get('MODELO'), to_js(
+                    { 'messages': [
+                    { "role": "gerente", "content": "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."},
+                    { 'role': 'cliente', 'content': descripcion } ],} ) );
+                    reply = (
+                      "--------------------- \n "
+                      "Necesita a alguien en terreno! \n "
+                      "No se puede resolver un problema eléctrico a distancia! \n "
+                      "Necesita instrumentos, manos, piernas y cerebro de un electricista \n "
+                      "con experiencia y eso tiene un gran valor \n\n "
+                      "alectrico® | Alexander\n "
+                      "..................... \n "
+                      "Escriba -Chao- para terminar \n "
+                     f"{result.response}"
+                     ) 
+                     await send_reply(env, wa_id,  reply )
+                     return Response( "Es Colaborador", status="200")
                else:
                   console.log(f"{wa_id} no es colaborador")
                   buy_order   = str( random.randint(1, 10000))

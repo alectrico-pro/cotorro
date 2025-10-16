@@ -621,10 +621,15 @@ async def on_fetch(request, env):
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
-                  inputs = {
-                   "messages": "What is the capital of France?",
-                  }
-                  reply = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", inputs)
+
+                  replay = await env.AI.run("@cf/meta/llama-4-scout-17b-16e-instruct", {
+                  max_tokens: 512,
+                  messages: [
+                  { role: "user", content: "hola"},
+                  { role: "assistant", content: "¡Hola! ¿Cómo estás? ¿En qué puedo ayudarte?"}
+                  ],});
+
+
 
 
                   await send_reply(env, wa_id, reply )

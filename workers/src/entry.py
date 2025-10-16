@@ -621,29 +621,31 @@ async def on_fetch(request, env):
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
+                  reply = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+                    prompt: descripcion })
+
+                  await send_reply(env, wa_id, reply )
                   return Response( "Es Colaborador", status="200")
                else:
                   console.log(f"{wa_id} no es colaborador")
+                  buy_order   = str( random.randint(1, 10000))
+                  #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
 
-               buy_order   = str( random.randint(1, 10000))
+                  #path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
+                  #try:
+                  # await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
+                  #except:
+                  # pass
 
-               #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
-
-               path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
-               try:
-                 await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
-               except:
-                 pass
-
-               await difundir_a_colaboradores(env, buy_order, 'no-indica', descripcion, 'no-indica', wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
+                 await difundir_a_colaboradores(env, buy_order, 'no-indica', descripcion, 'no-indica', wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
 
 
-               #no puedo difundir_a_colaboradores aquí porque el cliente no ha introducido datos
-               #envío al cuestionario flow para obtener los datos
+                 #no puedo difundir_a_colaboradores aquí porque el cliente no ha introducido datos
+                 #envío al cuestionario flow para obtener los datos
              
-               await enviar_template_say_visita_flow_reserva( request, env, wa_id )
-               #await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
-               return Response( "Procesado", status="200")
+                 #await enviar_template_say_visita_flow_reserva( request, env, wa_id )
+                 #await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
+                 return Response( "Procesado", status="200")
 
                
             #Cuando el usuario responda cuestionarios

@@ -623,10 +623,9 @@ async def on_fetch(request, env):
                   console.log(f"{wa_id} es colaborador")
 
                   replay = await env.AI.run("@cf/meta/llama-4-scout-17b-16e-instruct", {
-                  max_tokens: 512,
-                  messages: [
-                  { role: "user", content: "hola"},
-                  { role: "assistant", content: "¡Hola! ¿Cómo estás? ¿En qué puedo ayudarte?"}
+                  'messages': [
+                  { 'role': "user", 'content': "hola"},
+                  { 'role': "assistant", 'content': "¡Hola! ¿Cómo estás? ¿En qué puedo ayudarte?"}
                   ],});
 
 

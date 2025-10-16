@@ -628,9 +628,9 @@ async def on_fetch(request, env):
                     { 'role': 'cliente', 'content': descripcion } ],} ) );
                   else:
                     reply = (
-                      "Bien, hasta pronto!"\n\n
-                      "Alexander Espinosa" \n
-                      "CREO en alectrico®" \n
+                      "Bien, hasta pronto! \n\n "
+                      "Alexander Espinosa \n "
+                      "CREO en alectrico® \n"
                     )
                     await send_reply(env, wa_id,  reply )
 
@@ -639,14 +639,14 @@ async def on_fetch(request, env):
 
                   console.log(f"{result.response}")
                   reply = (
-                   "---------------------" \n
-                   "Necesita a alguien en terreno! "\n
-                   "No se puede resolver un problema eléctrico a distancia!" \n
-                   "Necesita instrumentos, manos, piernas y cerebro de un electricista" \n
-                   "con experiencia y eso tiene un gran valor" \n\n
-                    "alectrico® | Alexander"\n
-                   "....................." \n
-                   "Escriba -No- para terminar" \n
+                   "--------------------- \n "
+                   "Necesita a alguien en terreno! \n "
+                   "No se puede resolver un problema eléctrico a distancia! \n "
+                   "Necesita instrumentos, manos, piernas y cerebro de un electricista \n "
+                   "con experiencia y eso tiene un gran valor \n\n "
+                    "alectrico® | Alexander\n "
+                   "..................... \n "
+                   "Escriba -No- para terminar \n "
                    f"{result.response}"
                   ) 
                   await send_reply(env, wa_id,  reply )

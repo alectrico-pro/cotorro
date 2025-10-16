@@ -624,7 +624,7 @@ async def on_fetch(request, env):
 
                   result = await env.AI.run("@cf/meta/llama-guard-3-8b", to_js( { 'messages': [{ 'role': 'user', 'content': 'hola'},{ 'role': 'assistant', 'content': '¡Hola! ¿Cómo estás? ¿En qué puedo ayudarte?'} ],} ) );
 
-                  js_values = result.Object.values() 
+                  js_values = result.values() 
                   # Converting the result back to a Python list (optional)
                   python_values = js_values.to_py()
 

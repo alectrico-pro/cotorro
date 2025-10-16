@@ -622,8 +622,8 @@ async def on_fetch(request, env):
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
 
-                  result = await env.AI.run("@cf/meta/llama-guard-3-8b", to_js(
-                   { 'messages': [{ 'role': 'user', 'content': f"{descripcion}" } ],} ) );
+                  result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct-fast", to_js(
+                   { 'messages': [{ 'role': 'user', 'content': descripcion } ],} ) );
 
                   console.log(f"{result.response}")
                   reply = (

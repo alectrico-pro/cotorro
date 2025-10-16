@@ -1425,7 +1425,8 @@ async def get_saldo( env, wa_id):
 
 
 async def es_colaborador( env, wa_id):
-          colaboradores = await env.NOMINA.list()
+          fono = fix_fono( wa_id )
+          colaboradores = await env.NOMINA.list(prefix = f"{fono}:activo")
           console.log(f"keys {colaboradores.keys}")
           keys = [key_info.name for key_info in colaboradores.keys]
           console.log(f"keys {keys}")
@@ -1448,7 +1449,7 @@ def fix_fono( fono ):
 
 async def difundir_concurso(env):
           console.log("En difundir_concurso")
-          colaboradores = await env.NOMINA.list()
+          colaboradores = await env.NOMINA.list(prefix = f"{fono}:activo")
           if len(colaboradores.keys) > 0:
              console.log("Hay colaboradores registrados")
              for key in colaboradores.keys:
@@ -1469,7 +1470,7 @@ async def difundir_saldos(env):
         console.log("En difundir saldo")
         try:
           console.log("En try")
-          colaboradores = await env.NOMINA.list()
+          colaboradores = await env.NOMINA.list(prefix = f"{fono}:activo")
           if len(colaboradores.keys) > 0:
              console.log("Hay colaboradores registrados")
              for key in colaboradores.keys:
@@ -1512,7 +1513,7 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
         console.log("En difundir a colaboradores")
         try:
           console.log("En try")
-          colaboradores = await env.NOMINA.list()
+          colaboradores = await env.NOMINA.list( prefix = f"{fono}:activo" )
           console.log("Después de list")
           if len(colaboradores.keys) > 0:
              console.log("Hay colaboradores registrados")
@@ -1522,7 +1523,8 @@ async def difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fo
                colaborador_json = await env.NOMINA.get( key.name )
                colaborador = json.loads( colaborador_json )
                wa_id       = colaborador['fono']
-               taker_fono  = key.name
+               #taker_fono  = key.name
+               taker_fono  = wa_id
                #NOTA: Se envía a wa_id pero el que cobra es taker_fono
                #De esta forma puedo probar cómo funciona
                #Cambiando en env.NOMINA el record {"fono": wa_id}

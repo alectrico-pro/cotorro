@@ -619,6 +619,8 @@ async def on_fetch(request, env):
                descripcion = value.messages[0].text.body
                id          = value.messages[0].id
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
+               nombre      = request_json.entry[0].changes[0].value.contacts[0].profile.name
+
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
                   if 'Chao' in descripcion:
@@ -659,7 +661,7 @@ async def on_fetch(request, env):
                     result = await env.AI.run(await env.I.get('MODELO'), to_js(
                     { 'messages': [
                     { 'role': 'gerente', 'content': "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlos si antes han comprado tokens." },
-                    { 'role': 'electricista', 'content': descripcion } ],} ) );
+                    { 'role': 'cliente', 'content': descripcion } ],} ) );
 
                     console.log(f"{result.response}")
                     reply = (
@@ -668,13 +670,15 @@ async def on_fetch(request, env):
                      "Escriba *Chao* para terminar \n "
                     )
                     await send_reply(env, env.FONO_JEFE,  reply )
-                    await difundir_a_colaboradores(env, buy_order, 'no-indica', descripcion, result.response , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
+                    await difundir_a_colaboradores(env, buy_order, nombre, descripcion, no-indica , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
+                   
+                    #await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
 
-                  #no puedo difundir_a_colaboradores aquí porque el cliente no ha introducido datos
-                  #envío al cuestionario flow para obtener los datos
+                    #no puedo difundir_a_colaboradores aquí porque el cliente no ha introducido datos
+                    #envío al cuestionario flow para obtener los datos
              
-                  #await enviar_template_say_visita_flow_reserva( request, env, wa_id )
-                  #await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
+                    await enviar_template_say_visita_flow_reserva( request, env, wa_id )
+                    #await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
                   return Response( "Procesado", status="200")
 
                

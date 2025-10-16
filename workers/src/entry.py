@@ -626,7 +626,7 @@ async def on_fetch(request, env):
 
                   console.log(f"{result.response}")
                   reply = (
-                   f"{result.response}/n"
+                   f"{result.response}"
                   ) 
                   await send_reply(env, wa_id,  reply )
                   return Response( "Es Colaborador", status="200")

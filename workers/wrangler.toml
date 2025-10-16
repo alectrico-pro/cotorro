@@ -16,8 +16,8 @@ binding='ASSETS'
 
 account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
 
-[ai]
-binding = "AI"
+ [[ai_bindings]]
+binding = "AE"
 
 [[routes]]
 pattern = "api.alectrico.cl"

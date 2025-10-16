@@ -1431,7 +1431,7 @@ async def es_colaborador( env, wa_id):
           keys = [key_info.name for key_info in colaboradores.keys]
           console.log(f"keys {keys}")
 
-          if str(fix_fono( wa_id)) in keys:
+          if "activo:" + str(fix_fono( wa_id)) in keys:
             console.log(f"{wa_id} es de un colaborador") 
             return True
           else:

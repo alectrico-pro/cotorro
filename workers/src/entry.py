@@ -1128,7 +1128,7 @@ async def concurso_calificador( request_json, env):
         )
         console.log(f"reply {reply}")
         await send_reply(env, wa_id, reply)
-        await enviar_saldo( env, "940338057" )
+        await enviar_saldo( env, wa_id )
 
 #Se le envía un resumen de las respuestas del cuestionario
 #Al que llenó el cuestionario
@@ -1491,12 +1491,12 @@ async def difundir_saldos(env):
 #Difundi un peido a los colaboradores
 async def enviar_saldo(env, wa_id):
         console.log("En enviar saldo")
-        colaborador_json = await env.NOMINA.get( "activo:" + fix_fono( wa_id))
+        colaborador_json = await env.NOMINA.get( "activo:" + str( fix_fono( wa_id)) )
         colaborador = json.loads( colaborador_json )
         saldo = await get_saldo( env, wa_id)
-        console.log(f"saldo")
+        console.log(f"{saldo}")
         nombre = colaborador['nombre']
-        console.log(f"nombre")
+        console.log(f"{nombre}")
         reply   = (
                     f"*Su saldo:    \n"
                     f"*Tokens*  { saldo}        \n"

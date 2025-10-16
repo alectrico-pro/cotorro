@@ -680,6 +680,8 @@ async def on_fetch(request, env):
             console.log("Es un statuses")
             status = value.statuses[0].status
             id     = value.statuses[0].id
+            wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
+            resultado = await env.BUY_ORDER.get(str(id) )
 
             console.log(status)
             #Guardando el status para futura referencia
@@ -691,9 +693,6 @@ async def on_fetch(request, env):
                  case 'failed':
                     console.log(f"{value.statuses[0].errors[0].title}")
                     #Busco el objeto que ha fallado
-                    resultado = await env.BUY_ORDER.get(str(id) )
-                    wa_id        = request_json.entry[0].changes[0].value.statuses[0].recipient_id
-
                     #Compruebo que haya sido un fallo al enviar el template say_visita
                     #Verifico que el error sea de Message undeliverable 
                     #Eso cubre a los fonos inexisentes, redes que no funcionan con waba
@@ -745,14 +744,8 @@ async def on_fetch(request, env):
                     if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].errors[0].title == 'This message was not delivered to maintain healthy ecosystem engagement.':
                            await save_status(env, id, 'failed -> This message was not delivered to maintain healthy ecosystem engagement', wa_id )
 
-                    if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].status == 'read':
-                           await save_status(env, id, 'read', wa_id )
-
-                    if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].status == 'delivered':
-                           await save_status(env, id, 'delivered', wa_id )
-
-                    if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].status  == 'sent':
-                           await save_status(env, id, 'sent', wa_id )
+                 else:
+                    await save_status(env, id, status, wa_id )
 
 
 

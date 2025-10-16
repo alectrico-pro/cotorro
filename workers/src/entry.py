@@ -624,7 +624,7 @@ async def on_fetch(request, env):
 
                   result = await env.AI.run(await env.I.get('MODELO'), to_js(
                   { 'messages': [
-                  { "role": "system", "content": "Eres un electricista a domicilio en Chile y solo hablas español. Eres Gerente de una empresa que contacta a las personas con electricistas a domicilio." }
+                  { "role": "system", "content": "Eres un electricista a domicilio en Chile y solo hablas español. Eres Gerente de una empresa que contacta a las personas con electricistas a domicilio." },
                   { 'role': 'client', 'content': descripcion } ],} ) );
 
                   console.log(f"{result.response}")

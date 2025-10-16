@@ -622,7 +622,7 @@ async def on_fetch(request, env):
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
 
-                  stream = await env.AI.run("@cf/meta/llama-guard-3-8b", {messages: [{ role: "user", content: "hola"},{ role: "assistant", content: "¡Hola! ¿Cómo estás? ¿En qué puedo ayudarte?"} ],});
+                  stream = await env.AI.run("@cf/meta/llama-guard-3-8b", to_js( { 'messages': [{ 'role': 'user', 'content': 'hola'},{ 'role': 'assistant', 'content': '¡Hola! ¿Cómo estás? ¿En qué puedo ayudarte?'} ],} ) );
 
 
                   await send_reply(env, wa_id, reply )

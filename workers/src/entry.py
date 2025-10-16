@@ -622,7 +622,7 @@ async def on_fetch(request, env):
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
                   inputs = {
-                   "prompt": "What is the capital of France?",
+                   "messages": "What is the capital of France?",
                   }
                   reply = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", inputs)
 

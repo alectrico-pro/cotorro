@@ -904,7 +904,7 @@ async def save_text_message( env, id, fono, buy_order, descripcion, amount ):
 
 async def save_status( env, id, status, fono) :
     console.log(f"Guardando status {id} {status}")
-    await env.BUY_ORDER.put( str(fono)+':'+ status + ":" + str(id), status, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+    await env.STATUS.put( str(fono)+':'+ status + ":" + str(id), status, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
     return
 
 

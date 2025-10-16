@@ -624,8 +624,9 @@ async def on_fetch(request, env):
 
                   reply = await env.AI.run("@cf/meta/llama-guard-3-8b", to_js( { 'messages': [{ 'role': 'user', 'content': 'hola'},{ 'role': 'assistant', 'content': '¡Hola! ¿Cómo estás? ¿En qué puedo ayudarte?'} ],} ) );
 
+                  console.log(f"reply")
 
-                  await send_reply(env, wa_id,json.load( reply) )
+                  await send_reply(env, wa_id,  result.generated_text )
                   return Response( "Es Colaborador", status="200")
                else:
                   console.log(f"{wa_id} no es colaborador")

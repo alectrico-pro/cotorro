@@ -1,4 +1,4 @@
-/#Esto ahorra conexiones simulatneas
+#Esto ahorra conexiones simulatneas
 #Están limitdas a solo 6
 #const response = await fetch(url);
 
@@ -623,7 +623,7 @@ async def on_fetch(request, env):
                   console.log(f"{wa_id} es colaborador")
                   result = await env.AI.run(await env.I.get('MODELO'), to_js(
                   { 'messages': [
-                  { "role": "gerente", "content": "Eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlos si antes han comprado tokens."},
+                  { "role": "gerente", "content": "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlos si antes han comprado tokens."},
                   { 'role': 'cliente', 'content': descripcion } ],} ) );
 
 
@@ -646,7 +646,7 @@ async def on_fetch(request, env):
 
                   result = await env.AI.run(await env.I.get('MODELO'), to_js(
                   { 'messages': [
-                  { 'role': 'gerente', 'content': "Eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlos si antes han comprado tokens." },
+                  { 'role': 'gerente', 'content': "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlos si antes han comprado tokens." },
                   { 'role': 'electricista', 'content': descripcion } ],} ) );
 
                   console.log(f"{result.response}")

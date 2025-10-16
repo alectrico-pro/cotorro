@@ -542,7 +542,7 @@ async def on_fetch(request, env):
                console.log("Es button")
                descripcion = value.messages[0].button.payload
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               colaborador_json = await env.NOMINA.get( str( fix_fono( wa_id) ))
+               colaborador_json = await env.NOMINA.get( "activo:" + str( fix_fono( wa_id) ))
                colaborador = json.loads( colaborador_json )
                nombre_colaborador = colaborador['nombre']
 
@@ -1457,7 +1457,8 @@ async def difundir_concurso(env):
                colaborador_json = await env.NOMINA.get( key.name )
                colaborador = json.loads( colaborador_json )
                nombre = colaborador['nombre']
-               await enviar_concurso( env, fix_fono( wa_id), nombre )
+               fono   = colaborador['fono']
+               await enviar_concurso( env, fix_fono( fono), nombre )
 
 
           

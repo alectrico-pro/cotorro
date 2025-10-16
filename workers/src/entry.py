@@ -622,13 +622,13 @@ async def on_fetch(request, env):
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
 
-                  reply = await env.AI.run("@cf/meta/llama-4-scout-17b-16e-instruct", '{
-                  "messages": [
-                  { "role": "user", "content": "hola"},
-                  { "role": "assistant", "content": "¡Hola! ¿Cómo estás? ¿En qué puedo ayudarte?"}
-                  ],}')
-
-
+		  stream = await env.AI.run("@cf/meta/llama-guard-3-8b", {
+			  messages: [
+			    { role: "user", content: "hola
+			"},
+			    { role: "assistant", content: "¡Hola! ¿Cómo estás? ¿En qué puedo ayudarte?"}
+			  ],
+		  });
 
 
                   await send_reply(env, wa_id, reply )

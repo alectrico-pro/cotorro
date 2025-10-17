@@ -163,8 +163,8 @@ async def activar( env, fono):
         fono = fix_fono( fono )
         key = await env.NOMINA.get( "inactivo:" + str(fono) )
         if key:
-          await NOMINA.put( "activo:" + fono, key.value )
-          await NOMINA.delete( key.name )
+          await env.NOMINA.put( "activo:" + fono, key.value )
+          await env.NOMINA.delete( key.name )
           reply = (
            f"{fono} ha sido activado.\n"
            "recibirá avisos de trabajos!\n"
@@ -181,8 +181,8 @@ async def desactivar( env, fono):
         fono = fix_fono( fono )
         key = await env.NOMINA.get( "activo:" + str( fono ) )
         if key:
-          await NOMINA.put( "inactivo:" + str( fono) , key.value )
-          await NOMINA.delete( key.name )
+          await env.NOMINA.put( "inactivo:" + str( fono) , key.value )
+          await env.NOMINA.delete( key.name )
           reply = (
            f"{fono} ha sido activado.\n"
            "Ya no recibirá más avisos. \n"

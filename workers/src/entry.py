@@ -616,8 +616,15 @@ async def on_fetch(request, env):
 
             #Cuando alguien escribe un texto en los canales de publico suscritos
             #Se recibe aquí
+            if hasattr(value.messages[0], "type") and value.messages[0] == "request_welcome":
+               reply = (
+                "Bienvenido a la plataforma alectrico® repair \n"
+               )
+               await send_reply( env, wa_id, reply )
+               return Response( "Procesado", status="200")
 
-            if hasattr(value.messages[0], 'button') == True :
+
+            elif hasattr(value.messages[0], 'button') == True :
                console.log("Es button")
                descripcion = value.messages[0].button.payload
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id

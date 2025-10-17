@@ -225,8 +225,9 @@ async def suscribir( env, fono, nombre):
         if not value:
           await env.NOMINA.put("activo:" + str(fono), json.dumps( {"nombre":nombre, "fono": fono }) )
           reply = (
+           f"{nombre}\n"
            f"{fono} ha sido suscrito.\n"
-           f"a la platafomra alectrico ® repair\n"
+           f"a la plataforma alectrico ® repair\n"
            "desde ahora recibirá avisos de trabajos!\n"
           )
         else:

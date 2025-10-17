@@ -161,9 +161,9 @@ async def gather_response(response):
 
 async def activar( env, fono):
         fono = fix_fono( fono )
-        key = await env.NOMINA.get( "inactivo:" + str(fono) )
-        if key:
-          await env.NOMINA.put( "activo:" + fono, key.value )
+        value = await env.NOMINA.get( "inactivo:" + str(fono) )
+        if value:
+          await env.NOMINA.put( "activo:" + fono, value )
           await env.NOMINA.delete( key.name )
           reply = (
            f"{fono} ha sido activado.\n"
@@ -179,9 +179,9 @@ async def activar( env, fono):
 
 async def desactivar( env, fono):
         fono = fix_fono( fono )
-        key = await env.NOMINA.get( "activo:" + str( fono ) )
-        if key:
-          await env.NOMINA.put( "inactivo:" + str( fono) , key.value )
+        value = await env.NOMINA.get( "activo:" + str( fono ) )
+        if value:
+          await env.NOMINA.put( "inactivo:" + str( fono) , value )
           await env.NOMINA.delete( key.name )
           reply = (
            f"{fono} ha sido activado.\n"

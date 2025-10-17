@@ -180,6 +180,7 @@ async def activar( env, fono):
 async def desactivar( env, fono):
         fono = fix_fono( fono )
         key = await NOMINA.get( "activo:" + str( fono ) )
+        if key:
           await NOMINA.put( fono, key.value )
           await NOMINA.delete( key.name )
           reply = (
@@ -661,12 +662,8 @@ async def on_fetch(request, env):
 
                if await es_colaborador(env, wa_id):
                   console.log(f"{wa_id} es colaborador")
-                  if 'Chao' in descripcion:
-                    reply = (
-                      "Bien, hasta pronto! \n\n "
-                      "Alexander Espinosa \n "
-                      "CREO en alectrico® \n"
-                    )
+                  if descripcion == '/activar' or descripcion == '/desactivar':
+                    pass
                   else:
                     result = await env.AI.run(await env.I.get('MODELO'), to_js(
                     { 'messages': [
@@ -689,12 +686,8 @@ async def on_fetch(request, env):
                   # await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
                   #except:
                   # pass
-                  if 'Chao' in descripcion:
-                    reply = (
-                      "Bien, hasta pronto! \n\n "
-                      "Alexander Espinosa \n "
-                      "CREO en alectrico® \n"
-                    )
+                  if descripcion == '/activar' or descripcion == '/desactivar':
+                    pass
                   else:
                     result = await env.AI.run(await env.I.get('MODELO'), to_js(
                     { 'messages': [

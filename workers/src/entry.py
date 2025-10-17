@@ -587,10 +587,6 @@ async def on_fetch(request, env):
                   buy_order   = str( random.randint(1, 10000))
                   
                   match descripcion: 
-                    case "/activar":
-                      await activar( env, wa_id )
-                    case "/desactivar":
-                      await desactivar( env, wa_id )
                     case "Recargar":
                       console.log("Es Recargar")
                       path_de_pago = f"/recargar?fono={fix_fono(wa_id)}&cantidad=1&nombre=&email=&comuna=Providencia&descripcion=&direccion=&amount={env.PRECIO_TOKEN}"
@@ -659,12 +655,17 @@ async def on_fetch(request, env):
                id          = value.messages[0].id
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
                nombre      = request_json.entry[0].changes[0].value.contacts[0].profile.name
+               match descripcion:
+                    case "/activar":
+                      await activar( env, wa_id )
+                      return Response( "Ahora está activo Colaborador", status="200")
+
+                    case "/desactivar":
+                      await desactivar( env, wa_id )
+                      return Response( "Agora está inactivo el Colaborador", status="200")
 
                if await es_colaborador(env, wa_id):
-                  console.log(f"{wa_id} es colaborador")
-                  if descripcion == '/activar' or descripcion == '/desactivar':
-                    pass
-                  else:
+                    console.log(f"{wa_id} es colaborador")
                     result = await env.AI.run(await env.I.get('MODELO'), to_js(
                     { 'messages': [
                     { "role": "gerente", "content": "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."},
@@ -677,18 +678,15 @@ async def on_fetch(request, env):
                     await send_reply(env, wa_id,  reply )
                     return Response( "Es Colaborador", status="200")
                else:
-                  console.log(f"{wa_id} no es colaborador")
-                  buy_order   = str( random.randint(1, 10000))
-                  #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
+                    console.log(f"{wa_id} no es colaborador")
+                    buy_order   = str( random.randint(1, 10000))
+                    #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
 
-                  #path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
-                  #try:
-                  # await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
-                  #except:
-                  # pass
-                  if descripcion == '/activar' or descripcion == '/desactivar':
-                    pass
-                  else:
+                    #path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
+                    #try:
+                    # await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
+                    #except:
+                    # pass
                     result = await env.AI.run(await env.I.get('MODELO'), to_js(
                     { 'messages': [
                     { 'role': 'gerente', 'content': "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlos si antes han comprado tokens." },

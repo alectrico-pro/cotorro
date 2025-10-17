@@ -160,6 +160,41 @@ async def gather_response(response):
 
 
 
+async def activar( env, fono):
+        fono = fix_fono( fono )
+        key = await NOMINA.get( fono )
+        if key:
+          await NOMINA.put( "activo:" + fono, key.value )
+          await NOMINA.delete( key.name )
+          reply = (
+           f"{fono} ha sido activado.\n"
+           "recibirá avisos de trabajos!\n"
+          )
+        else:
+         reply = (
+          f"{fono} no es de un colaborador"
+         )
+        await send_reply( env, fono, reply)
+
+
+async def desactivar( env, fono):
+        fono = fix_fono( fono )
+        key await NOMINA.get( "activo:" + str( fono ) )
+          await NOMINA.put( fono, key.value )
+          await NOMINA.delete( key.name )
+          reply = (
+           f"{fono} ha sido activado.\n"
+           "Ya no recibirá más avisos. \n"
+          )
+        else:
+         reply = (
+          f"{fono} no es de un colaborador"
+         )
+        await send_reply( env, fono, reply)
+
+
+
+
 #importatnte, envia un template say_test_data_1 que llama al flow
 #test_TDA_1
 #OJO: Es de marketing
@@ -551,12 +586,15 @@ async def on_fetch(request, env):
                   buy_order   = str( random.randint(1, 10000))
                   
                   match descripcion: 
+                    case "/activar":
+                      await activar( env, wa_id )
+                    case "/desactivar":
+                      await desactivar( env, wa_id )
                     case "Recargar":
                       console.log("Es Recargar")
                       path_de_pago = f"/recargar?fono={fix_fono(wa_id)}&cantidad=1&nombre=&email=&comuna=Providencia&descripcion=&direccion=&amount={env.PRECIO_TOKEN}"
                       await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
                       return Response( "No Procesado", status="200")
-
 
                     case "Tomar":
                        console.log("Es Tomar")

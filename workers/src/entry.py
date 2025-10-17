@@ -154,17 +154,18 @@ def to_js(obj):
 async def gather_response(response):
     headers = response.headers
     content_type = headers["content-type"] or ""
-    if "application/json" in content_type:
+if "application/json" in content_type:
         return (content_type, json.dumps(dict(await response.json())))
     return (content_type, await response.text())
 
 
 async def activar( env, fono):
         fono = fix_fono( fono )
-        value = await env.NOMINA.get( "inactivo:" + str(fono) )
+        name = "inactivo:" + str(fono)
+        value = await env.NOMINA.get( name )
         if value:
           await env.NOMINA.put( "activo:" + fono, value )
-          await env.NOMINA.delete( key.name )
+          await env.NOMINA.delete( name )
           reply = (
            f"{fono} ha sido activado.\n"
            "recibirá avisos de trabajos!\n"
@@ -179,10 +180,11 @@ async def activar( env, fono):
 
 async def desactivar( env, fono):
         fono = fix_fono( fono )
-        value = await env.NOMINA.get( "activo:" + str( fono ) )
+        name =  "activo:" + str( fono ) 
+        value = await env.NOMINA.get( name )
         if value:
           await env.NOMINA.put( "inactivo:" + str( fono) , value )
-          await env.NOMINA.delete( key.name )
+          await env.NOMINA.delete( name )
           reply = (
            f"{fono} ha sido activado.\n"
            "Ya no recibirá más avisos. \n"

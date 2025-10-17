@@ -179,7 +179,7 @@ async def activar( env, fono):
 
 async def desactivar( env, fono):
         fono = fix_fono( fono )
-        key await NOMINA.get( "activo:" + str( fono ) )
+        key = await NOMINA.get( "activo:" + str( fono ) )
           await NOMINA.put( fono, key.value )
           await NOMINA.delete( key.name )
           reply = (

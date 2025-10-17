@@ -186,7 +186,7 @@ async def desactivar( env, fono):
           await env.NOMINA.put( "inactivo:" + str( fono) , value )
           await env.NOMINA.delete( name )
           reply = (
-           f"{fono} ha sido activado.\n"
+           f"{fono} ha sido desactivado.\n"
            "Ya no recibirá más avisos. \n"
           )
         else:

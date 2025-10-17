@@ -217,6 +217,27 @@ async def desuscribir( env, fono):
         await send_reply( env, fono, reply)
 
 
+
+async def suscribir( env, fono, nombre):
+        fono = fix_fono( fono )
+        name = "activo:" + str(fono)
+        value = await env.NOMINA.get( name )
+        if not value:
+          await env.NOMINA.put("activo:" + str(fono), {"nombre":nombre, "fono": fono })
+          reply = (
+           f"{fono} ha sido suscrito.\n"
+           f"a la platafomra alectrico ® repair\n"
+           "desde ahora recibirá avisos de trabajos!\n"
+          )
+        else:
+         reply = (
+          f"{fono} ya se usa por un colaborador activo \n"
+          "No se pudo suscribir"
+         )
+        await send_reply( env, fono, reply)
+
+
+
 #importatnte, envia un template say_test_data_1 que llama al flow
 #test_TDA_1
 #OJO: Es de marketing
@@ -688,6 +709,10 @@ async def on_fetch(request, env):
                     case "/desuscribir":
                       await desactivar( env, wa_id )
                       return Response( "El Colaborador ha dejado de estar suscrito", status="200")
+
+                    case "/suscribir":
+                      await suscribir( env, wa_id, nombre)
+                      return Response( "El Colaborador ahora está está suscrito", status="200")
 
                if await es_colaborador(env, wa_id):
                     console.log(f"{wa_id} es colaborador")

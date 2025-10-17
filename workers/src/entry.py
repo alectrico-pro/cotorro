@@ -161,7 +161,7 @@ async def gather_response(response):
 
 async def activar( env, fono):
         fono = fix_fono( fono )
-        key = await NOMINA.get( "inactivo:" + str(fono) )
+        key = await env.NOMINA.get( "inactivo:" + str(fono) )
         if key:
           await NOMINA.put( "activo:" + fono, key.value )
           await NOMINA.delete( key.name )
@@ -171,14 +171,15 @@ async def activar( env, fono):
           )
         else:
          reply = (
-          f"{fono} no es de un colaborador"
+          f"{fono} no es de un colaborador inactivo \n"
+          "No se pudo activar"
          )
         await send_reply( env, fono, reply)
 
 
 async def desactivar( env, fono):
         fono = fix_fono( fono )
-        key = await NOMINA.get( "activo:" + str( fono ) )
+        key = await env.NOMINA.get( "activo:" + str( fono ) )
         if key:
           await NOMINA.put( "inactivo:" + str( fono) , key.value )
           await NOMINA.delete( key.name )

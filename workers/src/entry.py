@@ -164,7 +164,7 @@ async def activar( env, fono):
         name = "inactivo:" + str(fono)
         value = await env.NOMINA.get( name )
         if value:
-          await env.NOMINA.put( "activo:" + fono, value )
+          await env.NOMINA.put( "activo:" + str(fono), value )
           await env.NOMINA.delete( name )
           reply = (
            f"{fono} ha sido activado.\n"

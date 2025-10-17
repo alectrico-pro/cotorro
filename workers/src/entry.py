@@ -159,10 +159,9 @@ async def gather_response(response):
     return (content_type, await response.text())
 
 
-
 async def activar( env, fono):
         fono = fix_fono( fono )
-        key = await NOMINA.get( fono )
+        key = await NOMINA.get( "inactivo:" + str(fono) )
         if key:
           await NOMINA.put( "activo:" + fono, key.value )
           await NOMINA.delete( key.name )
@@ -181,7 +180,7 @@ async def desactivar( env, fono):
         fono = fix_fono( fono )
         key = await NOMINA.get( "activo:" + str( fono ) )
         if key:
-          await NOMINA.put( fono, key.value )
+          await NOMINA.put( "inactivo:" + str( fono) , key.value )
           await NOMINA.delete( key.name )
           reply = (
            f"{fono} ha sido activado.\n"

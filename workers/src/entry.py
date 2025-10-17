@@ -188,14 +188,33 @@ async def desactivar( env, fono):
           reply = (
            f"{fono} ha sido desactivado.\n"
            "Ya no recibirá más avisos. \n"
+           "Sus tokens permanecerán. \n"
           )
         else:
          reply = (
-          f"{fono} no es de un colaborador"
+          f"{fono} no está activo. No se puedo desactivar"
          )
         await send_reply( env, fono, reply)
 
 
+async def desuscribir( env, fono):
+        fono = fix_fono( fono )
+        name = "inactivo:" + str(fono)
+        value = await env.NOMINA.get( name )
+        if value:
+          await env.NOMINA.delete( name )
+          reply = (
+           f"{fono} ha sido desuscrito.\n"
+           "ya no recibirá avisos de trabajos!\n"
+           "tampoco lo podrá activar por Whatsapp \n"
+           "sus tokens no se tocarán por si decide volver \n"
+          )
+        else:
+         reply = (
+          f"{fono} no es de un colaborador inactivo \n"
+          "No se pudo desuscribir"
+         )
+        await send_reply( env, fono, reply)
 
 
 #importatnte, envia un template say_test_data_1 que llama al flow

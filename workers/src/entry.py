@@ -683,7 +683,11 @@ async def on_fetch(request, env):
 
                     case "/desactivar":
                       await desactivar( env, wa_id )
-                      return Response( "Agora está inactivo el Colaborador", status="200")
+                      return Response( "Ahora está inactivo el Colaborador", status="200")
+
+                    case "/desuscribir":
+                      await desactivar( env, wa_id )
+                      return Response( "El Colaborador ha dejado de estar suscrito", status="200")
 
                if await es_colaborador(env, wa_id):
                     console.log(f"{wa_id} es colaborador")

@@ -747,7 +747,7 @@ async def on_fetch(request, env):
                       return Response( "AI flow borrado por orden de usuario", status="200")
 
 
-               if await es_colaborador(env, wa_id):
+               if await not es_colaborador(env, wa_id):
                     console.log(f"{wa_id} es colaborador")
                     if descripcion == "No":
                         for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
@@ -810,7 +810,7 @@ async def on_fetch(request, env):
 
 
                     return Response( "Es Colaborador", status="200")
-               else:
+               elif False:
                     console.log(f"{wa_id} no es colaborador")
                     buy_order   = str( random.randint(1, 10000))
                     #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)

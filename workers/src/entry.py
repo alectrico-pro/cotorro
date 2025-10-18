@@ -763,7 +763,7 @@ async def on_fetch(request, env):
 
 
                         console.log("No hay mensajes en DIALOGO")
-                        presentacion = f"Te llamas alexo y eres el chatbot de la plataforma alectrico® que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico® y posee una plataforma en https://recarga.alectrico.cl. Los electricistas suscritos a la plataforma alectrico® revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si ellos antes han comprado tokens. IMPORTANTE: Los clientes deben escribir No para dejar de recibir mensajes. Ofrece a los cientes el  enlace de compra de tokens siguiente: https://www.alectrico.cl{path_de_pago}"
+                        presentacion = f"Te llamas 🗿ale y eres el chatbot de la plataforma alectrico® que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico® y posee una plataforma en https://recarga.alectrico.cl. Los electricistas suscritos a la plataforma alectrico® revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si ellos antes han comprado tokens. IMPORTANTE: Los clientes deben escribir No para dejar de recibir mensajes. Ofrece a los cientes el  enlace de compra de tokens siguiente: https://www.alectrico.cl{path_de_pago}"
                         mensaje_inicial     = json.dumps( { 'role': 'system', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'usuario', 'content': descripcion } )
                         

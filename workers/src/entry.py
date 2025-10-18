@@ -781,7 +781,7 @@ async def on_fetch(request, env):
                       else:
                         mensaje_colaborador = json.dumps( { 'role': 'colaborador', 'content': descripcion } )
                         await env.DIALOGO.put( str(fono) + ":colaborador:" + get_next_id() , mensaje_colaborador )
-
+                        mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
                         mensajes = []
                         for key in mensajes_anteriores.keys:
                           value = await env.DIALOGO.get(key.name)

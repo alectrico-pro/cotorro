@@ -747,7 +747,7 @@ async def on_fetch(request, env):
                       return Response( "AI flow borrado por orden de usuario", status="200")
 
 
-               if await not es_colaborador(env, wa_id):
+               if await es_colaborador(env, wa_id):
                     console.log(f"{wa_id} es colaborador")
                     if descripcion == "No":
                         for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
@@ -785,7 +785,34 @@ async def on_fetch(request, env):
                         mensaje_colaborador = json.dumps( { 'role': 'usuario', 'content': descripcion } )
                         mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
                         mensajes.append( { 'role': 'usuario', 'content': descripcion } )
+                        #Recuerda que, para que el electricista pueda atenderte, debes haber comprado tokens previamente en nuestra plataforma Alectrico Repair.
+                        #En cuanto a la solución, puedo ofrecerte las siguientes opciones:
 
+                        #1. *Conectar con un electricista*: Puedo conectarte con un electricista calificado de nuestra plataforma Alectrico Repair que pueda evaluar y solucionar el problema de manera segura y eficiente.
+                        #2. *Obtener un presupuesto*: Puedo proporcionarte un presupuesto para el servicio de reparación eléctrica, de manera que puedas planificar y prepararte para la solución del problema.
+
+                        #¿Cuál es tu preferencia? ¿Quieres que te conecte con un electricista o obtener un presupuesto
+                        #*CONEXIÓN CON ELECTRICISTA*
+
+                        #Entendido, te voy a conectar con un electricista calificado de nuestra plataforma Alectrico Repair. Por favor, espera un momento mientras proceso la solicitud.
+
+                        #*INFORMACIÓN DEL ELECTRICISTA*
+
+                        #Nombre: Juan Pérez
+                        #Teléfono: 555-1234
+                        #Correo electrónico: [juan.perez@alectrico.com](mailto:juan.perez@alectrico.com)
+                        #Experiencia: 10 años en reparaciones eléctricas
+                        #Calificación: 4,9/5 estrellas en nuestra plataforma
+
+                        #*DETALLES DE LA SOLICITUD*
+
+                        #* Problema: Cortocircuito con chispas y olor a humo
+                        #* Ubicación: [Tu dirección]
+                        #* Fecha y hora de la solicitud: [Fecha y hora actuales]
+
+                        #*CONFIRMACIÓN*
+
+                        #Por favor, confirma que deseas que el electricista Juan Pérez se comunique contigo para programar una visita y solucionar el  
                         for key in mensajes_anteriores.keys.sort():
                            value = await env.DIALOGO.get(key.name)
                            mensaje_dict = json.loads(value)
@@ -807,10 +834,25 @@ async def on_fetch(request, env):
                         await env.DIALOGO.put( str(fono) + str(datetime.now()) +":usuario", mensaje_colaborador )
                         mensaje_gerente =  json.dumps( { 'role': 'alexo', 'content': result.response })
                         await env.DIALOGO.put( str(fono) + str(datetime.now()) +":alexo", mensaje_gerente )
+                        match mensaje_gerente:
+                           case 'tokens':
+                             buy_order   = str( random.randint(1, 10000))
+                             #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
+                             path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
+                             try:
+                               await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
+                             except:
+                               pass
 
 
                     return Response( "Es Colaborador", status="200")
-               elif False:
+               #todavía no está probado
+               #difunde cada descripcion
+               #idealmente la IA me dá las órdenes
+               #que puede usar para llamar a difundir
+               #estoy probando la IA de cliente
+               #pero interactuando como colaborador
+               else: 
                     console.log(f"{wa_id} no es colaborador")
                     buy_order   = str( random.randint(1, 10000))
                     #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)

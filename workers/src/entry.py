@@ -782,8 +782,11 @@ async def on_fetch(request, env):
                         console.log(f"Hay {k} mensajes en DIALOGO")
                         mensajes = []
                         for mensaje in mensajes_anteriores.keys:
-                          console.log( f"mensaje{json.loads( mensaje)}")
-                          mensajes.append( mensaje )
+                          mensaje_dict = json.loads(mensaje)
+                          role    = mensaje_dict['role']
+                          content = mensaje_dict['content']
+                          console.log(f"{role}{content}")
+                          mensajes.append( mensaje_dict )
                         console.log(f"mensajes {mensajes}")
                         result = await env.AI.run( await env.I.get('MODELO'), to_js(
                          {'messages': mensajes ,} )) 

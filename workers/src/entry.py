@@ -723,9 +723,9 @@ async def on_fetch(request, env):
                       await suscribir( env, wa_id, nombre)
                       return Response( "El Colaborador ahora está está suscrito", status="200")
                     case "No":
-                      keys = await env.DIALOGO.list( prefix = f"{fono}")
-                      if keys:
-                         for key in keys:
+                      mensajes = await env.DIALOGO.list( prefix = f"{fono}")
+                      if  mensajes:
+                         for key in mensajes.keys:
                             await env.DIALOGO.delete( key.name )
                       return Response( "AI flow borrado por orden de usuario", status="200")
 
@@ -733,8 +733,8 @@ async def on_fetch(request, env):
                if await es_colaborador(env, wa_id):
                     console.log(f"{wa_id} es colaborador")
                     if descripcion == "No":
-                        for key in await env.DIALOGO.list( prefix = f"{fono}" ):
-                            await env.DIALOGO.delete( key.name)
+                        for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
+                            await env.DIALOGO.delete( mensaje.name)
 
                     if not env.DIALOGO.list( prefix = f"{ fono }" ):
                         presentacion = "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."

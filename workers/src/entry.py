@@ -790,6 +790,8 @@ async def on_fetch(request, env):
                            orden      = token_dict['token']['orden']
                            console.log(f"expira en {expira_en}")
 
+                          except:
+                           pass
 
 
                         for mensaje in mensajes_anteriores.keys:

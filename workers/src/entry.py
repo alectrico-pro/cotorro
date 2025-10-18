@@ -745,7 +745,7 @@ async def on_fetch(request, env):
                         { 'messages': [ mensaje_inicial, mensaje_colaborador],} ) )
 
                         mensaje_colaborador = to_js( { 'role': 'colaborador', 'content': result.response })
-                        await env.DIALOGO.put( str(fono)":colaborador", mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + ":colaborador", mensaje_colaborador )
 
 
                     reply = (

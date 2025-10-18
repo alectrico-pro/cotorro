@@ -786,7 +786,7 @@ async def on_fetch(request, env):
                         mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
                         mensajes.append( { 'role': 'usuario', 'content': descripcion } )
 
-                        for key in mensajes_anteriores.keys:
+                        for key in mensajes_anteriores.keys.sort():
                            value = await env.DIALOGO.get(key.name)
                            mensaje_dict = json.loads(value)
                            role    = mensaje_dict['role']
@@ -796,7 +796,7 @@ async def on_fetch(request, env):
 
                         console.log(f"mensajes {mensajes}")
                         result = await env.AI.run( await env.I.get('MODELO'), to_js(
-                         {'messages': mensajes.sort ,} )) 
+                         {'messages': mensajes ,} )) 
                         console.log(f"{result.response}")
                         reply = (
                         f"{result.response} \n"

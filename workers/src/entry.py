@@ -783,6 +783,7 @@ async def on_fetch(request, env):
                         mensajes = []
                         mensajes_anteriores = await env.DIALOGO.list( prefix = f"{fono}:" )
                         for mensaje in mensajes_anteriores.keys:
+                          console.log( f"{mensaje}")
                           mensajes.append( mensaje )
                         console.log(f"mensajes {mensajes}")
                         result = await env.AI.run( await env.I.get('MODELO'), to_js(

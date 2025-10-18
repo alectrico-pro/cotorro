@@ -56,6 +56,14 @@ logger = logging.getLogger(__name__)
 
 from workers import WorkflowEntrypoint
 
+from fpdf import FPDF
+pdf = FPDF()
+pdf.add_page()
+pdf.set_font("Arial", size=12)
+pdf.cell(200, 10, txt="Go Be Great!", ln=1, align="C")
+pdf.output("C:/Temp/sample_demo.pdf")
+
+
 #Esta siendo llamado desde fech/
 class MyWorkflow(WorkflowEntrypoint):
     async def run(self, event, step):

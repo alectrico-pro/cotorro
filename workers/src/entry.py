@@ -745,12 +745,13 @@ async def on_fetch(request, env):
                         mensaje_colaborador = json.dumps( { 'role': 'colaborador', 'content': descripcion } )
                         await env.DIALOGO.put( str(fono) + ":gerente",     mensaje_inicial )
                         await env.DIALOGO.put( str(fono) + ":colaborador", mensaje_colaborador )
+                       
+                        dico = json.dumps( {'messages': [ { 'role': 'gerente', 'content': presentacion },
+                                                          { 'role': 'colaborador', 'content': descripcion }], })
 
+                        result = await env.AI.run(await env.I.get('MODELO'), dico ) 
 
-                        result = await env.AI.run(await env.I.get('MODELO'), to_js(
-                        { 'messages': [ mensaje_inicial, mensaje_colaborador],} ) )
-
-                        mensaje_colaborador = to_js( { 'role': 'colaborador', 'content': result.response })
+d                       mensaje_colaborador =  json.dumps( { 'role': 'colaborador', 'content': result.response })
                         await env.DIALOGO.put( str(fono) + ":colaborador", mensaje_colaborador )
                         reply = (
                           f"{result.response} \n"

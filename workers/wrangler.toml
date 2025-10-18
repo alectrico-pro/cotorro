@@ -45,10 +45,10 @@ name = "cotorro"
 account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
 kv_namespaces = [ { binding = "BUY_ORDER",  id = "7a20ea90007a4f99a6a02e864f358144" }, 
                   { binding = "FINANCIERO", id = "21111b7a045f4f8190416bbf08801cc6" },
-                  { binding = "NOMINA", id = 'e2688fc220714a60bd0aee142c341e28'},
-                  { binding = "DICT",   id = '1fa2129e5a9c4151963563df0026a5f5'},
-                  { binding = "STATUS", id = '803319e9f7a54a7e9d55fcd1ebfa1322'},
-                  { binding = "DIALOGO", id = '7ff51d1ff6c14315b56fb315d4fc533e'}]
+                  { binding = "NOMINA",     id = 'e2688fc220714a60bd0aee142c341e28'},
+                  { binding = "DICT",       id = '1fa2129e5a9c4151963563df0026a5f5'},
+                  { binding = "STATUS",     id = '803319e9f7a54a7e9d55fcd1ebfa1322'},
+                  { binding = "DIALOGO",    id = '7ff51d1ff6c14315b56fb315d4fc533e'}]
 
 
 secrets_store_secrets = [

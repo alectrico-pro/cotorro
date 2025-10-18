@@ -747,9 +747,9 @@ async def on_fetch(request, env):
                       if k == 0:
                         console.log("No hay mensajes en DIALOGO")
                         presentacion = "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."
-                        mensaje_inicial     = json.dumps( { 'role': 'gerente', 'content': presentacion } )
+                        mensaje_inicial     = json.dumps( { 'role': 'sistema', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'colaborador', 'content': descripcion } )
-                        await env.DIALOGO.put( str(fono) + ":gerente:" +  get_next_id(),     mensaje_inicial )
+                        await env.DIALOGO.put( str(fono) + ":sistema:" +  get_next_id(),     mensaje_inicial )
                         await env.DIALOGO.put( str(fono) + ":colaborador:" + get_next_id() , mensaje_colaborador )
                        
                         dico =  {'messages': [ { 'role': 'gerente', 'content': presentacion },
@@ -758,8 +758,8 @@ async def on_fetch(request, env):
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico) ) 
                         console.log(f"{result.response}")
 
-                        mensaje_colaborador =  json.dumps( { 'role': 'colaborador', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + ":colaborador:" + get_next_id(), mensaje_colaborador )
+                        mensaje_gerente =  json.dumps( { 'role': 'gerente', 'content': result.response })
+                        await env.DIALOGO.put( str(fono) + ":gerente:" + get_next_id(), mensaje_gerente )
 
                         reply = (
                           f"{result.response} \n"
@@ -769,6 +769,7 @@ async def on_fetch(request, env):
                         await send_reply(env, wa_id,  reply )
                       else:
                         console.log(f"Hay {k} mensajes en DIALOGO")
+                        
 
                     return Response( "Es Colaborador", status="200")
                else:

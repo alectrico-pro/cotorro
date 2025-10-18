@@ -834,8 +834,9 @@ async def on_fetch(request, env):
                         await env.DIALOGO.put( str(fono) + str(datetime.now()) +":usuario", mensaje_colaborador )
                         mensaje_gerente =  json.dumps( { 'role': 'alexo', 'content': result.response })
                         await env.DIALOGO.put( str(fono) + str(datetime.now()) +":alexo", mensaje_gerente )
-                        match mensaje_gerente:
-                           case 'tokens':
+
+                        match mensaje_gerente.split():
+                           case ['tokens']:
                              buy_order   = str( random.randint(1, 10000))
                              #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
                              path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
@@ -843,7 +844,8 @@ async def on_fetch(request, env):
                                await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
                              except:
                                pass
-
+                           case _:
+                               pass
 
                     return Response( "Es Colaborador", status="200")
                #todavía no está probado

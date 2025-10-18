@@ -751,7 +751,7 @@ async def on_fetch(request, env):
 
                         result = await env.AI.run(await env.I.get('MODELO'), dico ) 
 
-d                       mensaje_colaborador =  json.dumps( { 'role': 'colaborador', 'content': result.response })
+                        mensaje_colaborador =  json.dumps( { 'role': 'colaborador', 'content': result.response })
                         await env.DIALOGO.put( str(fono) + ":colaborador", mensaje_colaborador )
                         reply = (
                           f"{result.response} \n"

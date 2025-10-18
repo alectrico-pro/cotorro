@@ -743,8 +743,8 @@ async def on_fetch(request, env):
                         presentacion = "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."
                         mensaje_inicial     = json.dumps( { 'role': 'gerente', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'colaborador', 'content': descripcion } )
-                        await env.DIALOGO.put( str(fono) + ":gerente",     mensaje_inicial )
-                        await env.DIALOGO.put( str(fono) + ":colaborador", mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + ":gerente:" + datetime() ,     mensaje_inicial )
+                        await env.DIALOGO.put( str(fono) + ":colaborador:" + datetime() , mensaje_colaborador )
                        
                         dico =  {'messages': [ { 'role': 'gerente', 'content': presentacion },
                                                           { 'role': 'colaborador', 'content': descripcion }], }
@@ -753,7 +753,7 @@ async def on_fetch(request, env):
                         console.log(f"{result.response}")
 
                         mensaje_colaborador =  json.dumps( { 'role': 'colaborador', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + ":colaborador", mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + ":colaborador:" + datetime(), mensaje_colaborador )
 
                         reply = (
                           f"{result.response} \n"

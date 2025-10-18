@@ -758,15 +758,15 @@ async def on_fetch(request, env):
                       k = len ( mensajes_anteriores.keys)
                       if k == 0:
                         console.log("No hay mensajes en DIALOGO")
-                        presentacion = "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."
+                        presentacion = "Te llamas alexo y eres el chatbot de la plataforma alectrico® que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."
                         mensaje_inicial     = json.dumps( { 'role': 'gerente', 'content': presentacion } )
-                        mensaje_colaborador = json.dumps( { 'role': 'electricista', 'content': descripcion } )
+                        mensaje_colaborador = json.dumps( { 'role': 'usuario', 'content': descripcion } )
                         
                         await env.DIALOGO.put( str(fono) + str(datetime.now()) + ":gerente" ,     mensaje_inicial )
-                        await env.DIALOGO.put( str(fono) + str(datetime.now()) +":electricista" , mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + str(datetime.now()) + ":usuario" , mensaje_colaborador )
                        
                         dico =  {'messages': [ { 'role': 'gerente', 'content': presentacion },
-                                               { 'role': 'electricista', 'content': descripcion }], }
+                                               { 'role': 'usuario', 'content': descripcion }], }
 
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico) ) 
                         console.log(f"{result.response}")
@@ -782,9 +782,9 @@ async def on_fetch(request, env):
 
                       else:
                         mensajes = []
-                        mensaje_colaborador = json.dumps( { 'role': 'electricista', 'content': descripcion } )
+                        mensaje_colaborador = json.dumps( { 'role': 'usuario', 'content': descripcion } )
                         mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
-                        mensajes.append( { 'role': 'electricista', 'content': descripcion } )
+                        mensajes.append( { 'role': 'usuario', 'content': descripcion } )
 
                         for key in mensajes_anteriores.keys:
                            value = await env.DIALOGO.get(key.name)
@@ -804,7 +804,7 @@ async def on_fetch(request, env):
                          "Escriba *No* para terminar \n "
                         )
                         await send_reply(env, wa_id,  reply )
-                        await env.DIALOGO.put( str(fono) + str(datetime.now()) +":electricista", mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + str(datetime.now()) +":usuario", mensaje_colaborador )
                         mensaje_gerente =  json.dumps( { 'role': 'gerente', 'content': result.response })
                         await env.DIALOGO.put( str(fono) + str(datetime.now()) +":gerente", mensaje_gerente )
 

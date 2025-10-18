@@ -758,7 +758,7 @@ async def on_fetch(request, env):
                       if k == 0:
                         console.log("No hay mensajes en DIALOGO")
                         presentacion = "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."
-                        mensaje_inicial     = json.dumps( { 'role': 'sistema', 'content': presentacion } )
+                        mensaje_inicial     = json.dumps( { 'role': 'gerente', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'electricista', 'content': descripcion } )
                         
                         await env.DIALOGO.put( str(fono) + ":sistema" ,     mensaje_inicial )

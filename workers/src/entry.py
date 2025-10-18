@@ -779,21 +779,10 @@ async def on_fetch(request, env):
                         ) 
                         await send_reply(env, wa_id,  reply )
                       else:
-                        console.log(f"Hay {k} mensajes en DIALOGO")
+                        mensaje_colaborador = json.dumps( { 'role': 'colaborador', 'content': descripcion } )
+                        await env.DIALOGO.put( str(fono) + ":colaborador:" + get_next_id() , mensaje_colaborador )
+
                         mensajes = []
-
-                        #for key in mensajes_anteriores.keys:
-                        #  try:
-                        #   token = await env.DIALOGO.get( key.name )
-                        #   token_dict = json.loads(token)
-                        #   expira_en  = token_dict['token']['expira_en']
-                        #   orden      = token_dict['token']['orden']
-                        #   console.log(f"expira en {expira_en}")
-
-                        # except:
-                        #   pass
-
-
                         for key in mensajes_anteriores.keys:
                           value = await env.DIALOGO.get(key.name)
                           mensaje_dict = json.loads(value)

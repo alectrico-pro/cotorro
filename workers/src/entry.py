@@ -759,37 +759,40 @@ async def on_fetch(request, env):
                         console.log("No hay mensajes en DIALOGO")
                         presentacion = "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."
                         mensaje_inicial     = json.dumps( { 'role': 'sistema', 'content': presentacion } )
-                        mensaje_colaborador = json.dumps( { 'role': 'colaborador', 'content': descripcion } )
-                        await env.DIALOGO.put( str(fono) + ":sistema:" ,     mensaje_inicial )
-                        await env.DIALOGO.put( str(fono) + ":colaborador:" , mensaje_colaborador )
+                        mensaje_colaborador = json.dumps( { 'role': 'electricista', 'content': descripcion } )
+                        
+                        await env.DIALOGO.put( str(fono) + ":sistema" ,     mensaje_inicial )
+                        await env.DIALOGO.put( str(fono) + ":electricista" , mensaje_colaborador )
                        
                         dico =  {'messages': [ { 'role': 'gerente', 'content': presentacion },
-                                                          { 'role': 'colaborador', 'content': descripcion }], }
+                                               { 'role': 'electricista', 'content': descripcion }], }
 
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico) ) 
                         console.log(f"{result.response}")
-
                         mensaje_gerente =  json.dumps( { 'role': 'gerente', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + ":gerente:", mensaje_gerente )
+                        await env.DIALOGO.put( str(fono) + "gerente:", mensaje_gerente )
 
                         reply = (
                           f"{result.response} \n"
                           "..................... \n "
                           "Escriba *No* para terminar \n "
-                        ) 
+                        )
                         await send_reply(env, wa_id,  reply )
+
                       else:
                         mensajes = []
-                        mensaje_colaborador = json.dumps( { 'role': 'colaborador', 'content': descripcion } )
+                        mensaje_colaborador = json.dumps( { 'role': 'electricista', 'content': descripcion } )
                         mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
-                        mensajes.append( { 'role': 'colaborador', 'content': descripcion } )
+                        mensajes.append( { 'role': 'electricista', 'content': descripcion } )
+
                         for key in mensajes_anteriores.keys:
-                          value = await env.DIALOGO.get(key.name)
-                          mensaje_dict = json.loads(value)
-                          role    = mensaje_dict['role']
-                          content = mensaje_dict['content']
-                          console.log(f"{role}{content}")
-                          mensajes.append( mensaje_dict )
+                           value = await env.DIALOGO.get(key.name)
+                           mensaje_dict = json.loads(value)
+                           role    = mensaje_dict['role']
+                           content = mensaje_dict['content']
+                           console.log(f"{role}{content}")
+                           mensajes.append( mensaje_dict )
+
                         console.log(f"mensajes {mensajes}")
                         result = await env.AI.run( await env.I.get('MODELO'), to_js(
                          {'messages': mensajes ,} )) 
@@ -800,7 +803,7 @@ async def on_fetch(request, env):
                          "Escriba *No* para terminar \n "
                         )
                         await send_reply(env, wa_id,  reply )
-                        await env.DIALOGO.put( str(fono) + ":colaborador:", mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + ":electricista", mensaje_colaborador )
                         mensaje_gerente =  json.dumps( { 'role': 'gerente', 'content': result.response })
                         await env.DIALOGO.put( str(fono) + ":gerente:", mensaje_gerente )
 

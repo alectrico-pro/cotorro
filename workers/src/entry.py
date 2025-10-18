@@ -811,6 +811,8 @@ async def on_fetch(request, env):
                          "Escriba *No* para terminar \n "
                         )
                         await send_reply(env, wa_id,  reply )
+                        mensaje_gerente =  json.dumps( { 'role': 'gerente', 'content': result.response })
+                        await env.DIALOGO.put( str(fono) + ":gerente:" + get_next_id(), mensaje_gerente )
 
 
                     return Response( "Es Colaborador", status="200")

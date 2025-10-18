@@ -802,7 +802,6 @@ async def on_fetch(request, env):
                         await send_reply(env, wa_id,  reply )
                         await env.DIALOGO.put( str(fono) + ":colaborador:" + get_next_id() , mensaje_colaborador )
                         mensaje_gerente =  json.dumps( { 'role': 'gerente', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + ":colaborador:" + get_next_id() , mensaje_colaborador )
                         await env.DIALOGO.put( str(fono) + ":gerente:" + get_next_id(), mensaje_gerente )
 
 

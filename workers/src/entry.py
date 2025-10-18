@@ -746,8 +746,8 @@ async def on_fetch(request, env):
                         await env.DIALOGO.put( str(fono) + ":gerente",     mensaje_inicial )
                         await env.DIALOGO.put( str(fono) + ":colaborador", mensaje_colaborador )
                        
-                        dico = json.dumps( {'messages': [ { 'role': 'gerente', 'content': presentacion },
-                                                          { 'role': 'colaborador', 'content': descripcion }], })
+                        dico =  {'messages': [ { 'role': 'gerente', 'content': presentacion },
+                                                          { 'role': 'colaborador', 'content': descripcion }], }
 
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico) ) 
 

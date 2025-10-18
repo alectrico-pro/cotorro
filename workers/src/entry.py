@@ -781,9 +781,9 @@ async def on_fetch(request, env):
                       else:
                         console.log(f"Hay {k} mensajes en DIALOGO")
                         mensajes = []
-                        mensajes = await env.DIALOGO.list( prefix = f"{fono}:" )
+                        mensajes_anteriores = await env.DIALOGO.list( prefix = f"{fono}:" )
                         for mensaje in mensajes.keys:
-                          mensajes.append( mensaje.value )
+                          mensajes.append( mensaje_anteriores.value )
                         console.log(f"mensajes {mensajes}")
 
                     return Response( "Es Colaborador", status="200")

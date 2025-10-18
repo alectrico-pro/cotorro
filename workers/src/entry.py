@@ -779,10 +779,10 @@ async def on_fetch(request, env):
                         ) 
                         await send_reply(env, wa_id,  reply )
                       else:
-                        mensaje_colaborador = json.dumps( { 'role': 'colaborador', 'content': descripcion } )
-                        await env.DIALOGO.put( str(fono) + ":colaborador:" + get_next_id() , mensaje_colaborador )
-                        mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
                         mensajes = []
+                        mensaje_colaborador = json.dumps( { 'role': 'colaborador', 'content': descripcion } )
+                        mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
+                        mensajes.append( { 'role': 'colaborador', 'content': descripcion } )
                         for key in mensajes_anteriores.keys:
                           value = await env.DIALOGO.get(key.name)
                           mensaje_dict = json.loads(value)
@@ -800,7 +800,9 @@ async def on_fetch(request, env):
                          "Escriba *No* para terminar \n "
                         )
                         await send_reply(env, wa_id,  reply )
+                        await env.DIALOGO.put( str(fono) + ":colaborador:" + get_next_id() , mensaje_colaborador )
                         mensaje_gerente =  json.dumps( { 'role': 'gerente', 'content': result.response })
+                        await env.DIALOGO.put( str(fono) + ":colaborador:" + get_next_id() , mensaje_colaborador )
                         await env.DIALOGO.put( str(fono) + ":gerente:" + get_next_id(), mensaje_gerente )
 
 

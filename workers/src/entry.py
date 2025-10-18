@@ -770,7 +770,7 @@ async def on_fetch(request, env):
                         console.log(f"{result.response}")
 
                         mensaje_gerente =  json.dumps( { 'role': 'gerente', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + ":gerente:" +, mensaje_gerente )
+                        await env.DIALOGO.put( str(fono) + ":gerente:", mensaje_gerente )
 
                         reply = (
                           f"{result.response} \n"

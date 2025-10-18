@@ -760,8 +760,8 @@ async def on_fetch(request, env):
                         presentacion = "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."
                         mensaje_inicial     = json.dumps( { 'role': 'sistema', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'colaborador', 'content': descripcion } )
-                        await env.DIALOGO.put( str(fono) + ":sistema:" +  get_next_id(),     mensaje_inicial )
-                        await env.DIALOGO.put( str(fono) + ":colaborador:" + get_next_id() , mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + ":sistema:" ,     mensaje_inicial )
+                        await env.DIALOGO.put( str(fono) + ":colaborador:" , mensaje_colaborador )
                        
                         dico =  {'messages': [ { 'role': 'gerente', 'content': presentacion },
                                                           { 'role': 'colaborador', 'content': descripcion }], }
@@ -770,7 +770,7 @@ async def on_fetch(request, env):
                         console.log(f"{result.response}")
 
                         mensaje_gerente =  json.dumps( { 'role': 'gerente', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + ":gerente:" + get_next_id(), mensaje_gerente )
+                        await env.DIALOGO.put( str(fono) + ":gerente:" +, mensaje_gerente )
 
                         reply = (
                           f"{result.response} \n"
@@ -800,9 +800,9 @@ async def on_fetch(request, env):
                          "Escriba *No* para terminar \n "
                         )
                         await send_reply(env, wa_id,  reply )
-                        await env.DIALOGO.put( str(fono) + ":colaborador:" + get_next_id() , mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + ":colaborador:", mensaje_colaborador )
                         mensaje_gerente =  json.dumps( { 'role': 'gerente', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + ":gerente:" + get_next_id(), mensaje_gerente )
+                        await env.DIALOGO.put( str(fono) + ":gerente:", mensaje_gerente )
 
 
                     return Response( "Es Colaborador", status="200")

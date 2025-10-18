@@ -782,21 +782,21 @@ async def on_fetch(request, env):
                         console.log(f"Hay {k} mensajes en DIALOGO")
                         mensajes = []
 
+                        #for key in mensajes_anteriores.keys:
+                        #  try:
+                        #   token = await env.DIALOGO.get( key.name )
+                        #   token_dict = json.loads(token)
+                        #   expira_en  = token_dict['token']['expira_en']
+                        #   orden      = token_dict['token']['orden']
+                        #   console.log(f"expira en {expira_en}")
+
+                        # except:
+                        #   pass
+
+
                         for key in mensajes_anteriores.keys:
-                          try:
-                           token = await env.DIALOGO.get( key.name )
-                           token_dict = json.loads(token)
-                           expira_en  = token_dict['token']['expira_en']
-                           orden      = token_dict['token']['orden']
-                           console.log(f"expira en {expira_en}")
-
-                          except:
-                           pass
-
-
-                        for mensaje in mensajes_anteriores.keys:
-                          
-                          mensaje_dict = json.loads(mensaje.value)
+                          value = await env.DIALOGO.get(key.name)
+                          mensaje_dict = json.loads(value)
                           role    = mensaje_dict['role']
                           content = mensaje_dict['content']
                           console.log(f"{role}{content}")

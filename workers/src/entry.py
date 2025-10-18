@@ -723,8 +723,10 @@ async def on_fetch(request, env):
                       await suscribir( env, wa_id, nombre)
                       return Response( "El Colaborador ahora está está suscrito", status="200")
                     case "No":
-                      for key in await env.DIALOGO.list( prefix = f"{fono}"):
-                        await env.DIALOGO.delete( key.name )
+                      keys = await env.DIALOGO.list( prefix = f"{fono}")
+                      if len(keys) > 0:
+                         for key in keys:
+                            await env.DIALOGO.delete( key.name )
                       return Response( "AI flow borrado por orden de usuario", status="200")
 
 

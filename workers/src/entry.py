@@ -785,6 +785,16 @@ async def on_fetch(request, env):
                         for mensaje in mensajes_anteriores.keys:
                           mensajes.append( mensaje )
                         console.log(f"mensajes {mensajes}")
+                        result = await env.IA.run( await env.I.get('MODELO'), to_js(
+                         {'messages': json.dumps( mensajes) ,} )) 
+                        console.log(f"{result.response}")
+                        reply = (
+                        f"{result.response} \n"
+                         "..................... \n "
+                         "Escriba *No* para terminar \n "
+                        )
+                        await send_reply(env, wa_id,  reply )
+
 
                     return Response( "Es Colaborador", status="200")
                else:

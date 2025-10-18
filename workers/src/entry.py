@@ -795,7 +795,8 @@ async def on_fetch(request, env):
 
 
                         for mensaje in mensajes_anteriores.keys:
-                          mensaje_dict = json.loads(mensaje)
+                          
+                          mensaje_dict = json.loads(mensaje.value)
                           role    = mensaje_dict['role']
                           content = mensaje_dict['content']
                           console.log(f"{role}{content}")

@@ -704,6 +704,7 @@ async def on_fetch(request, env):
                descripcion = value.messages[0].text.body
                id          = value.messages[0].id
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
+               fono        = str( fix_fono ( wa_id ))
                nombre      = request_json.entry[0].changes[0].value.contacts[0].profile.name
                match descripcion:
                     case "/activar":

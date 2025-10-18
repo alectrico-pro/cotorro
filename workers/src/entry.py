@@ -756,9 +756,14 @@ async def on_fetch(request, env):
 
                       mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
                       k = len ( mensajes_anteriores.keys)
-                      if k == 0:
+                      if k == 0:i
+                        buy_order   = str( random.randint(1, 10000))
+                        #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
+                        path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
+
+
                         console.log("No hay mensajes en DIALOGO")
-                        presentacion = "Te llamas alexo y eres el chatbot de la plataforma alectrico® que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."
+                        presentacion = "Te llamas alexo y eres el chatbot de la plataforma alectrico® que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico® y posee una plataforma en https://recarga.alectrico.cl. Los electricistas suscritos a la plataforma alectrico® revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si ellos antes han comprado tokens. IMPORTANTE: Los clientes deben escribir No para dejar de recibir mensajes. Ofrece a los cientes el  enlace de compra de tokens siguiente: {path_de_pago}"
                         mensaje_inicial     = json.dumps( { 'role': 'system', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'usuario', 'content': descripcion } )
                         

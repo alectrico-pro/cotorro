@@ -759,18 +759,18 @@ async def on_fetch(request, env):
                       if k == 0:
                         console.log("No hay mensajes en DIALOGO")
                         presentacion = "Te llamas alexo y eres el chatbot de la plataforma alectrico® que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."
-                        mensaje_inicial     = json.dumps( { 'role': 'gerente', 'content': presentacion } )
+                        mensaje_inicial     = json.dumps( { 'role': 'system', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'usuario', 'content': descripcion } )
                         
-                        await env.DIALOGO.put( str(fono) + str(datetime.now()) + ":gerente" ,     mensaje_inicial )
+                        await env.DIALOGO.put( str(fono) + str(datetime.now()) + ":alexo" ,     mensaje_inicial )
                         await env.DIALOGO.put( str(fono) + str(datetime.now()) + ":usuario" , mensaje_colaborador )
                        
-                        dico =  {'messages': [ { 'role': 'gerente', 'content': presentacion },
+                        dico =  {'messages': [ { 'role': 'alexo', 'content': presentacion },
                                                { 'role': 'usuario', 'content': descripcion }], }
 
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico) ) 
                         console.log(f"{result.response}")
-                        mensaje_gerente =  json.dumps( { 'role': 'gerente', 'content': result.response })
+                        mensaje_gerente =  json.dumps( { 'role': 'alexo', 'content': result.response })
                         await env.DIALOGO.put( str(fono) + str(datetime.now()) +":gerente", mensaje_gerente )
 
                         reply = (
@@ -805,8 +805,8 @@ async def on_fetch(request, env):
                         )
                         await send_reply(env, wa_id,  reply )
                         await env.DIALOGO.put( str(fono) + str(datetime.now()) +":usuario", mensaje_colaborador )
-                        mensaje_gerente =  json.dumps( { 'role': 'gerente', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + str(datetime.now()) +":gerente", mensaje_gerente )
+                        mensaje_gerente =  json.dumps( { 'role': 'alexo', 'content': result.response })
+                        await env.DIALOGO.put( str(fono) + str(datetime.now()) +":alexo", mensaje_gerente )
 
 
                     return Response( "Es Colaborador", status="200")

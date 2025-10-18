@@ -736,7 +736,9 @@ async def on_fetch(request, env):
                         for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
                             await env.DIALOGO.delete( mensaje.name)
 
-                    if not env.DIALOGO.list( prefix = f"{ fono }" ):
+                    mensajes = env.DIALOGO.list( prefix = f"{ fono }" ):
+                      if not mensajes:
+                        console.log("No hay mensajes en DIALOGO")
                         presentacion = "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."
                         mensaje_inicial     = to_js( { 'role': 'gerente', 'content': presentacion } )
                         mensaje_colaborador = to_js( { 'role': 'colaborador', 'content': descripcion } )

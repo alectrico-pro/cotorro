@@ -747,7 +747,7 @@ async def on_fetch(request, env):
                       return Response( "AI flow borrado por orden de usuario", status="200")
 
 
-               if await es_colaborador(env, wa_id):
+               if not await es_colaborador(env, wa_id):
                     console.log(f"{wa_id} es colaborador")
                     if descripcion == "No":
                         for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
@@ -763,7 +763,7 @@ async def on_fetch(request, env):
 
 
                         console.log("No hay mensajes en DIALOGO")
-                        presentacion = f"Te llamas alexo y eres el chatbot de la plataforma alectrico® que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico® y posee una plataforma en https://recarga.alectrico.cl donde puedes recaergar tokens a tu número. Los electricistas suscritos a la plataforma alectrico® revisan los avisos de personas con problemas eléctricos. IMPORTANTE: Los clientes deben escribir No para dejar de recibir mensajes. Ofrece a los cientes el  enlace de compra de tokens siguiente: https://www.alectrico.cl{path_de_pago}. Los clientes que cotizan deben comprar un token en https://recarga.alectrico.cl, los que requieren un presupuesto también, los que aceptan al electricista de alectrico no necesitan comprar tokens."
+                        presentacion = f"Te llamas alexo y eres el chatbot de la plataforma alectrico® que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico® y posee una plataforma en https://recarga.alectrico.cl donde puedes recaergar tokens a tu número. Los electricistas suscritos a la plataforma alectrico® revisan los avisos de personas con problemas eléctricos. IMPORTANTE: Los clientes deben escribir No para dejar de recibir mensajes. Los clientes que coticen que desen un presupuesto deben comprar un token en https://recarga.alectrico.cl, los que requieren un presupuesto también, los que aceptan al electricista de alectrico® no necesitan comprar tokens."
                         mensaje_inicial     = json.dumps( { 'role': 'system', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'usuario', 'content': descripcion } )
                         
@@ -794,7 +794,7 @@ async def on_fetch(request, env):
                         #En cuanto a la solución, puedo ofrecerte las siguientes opciones:
 
                         #1. *Conectar con un electricista*: Puedo conectarte con un electricista calificado de nuestra plataforma Alectrico Repair que pueda evaluar y solucionar el problema de manera segura y eficiente.
-                        #2. *Obtener un presupuesto*: Puedo proporcionarte un presupuesto para el servicio de reparación eléctrica, de manera que puedas planificar y prepararte para la solución del problema.
+                        #2. *Obtener un presupuesto*: Puedo proporcionarte un presupuesto para el servicio de reparación eléctrica, de manera que puedas planificar y prepararte para la solución del problema®.
 
                         #¿Cuál es tu preferencia? ¿Quieres que te conecte con un electricista o obtener un presupuesto
                         #*CONEXIÓN CON ELECTRICISTA*
@@ -840,8 +840,7 @@ async def on_fetch(request, env):
                         mensaje_gerente =  json.dumps( { 'role': 'alexo', 'content': result.response })
                         await env.DIALOGO.put( str(fono) + str(datetime.now()) +":alexo", mensaje_gerente )
 
-                        match mensaje_gerente.split():
-                           case ['tokens']:
+                        if 'tokens' in  mensaje_gerente:
                              buy_order   = str( random.randint(1, 10000))
                              #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
                              path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
@@ -849,8 +848,9 @@ async def on_fetch(request, env):
                                await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
                              except:
                                pass
-                           case _:
-                               pass
+                             await difundir_a_colaboradores(env, buy_order, nombre, descripcion, 'no-indica' , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
+
+                             await enviar_template_say_visita_flow_reserva( request, env, wa_id )
 
                     return Response( "Es Colaborador", status="200")
                #todavía no está probado

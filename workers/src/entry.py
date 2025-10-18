@@ -747,14 +747,12 @@ async def on_fetch(request, env):
 
                         mensaje_colaborador = to_js( { 'role': 'colaborador', 'content': result.response })
                         await env.DIALOGO.put( str(fono) + ":colaborador", mensaje_colaborador )
-
-
-                    reply = (
-                      f"{result.response} \n"
-                      "..................... \n "
-                      "Escriba *No* para terminar \n "
-                    ) 
-                    await send_reply(env, wa_id,  reply )
+                        reply = (
+                          f"{result.response} \n"
+                          "..................... \n "
+                          "Escriba *No* para terminar \n "
+                        ) 
+                        await send_reply(env, wa_id,  reply )
                     return Response( "Es Colaborador", status="200")
                else:
                     console.log(f"{wa_id} no es colaborador")

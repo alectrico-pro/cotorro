@@ -785,7 +785,7 @@ async def on_fetch(request, env):
                         for mensaje in mensajes_anteriores.keys:
                           mensajes.append( mensaje )
                         console.log(f"mensajes {mensajes}")
-                        result = await env.IA.run( await env.I.get('MODELO'), to_js(
+                        result = await env.AI.run( await env.I.get('MODELO'), to_js(
                          {'messages': json.dumps( mensajes) ,} )) 
                         console.log(f"{result.response}")
                         reply = (

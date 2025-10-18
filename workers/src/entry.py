@@ -756,7 +756,7 @@ async def on_fetch(request, env):
 
                       mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
                       k = len ( mensajes_anteriores.keys)
-                      if k == 0:i
+                      if k == 0:
                         buy_order   = str( random.randint(1, 10000))
                         #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
                         path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"

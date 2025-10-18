@@ -737,7 +737,7 @@ async def on_fetch(request, env):
                             await env.DIALOGO.delete( mensaje.name)
                     else:
                       mensajes = await env.DIALOGO.list( prefix = f"{ fono }" )
-                      if len( mensajes.keys ) = 0:
+		      if len( mensajes.keys ) == 0:
                         console.log("No hay mensajes en DIALOGO")
                         presentacion = "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."
                         mensaje_inicial     = to_js( { 'role': 'gerente', 'content': presentacion } )

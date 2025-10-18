@@ -721,17 +721,37 @@ async def on_fetch(request, env):
                     case "/suscribir":
                       await suscribir( env, wa_id, nombre)
                       return Response( "El Colaborador ahora está está suscrito", status="200")
+                    case "No":
+                      for key in await env.DIALOGO.list( prefix: fono):
+                        await env.DIALOGO.delete( key.name )
+                      return Response( "AI flow borrado por orden de usuario", status="200")
+
 
                if await es_colaborador(env, wa_id):
                     console.log(f"{wa_id} es colaborador")
-                    result = await env.AI.run(await env.I.get('MODELO'), to_js(
-                    { 'messages': [
-                    { "role": "gerente", "content": "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."},
-                    { 'role': 'cliente', 'content': descripcion } ],} ) );
+                    if descripcion == "No":
+                        for key in await env.DIALOGO.list( prefix: fono):
+                            await env.DIALOGO.delete( key.name)
+
+                    if not env.DIALOGO.list( prefix: fono):
+                        presentacion = "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlo a Ud. si antes han comprado tokens. IMPORTANTE:Los clientes deben escribir No para dejar de recibir mensajes."
+                        mensaje_inicial     = to_js( { 'role': 'gerente', 'content': presentacion }
+                        mensaje_colaborador = to_js( { 'role': 'colaborador', 'content': descripcion }
+                        await env.DIALOGO.put( str(fono)":gerente",     mensaje_inicial )
+                        await env.DIALOGO.put( str(fono)":colaborador", mensaje_colaborador )
+
+
+                        result = await env.AI.run(await env.I.get('MODELO'), to_js(
+                        { 'messages': [ mensaje_inicial, mensaje_colaborador],} ) )
+
+                        mensaje_colaborador = to_js( { 'role': 'colaborador', 'content': result.response }
+                        await env.DIALOGO.put( str(fono)":colaborador", mensaje_colaborador )
+
+
                     reply = (
-                     f"{result.response} \n"
-                     "..................... \n "
-                     "Escriba *No* para terminar \n "
+                      f"{result.response} \n"
+                      "..................... \n "
+                      "Escriba *No* para terminar \n "
                     ) 
                     await send_reply(env, wa_id,  reply )
                     return Response( "Es Colaborador", status="200")

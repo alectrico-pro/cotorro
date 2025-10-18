@@ -781,7 +781,7 @@ async def on_fetch(request, env):
                       else:
                         console.log(f"Hay {k} mensajes en DIALOGO")
                         mensajes = []
-                        for mensaje in await env.DIALOGO.list( prefix = f"{fono}:" )
+                        for mensaje in await env.DIALOGO.list( prefix = f"{fono}:" ):
                           mensajes.append( mensaje )
                         console.log(f"mensajes {mensajes}")
 

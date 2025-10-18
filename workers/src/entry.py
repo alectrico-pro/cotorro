@@ -796,7 +796,7 @@ async def on_fetch(request, env):
 
                         console.log(f"mensajes {mensajes}")
                         result = await env.AI.run( await env.I.get('MODELO'), to_js(
-                         {'messages': mensajes ,} )) 
+                         {'messages': mensajes.sort ,} )) 
                         console.log(f"{result.response}")
                         reply = (
                         f"{result.response} \n"

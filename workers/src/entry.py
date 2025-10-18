@@ -763,20 +763,20 @@ async def on_fetch(request, env):
 
 
                         console.log("No hay mensajes en DIALOGO")
-                        presentacion = f"Te llamas alexo y eres el chatbot de la plataforma alectrico® que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico® y posee una plataforma en https://recarga.alectrico.cl donde puedes recaergar tokens a tu número. Los electricistas suscritos a la plataforma alectrico® revisan los avisos de personas con problemas eléctricos. IMPORTANTE: Los clientes deben escribir No para dejar de recibir mensajes. Los clientes que coticen que desen un presupuesto deben comprar un token en https://recarga.alectrico.cl, los que requieren un presupuesto también, los que aceptan al electricista de alectrico® no necesitan comprar tokens."
+                        presentacion = f"Te llamas alexo y eres el asistente de la plataforma alectrico® que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico® y posee una plataforma en https://recarga.alectrico.cl donde puedes recaergar tokens a tu número. Los electricistas suscritos a la plataforma alectrico® revisan los avisos de personas con problemas eléctricos. IMPORTANTE: Los clientes deben escribir No para dejar de recibir mensajes. Los clientes que coticen que desen un presupuesto deben comprar un token en https://recarga.alectrico.cl, los que requieren un presupuesto también, los que aceptan al electricista de alectrico® no necesitan comprar tokens."
                         mensaje_inicial     = json.dumps( { 'role': 'system', 'content': presentacion } )
-                        mensaje_colaborador = json.dumps( { 'role': 'usuario', 'content': descripcion } )
+                        mensaje_colaborador = json.dumps( { 'role': 'user', 'content': descripcion } )
                         
                         await env.DIALOGO.put( str(fono) + str(datetime.now()) + ":alexo" ,     mensaje_inicial )
-                        await env.DIALOGO.put( str(fono) + str(datetime.now()) + ":usuario" , mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + str(datetime.now()) + ":user" , mensaje_colaborador )
                        
-                        dico =  {'messages': [ { 'role': 'alexo', 'content': presentacion },
-                                               { 'role': 'usuario', 'content': descripcion }], }
+                        dico =  {'messages': [ { 'role': 'assistant', 'content': presentacion },
+                                               { 'role': 'user', 'content': descripcion }], }
 
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico) ) 
                         console.log(f"{result.response}")
-                        mensaje_gerente =  json.dumps( { 'role': 'alexo', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + str(datetime.now()) +":gerente", mensaje_gerente )
+                        mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
+                        await env.DIALOGO.put( str(fono) + str(datetime.now()) +":assistant", mensaje_gerente )
 
                         reply = (
                           f"{result.response} \n"
@@ -787,9 +787,9 @@ async def on_fetch(request, env):
 
                       else:
                         mensajes = []
-                        mensaje_colaborador = json.dumps( { 'role': 'usuario', 'content': descripcion } )
+                        mensaje_colaborador = json.dumps( { 'role': 'user', 'content': descripcion } )
                         mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
-                        mensajes.append( { 'role': 'usuario', 'content': descripcion } )
+                        mensajes.append( { 'role': 'user', 'content': descripcion } )
                         #Recuerda que, para que el electricista pueda atenderte, debes haber comprado tokens previamente en nuestra plataforma Alectrico Repair.
                         #En cuanto a la solución, puedo ofrecerte las siguientes opciones:
 
@@ -836,9 +836,9 @@ async def on_fetch(request, env):
                          "Escriba *No* para terminar \n "
                         )
                         await send_reply(env, wa_id,  reply )
-                        await env.DIALOGO.put( str(fono) + str(datetime.now()) +":usuario", mensaje_colaborador )
-                        mensaje_gerente =  json.dumps( { 'role': 'alexo', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + str(datetime.now()) +":alexo", mensaje_gerente )
+                        await env.DIALOGO.put( str(fono) + str(datetime.now()) +":user", mensaje_colaborador )
+                        mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
+                        await env.DIALOGO.put( str(fono) + str(datetime.now()) +":assistant", mensaje_gerente )
 
                         if 'tokens' in  mensaje_gerente:
                              buy_order   = str( random.randint(1, 10000))

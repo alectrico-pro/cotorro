@@ -724,7 +724,7 @@ async def on_fetch(request, env):
                       return Response( "El Colaborador ahora está está suscrito", status="200")
                     case "No":
                       keys = await env.DIALOGO.list( prefix = f"{fono}")
-                      if len(keys) > 0:
+                      if keys:
                          for key in keys:
                             await env.DIALOGO.delete( key.name )
                       return Response( "AI flow borrado por orden de usuario", status="200")

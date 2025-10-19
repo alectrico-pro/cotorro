@@ -746,13 +746,14 @@ async def on_fetch(request, env):
                             await env.DIALOGO.delete( key.name )
                       return Response( "AI flow borrado por orden de usuario", status="200")
 
-
-               if not await es_colaborador(env, wa_id):
-                    console.log(f"{wa_id} es colaborador")
-                    if descripcion == "No":
+               if descripcion == "No":
                         for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
                             await env.DIALOGO.delete( mensaje.name)
-                    else:
+              
+
+
+               if not await es_colaborador(env, wa_id):
+                    console.log(f"{wa_id} No es colaborador")
 
                       mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
                       k = len ( mensajes_anteriores.keys)
@@ -861,7 +862,7 @@ async def on_fetch(request, env):
                #estoy probando la IA de cliente
                #pero interactuando como colaborador
                else: 
-                    console.log(f"{wa_id} no es colaborador")
+                    console.log(f"{wa_id} es colaborador")
                     buy_order   = str( random.randint(1, 10000))
                     #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
 
@@ -884,16 +885,16 @@ async def on_fetch(request, env):
                     #await send_reply(env, env.FONO_JEFE,  reply )
                     await send_reply(env, wa_id,  reply )
 
-                    await difundir_a_colaboradores(env, buy_order, nombre, descripcion, 'no-indica' , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
+                    #await difundir_a_colaboradores(env, buy_order, nombre, descripcion, 'no-indica' , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
                    
                     #await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
 
                     #no puedo difundir_a_colaboradores aquí porque el cliente no ha introducido datos
                     #envío al cuestionario flow para obtener los datos
              
-                    await enviar_template_say_visita_flow_reserva( request, env, wa_id )
+                    #await enviar_template_say_visita_flow_reserva( request, env, wa_id )
                     #await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
-                    return Response( "Procesado", status="200" )
+                    return Response( "Ud. es Colaborador", status="200" )
                
             #Cuando el usuario responda cuestionarios
             #Llega aquí

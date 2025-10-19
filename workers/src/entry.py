@@ -753,8 +753,8 @@ async def on_fetch(request, env):
 
 
                if not await es_colaborador(env, wa_id):
-                    console.log(f"{wa_id} No es colaborador")
-
+                      console.log(f"{wa_id} No es colaborador")
+  
                       mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
                       k = len ( mensajes_anteriores.keys)
                       if k == 0:

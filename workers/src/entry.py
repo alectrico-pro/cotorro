@@ -840,7 +840,8 @@ async def on_fetch(request, env):
                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
                         await env.DIALOGO.put( str(fono) + str(datetime.now()) +":assistant", mensaje_gerente )
 
-                        if 'tokens' in  mensaje_gerente:
+                        #envia muchos,no sé por qué
+                        if 'tokens' in  mensaje_gerente and False:
                              buy_order   = str( random.randint(1, 10000))
                              #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
                              path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"

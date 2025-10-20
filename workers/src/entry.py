@@ -748,16 +748,17 @@ async def on_fetch(request, env):
                     case "/suscribir":
                       await suscribir( env, wa_id, nombre)
                       return Response( "El Colaborador ahora está está suscrito", status="200")
+                    case "No":
+                          console.log("Procesando No")
+                          mensajes = await env.DIALOGO.list( prefix = f"{fono}")
+                          if  mensajes:
+                            for key in mensajes.keys:
+                                 await env.DIALOGO.delete( key.name)
+                          return Response( "Borrado Dialogo para fono", status="200")
 
 
                if not await es_colaborador(env, wa_id):
                       console.log(f"{wa_id} No es colaborador")
-                      if descripcion == "No":
-                          mensajes = await env.DIALOGO.list( prefix = f"{fono}")
-                          if  mensajes:
-                            for key in mensajes.keys:
-                              await env.DIALOGO.delete( key.name)
- 
                       mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
                       k = len ( mensajes_anteriores.keys)
                       if k == 0:
@@ -772,8 +773,8 @@ async def on_fetch(request, env):
                         mensaje_inicial     = json.dumps( { 'role': 'system', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'user', 'content': descripcion } )
                    
-                        await env.DIALOGO.put( str(fono) + str(datetime.now()) + ":system" ,     mensaje_inicial )
-                        await env.DIALOGO.put( str(fono) + str(datetime.now()) + ":user" , mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + ":" + str(datetime.now()) + ":system" ,     mensaje_inicial )
+                        await env.DIALOGO.put( str(fono) + ":" + str(datetime.now()) + ":user" , mensaje_colaborador )
                        
                         dico =  {
                          'max_tokens': 502,
@@ -784,7 +785,7 @@ async def on_fetch(request, env):
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico) ) 
                         console.log(f"{result.response}")
                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + str(datetime.now()) +":assistant", mensaje_gerente )
+                        await env.DIALOGO.put( str(fono) + ":" + str(datetime.now()) +":assistant", mensaje_gerente )
 
                         reply = (
                           f"{result.response} \n"
@@ -850,9 +851,9 @@ async def on_fetch(request, env):
                          "Escriba *No* para terminar \n "
                         )
                         await send_reply(env, wa_id,  reply )
-                        await env.DIALOGO.put( str(fono) + str(datetime.now()) +":user", mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + ":" + str(datetime.now()) +":user", mensaje_colaborador )
                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + str(datetime.now()) +":assistant", mensaje_gerente )
+                        await env.DIALOGO.put( str(fono) + ":" + str(datetime.now()) +":assistant", mensaje_gerente )
 
                         #envia muchos,no sé por qué
                         if 'tokens' in  mensaje_gerente and False:
@@ -875,12 +876,6 @@ async def on_fetch(request, env):
                #estoy probando la IA de cliente
                #pero interactuando como colaborador
                else:
-                    if descripcion == "No":
-                          mensajes = await env.DIALOGO.list( prefix = f"{fono}")
-                          if  mensajes:
-                            for key in mensajes.keys:
-                              await env.DIALOGO.delete( key.name)
- 
                     console.log(f"{wa_id} es colaborador")
                     buy_order   = str( random.randint(1, 10000))
                     #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)

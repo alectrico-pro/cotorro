@@ -802,6 +802,7 @@ async def on_fetch(request, env):
                           result = await env.AI.run(await env.I.get('MODELO'), to_js (dico_con_tools ) ) 
                           if result and hasattr( result, 'tool_calls'):
                             console.log(f"Tiene tool_calls")
+                            console.log(f"{result.tool_class[0]}")
                           else:
                             console.log("No dió resultado")
 

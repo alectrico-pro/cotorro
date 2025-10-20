@@ -782,7 +782,6 @@ async def on_fetch(request, env):
                         await env.DIALOGO.put( str(fono) + str(datetime.now()) + ":user" , mensaje_colaborador )
                        
                         dico =  {
-                         'stream': True,
                          'max_tokens': 502,
                          'messages': [ { 'role': 'system', 'content': presentacion },
                                        { 'role': 'user',   'content': descripcion }],

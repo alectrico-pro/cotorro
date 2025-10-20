@@ -360,11 +360,11 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         return Response( 'ok', status="200")
 #--------------- Funciones llamadas desde LLMs .---------------------
 
-async def diga_hola( env, telefono):
+async def diga_hola( env, telefono, comuna):
   console.log( "En diga_hola")
-  console.log(f"telefono {telefono}")
   reply = (
-  "hola, te saludo desde el buque"
+    f"hola, confirma tu teléfno {telefono}\n"
+    f"comuna {comuna}\n"
   ) 
   await send_reply( env, telefono, reply)
   return f"Se envió exitosamente un saludo al {telefono} "
@@ -787,9 +787,12 @@ async def on_fetch(request, env):
                                          'properties': {  
                                                         'telefono':
                                                            {'type': 'string',
-                                                            'description': 'Telefono del destinatario'}
+                                                            'description': 'Telefono del usuario.'},
+                                                        'comuna':
+                                                           {'type': 'string',
+                                                            'comuna': 'Comuna del usuario.'}
                                                        },
-                                           'required': [ 'telefono' ]
+                                           'required': [ 'telefono', 'comuna' ]
                               }
                             }
                           ] 
@@ -810,13 +813,11 @@ async def on_fetch(request, env):
                                 match call.name:
                                    case 'diga_hola':
                                      console.log("call.name es diga_hola")
-                                     resultado = await diga_hola(env, call.arguments.telefono)
+                                     console.log(f"call telefono {call.arguments.telefono}")
+                                     console.log(f"call comuna {call.arguments.comuna}")
+                                     resultado = await diga_hola(env, call.arguments.telefono, call.arguments.comuna)
                                      tool_resultado = json.dumps( { 'role': 'tool', 'content': resultado  } )
                                      await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":tool" , tool_resultado )
-
-                                     console.log(f"nombre de call {call.name}")
-                                     console.log(f"telefono {call.arguments.telefono}")
-                              
                           else:
                             console.log("No dió resultado")
 

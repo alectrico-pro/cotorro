@@ -759,7 +759,7 @@ async def on_fetch(request, env):
 
                if not await es_colaborador(env, wa_id):
                       console.log(f"{wa_id} No es colaborador")
-                      mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
+                      mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }:no_colaborador" )
                       k = len ( mensajes_anteriores.keys)
                       if k == 0:
                         buy_order   = str( random.randint(1, 10000))
@@ -773,8 +773,8 @@ async def on_fetch(request, env):
                         mensaje_inicial     = json.dumps( { 'role': 'system', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'user', 'content': descripcion } )
                    
-                        await env.DIALOGO.put( str(fono) + ":no_colaborador" + ":system:" + str(datetime.now()) ,     mensaje_inicial )
-                        await env.DIALOGO.put( str(fono) + ":no_colaborador" + ":user:" + str(datetime.now()) , mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":system",     mensaje_inicial )
+                        await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":user" , mensaje_colaborador )
                        
                         dico_con_tools =  {
                          'max_tokens': 502,
@@ -792,7 +792,7 @@ async def on_fetch(request, env):
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico) ) 
                         console.log(f"{result.response}")
                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + ":no_colaborador" + ":assistant:" +  str(datetime.now()), mensaje_gerente )
+                        await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":assistant" , mensaje_gerente )
 
                         reply = (
                           f"{result.response} \n"
@@ -854,9 +854,9 @@ async def on_fetch(request, env):
                          "Escriba *No* para terminar \n "
                         )
                         await send_reply(env, wa_id,  reply )
-                        await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" + ":user" +  str(datetime.now()) , mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":user" , mensaje_colaborador )
                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" + ":assistant:" + str(datetime.now()), mensaje_gerente )
+                        await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":assistant" , mensaje_gerente )
 
                         #envia muchos,no sé por qué
                         if 'tokens' in  mensaje_gerente and False:

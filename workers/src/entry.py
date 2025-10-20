@@ -786,20 +786,7 @@ async def on_fetch(request, env):
                          'max_tokens': 502,
                          'messages': [ { 'role': 'system', 'content': presentacion },
                                        { 'role': 'user',   'content': descripcion }],
-                                     [ { 'tools':
-                                         { 'name': 'hola',
-                                            'parameters': {
-                                               'properties': {
-                                                 'fono':
-                                                     { 'type': 'string',
-                                                       'description': 'Fono del destinatario'
-                                                     }
-                                               }
-                                            }
-                                         }
-                                       }
-                                    ]
-                        }
+                         'tools':    [ { 'name': 'hola', 'parameters': { 'properties': { 'fono': {'type': 'string', 'description': 'Fono del destinatario'}}}}] }
 
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico) ) 
                         console.log(f"{result.response}")

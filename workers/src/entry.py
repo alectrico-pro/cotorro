@@ -364,7 +364,7 @@ async def diga_hola( env, telefono):
   console.log( "En diga_hola")
   console.log(f"telefono {telefono}")
   reply = (
-  "hola"
+  "hola, te saludo desde el buque"
   ) 
   await send_reply( env, telefono, reply)
   return f"Se envió exitosamente un saludo al {telefono} "

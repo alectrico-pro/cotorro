@@ -748,12 +748,6 @@ async def on_fetch(request, env):
                     case "/suscribir":
                       await suscribir( env, wa_id, nombre)
                       return Response( "El Colaborador ahora está está suscrito", status="200")
-                    case "No":
-                      mensajes = await env.DIALOGO.list( prefix = f"{fono}")
-                      if  mensajes:
-                         for key in mensajes.keys:
-                            await env.DIALOGO.delete( key.name )
-                      return Response( "AI flow borrado por orden de usuario", status="200")
 
 
                if not await es_colaborador(env, wa_id):

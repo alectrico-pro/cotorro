@@ -798,8 +798,8 @@ async def on_fetch(request, env):
                         try:
                           result = await env.AI.run(await env.I.get('MODELO'), to_js (dico_con_tools ) ) 
                           console.log(f"{result.arguments}")
-                        except:
-                          console.log(f"ocurrió un error al llamar al Modelo")
+                        except Exception as e: 
+                          console.log(f"An unexpected error occurred: {e}")
 
                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
 

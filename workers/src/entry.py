@@ -359,13 +359,16 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         #---------------------------------------------------------------------------------------
         return Response( 'ok', status="200")
 #--------------- Funciones llamadas desde LLMs .---------------------
-
-async def diga_hola( env, telefono, comuna):
-  console.log( "En diga_hola")
+async def enviar_aviso( env, telefono, email, direccion, comuna, descripcion):
+  console.log( "En enviar_aviso")
   reply = (
-    f"hola, confirma tu teléfno {telefono}\n"
+    f"telefono {telefono}\n"
     f"comuna {comuna}\n"
+    f"direccion {direccion}\n"
+    f"email {email}\n"
+    f"descripcion {descripcion}\n"
   ) 
+
   await send_reply( env, telefono, reply)
   return f"Se envió exitosamente un saludo al {telefono} "
 #----------------------------- WORKER ENTRYPOINT --------------------
@@ -770,7 +773,7 @@ async def on_fetch(request, env):
 
                         console.log("No hay mensajes en DIALOGO")
 
-                        presentacion = f"Te llamas alexo y eres el asistente que contacta a las personas con electricistas a domicilio. Los electricistas suscritos revisan los avisos de personas con problemas eléctricos. Debes llenar una ficha con los siguientes datos: comuna: Comuna hacia donde se deba dirigir el electricista, dirección: del lugar donde se reporta el problema, descripción: Descripción del problema, fono: Teléfono de contacto al que debe llamar el electricista, email: Dirección de correo electrónico para recibir el contrato y cualquier otra documentación."
+                        presentacion = f"Te llamas alexo y eres el asistente de la plataforma alectrico contacta a las personas con electricistas a domicilio. Los electricistas suscritos a la plataforma revisan los avisos de personas con problemas eléctricos. Debes llenar una ficha con los siguientes datos: comuna: Comuna hacia donde se deba dirigir el electricista, dirección: Dirección del lugar donde se reporta el problema, descripción: Descripción del problema, fono: Teléfono de contacto al que debe llamar el electricista, email: Dirección de correo electrónico para recibir el contrato y cualquier otra documentación. Cuando tengas la ficha completa, debes mostrársela al cliente para que confirme los datos. El usuario podría volver a ingresar los datos si encuentra errores. Cuando el usuario esté seguro de que están bien ingresados los datos, debes explicarle que la plataforma avisará a los electricistas suscritos y que eso tiene un costo para ellos, por lo que debe confirmar esta acción con mucha seriedad. Le pedirás que confirme y cuando lo haga llamarás a la función enviar_aviso con estos datos."
                         mensaje_inicial     = json.dumps( { 'role': 'system', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'user', 'content': descripcion } )
                    
@@ -781,18 +784,27 @@ async def on_fetch(request, env):
                          'max_tokens': 502,
                          'messages': [ { 'role': 'system', 'content': presentacion },
                                        { 'role': 'user',   'content': descripcion }],
-                         'tools':    [ { 'name': 'diga_hola',
-                               'description':'Envía un mensaje hola al telefono.',   
+                         'tools':    [ { 'name': 'enviar_aviso',
+                               'description':'Envía un aviso a cada electricista suscrito en la plataforma.',   
                                'parameters': { 'type': 'object',
                                          'properties': {  
                                                         'telefono':
                                                            {'type': 'string',
-                                                            'description': 'Telefono del usuario.'},
+                                                            'description': 'Teléfono de contacto al que debe llamar el electricista.'},
+                                                        'email':
+                                                           {'type': 'string',
+                                                            'description': 'Dirección de correo electróncao para recibir el contrato y cualquier otra documentación.'},
+                                                        'direccion':
+                                                           {'type': 'string',
+                                                            'comuna': 'Dirección del usuario.'},
                                                         'comuna':
                                                            {'type': 'string',
-                                                            'comuna': 'Comuna del usuario.'}
+                                                            'comuna': 'Comuna hacia donde se debe dirigir el electricista'},
+                                                        'descripcion':
+                                                           {'type': 'string',
+                                                            'descripcion': 'Descripción del problema.'},
                                                        },
-                                           'required': [ 'telefono', 'comuna' ]
+                                           'required': [ 'telefono', 'email', 'direccion', 'comuna', 'descripcion' ]
                               }
                             }
                           ] 

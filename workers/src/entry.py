@@ -878,7 +878,11 @@ async def on_fetch(request, env):
                #que puede usar para llamar a difundir
                #estoy probando la IA de cliente
                #pero interactuando como colaborador
-               else: 
+               else:
+                    if descripcion == "No":
+                        for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
+                            await env.DIALOGO.delete( mensaje.name)
+ 
                     console.log(f"{wa_id} es colaborador")
                     buy_order   = str( random.randint(1, 10000))
                     #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)

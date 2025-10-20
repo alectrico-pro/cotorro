@@ -786,7 +786,7 @@ async def on_fetch(request, env):
                          'max_tokens': 502,
                          'messages': [ { 'role': 'system', 'content': presentacion },
                                        { 'role': 'user',   'content': descripcion }],
-                                     [ { 'tools' :
+                                     [ { 'tools':
                                          { 'name': 'hola',
                                             'parameters': {
                                                'properties': {

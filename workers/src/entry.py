@@ -26,6 +26,12 @@
 #    pure Python and binary wasm32/emscripten wheels (also informally known as “Pyodide packages” or “packages built by Pyodide”) from the JsDelivr CDN and custom URLs. micropip.install() is an async Python function which returns a coroutine, so it need to be called with an await clause to run.
 
 #import clips no funciona, a pesar de que el package se carga bien
+#Llama a esta gente para permitir funciones embebidas
+import {
+  createToolsFromOpenAPISpec,
+  runWithTools,
+  autoTrimTools,
+} from "@cloudflare/ai-utils";
 
 import re
 import random
@@ -773,7 +779,7 @@ async def on_fetch(request, env):
                         await env.DIALOGO.put( str(fono) + str(datetime.now()) + ":user" , mensaje_colaborador )
                        
                         dico =  {
-                         'stream': true,
+                         'stream': True,
                          'max_tokens': 502,
                          'messages': [ { 'role': 'system', 'content': presentacion },
                                        { 'role': 'user',   'content': descripcion }], }
@@ -834,7 +840,7 @@ async def on_fetch(request, env):
                         console.log(f"mensajes {mensajes}")
                         result = await env.AI.run( await env.I.get('MODELO'), to_js(
                          {
-                          'stream': true,
+                          'stream': True,
                           max_tokens: 502,
                           'messages': mensajes ,} )) 
                         console.log(f"{result.response}")

@@ -797,7 +797,6 @@ async def on_fetch(request, env):
 
                         try:
                           result = await env.AI.run(await env.I.get('MODELO'), to_js (dico_con_tools ) ) 
-                          console.log(f"{result.arguments}")
                         except Exception as e: 
                           console.log(f"An unexpected error occurred: {e}")
 

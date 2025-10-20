@@ -785,7 +785,7 @@ async def on_fetch(request, env):
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico) ) 
                         console.log(f"{result.response}")
                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + ":no_colaborador" + ":assistant:" + { str(datetime.now()), mensaje_gerente )
+                        await env.DIALOGO.put( str(fono) + ":no_colaborador" + ":assistant:" +  str(datetime.now()), mensaje_gerente )
 
                         reply = (
                           f"{result.response} \n"

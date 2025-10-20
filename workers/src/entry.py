@@ -759,8 +759,10 @@ async def on_fetch(request, env):
                if not await es_colaborador(env, wa_id):
                       console.log(f"{wa_id} No es colaborador")
                       if descripcion == "No":
-                          for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
-                            await env.DIALOGO.delete( mensaje.name)
+                          mensajes = await env.DIALOGO.list( prefix = f"{fono}")
+                          if  mensajes:
+                            for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
+                              await env.DIALOGO.delete( mensaje.name)
  
                       mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
                       k = len ( mensajes_anteriores.keys)
@@ -880,8 +882,10 @@ async def on_fetch(request, env):
                #pero interactuando como colaborador
                else:
                     if descripcion == "No":
-                        for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
-                            await env.DIALOGO.delete( mensaje.name)
+                          mensajes = await env.DIALOGO.list( prefix = f"{fono}")
+                          if  mensajes:
+                            for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
+                              await env.DIALOGO.delete( mensaje.name)
  
                     console.log(f"{wa_id} es colaborador")
                     buy_order   = str( random.randint(1, 10000))

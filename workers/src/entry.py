@@ -367,7 +367,7 @@ async def diga_hola( env, telefono):
   "hola"
   ) 
   send_reply( env, fono, reply)
-
+  return f"Se envió exitosamente un saludo al {fono} "
 #----------------------------- WORKER ENTRYPOINT --------------------
 
 async def on_fetch(request, env):
@@ -807,11 +807,14 @@ async def on_fetch(request, env):
                           if result and hasattr( result, 'tool_calls'):
                             console.log(f"Tiene tool_calls")
                             for call in result.tool_calls:
-                              match call.name:
-                              case 'diga_hola':
-                                await diga_hola(env, call.arguments.telefono)
-                                console.log(f"nombre de call {call.name}")
-                                console.log(f"telefono {call.arguments.telefono}")
+                                match call.name:
+                                   case 'diga_hola':
+                                   resultado = await diga_hola(env, call.arguments.telefono)
+                                   tool_resultado = json.dumps( { 'role': 'tool', 'content': resultado  } )
+                                   await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":tool" , tool_resultado )
+
+                                   console.log(f"nombre de call {call.name}")
+                                   console.log(f"telefono {call.arguments.telefono}")
                               
                           else:
                             console.log("No dió resultado")

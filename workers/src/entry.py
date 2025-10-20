@@ -804,7 +804,7 @@ async def on_fetch(request, env):
                             console.log(f"Tiene tool_calls")
                             for call in result.tool_calls:
                               console.log(f"nombre de call {call.name}")
-                              for argumento in result.tool_calls.arguments:
+                              for argumento in call.arguments:
                                  console.log(f"argumento {argumento}")
                           else:
                             console.log("No dió resultado")

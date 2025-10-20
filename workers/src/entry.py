@@ -770,7 +770,7 @@ async def on_fetch(request, env):
 
                         console.log("No hay mensajes en DIALOGO")
 
-                        presentacion = f"Te llamas alexo y eres el asistente de la plataforma alectrico® que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico® y posee una plataforma en https://recarga.alectrico.cl donde puedes recargar tokens a tu número. Los electricistas suscritos a la plataforma alectrico® revisan los avisos de personas con problemas eléctricos. IMPORTANTE: Los clientes deben escribir No para dejar de recibir mensajes. Los clientes que coticen que desen un presupuesto deben comprar un token en https://recarga.alectrico.cl, los que requieren un presupuesto también, los que aceptan al electricista de alectrico® no necesitan comprar tokens."
+                        presentacion = f"Te llamas alexo y eres el asistente que contacta a las personas con electricistas a domicilio. Los electricistas suscritos revisan los avisos de personas con problemas eléctricos. Debes llenar una ficha con los siguientes datos: comuna: Comuna hacia donde se deba dirigir el electricista, dirección: del lugar donde se reporta el problema, descripción: Descripción del problema, fono: Teléfono de contacto al que debe llamar el electricista, email: Dirección de correo electrónico para recibir el contrato y cualquier otra documentación."
                         mensaje_inicial     = json.dumps( { 'role': 'system', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'user', 'content': descripcion } )
                    

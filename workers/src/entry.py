@@ -807,8 +807,12 @@ async def on_fetch(request, env):
                           if result and hasattr( result, 'tool_calls'):
                             console.log(f"Tiene tool_calls")
                             for call in result.tool_calls:
-                              console.log(f"nombre de call {call.name}")
-                              console.log(f"telefono {call.arguments.telefono}")
+                              match call.name:
+                              case 'diga_hola':
+                                await diga_hola(env, call.arguments.telefono)
+                                console.log(f"nombre de call {call.name}")
+                                console.log(f"telefono {call.arguments.telefono}")
+                              
                           else:
                             console.log("No dió resultado")
 

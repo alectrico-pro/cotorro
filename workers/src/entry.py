@@ -763,7 +763,8 @@ async def on_fetch(request, env):
                         path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
 
 
-                      e console.log("No hay mensajes en DIALOGO")
+                        console.log("No hay mensajes en DIALOGO")
+
                         presentacion = f"Te llamas alexo y eres el asistente de la plataforma alectrico® que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico® y posee una plataforma en https://recarga.alectrico.cl donde puedes recargar tokens a tu número. Los electricistas suscritos a la plataforma alectrico® revisan los avisos de personas con problemas eléctricos. IMPORTANTE: Los clientes deben escribir No para dejar de recibir mensajes. Los clientes que coticen que desen un presupuesto deben comprar un token en https://recarga.alectrico.cl, los que requieren un presupuesto también, los que aceptan al electricista de alectrico® no necesitan comprar tokens."
                         mensaje_inicial     = json.dumps( { 'role': 'system', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'user', 'content': descripcion } )

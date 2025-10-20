@@ -782,13 +782,17 @@ async def on_fetch(request, env):
                          'messages': [ { 'role': 'system', 'content': presentacion },
                                        { 'role': 'user',   'content': descripcion }],
                          'tools':    [ { 'name': 'diga_hola',
-                               'description': 'Envía un mensaje hola al telefono.',   
+                               'description':'Envía un mensaje hola al telefono.',   
                                'parameters': { 'type': 'object',
-                                         'properties': { 'telefono': {'type': 'string',
-                                                        'description': 'Telefono del destinatario'}}},
+                                         'properties': {  
+                                                        'telefono':
+                                                           {'type': 'string',
+                                                            'description': 'Telefono del destinatario'}
+                                                       },
                                            'required': [ 'telefono' ]
-                                       }
-                                     ]
+                              }
+                            }
+                          ] 
                         }
 
 

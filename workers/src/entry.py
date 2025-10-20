@@ -776,11 +776,18 @@ async def on_fetch(request, env):
                         await env.DIALOGO.put( str(fono) + ":no_colaborador" + ":system:" + str(datetime.now()) ,     mensaje_inicial )
                         await env.DIALOGO.put( str(fono) + ":no_colaborador" + ":user:" + str(datetime.now()) , mensaje_colaborador )
                        
-                        dico =  {
+                        dico_con_tools =  {
                          'max_tokens': 502,
                          'messages': [ { 'role': 'system', 'content': presentacion },
                                        { 'role': 'user',   'content': descripcion }],
                          'tools':    [ { 'name': 'hola', 'parameters': { 'properties': { 'fono': {'type': 'string', 'description': 'Fono del destinatario'}}}}] }
+
+
+                        dico =  {
+                         'max_tokens': 502,
+                         'messages': [ { 'role': 'system', 'content': presentacion },
+                                       { 'role': 'user',   'content': descripcion }]}
+
 
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico) ) 
                         console.log(f"{result.response}")

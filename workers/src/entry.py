@@ -783,7 +783,7 @@ async def on_fetch(request, env):
                          'tools':    [ { 'name': 'hola',
                                'parameters': { 'type': 'object',
                                          'properties': { 'fono': {'type': 'string', 'description': 'Fono del destinatario'}}},
-                                           'required': { [ 'fono' ]}
+                                           'required': [ 'fono' ]
                                        }
                                      ]
                         }

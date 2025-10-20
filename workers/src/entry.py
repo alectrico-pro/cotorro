@@ -780,7 +780,14 @@ async def on_fetch(request, env):
                          'max_tokens': 502,
                          'messages': [ { 'role': 'system', 'content': presentacion },
                                        { 'role': 'user',   'content': descripcion }],
-                         'tools':    [ { 'name': 'hola', 'parameters': { 'properties': { 'fono': {'type': 'string', 'description': 'Fono del destinatario'}}}}] }
+                         'tools':    [ { 'name': 'hola',
+                               'parameters': { 'type': 'object',
+                                         'properties': { 'fono': {'type': 'string', 'description': 'Fono del destinatario'}}},
+                                           'required': { [ 'fono' ]}
+                                       }
+                                     ]
+                        }
+
 
 
                         dico =  {
@@ -789,9 +796,10 @@ async def on_fetch(request, env):
                                        { 'role': 'user',   'content': descripcion }]}
 
 
-                        result = await env.AI.run(await env.I.get('MODELO'), to_js (dico) ) 
+                        result = await env.AI.run(await env.I.get('MODELO'), to_js (dico_con_tools ) ) 
                         console.log(f"{result.response}")
                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
+
                         await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":assistant" , mensaje_gerente )
 
                         reply = (

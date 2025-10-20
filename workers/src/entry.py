@@ -360,9 +360,9 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         return Response( 'ok', status="200")
 #--------------- Funciones llamadas desde LLMs .---------------------
 
-async def diga_hola( env, fono):
+async def diga_hola( env, telefono):
   console.log( "En diga_hola")
-  console.log(f"fono {fono}")
+  console.log(f"telefono {telefono}")
   reply = (
   "hola"
   ) 
@@ -748,6 +748,7 @@ async def on_fetch(request, env):
                     case "/suscribir":
                       await suscribir( env, wa_id, nombre)
                       return Response( "El Colaborador ahora está está suscrito", status="200")
+
                     case "No":
                           console.log("Procesando No")
                           mensajes = await env.DIALOGO.list( prefix = f"{fono}")
@@ -780,11 +781,12 @@ async def on_fetch(request, env):
                          'max_tokens': 502,
                          'messages': [ { 'role': 'system', 'content': presentacion },
                                        { 'role': 'user',   'content': descripcion }],
-                         'tools':    [ { 'name': 'hola',
-                               'description': 'Envía un mensaje hola al teléfono.',   
+                         'tools':    [ { 'name': 'diga_hola',
+                               'description': 'Envía un mensaje hola al telefono.',   
                                'parameters': { 'type': 'object',
-                                         'properties': { 'teléfono': {'type': 'string', 'description': 'Fono del destinatario'}}},
-                                           'required': [ 'teléfono' ]
+                                         'properties': { 'telefono': {'type': 'string',
+                                                        'description': 'Telefono del destinatario'}}},
+                                           'required': [ 'telefono' ]
                                        }
                                      ]
                         }
@@ -798,8 +800,8 @@ async def on_fetch(request, env):
 
                         try:
                           result = await env.AI.run(await env.I.get('MODELO'), to_js (dico_con_tools ) ) 
-                          if result :
-                            console.log(f"{result.response}")
+                          if result and hasattr( result, 'tool_calls'):
+                            console.log(f"Tiene tool_calls")
                           else:
                             console.log("No dió resultado")
 

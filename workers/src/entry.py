@@ -845,7 +845,7 @@ async def on_fetch(request, env):
                         result = await env.AI.run( await env.I.get('MODELO'), to_js(
                          {
                           'stream': True,
-                          'max_tokens:' 502,
+                          'max_tokens': 502,
                           'messages': mensajes ,} )) 
                         console.log(f"{result.response}")
                         reply = (

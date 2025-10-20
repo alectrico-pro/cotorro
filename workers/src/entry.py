@@ -26,8 +26,6 @@
 #    pure Python and binary wasm32/emscripten wheels (also informally known as “Pyodide packages” or “packages built by Pyodide”) from the JsDelivr CDN and custom URLs. micropip.install() is an async Python function which returns a coroutine, so it need to be called with an await clause to run.
 
 #import clips no funciona, a pesar de que el package se carga bien
-#Llama a esta gente para permitir funciones embebidas
-from @cloudflare/ai-utils import createToolsFromOpenAPISpec, runWithTools, autoTrimTools
 
 import re
 import random
@@ -360,6 +358,15 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
           pass
         #---------------------------------------------------------------------------------------
         return Response( 'ok', status="200")
+#--------------- Funciones llamadas desde LLMs .---------------------
+
+async def diga_hola( env, fono):
+  console.log( "En diga_hola")
+  console.log(f"fono {fono}")
+  reply = (
+  "hola"
+  ) 
+  send_reply( env, fono, reply)
 
 #----------------------------- WORKER ENTRYPOINT --------------------
 
@@ -778,7 +785,21 @@ async def on_fetch(request, env):
                          'stream': True,
                          'max_tokens': 502,
                          'messages': [ { 'role': 'system', 'content': presentacion },
-                                       { 'role': 'user',   'content': descripcion }], }
+                                       { 'role': 'user',   'content': descripcion }],
+                                     [ { 'tools' :
+                                         { 'name': 'hola',
+                                            'parameters': {
+                                               'properties': {
+                                                 'fono':
+                                                     { 'type': 'string',
+                                                       'description': 'Fono del destinatario'
+                                                     }
+                                               }
+                                            }
+                                         }
+                                       }
+                                    ]
+                        }
 
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico) ) 
                         console.log(f"{result.response}")

@@ -773,8 +773,8 @@ async def on_fetch(request, env):
                         mensaje_inicial     = json.dumps( { 'role': 'system', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'user', 'content': descripcion } )
                    
-                        await env.DIALOGO.put( str(fono) + ":" + str(datetime.now()) + ":system" ,     mensaje_inicial )
-                        await env.DIALOGO.put( str(fono) + ":" + str(datetime.now()) + ":user" , mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + ":no_colaborador" + ":system:" + str(datetime.now()) ,     mensaje_inicial )
+                        await env.DIALOGO.put( str(fono) + ":no_colaborador" + ":user:" + str(datetime.now()) , mensaje_colaborador )
                        
                         dico =  {
                          'max_tokens': 502,
@@ -785,7 +785,7 @@ async def on_fetch(request, env):
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico) ) 
                         console.log(f"{result.response}")
                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + ":" + str(datetime.now()) +":assistant", mensaje_gerente )
+                        await env.DIALOGO.put( str(fono) + ":no_colaborador" + ":assistant:" + { str(datetime.now()), mensaje_gerente )
 
                         reply = (
                           f"{result.response} \n"
@@ -794,14 +794,10 @@ async def on_fetch(request, env):
                         )
                         await send_reply(env, wa_id,  reply )
 
-                      else:
-                        if descripcion == "No":
-                          for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
-                            await env.DIALOGO.delete( mensaje.name)
-
+                      else : # "Ya hay mensajes iniciales"
                         mensajes = []
                         mensaje_colaborador = json.dumps( { 'role': 'user', 'content': descripcion } )
-                        mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
+                        mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }:no_colaborador" )
                         mensajes.append( { 'role': 'user', 'content': descripcion } )
                         #Recuerda que, para que el electricista pueda atenderte, debes haber comprado tokens previamente en nuestra plataforma Alectrico Repair.
                         #En cuanto a la solución, puedo ofrecerte las siguientes opciones:
@@ -851,9 +847,9 @@ async def on_fetch(request, env):
                          "Escriba *No* para terminar \n "
                         )
                         await send_reply(env, wa_id,  reply )
-                        await env.DIALOGO.put( str(fono) + ":" + str(datetime.now()) +":user", mensaje_colaborador )
+                        await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" + ":user" +  str(datetime.now()) , mensaje_colaborador )
                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + ":" + str(datetime.now()) +":assistant", mensaje_gerente )
+                        await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" + ":assistant:" + str(datetime.now()), mensaje_gerente )
 
                         #envia muchos,no sé por qué
                         if 'tokens' in  mensaje_gerente and False:

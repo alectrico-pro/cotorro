@@ -755,15 +755,13 @@ async def on_fetch(request, env):
                             await env.DIALOGO.delete( key.name )
                       return Response( "AI flow borrado por orden de usuario", status="200")
 
-               if descripcion == "No":
-                        for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
-                            await env.DIALOGO.delete( mensaje.name)
-              
-
 
                if not await es_colaborador(env, wa_id):
                       console.log(f"{wa_id} No es colaborador")
-  
+                      if descripcion == "No":
+                          for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
+                            await env.DIALOGO.delete( mensaje.name)
+ 
                       mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )
                       k = len ( mensajes_anteriores.keys)
                       if k == 0:
@@ -800,6 +798,10 @@ async def on_fetch(request, env):
                         await send_reply(env, wa_id,  reply )
 
                       else:
+                        if descripcion == "No":
+                          for mensaje in await env.DIALOGO.list( prefix = f"{fono}" ):
+                            await env.DIALOGO.delete( mensaje.name)
+
                         mensajes = []
                         mensaje_colaborador = json.dumps( { 'role': 'user', 'content': descripcion } )
                         mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }" )

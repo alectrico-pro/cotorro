@@ -366,8 +366,8 @@ async def diga_hola( env, telefono):
   reply = (
   "hola"
   ) 
-  send_reply( env, telefono, reply)
-  return f"Se envió exitosamente un saludo al {fono} "
+  await send_reply( env, telefono, reply)
+  return f"Se envió exitosamente un saludo al {telefono} "
 #----------------------------- WORKER ENTRYPOINT --------------------
 
 async def on_fetch(request, env):

@@ -781,9 +781,10 @@ async def on_fetch(request, env):
                          'messages': [ { 'role': 'system', 'content': presentacion },
                                        { 'role': 'user',   'content': descripcion }],
                          'tools':    [ { 'name': 'hola',
+                               'description': 'Envía un mensaje hola al teléfono.',   
                                'parameters': { 'type': 'object',
-                                         'properties': { 'fono': {'type': 'string', 'description': 'Fono del destinatario'}}},
-                                           'required': [ 'fono' ]
+                                         'properties': { 'teléfono': {'type': 'string', 'description': 'Fono del destinatario'}}},
+                                           'required': [ 'teléfono' ]
                                        }
                                      ]
                         }
@@ -797,6 +798,11 @@ async def on_fetch(request, env):
 
                         try:
                           result = await env.AI.run(await env.I.get('MODELO'), to_js (dico_con_tools ) ) 
+                          if result :
+                            console.log(f"{result.response}")
+                          else:
+                            console.log("No dió resultado")
+
                         except Exception as e: 
                           console.log(f"An unexpected error occurred: {e}")
 

@@ -809,12 +809,12 @@ async def on_fetch(request, env):
                             for call in result.tool_calls:
                                 match call.name:
                                    case 'diga_hola':
-                                   resultado = await diga_hola(env, call.arguments.telefono)
-                                   tool_resultado = json.dumps( { 'role': 'tool', 'content': resultado  } )
-                                   await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":tool" , tool_resultado )
+                                     resultado = await diga_hola(env, call.arguments.telefono)
+                                     tool_resultado = json.dumps( { 'role': 'tool', 'content': resultado  } )
+                                     await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":tool" , tool_resultado )
 
-                                   console.log(f"nombre de call {call.name}")
-                                   console.log(f"telefono {call.arguments.telefono}")
+                                     console.log(f"nombre de call {call.name}")
+                                     console.log(f"telefono {call.arguments.telefono}")
                               
                           else:
                             console.log("No dió resultado")

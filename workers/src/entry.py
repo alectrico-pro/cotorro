@@ -366,7 +366,7 @@ async def diga_hola( env, telefono):
   reply = (
   "hola"
   ) 
-  send_reply( env, fono, reply)
+  send_reply( env, telefono, reply)
   return f"Se envió exitosamente un saludo al {fono} "
 #----------------------------- WORKER ENTRYPOINT --------------------
 
@@ -809,6 +809,7 @@ async def on_fetch(request, env):
                             for call in result.tool_calls:
                                 match call.name:
                                    case 'diga_hola':
+                                     console.log("call.name es diga_hola")
                                      resultado = await diga_hola(env, call.arguments.telefono)
                                      tool_resultado = json.dumps( { 'role': 'tool', 'content': resultado  } )
                                      await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":tool" , tool_resultado )

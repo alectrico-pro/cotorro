@@ -27,11 +27,7 @@
 
 #import clips no funciona, a pesar de que el package se carga bien
 #Llama a esta gente para permitir funciones embebidas
-import {
-  createToolsFromOpenAPISpec,
-  runWithTools,
-  autoTrimTools,
-} from "@cloudflare/ai-utils";
+from "@cloudflare/ai-utils" import createToolsFromOpenAPISpec, runWithTools, autoTrimTools
 
 import re
 import random

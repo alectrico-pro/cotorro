@@ -830,7 +830,7 @@ async def on_fetch(request, env):
                                      console.log(f"call comuna {call.arguments.comuna}")
                                      console.log(f"call dirección {call.arguments.direccion}")
                                      console.log(f"call descripcion {call.arguments.descripcion}")
-                                     console.log(f"call email {call.argumentemaill}")
+                                     console.log(f"call email {call.arguments.email}")
 
                                      resultado = await enviar_aviso(env, call.arguments.telefono,
                                                                          call.arguments.email,

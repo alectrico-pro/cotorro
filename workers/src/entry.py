@@ -913,7 +913,16 @@ async def on_fetch(request, env):
                         result = await env.AI.run( await env.I.get('MODELO'), to_js( dico))
                         mensaje_assistant = json.dumps( { 'role': 'assistant', 'content': result.response  } )
                         await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":assistant" , mensaje_assistant )
-                              
+                        if result and result.response:
+                          mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
+                          await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":assistant" , mensaje_gerente )
+                          reply = (
+                            f"{result.response} \n"
+                            "..................... \n "
+                            "Escriba *xxx* para terminar \n "
+                          )
+                          await send_reply(env, wa_id,  reply )
+
                         if False:
                          try:
                           result = await env.AI.run(await env.I.get('MODELO'), to_js (dico_con_tools ) )

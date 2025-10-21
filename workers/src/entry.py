@@ -904,9 +904,17 @@ async def on_fetch(request, env):
                         # {
                         #  'max_tokens': 502,
                         #  'messages': mensajes ,} )) 
+                        #Sin usar las tools todavía
+                        dico =  {
+                         'max_tokens': 502,
+                         'messages': [ { 'role': 'system', 'content': 'No haga supocisiones sobre los valores, pregunte si es necesita aclararlos.' },
+                                       { 'role': 'user',   'content': descripcion }]}
 
-                        #result = await env.AI.run( await env.I.get('MODELO'), to_js( dico))
-                        try:
+                        result = await env.AI.run( await env.I.get('MODELO'), to_js( dico))
+                        json.dumps( { 'role': 'assistan', 'content': result.response  } )
+
+                        if False:
+                         try:
                           result = await env.AI.run(await env.I.get('MODELO'), to_js (dico_con_tools ) )
                           if result and hasattr( result, 'tool_calls'):
                             console.log(f"Tiene tool_calls")
@@ -947,7 +955,7 @@ async def on_fetch(request, env):
                                         await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":user" , mensaje_colaborador )
                                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
                                         await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":assistant" , mensaje_gerente )
-                        except Exception as e:
+                         except Exception as e:
                            console.log(f"Error {e}")
                         #envia muchos,no sé por qué
                         if False and 'tokens' in  mensaje_gerente and False:

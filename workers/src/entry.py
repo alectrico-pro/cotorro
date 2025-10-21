@@ -967,7 +967,8 @@ async def on_fetch(request, env):
                                         await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":user" , mensaje_colaborador )
                                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
                                         await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":assistant" , mensaje_gerente )
-
+                        except Exception as e:
+                           console.log(f"Error {e}")
                         #envia muchos,no sé por qué
                         if 'tokens' in  mensaje_gerente and False:
                              buy_order   = str( random.randint(1, 10000))

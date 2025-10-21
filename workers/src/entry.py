@@ -359,18 +359,24 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
         #---------------------------------------------------------------------------------------
         return Response( 'ok', status="200")
 #--------------- Funciones llamadas desde LLMs .---------------------
-async def enviar_aviso( env, telefono, email, direccion, comuna, descripcion):
+async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descripcion):
   console.log( "En enviar_aviso")
   reply = (
+    *ENVIANDO..*
+    f"nombre {nombre}\n"
     f"telefono {telefono}\n"
     f"comuna {comuna}\n"
     f"direccion {direccion}\n"
     f"email {email}\n"
     f"descripcion {descripcion}\n"
   ) 
+  buy_order   = str( random.randint(1, 10000))
 
   await send_reply( env, telefono, reply)
-  return f"Mensaje envíado a {telefono}. No se sabe si fue exitoso."
+  amount = env.PRECIO_VISITA
+  await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, telefono, email, direccion, amount):
+
+  return f"Difusión exitosa."
 #----------------------------- WORKER ENTRYPOINT --------------------
 
 async def on_fetch(request, env):
@@ -785,6 +791,7 @@ async def on_fetch(request, env):
                          'max_tokens': 502,
                          'messages': [ { 'role': 'system', 'content': presentacion },
                                        { 'role': 'user',   'content': descripcion }]}
+
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico ) )
 
                         if result and result.response:
@@ -844,7 +851,9 @@ async def on_fetch(request, env):
                          'tools':    [ { 'name': 'enviar_aviso',
                                'description':'Envía un aviso a cada electricista suscrito en la plataforma.',
                                'parameters': { 'type': 'object',
-                                         'properties': {
+                                         'properties': {'nombre'  :
+                                                           {'type': 'string',
+                                                            'descripcion': "Nombre de la personas que recibirá al electricista"},
                                                         'telefono':
                                                            {'type': 'string',
                                                             'description': 'Teléfono de contacto al que debe llamar el electricista.'},
@@ -861,7 +870,7 @@ async def on_fetch(request, env):
                                                            {'type': 'string',
                                                             'descripcion': 'Descripción del problema.'},
                                                        },
-                                           'required': [ 'telefono', 'email', 'direccion', 'comuna', 'descripcion' ]
+                                           'required': ['nombre' 'telefono', 'email', 'direccion', 'comuna', 'descripcion' ]
                               }
                             }
                           ]
@@ -883,6 +892,7 @@ async def on_fetch(request, env):
                                 match call.name:
                                    case 'enviar_aviso':
                                      console.log("call.name es enviar_aviso")
+                                     console.log("call nombre {call.arguments.nombre}")
                                      console.log(f"call telefono {call.arguments.telefono}")
                                      console.log(f"call email {call.arguments.email}")
                                      console.log(f"call direccion {call.arguments.direccion}")
@@ -890,7 +900,8 @@ async def on_fetch(request, env):
                                      console.log(f"call descripcion {call.arguments.descripcion}")
 
 
-                                     resultado = await enviar_aviso(env, call.arguments.telefono, 
+                                     resultado = await enviar_aviso(env, call.arguments.nombre, 
+                                                                         call.arguments.telefono, 
                                                                          call.arguments.email,
                                                                          call.arguments.direccion,
                                                                          call.arguments.comuna,

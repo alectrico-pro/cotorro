@@ -823,11 +823,12 @@ async def on_fetch(request, env):
                         dico_con_tools =  {
                          'max_tokens': 502,
                          'messages': mensajes,
-                         'tools':    [ {      'name': 'say_visita',
-                                       'description': 'Sugerir Electricista.'
-                                       },
-                                       {   
-                                      'name': 'enviar_aviso',
+                         'tools':    [
+                                       {      'name': 'cuestionario',
+                                       'description': 'Enviar Cuestionario'  },                                       
+				       {      'name': 'sugerir_electricista',
+                                       'description': 'Sugerir Electricista.' },
+                                       {    'name': 'enviar_aviso',
                                'description':'Avisar a electricistas.',
                                'parameters': { 'type': 'object',
                                          'properties': {'nombre'  :
@@ -893,11 +894,25 @@ async def on_fetch(request, env):
                             console.log(f"Tiene tool_calls")
                             for call in result.tool_calls:
                                 match call.name:
-                                   case 'say_visita':
+                                   case 'sugerir_electricista':
                                      console.log("call.name es say_visita")
+                                     #Manda una foto mía como sugerido y un precio de visita
+                                     path_de_pago = f"/transbank?amount={amount}&session_id={wa_id}&buy_order={buy_order}"
+                                     try:
+                                       await say_pagar_visita( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
+                                     except:
+                                       pass
+                                     
+                                   case 'cuestionario':
+                                     console.log("call.name llenar_cuestionario")
+                                     #Manda un cuestionario que debe ser llenado
+                                     #Luego los electricistas pueden ser vistos en una lista por el cliente
+                                     #No implementando, ahora hacce lo mismo que enviar_aviso
                                      await enviar_template_say_visita_flow_reserva( request, env, wa_id )
 
                                    case 'enviar_aviso':
+                                     #Avisar a los electricistas
+                                     #Los electricistas pagan
                                      console.log("call.name es enviar_aviso")
                                      console.log(f"call nombre {call.arguments.nombre}")
                                      console.log(f"call telefono {call.arguments.telefono}")

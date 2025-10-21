@@ -374,7 +374,7 @@ async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descrip
 
   await send_reply( env, telefono, reply)
   amount = env.PRECIO_VISITA
-  await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, telefono, email, direccion, amount):
+  await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, telefono, email, direccion, amount)
 
   return f"Difusión exitosa."
 #----------------------------- WORKER ENTRYPOINT --------------------

@@ -362,7 +362,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
 async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descripcion):
   console.log( "En enviar_aviso")
   reply = (
-    *ENVIANDO..*
+    "*ENVIANDO..*\n"
     f"nombre {nombre}\n"
     f"telefono {telefono}\n"
     f"comuna {comuna}\n"

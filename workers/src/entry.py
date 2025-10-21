@@ -369,7 +369,8 @@ async def enviar_aviso( env, telefono, email, direccion, comuna, descripcion):
     f"descripcion {descripcion}\n"
   ) 
 
-  return await send_reply( env, telefono, reply)
+  await send_reply( env, telefono, reply)
+  return f"Mensaje envíado a {telefono}. No se sabe si fue exitoso."
 #----------------------------- WORKER ENTRYPOINT --------------------
 
 async def on_fetch(request, env):

@@ -897,6 +897,9 @@ async def on_fetch(request, env):
                                    case 'sugerir_electricista':
                                      console.log("call.name es say_visita")
                                      #Manda una foto mía como sugerido y un precio de visita
+                                     amount = env.PRECIO_VISITA	
+                            
+                                     buy_order   = str( random.randint(1, 10000))
                                      path_de_pago = f"/transbank?amount={amount}&session_id={wa_id}&buy_order={buy_order}"
                                      try:
                                        await say_pagar_visita( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )

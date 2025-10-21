@@ -362,19 +362,6 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
 async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descripcion):
   console.log( "En enviar_aviso")
 
-  if not nombre:
-    return f"Debe ingresar el nombre"
-  if not telefono:
-    return f"Debe ingresar el teléfono"
-  if not email:
-    return f"Debe ingresar el teléfono"
-  if not direccion:
-    return f"Debe ingresar la dirección"
-  if not comuna:
-    return f"Debe ingresar la comuna"
-  if not descripcion:
-    return f"Debe ingresar la descripción"
-
   reply = (
     "*ENVIANDO..*\n"
     f"nombre {nombre}\n"
@@ -836,7 +823,11 @@ async def on_fetch(request, env):
                         dico_con_tools =  {
                          'max_tokens': 502,
                          'messages': mensajes,
-                         'tools':    [ { 'name': 'enviar_aviso',
+                         'tools':    [ {      'name': 'say_visita',
+                                       'description': 'Solicita la primera visita de un electricista a domicilio en Providencia. Chile'
+                                       },
+                                       {   
+                                      'name': 'enviar_aviso',
                                'description':'Envía un aviso a cada electricista suscrito en la plataforma. Debe pedirse la descripción del prblema y la comuna.',
                                'parameters': { 'type': 'object',
                                          'properties': {'nombre'  :
@@ -903,6 +894,10 @@ async def on_fetch(request, env):
                             console.log(f"Tiene tool_calls")
                             for call in result.tool_calls:
                                 match call.name:
+                                   case 'say_visita':
+                                     console.log("call.name es say_visita")
+                                     await enviar_template_say_visita_flow_reserva( request, env, wa_id )
+
                                    case 'enviar_aviso':
                                      console.log("call.name es enviar_aviso")
                                      console.log(f"call nombre {call.arguments.nombre}")

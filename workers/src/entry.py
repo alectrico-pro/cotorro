@@ -361,6 +361,20 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
 #--------------- Funciones llamadas desde LLMs .---------------------
 async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descripcion):
   console.log( "En enviar_aviso")
+
+  if not nombre:
+    return f"Debe ingresar el nombre"
+  if not telefono:
+    return f"Debe ingresar el teléfono"
+  if not email:
+    return f"Debe ingresar el teléfono"
+  if not direccion:
+    return f"Debe ingresar la dirección"
+  if not comuna:
+    return f"Debe ingresar la comuna"
+  if not descripcion:
+    return f"Debe ingresar la descripción"
+
   reply = (
     "*ENVIANDO..*\n"
     f"nombre {nombre}\n"
@@ -376,7 +390,8 @@ async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descrip
   amount = env.PRECIO_VISITA
   await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, telefono, email, direccion, amount)
 
-  return f"Las solicitud ha sido envíada a los electricistas."
+  return f"La solicitud de servicio ha sido envíada a los electricistas."
+
 #----------------------------- WORKER ENTRYPOINT --------------------
 
 async def on_fetch(request, env):

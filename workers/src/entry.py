@@ -942,14 +942,15 @@ async def on_fetch(request, env):
 
                         except Exception as e:
                           console.log(f"An unexpected error occurred: {e}")
+                        if result.response:
+                          console.log(f"{result.response}")
+                          reply = (
+                          f"{result.response} \n"
+                           "..................... \n "
+                           "Escriba *xxx* para terminar \n "
+                          )
+                          await send_reply(env, wa_id,  reply )
 
-                        console.log(f"{result.response}")
-                        reply = (
-                        f"{result.response} \n"
-                         "..................... \n "
-                         "Escriba *xxx* para terminar \n "
-                        )
-                        await send_reply(env, wa_id,  reply )
                         await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":user" , mensaje_colaborador )
                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
                         await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":assistant" , mensaje_gerente )

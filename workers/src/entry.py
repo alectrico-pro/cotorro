@@ -869,22 +869,28 @@ async def on_fetch(request, env):
                                'parameters': { 'type': 'object',
                                          'properties': {'nombre'  :
                                                            {'type': 'string',
+                                                        "minLength": 1,
                                                             'descripcion': "Nombre de la personas que recibirá al electricista"},
                                                         'telefono':
                                                            {'type': 'string',
+                                                       "minLength": 1,
                                                             'description': 'Teléfono de contacto al que debe llamar el electricista.'},
                                                         'email':
                                                            {'type': 'string',
-                                                            'description': 'Dirección de correo electróncao para recibir el contrato y cualquier otra documentación.'},
+                                                       "minLength": 1,
+                                                     'description': 'Dirección de correo electróncao para recibir el contrato y cualquier otra documentación.'},
                                                         'direccion':
                                                            {'type': 'string',
-                                                            'comuna': 'Dirección del usuario.'},
+                                                       "minLength": 1,
+                                                          'comuna': 'Dirección del usuario.'},
                                                         'comuna':
                                                            {'type': 'string',
-                                                            'comuna': 'Comuna hacia donde se debe dirigir el electricista'},
-                                                        'descripcion':
+                                                       "minLength": 1,
+                                                          'comuna': 'Comuna hacia donde se debe dirigir el electricista'},
+                                                     'descripcion':
                                                            {'type': 'string',
-                                                            'descripcion': 'Descripción del problema.'},
+                                                       "minLength": 1,
+                                                     'descripcion': 'Descripción del problema.'},
                                                        },
                                            'required': ['nombre' 'telefono', 'email', 'direccion', 'comuna', 'descripcion' ]
                               }

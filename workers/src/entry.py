@@ -947,7 +947,7 @@ async def on_fetch(request, env):
                                                                          call.arguments.email,
                                                                          call.arguments.direccion,
                                                                          call.arguments.comuna,
-                                                                         call.argumenst.descripcion)
+                                                                         call.arguments.descripcion)
 
                                      tool_resultado = json.dumps( { 'role': 'tool', 'content': resultado  } )
                                      await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":tool" , tool_resultado )

@@ -923,7 +923,25 @@ async def on_fetch(request, env):
                         #  'max_tokens': 502,
                         #  'messages': mensajes ,} )) 
 
-                        result = await env.AI.run( await env.I.get('MODELO'), to_js( dico_con_tools))
+                        #result = await env.AI.run( await env.I.get('MODELO'), to_js( dico))
+                        try:
+                          result = await env.AI.run(await env.I.get('MODELO'), to_js (dico_con_tools ) )
+                          if result and hasattr( result, 'tool_calls'):
+                            console.log(f"Tiene tool_calls")
+                            for call in result.tool_calls:
+                                match call.name:
+                                   case 'diga_hola':
+                                     console.log("call.name es diga_hola")
+                                     console.log(f"call telefono {call.arguments.telefono}")
+                                     console.log(f"call comuna {call.arguments.comuna}")
+                                     resultado = await diga_hola(env, call.arguments.telefono, call.arguments.comuna)
+                                     tool_resultado = json.dumps( { 'role': 'tool', 'content': resultado  } )
+                                     await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":tool" , tool_resultado )
+                          else:
+                            console.log("No dió resultado")
+
+                        except Exception as e:
+                          console.log(f"An unexpected error occurred: {e}")
 
                         console.log(f"{result.response}")
                         reply = (

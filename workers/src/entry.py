@@ -753,7 +753,7 @@ async def on_fetch(request, env):
                       return Response( "El Colaborador ahora está está suscrito", status="200")
 
                     case "xxx":
-                          console.log("Procesando No")
+                          console.log("Procesando xxx")
                           mensajes = await env.DIALOGO.list( prefix = f"{fono}")
                           if  mensajes:
                             for key in mensajes.keys:
@@ -780,71 +780,12 @@ async def on_fetch(request, env):
                         await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":system",     mensaje_inicial )
                         await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":user" , mensaje_colaborador )
                        
-                        dico_con_tools =  {
-                         'max_tokens': 502,
-                         'messages': [ { 'role': 'system', 'content': presentacion },
-                                       { 'role': 'user',   'content': descripcion }],
-                         'tools':    [ { 'name': 'enviar_aviso',
-                               'description':'Envía un aviso a cada electricista suscrito en la plataforma.',   
-                               'parameters': { 'type': 'object',
-                                         'properties': {  
-                                                        'telefono':
-                                                           {'type': 'string',
-                                                            'description': 'Teléfono de contacto al que debe llamar el electricista.'},
-                                                        'email':
-                                                           {'type': 'string',
-                                                            'description': 'Dirección de correo electróncao para recibir el contrato y cualquier otra documentación.'},
-                                                        'direccion':
-                                                           {'type': 'string',
-                                                            'comuna': 'Dirección del usuario.'},
-                                                        'comuna':
-                                                           {'type': 'string',
-                                                            'comuna': 'Comuna hacia donde se debe dirigir el electricista'},
-                                                        'descripcion':
-                                                           {'type': 'string',
-                                                            'descripcion': 'Descripción del problema.'},
-                                                       },
-                                           'required': [ 'telefono', 'email', 'direccion', 'comuna', 'descripcion' ]
-                              }
-                            }
-                          ] 
-                        }
-
-
-
                         dico =  {
                          'max_tokens': 502,
                          'messages': [ { 'role': 'system', 'content': presentacion },
                                        { 'role': 'user',   'content': descripcion }]}
-                        #No llamar con tools porque genera datos artificiales y luego llama
-                        try:
-                          result = await env.AI.run(await env.I.get('MODELO'), to_js (dico ) ) 
-                          if result and hasattr( result, 'tool_calls'):
-                            console.log(f"Tiene tool_calls")
-                            for call in result.tool_calls:
-                                console.log(f"tools {call.name}")
-                                match call.name:
-                                   case 'enviar_aviso':
-                                     console.log("call.name es enviar_aviso")
-                                     console.log(f"call telefono {call.arguments.telefono}")
-                                     console.log(f"call comuna {call.arguments.comuna}")
-                                     console.log(f"call dirección {call.arguments.direccion}")
-                                     console.log(f"call descripcion {call.arguments.descripcion}")
-                                     console.log(f"call email {call.arguments.email}")
+                        result = await env.AI.run(await env.I.get('MODELO'), to_js (dico ) )
 
-                                     resultado = await enviar_aviso(env, call.arguments.telefono,
-                                                                         call.arguments.email,
-                                                                         call.arguments.direccion,
-                                                                         call.arguments.comuna,
-                                                                         call.arguments.descripcion)
-                                     tool_resultado = json.dumps( { 'role': 'tool', 'content': resultado  } )
-                                     await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":tool" , tool_resultado )
-                          else:
-                            console.log("No dió resultado")
-
-                        except Exception as e: 
-                          console.log(f"An unexpected error occurred: {e}")
-                       
                         if result and result.response:
                           mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
                           await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":assistant" , mensaje_gerente )
@@ -942,7 +883,12 @@ async def on_fetch(request, env):
                                    case 'enviar_aviso':
                                      console.log("call.name es enviar_aviso")
                                      console.log(f"call telefono {call.arguments.telefono}")
+                                     console.log(f"call email {call.arguments.email}")
+                                     console.log(f"call direccion {call.arguments.direccion}")
                                      console.log(f"call comuna {call.arguments.comuna}")
+                                     console.log(f"call descripcion {call.arguments.descripcion}")
+
+
                                      resultado = await enviar_aviso(env, call.arguments.telefono, 
                                                                          call.arguments.email,
                                                                          call.arguments.direccion,

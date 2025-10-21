@@ -841,7 +841,7 @@ async def on_fetch(request, env):
                         except Exception as e: 
                           console.log(f"An unexpected error occurred: {e}")
                        
-                        if result.response:
+                        if result and result.response:
                           mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
                           await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":assistant" , mensaje_gerente )
                           reply = (
@@ -952,7 +952,7 @@ async def on_fetch(request, env):
 
                         except Exception as e:
                           console.log(f"An unexpected error occurred: {e}")
-                        if result.response:
+                        if result and result.response:
                           console.log(f"{result.response}")
                           reply = (
                           f"{result.response} \n"

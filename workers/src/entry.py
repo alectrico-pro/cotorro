@@ -822,12 +822,17 @@ async def on_fetch(request, env):
                           if result and hasattr( result, 'tool_calls'):
                             console.log(f"Tiene tool_calls")
                             for call in result.tool_calls:
+                                console.log(f"tools {call.name}")
                                 match call.name:
-                                   case 'diga_hola':
-                                     console.log("call.name es diga_hola")
+                                   case 'enviar_aviso':
+                                     console.log("call.name es enviar_aviso")
                                      console.log(f"call telefono {call.arguments.telefono}")
                                      console.log(f"call comuna {call.arguments.comuna}")
-                                     resultado = await diga_hola(env, call.arguments.telefono, call.arguments.comuna)
+                                     resultado = await enviar_aviso(env, call.arguments.telefono,
+                                                                         call.arguments.email,
+                                                                         call.arguments.direccion,
+                                                                         call.arguments.comuna,
+                                                                         call.argumenst.descripcion)
                                      tool_resultado = json.dumps( { 'role': 'tool', 'content': resultado  } )
                                      await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":tool" , tool_resultado )
                           else:
@@ -930,11 +935,16 @@ async def on_fetch(request, env):
                             console.log(f"Tiene tool_calls")
                             for call in result.tool_calls:
                                 match call.name:
-                                   case 'diga_hola':
-                                     console.log("call.name es diga_hola")
+                                   case 'enviar_aviso':
+                                     console.log("call.name es enviar_aviso")
                                      console.log(f"call telefono {call.arguments.telefono}")
                                      console.log(f"call comuna {call.arguments.comuna}")
-                                     resultado = await diga_hola(env, call.arguments.telefono, call.arguments.comuna)
+                                     resultado = await enviar_aviso(env, call.arguments.telefono, 
+                                                                         call.arguments.email,
+                                                                         call.arguments.direccion,
+                                                                         call.arguments.comuna,
+                                                                         call.argumenst.descripcion)
+
                                      tool_resultado = json.dumps( { 'role': 'tool', 'content': resultado  } )
                                      await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":tool" , tool_resultado )
                           else:

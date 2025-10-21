@@ -376,7 +376,7 @@ async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descrip
   amount = env.PRECIO_VISITA
   await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, telefono, email, direccion, amount)
 
-  return f"Difusión exitosa."
+  return f"Las solicitud ha sido envíada a los electricistas."
 #----------------------------- WORKER ENTRYPOINT --------------------
 
 async def on_fetch(request, env):
@@ -893,7 +893,7 @@ async def on_fetch(request, env):
                                 match call.name:
                                    case 'enviar_aviso':
                                      console.log("call.name es enviar_aviso")
-                                     console.log("call nombre {call.arguments.nombre}")
+                                     console.log(f"call nombre {call.arguments.nombre}")
                                      console.log(f"call telefono {call.arguments.telefono}")
                                      console.log(f"call email {call.arguments.email}")
                                      console.log(f"call direccion {call.arguments.direccion}")

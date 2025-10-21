@@ -951,23 +951,22 @@ async def on_fetch(request, env):
 
                                      tool_resultado = json.dumps( { 'role': 'tool', 'content': resultado  } )
                                      await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":tool" , tool_resultado )
-                          else:
-                            console.log("No dió resultado")
+                                     dico =  {
+                                       'max_tokens': 502,
+                                       'messages': [ { 'role': 'user',   'content': tool_resultado }]}
+                                     result = await env.AI.run(await env.I.get('MODELO'), to_js (dico ) )
+                                     if result and result.response:
+                                        console.log(f"{result.response}")
+                                        reply = (
+                                        f"{result.response} \n"
+                                        "..................... \n "
+                                        "Escriba *xxx* para terminar \n "
+                                        )
+                                        await send_reply(env, wa_id,  reply )
 
-                        except Exception as e:
-                          console.log(f"An unexpected error occurred: {e}")
-                        if result and result.response:
-                          console.log(f"{result.response}")
-                          reply = (
-                          f"{result.response} \n"
-                           "..................... \n "
-                           "Escriba *xxx* para terminar \n "
-                          )
-                          await send_reply(env, wa_id,  reply )
-
-                        await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":user" , mensaje_colaborador )
-                        mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
-                        await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":assistant" , mensaje_gerente )
+                                        await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":user" , mensaje_colaborador )
+                                        mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
+                                        await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":assistant" , mensaje_gerente )
 
                         #envia muchos,no sé por qué
                         if 'tokens' in  mensaje_gerente and False:

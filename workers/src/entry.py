@@ -873,7 +873,6 @@ async def on_fetch(request, env):
                          'max_tokens': 502,
                          'messages': [ { 'role': 'system', 'content': 'No haga suposiciones sobre los valores, pregunte si es necesita aclararlos.' },
                                        { 'role': 'user',   'content': descripcion }]}
- i  
                          result = await env.AI.run( await env.I.get('MODELO'), to_js( dico))
                          mensaje_assistant = json.dumps( { 'role': 'assistant', 'content': result.response  } )
                          await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":assistant" , mensaje_assistant )

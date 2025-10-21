@@ -887,11 +887,44 @@ async def on_fetch(request, env):
                            console.log(f"{role}{content}")
                            mensajes.append( mensaje_dict )
 
+                        dico_con_tools =  {
+                         'max_tokens': 502,
+                         'messages': mensajes,
+                         'tools':    [ { 'name': 'enviar_aviso',
+                               'description':'Envía un aviso a cada electricista suscrito en la plataforma.',
+                               'parameters': { 'type': 'object',
+                                         'properties': {
+                                                        'telefono':
+                                                           {'type': 'string',
+                                                            'description': 'Teléfono de contacto al que debe llamar el electricista.'},
+                                                        'email':
+                                                           {'type': 'string',
+                                                            'description': 'Dirección de correo electróncao para recibir el contrato y cualquier otra documentación.'},
+                                                        'direccion':
+                                                           {'type': 'string',
+                                                            'comuna': 'Dirección del usuario.'},
+                                                        'comuna':
+                                                           {'type': 'string',
+                                                            'comuna': 'Comuna hacia donde se debe dirigir el electricista'},
+                                                        'descripcion':
+                                                           {'type': 'string',
+                                                            'descripcion': 'Descripción del problema.'},
+                                                       },
+                                           'required': [ 'telefono', 'email', 'direccion', 'comuna', 'descripcion' ]
+                              }
+                            }
+                          ]
+                        }
+
+
                         console.log(f"mensajes {mensajes}")
-                        result = await env.AI.run( await env.I.get('MODELO'), to_js(
-                         {
-                          'max_tokens': 502,
-                          'messages': mensajes ,} )) 
+                        #result = await env.AI.run( await env.I.get('MODELO'), to_js(
+                        # {
+                        #  'max_tokens': 502,
+                        #  'messages': mensajes ,} )) 
+
+                        result = await env.AI.run( await env.I.get('MODELO'), to_js( dico_con_tools))
+
                         console.log(f"{result.response}")
                         reply = (
                         f"{result.response} \n"

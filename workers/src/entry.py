@@ -795,8 +795,6 @@ async def on_fetch(request, env):
                         console.log("No hay mensajes en DIALOGO")
                         presentacion = await env.INDUCCION_ALEXO.get() 
 
-                        #presentacion = f"Te llamas alexo y eres el asistente de la plataforma alectrico, la cual contacta a las personas con electricistas a domicilio. Debes llenar una ficha con los siguientes datos: nombre: Nombre de la persona que recibirá al electricista, comuna: Comuna hacia donde se deba dirigir el electricista, dirección: Dirección del lugar donde se reporta el problema, descripción: Descripción del problema, fono: Teléfono de contacto al que debe llamar el electricista, email: Dirección de correo electrónico para recibir el contrato y cualquier otra documentación. Cuando tengas la ficha completa, debes mostrársela al cliente para que confirme los datos. El usuario podría volver a ingresar los datos si encuentra errores."u 
-                        #presentacion = "Te llamas alexo y eres el asistente de la plataforma alectrico, la cual contacta a las personas en Providencia Chile con electricistas a domicilio. Los electricistas suscritos a la plataforma revisan los avisos de esas personas con problemas eléctricos. Debes llenar una ficha con los siguientes datos: comuna: Comuna hacia donde se deba dirigir el electricista, dirección: Dirección del lugar donde se reporta el problema, descripción: Descripción del problema, fono: Teléfono de contacto al que debe llamar el electricista, email: Dirección de correo electrónico para recibir el contrato y cualquier otra documentación. Cuando tengas la ficha completa, debes mostrársela al cliente para que confirme los datos. El usuario podría volver a ingresar los datos si encuentra errores. Cuando el usuario esté seguro de que están bien ingresados los datos, debes explicarle que la plataforma avisará a los electricistas suscritos y que eso tiene un costo para ellos, por lo que debe confirmar esta acción con mucha seriedad. Le pedirás que confirme y cuando lo haga llamarás a la función enviar_aviso con estos datos. IMPORTANTE: No supongas los argumentos para la función enviar_aviso, en vez de eso, intentan resumir los problemas que reporte el usuario en un solo argumento: descripcion. IMPORTANTE: Si el usuario escribe xxx debes olvidar todo lo dicho y borrar el diálogo que has tenido con el usuario. Cuando tengas todo listo entrega una respuesta en formato json de la función enviar_visita."
                         mensaje_inicial     = json.dumps( { 'role': 'system', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'user', 'content': descripcion } )
                    
@@ -826,34 +824,7 @@ async def on_fetch(request, env):
                         mensaje_colaborador = json.dumps( { 'role': 'user', 'content': descripcion } )
                         mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }:no_colaborador" )
                         mensajes.append( { 'role': 'user', 'content': descripcion } )
-                        #Recuerda que, para que el electricista pueda atenderte, debes haber comprado tokens previamente en nuestra plataforma Alectrico Repair.
-                        #En cuanto a la solución, puedo ofrecerte las siguientes opciones:
-
-                        #1. *Conectar con un electricista*: Puedo conectarte con un electricista calificado de nuestra plataforma Alectrico Repair que pueda evaluar y solucionar el problema de manera segura y eficiente.
-                        #2. *Obtener un presupuesto*: Puedo proporcionarte un presupuesto para el servicio de reparación eléctrica, de manera que puedas planificar y prepararte para la solución del problema®.
-
-                        #¿Cuál es tu preferencia? ¿Quieres que te conecte con un electricista o obtener un presupuesto
-                        #*CONEXIÓN CON ELECTRICISTA*
-
-                        #Entendido, te voy a conectar con un electricista calificado de nuestra plataforma Alectrico Repair. Por favor, espera un momento mientras proceso la solicitud.
-
-                        #*INFORMACIÓN DEL ELECTRICISTA*
-
-                        #Nombre: Juan Pérez
-                        #Teléfono: 555-1234
-                        #Correo electrónico: [juan.perez@alectrico.com](mailto:juan.perez@alectrico.com)
-                        #Experiencia: 10 años en reparaciones eléctricas
-                        #Calificación: 4,9/5 estrellas en nuestra plataforma
-
-                        #*DETALLES DE LA SOLICITUD*
-
-                        #* Problema: Cortocircuito con chispas y olor a humo
-                        #* Ubicación: [Tu dirección]
-                        #* Fecha y hora de la solicitud: [Fecha y hora actuales]
-
-                        #*CONFIRMACIÓN*
-
-                        #Por favor, confirma que deseas que el electricista Juan Pérez se comunique contigo para programar una visita y solucionar el  
+                        
                         for key in mensajes_anteriores.keys.sort():
                            value = await env.DIALOGO.get(key.name)
                            mensaje_dict = json.loads(value)
@@ -866,7 +837,7 @@ async def on_fetch(request, env):
                          'max_tokens': 502,
                          'messages': mensajes,
                          'tools':    [ { 'name': 'enviar_aviso',
-                               'description':'Envía un aviso a cada electricista suscrito en la plataforma.',
+                               'description':'Envía un aviso a cada electricista suscrito en la plataforma. Debe pedirse la descripción del prblema y la comuna.',
                                'parameters': { 'type': 'object',
                                          'properties': {'nombre'  :
                                                            {'type': 'string',
@@ -906,25 +877,26 @@ async def on_fetch(request, env):
                         #  'max_tokens': 502,
                         #  'messages': mensajes ,} )) 
                         #Sin usar las tools todavía
-                        dico =  {
+                        if False:
+                         dico =  {
                          'max_tokens': 502,
                          'messages': [ { 'role': 'system', 'content': 'No haga suposiciones sobre los valores, pregunte si es necesita aclararlos.' },
                                        { 'role': 'user',   'content': descripcion }]}
-
-                        result = await env.AI.run( await env.I.get('MODELO'), to_js( dico))
-                        mensaje_assistant = json.dumps( { 'role': 'assistant', 'content': result.response  } )
-                        await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":assistant" , mensaje_assistant )
-                        if result and result.response:
-                          mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
-                          await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":assistant" , mensaje_gerente )
-                          reply = (
+ i  
+                         result = await env.AI.run( await env.I.get('MODELO'), to_js( dico))
+                         mensaje_assistant = json.dumps( { 'role': 'assistant', 'content': result.response  } )
+                         await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":assistant" , mensaje_assistant )
+                         if result and result.response:
+                            mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
+                            await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":assistant" , mensaje_gerente )
+                            reply = (
                             f"{result.response} \n"
                             "..................... \n "
                             "Escriba *xxx* para terminar \n "
-                          )
-                          await send_reply(env, wa_id,  reply )
+                            )
+                            await send_reply(env, wa_id,  reply )
 
-                        if False:
+                        if True:
                          try:
                           result = await env.AI.run(await env.I.get('MODELO'), to_js (dico_con_tools ) )
                           if result and hasattr( result, 'tool_calls'):

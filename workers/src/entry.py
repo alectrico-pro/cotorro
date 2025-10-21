@@ -209,7 +209,7 @@ async def desactivar( env, fono):
           )
         else:
          reply = (
-          f"{fono} no está activo. No se puedo desactivar"
+          f"{fono} no está activo. No se pudo desactivar"
          )
         await send_reply( env, fono, reply)
 

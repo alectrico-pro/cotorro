@@ -924,6 +924,58 @@ async def on_fetch(request, env):
                                      console.log(f"call comuna {call.arguments.comuna}")
                                      console.log(f"call descripcion {call.arguments.descripcion}")
 
+                                     if not len( call.arguments.nombre ) > 1:
+                                        reply = (
+                                        f"Ingrese un nombre \n"
+                                        "..................... \n "
+                                        "Escriba *xxx* para terminar \n "
+                                        )
+                                        await send_reply(env, wa_id,  reply )
+
+
+                                     if not len( call.arguments.telefono ) > 1:
+                                        reply = (
+                                        f"Ingrese un telefono \n"
+                                        "..................... \n "
+                                        "Escriba *xxx* para terminar \n "
+                                        )
+                                        await send_reply(env, wa_id,  reply )
+
+
+                                     if not len( call.arguments.email ) > 1:
+                                        reply = (
+                                        f"Ingrese un email \n"
+                                        "..................... \n "
+                                        "Escriba *xxx* para terminar \n "
+                                        )
+                                        await send_reply(env, wa_id,  reply )
+
+                                     if not len( call.arguments.direccion ) > 1:
+                                        reply = (
+                                        f"Ingrese un direccion \n"
+                                        "..................... \n "
+                                        "Escriba *xxx* para terminar \n "
+                                        )
+                                        await send_reply(env, wa_id,  reply )
+
+                                     if not len( call.arguments.comuna ) > 1:
+                                        reply = (
+                                        f"Ingrese una comuna \n"
+                                        "..................... \n "
+                                        "Escriba *xxx* para terminar \n "
+                                        )
+                                        await send_reply(env, wa_id,  reply )
+
+
+                                     if not len( call.arguments.descripcion ) > 1:
+                                        reply = (
+                                        f"Ingrese una descripcion \n"
+                                        "..................... \n "
+                                        "Escriba *xxx* para terminar \n "
+                                        )
+                                        await send_reply(env, wa_id,  reply )
+
+
 
                                      resultado = await enviar_aviso(env, call.arguments.nombre, 
                                                                          call.arguments.telefono, 

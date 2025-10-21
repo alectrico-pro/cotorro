@@ -791,7 +791,7 @@ async def on_fetch(request, env):
                         dico =  {
                          'max_tokens': 502,
                          'messages': [ { 'role': 'system', 'content': presentacion },
-                                       { 'role': 'system', 'content': 'No haga supocisiones sobre los valores, pregunte si es necesita aclararlos.' },
+                                       { 'role': 'system', 'content': 'No haga suposiciones sobre los valores, pregunte si es necesita aclararlos.' },
                                        { 'role': 'user',   'content': descripcion }]}
 
                         result = await env.AI.run(await env.I.get('MODELO'), to_js (dico ) )
@@ -824,11 +824,11 @@ async def on_fetch(request, env):
                          'max_tokens': 502,
                          'messages': mensajes,
                          'tools':    [ {      'name': 'say_visita',
-                                       'description': 'Solicita la primera visita de un electricista a domicilio en Providencia. Chile'
+                                       'description': 'Sugerir Electricista.'
                                        },
                                        {   
                                       'name': 'enviar_aviso',
-                               'description':'Envía un aviso a cada electricista suscrito en la plataforma. Debe pedirse la descripción del prblema y la comuna.',
+                               'description':'Avisar a electricistas.',
                                'parameters': { 'type': 'object',
                                          'properties': {'nombre'  :
                                                            {'type': 'string',

@@ -903,6 +903,13 @@ async def on_fetch(request, env):
                                      path_de_pago = f"/transbank?amount={amount}&session_id={wa_id}&buy_order={buy_order}"
                                      try:
                                        await say_pagar_visita( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
+                                       reply = (
+                                        f"Se ha envíado un electricista sugerido \n"
+                                        "..................... \n "
+                                        "Escriba *xxx* para terminar \n "
+                                       )
+                                     await send_reply(env, wa_id,  reply )
+
                                      except:
                                        pass
                                      
@@ -912,6 +919,15 @@ async def on_fetch(request, env):
                                      #Luego los electricistas pueden ser vistos en una lista por el cliente
                                      #No implementando, ahora hacce lo mismo que enviar_aviso
                                      await enviar_template_say_visita_flow_reserva( request, env, wa_id )
+
+                                     reply = (
+                                      f"Se ha envíado un cuestionario \n"
+                                      "..................... \n "
+                                      "Escriba *xxx* para terminar \n "
+                                     )
+                                     await send_reply(env, wa_id,  reply )
+
+
 
                                    case 'enviar_aviso':
                                      #Avisar a los electricistas
@@ -923,6 +939,14 @@ async def on_fetch(request, env):
                                      console.log(f"call direccion {call.arguments.direccion}")
                                      console.log(f"call comuna {call.arguments.comuna}")
                                      console.log(f"call descripcion {call.arguments.descripcion}")
+                                     reply = (
+                                      f"Se intenta enviar aviso a los electricistas \n"
+                                      f"{call.arguments.nombre} \n"
+                                      "..................... \n "
+                                      "Escriba *xxx* para terminar \n "
+                                     )
+                                     await send_reply(env, wa_id,  reply )
+
 
                                      if not len( call.arguments.nombre ) > 1:
                                         reply = (

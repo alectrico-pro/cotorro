@@ -907,12 +907,13 @@ async def on_fetch(request, env):
                         #Sin usar las tools todavía
                         dico =  {
                          'max_tokens': 502,
-                         'messages': [ { 'role': 'system', 'content': 'No haga supocisiones sobre los valores, pregunte si es necesita aclararlos.' },
+                         'messages': [ { 'role': 'system', 'content': 'No haga suposiciones sobre los valores, pregunte si es necesita aclararlos.' },
                                        { 'role': 'user',   'content': descripcion }]}
 
                         result = await env.AI.run( await env.I.get('MODELO'), to_js( dico))
-                        json.dumps( { 'role': 'assistan', 'content': result.response  } )
-
+                        mensaje_assistant = json.dumps( { 'role': 'assistant', 'content': result.response  } )
+                        await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":assistant" , mensaje_assistant )
+                              
                         if False:
                          try:
                           result = await env.AI.run(await env.I.get('MODELO'), to_js (dico_con_tools ) )

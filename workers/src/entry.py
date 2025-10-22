@@ -2431,10 +2431,11 @@ async def send_reply( env, wa_id, reply, cliente=False):
 
         #earer = await get_bearer(env, cliente)
 
-        bearer = await env.META.get('AE_REPAIR_USER_TOKEN')
-
+        #bearer = await env.META.get('AE_REPAIR_USER_TOKEN')
+        bearer = await env.META.get('COTORRO_EXO_USER_TOKEN')
+        phone_id = env.PHONE_NUMBER_ID
  
-        uri     = f"https://graph.facebook.com/v23.0/{env.CLIENT_PHONE_NUMBER_ID}/messages"
+        uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
         headers = {
                 "Content-Type": "application/json",
                 "Authorization": f"Bearer {bearer}"

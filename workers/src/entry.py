@@ -612,7 +612,6 @@ async def on_fetch(request, env):
 
     elif url == "/webhook_ae" and method== 'GET':
         webhook_get(request, env)
-        return Response( "Procesado", status="200") 
 
     #--------------------------------------------------------------------------------------------
     elif url == "/webhook_ae"  and method== 'POST': # corresponde a la ap ae

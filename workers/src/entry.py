@@ -1167,8 +1167,12 @@ async def on_fetch(request, env):
                            )
                            await send_reply(env, wa_id, reply)
                            try:
-                             mensaje_reply= { 'role': 'tool', 'content': "Error: El cuestionario no pudo ser entregado porque no es compatible con su celular." }
+                             mensaje_reply= json.dumps( { 'role': 'tool', 'content': "Error: El cuestionario no pudo ser entregado porque no es compatible con su celular." })
                              await env.DIALOGO.put( str(fono) + ":tool" + str(datetime.now()) + ":tool",     mensaje_reply )
+
+                             mensaje_reply= json.dumps( { 'role': 'system', 'content': "No ofrezcas enviar cuestionario porque está con problemas con este usuario." })
+                             await env.DIALOGO.put( str(fono) + ":system" + str(datetime.now()) + ":system",     mensaje_reply )
+
                            except:
                              pass
 

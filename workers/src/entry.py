@@ -381,12 +381,12 @@ async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descrip
 
 
 
-async def listar_electricistas( env):
+async def listar_electricistas( env, fono):
   console.log( "En listar_electricistas")
 
   lista = []
 
-  for key in env.NOMINA.list( prefix = "activo:" ):
+  for key in env.NOMINA.list( prefix = "activo:" ).keys:
    lista.append(f"{key.nombre} {key.fono}\n")
   reply = (
     "ELECTRICISTAS ACTIVOS*\n"
@@ -930,7 +930,7 @@ async def on_fetch(request, env):
                                 match call.name:
                                    case 'listar_electricistas':
                                      console.log('call.name es listar electricistas')
-                                     await listar_electricistas(env)
+                                     await listar_electricistas(env, fono)
                                    case 'sugerir_electricista':
                                      console.log("call.name es say_visita")
                                      #Manda una foto mía como sugerido y un precio de visita

@@ -403,9 +403,9 @@ async def listar_electricistas( env, wa_id):
          
          token = await env.NOMINA.get( key.name )
          token_dict = json.loads(token)
-         nombre  = token_dict['token']['nombre']
+         nombre  = token_dict['nombre']
          console.log(f"nombre {nombre}")
-         fono    = token_dict['token']['fono']
+         fono    = token_dict['fono']
          await send_reply( env, wa_id, nombre )
          lista.append(f"{nombre} {fono}\n")
 

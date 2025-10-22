@@ -379,8 +379,25 @@ async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descrip
 
   return f"La solicitud de servicio ha sido envíada a los electricistas."
 
-#----------------------------- WORKER ENTRYPOINT --------------------
 
+
+async def listar_electricistas( env):
+  console.log( "En listar_electricistas")
+
+  lista = []
+
+  for key in env.NOMINA.list( prefix = "activo:" )
+   lista.append(f"{key.nombre} {key.fono}\n")
+  reply = (
+    "ELECTRICISTAS ACTIVOS*\n"
+    f"lista\n"
+  )
+
+  await send_reply( env, telefono, reply)
+  return f"La lista de electricistas se la sido entregada."
+
+
+#----------------------------- WORKER ENTRYPOINT --------------------
 async def on_fetch(request, env):
 
     url = urlparse(request.url)
@@ -833,6 +850,8 @@ async def on_fetch(request, env):
                          'max_tokens': 502,
                          'messages': mensajes,
                          'tools':    [
+                                       {      'name': 'listar_electricistas',
+                                       'description': 'Lista los electricistas activos' },
                                        {      'name': 'cuestionario',
                                        'description': 'Enviar Cuestionario'  },                                       
 				       {      'name': 'sugerir_electricista',
@@ -842,30 +861,36 @@ async def on_fetch(request, env):
                                'parameters': { 'type': 'object',
                                          'properties': {'nombre'  :
                                                            {'type': 'string',
-                                                        "minLength": 1,
-                                                            'descripcion': "Nombre de la personas que recibirá al electricista"},
+                                                       "minLength": 1,
+                                                         'default': nombre,
+                                                     'descripcion': "Nombre de la personas que recibirá al electricista"},
                                                         'telefono':
                                                            {'type': 'string',
                                                        "minLength": 1,
+                                                         'default': fono,
                                                             'description': 'Teléfono de contacto al que debe llamar el electricista.'},
                                                         'email':
                                                            {'type': 'string',
                                                        "minLength": 1,
+                                                         'default': 'user@alectrico.cl',
                                                      'description': 'Dirección de correo electróncao para recibir el contrato y cualquier otra documentación.'},
                                                         'direccion':
                                                            {'type': 'string',
                                                        "minLength": 1,
+                                                         'default': 'no-indica',
                                                           'comuna': 'Dirección del usuario.'},
                                                         'comuna':
                                                            {'type': 'string',
                                                        "minLength": 1,
+                                                         'default': 'Providencia', 
                                                           'comuna': 'Comuna hacia donde se debe dirigir el electricista'},
                                                      'descripcion':
                                                            {'type': 'string',
                                                        "minLength": 1,
+                                                     'descripcion': descripcion,
                                                      'descripcion': 'Descripción del problema.'},
                                                        },
-                                           'required': ['nombre' 'telefono', 'email', 'direccion', 'comuna', 'descripcion' ]
+                                           'required': ['nombre', 'telefono', 'email', 'direccion', 'comuna', 'descripcion' ]
                               }
                             }
                           ]
@@ -903,6 +928,9 @@ async def on_fetch(request, env):
                             console.log(f"Tiene tool_calls")
                             for call in result.tool_calls:
                                 match call.name:
+                                   case 'listar_electricistas':
+                                     console.log('call.name es listar electricistas')
+                                     await listar_electricistas
                                    case 'sugerir_electricista':
                                      console.log("call.name es say_visita")
                                      #Manda una foto mía como sugerido y un precio de visita

@@ -609,7 +609,7 @@ async def on_fetch(request, env):
         console.log("En return_url TKB_TOKEN {TKB_TOKEN}")
         return mostrar_not_found(env, "El Pago fue Cancelado! ")
 
-
+    #--------------------  WEBHOOK AE -----------------------------------------------------
     elif url.path == "/webhook_ae" and method== 'GET':
         if params["hub.mode"] == ['subscribe'] and params['hub.verify_token'][0] == env.VERIFY_TOKEN:
           return Response(params['hub.challenge'][0], status=200)
@@ -632,10 +632,15 @@ async def on_fetch(request, env):
         await send_reply( env, wa_id, reply )
         return Response( "Procesado", status="200")
 
+    #---------------------- WEBHOOK COTORRO ------------------------------------------------
+    elif url.path == "/webhook_cotorro" and method== 'GET':
+        if params["hub.mode"] == ['subscribe'] and params['hub.verify_token'][0] == env.VERIFY_TOKEN:
+          return Response(params['hub.challenge'][0], status=200)
+        else:
+          return Response("Error", status=403)
 
 
-    #----------------- WEBHOOK DE WABA ---------------------------------------------------------
-    elif url == "/webhook": 
+    elif url.path == "/webhook_cotorro" and method == 'POST': 
         console.log("En webhook")
 
         request_json = await request.json()

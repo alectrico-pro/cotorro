@@ -72,7 +72,7 @@ id_generator = count(start=1)  # Starts from 1, increments by default
 
 
 
-async def get_bearer_phone(env, cliente = False ):
+async def get_bearer_and_phone(env, cliente = False ):
   if cliente:
     console.log("usando el user token de cliente")
     bearer   = await env.META.get('AE_REPAIR_USER_TOKEN')
@@ -2434,8 +2434,7 @@ async def send_reply( env, wa_id, reply, cliente=False):
         #earer = await get_bearer(env, cliente)
 
         #bearer = await env.META.get('AE_REPAIR_USER_TOKEN')
-        bearer, phone_id = await env.META.get('COTORRO_EXO_USER_TOKEN')
-        #hone_id = env.PHONE_NUMBER_ID
+        bearer, phone_id = get_bearer_and_phone(env, False)
  
         uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
         headers = {

@@ -611,7 +611,7 @@ async def on_fetch(request, env):
 
 
     elif url.path == "/webhook_ae" and method== 'GET':
-        webhook_get(request, env)
+        webhook_get(request, env, params)
 
     #--------------------------------------------------------------------------------------------
     elif url.path == "/webhook_ae"  and method== 'POST': # corresponde a la ap ae
@@ -1287,7 +1287,7 @@ async def on_fetch(request, env):
 #-----------------------------------------------------------------------------
 #@app.route("/webhook", methods=["GET"])
 #Hay que hacerlo nuevamente. Se me borró el que usé al comienzo
-def webhook_get(request, env):
+def webhook_get(request, env, params):
     console.log("En webhook_get")
     if params["hub.mode"] == ['subscribe'] and params['hub.verify_token'] == env.VERIFY_TOKEN:
         return Response(params['hub.challenge'][0], status=200)

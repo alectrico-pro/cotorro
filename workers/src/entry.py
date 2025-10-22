@@ -611,7 +611,7 @@ async def on_fetch(request, env):
 
 
     elif url.path == "/webhook_ae" and method== 'GET':
-        if params["hub.mode"] == ['subscribe'] and params['hub.verify_token'] == env.VERIFY_TOKEN:
+        if params["hub.mode"] == ['subscribe'] and params['hub.verify_token'][0] == env.VERIFY_TOKEN:
           return Response(params['hub.challenge'][0], status=200)
         else:
           return Response("Error", status=403)

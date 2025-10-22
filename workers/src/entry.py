@@ -72,7 +72,7 @@ id_generator = count(start=1)  # Starts from 1, increments by default
 
 
 
-async def get_bearer(cliente = False ):
+async def get_bearer(env, cliente = False ):
   if cliente:
     return await env.META.get('COTORRO_EXO_USER_TOKEN')
   else:
@@ -2430,7 +2430,7 @@ async def send_reply( env, wa_id, reply):
         uri     = f"https://graph.facebook.com/v23.0/{env.CLIENT_PHONE_NUMBER_ID}/messages"
         headers = {
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {await get_bearer( True)}"
+                "Authorization": f"Bearer {await get_bearer(env, True)}"
         }
         body = {
                     "messaging_product" :  "whatsapp",

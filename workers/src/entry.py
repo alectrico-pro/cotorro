@@ -2434,7 +2434,7 @@ async def send_reply( env, wa_id, reply, cliente=False):
         #earer = await get_bearer(env, cliente)
 
         #bearer = await env.META.get('AE_REPAIR_USER_TOKEN')
-        bearer, phone_id = get_bearer_and_phone(env, False)
+        bearer, phone_id = await get_bearer_and_phone(env, False)
  
         uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
         headers = {

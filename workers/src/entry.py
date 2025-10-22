@@ -76,11 +76,11 @@ async def get_bearer_and_phone(env, cliente = False ):
   if cliente:
     console.log("usando el user token de cliente")
     bearer   = await env.META.get('AE_REPAIR_USER_TOKEN')
-    phone_id = env.PHONE_NUMBER_ID
+    phone_id = env.CLIENT_PHONE_NUMBER_ID
   else:
     console.log("usando el user token de colaborador")
     bearer   = await env.META.get('COTORRO_EXO_USER_TOKEN')
-    phone_id = env.CLIENT_PHONE_NUMBER_ID
+    phone_id = env.PHONE_NUMBER_ID
   return bearer, phone_id
 
 
@@ -2435,6 +2435,10 @@ async def send_reply( env, wa_id, reply, cliente=False):
 
         #bearer = await env.META.get('AE_REPAIR_USER_TOKEN')
         bearer, phone_id = await get_bearer_and_phone(env, False)
+
+        console.log(f"bearer {bearer}")
+        console.log(f"phone_id {phone_id}")
+
  
         uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
         headers = {

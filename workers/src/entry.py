@@ -610,11 +610,25 @@ async def on_fetch(request, env):
         return mostrar_not_found(env, "El Pago fue Cancelado! ")
 
     #--------------------------------------------------------------------------------------------
+    elif url.path.startswith("/webhook_ae"): # corresponde a la ap ae
+        request_json = await request.json()
+        console.log( f"request_json {request_json}")
+
+        #Atiende los llamados VoIP de Whatsapp ---
+        value = request_json.entry[0].changes[0].value
+        wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
+
+        console.log("En webhook_ae")
+        reply = (
+                "Bienvenido a la plataforma alectrico® repair \n"
+        )
+        await send_reply( env, wa_id, reply )
+        return Response( "Procesado", status="200")
 
 
 
     #----------------- WEBHOOK DE WABA ---------------------------------------------------------
-    elif url.path.startswith("/webhook"): # la url que sigue es un eco del pasado or url.path.startswith("/api/v1/santum/webhook"):
+    elif url.path.startswith("/webhook"): 
         console.log("En webhook")
 
         request_json = await request.json()

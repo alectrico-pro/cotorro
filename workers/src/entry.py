@@ -1166,6 +1166,7 @@ async def on_fetch(request, env):
                              "Solo pida lo que necesita e intentaremos avisar a los electricistas. \n"
                            )
                            await send_reply(env, wa_id, reply)
+                           fono = fix_fono( wa_id )
                            try:
                              mensaje_reply= json.dumps( { 'role': 'tool', 'content': "Error: El cuestionario no pudo ser entregado porque no es compatible con su celular." })
                              await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":tool",     mensaje_reply )
@@ -1174,7 +1175,7 @@ async def on_fetch(request, env):
                              await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":system",     mensaje_reply )
 
                            except Exception as e:
-                             console.log(f"Ocurrió un error al intentar  interactuar con DIALOGO")
+                             console.log(f"Ocurrió un error al intentar  interactuar con DIALOGO: {e}")
                              pass
 
                            #try:

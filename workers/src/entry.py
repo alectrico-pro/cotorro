@@ -387,7 +387,7 @@ async def listar_electricistas( env, wa_id):
   lista = []
 
   electricistas = await env.NOMINA.list( prefix = "activo:" )
-  for token in electricistas.keys:
+  for key in electricistas.keys:
          
          token = await env.NOMINA.get( key.name )
          token_dict = json.loads(token)

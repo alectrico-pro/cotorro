@@ -610,12 +610,12 @@ async def on_fetch(request, env):
         return mostrar_not_found(env, "El Pago fue Cancelado! ")
 
 
-    elif url.path.startswith("/webhook_ae") and method== 'POST':
+    elif url == "/webhook_ae" and method== 'GET':
         webhook_get(request, env)
         return Response( "Procesado", status="200") 
 
     #--------------------------------------------------------------------------------------------
-    elif url.path.startswith("/webhook_ae")  and method== 'POST': # corresponde a la ap ae
+    elif url == "/webhook_ae"  and method== 'POST': # corresponde a la ap ae
         request_json = await request.json()
         console.log( f"request_json {request_json}")
 
@@ -633,7 +633,7 @@ async def on_fetch(request, env):
 
 
     #----------------- WEBHOOK DE WABA ---------------------------------------------------------
-    elif url.path.startswith("/webhook"): 
+    elif url == "/webhook": 
         console.log("En webhook")
 
         request_json = await request.json()

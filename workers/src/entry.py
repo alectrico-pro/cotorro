@@ -768,6 +768,15 @@ async def on_fetch(request, env):
                                  await env.DIALOGO.delete( key.name)
                           return Response( "Borrado Dialogo para fono", status="200")
 
+                    case "Xxx":
+                          console.log("Procesando Xxx")
+                          mensajes = await env.DIALOGO.list( prefix = f"{fono}")
+                          if  mensajes:
+                            for key in mensajes.keys:
+                                 await env.DIALOGO.delete( key.name)
+                          return Response( "Borrado Dialogo para fono", status="200")
+
+
 
                if not await es_colaborador(env, wa_id):
                       console.log(f"{wa_id} No es colaborador")
@@ -1153,12 +1162,8 @@ async def on_fetch(request, env):
                            amount       = env.PRECIO_VISITA
 
                            reply = (
-                             "Hubo una error: \n"
-                             "y el cuestionario que \n"
-                             "que le enviamos no podrá \n"
-                             "ser mostrado en su celular \n"
-                             "Será atendido por nuestro \n"
-                             "Asistente alexø.ai \n"
+                             "Hubo una error, el cuestionario no es compatible con su celular.  \n"
+                             "Solo pida lo que necesita e intentaremos avisar a los electricistas. \n"
                            )
                            await send_reply(env, wa_id, reply)
                            #try:

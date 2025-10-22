@@ -402,7 +402,7 @@ async def listar_electricistas( env, fono):
     f"lista\n"
   )
 
-  await send_reply( env, telefono, reply)
+  await send_reply( env, fono, reply)
   return f"La lista de electricistas se la sido entregada."
 
 

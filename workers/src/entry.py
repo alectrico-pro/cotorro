@@ -930,7 +930,7 @@ async def on_fetch(request, env):
                                 match call.name:
                                    case 'listar_electricistas':
                                      console.log('call.name es listar electricistas')
-                                     await listar_electricistas
+                                     await listar_electricistas(env)
                                    case 'sugerir_electricista':
                                      console.log("call.name es say_visita")
                                      #Manda una foto mía como sugerido y un precio de visita

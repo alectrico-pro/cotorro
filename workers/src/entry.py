@@ -828,8 +828,8 @@ async def on_fetch(request, env):
                                        'description': 'Enviar Cuestionario'  },                                       
 				       {      'name': 'sugerir_electricista',
                                        'description': 'Sugerir Electricista.' },
-                                       {    'name': 'enviar_aviso',
-                               'description':'Avisar a electricistas.',
+                                       {      'name': 'enviar_aviso',
+                                       'description': 'Avisar a electricistas.',
                                'parameters': { 'type': 'object',
                                          'properties': {'nombre'  :
                                                            {'type': 'string',
@@ -1152,10 +1152,19 @@ async def on_fetch(request, env):
                            name         = 'no indica'
                            amount       = env.PRECIO_VISITA
 
-                           try:
-                             await guardar_pedido( env, buy_order, wa_id, name, email, direccion, comuna, descripcion, amount)
-                           except:
-                             pass
+                           reply = (
+                             "Hubo una error: \n"
+                             "y el cuestionario que \n"
+                             "que le enviamos no podrá \n"
+                             "ser mostrado en su celular \n"
+                             "Será atendido por nuestro \n"
+                             "Asistente alexø.ai \n"
+                           )
+                           await send_reply(env, wa_id, reply)
+                           #try:
+                           #  await guardar_pedido( env, buy_order, wa_id, name, email, direccion, comuna, descripcion, amount)
+                           #except:
+                           #  pass
 
                            #intentaré enviar un mensaje, pero eso funciona solo en le ventana de anteción
                            #link_de_pago = f"{env.API_URL}/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
@@ -1167,11 +1176,11 @@ async def on_fetch(request, env):
                            #  pass
 
                            #envío este que debiera funcionar siempre, pero a veces no llega
-                           path_de_pago = f"/transbank?amount={amount}&session_id={wa_id}&buy_order={buy_order}"
-                           try:
-                             await say_pagar_visita( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
-                           except:
-                             pass
+                           #path_de_pago = f"/transbank?amount={amount}&session_id={wa_id}&buy_order={buy_order}"
+                           #try:
+                           #  await say_pagar_visita( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
+                           #except:
+                           #  pass
 
                       #Los envíos del concurso, pueden ser rechazados por los colaboradores y se devuelven como failed
                     if resultado == 'say_visita -> flow test_TDA_1' and value.statuses[0].errors[0].title == 'Message undeliverable':

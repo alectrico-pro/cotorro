@@ -616,7 +616,6 @@ async def on_fetch(request, env):
         else:
           return Response("Error", status=403)
 
-    #--------------------------------------------------------------------------------------------
     elif url.path == "/webhook_ae"  and method== 'POST': # corresponde a la ap ae
         request_json = await request.json()
         console.log( f"request_json {request_json}")
@@ -631,7 +630,7 @@ async def on_fetch(request, env):
 			"Bienvenido a la plataforma alectrico® repair \n"
 		)
 		await send_reply( env, wa_id, reply )
-		except:
+        except:
           pass
         return Response( "Procesado", status="200")
 

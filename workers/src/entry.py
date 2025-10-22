@@ -609,8 +609,13 @@ async def on_fetch(request, env):
         console.log("En return_url TKB_TOKEN {TKB_TOKEN}")
         return mostrar_not_found(env, "El Pago fue Cancelado! ")
 
+
+    elif url.path.startswith("/webhook_ae") and method== 'POST':
+        webhook_get(request, env)
+        return Response( "Procesado", status="200") 
+
     #--------------------------------------------------------------------------------------------
-    elif url.path.startswith("/webhook_ae"): # corresponde a la ap ae
+    elif url.path.startswith("/webhook_ae")  and method== 'POST': # corresponde a la ap ae
         request_json = await request.json()
         console.log( f"request_json {request_json}")
 

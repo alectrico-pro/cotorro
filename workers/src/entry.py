@@ -74,8 +74,10 @@ id_generator = count(start=1)  # Starts from 1, increments by default
 
 async def get_bearer(env, cliente = False ):
   if cliente:
+    console.log("usando el user token de cliente")
     return await env.META.get('AE_REPAIR_USER_TOKEN')
   else:
+    console.log("usando el user token de colaborador")
     return await env.META.get('COTORRO_EXO_USER_TOKEN')
 
 

@@ -1166,6 +1166,10 @@ async def on_fetch(request, env):
                              "Solo pida lo que necesita e intentaremos avisar a los electricistas. \n"
                            )
                            await send_reply(env, wa_id, reply)
+                           mensaje_reply= { 'role': 'tool', 'content': "Error: El cuestionario no pudo ser entregado porque no es compatible con su celular." }
+                           await env.DIALOGO.put( str(fono) + ":tool" + str(datetime.now()) + ":tool",     mensaje_reply )
+
+
                            #try:
                            #  await guardar_pedido( env, buy_order, wa_id, name, email, direccion, comuna, descripcion, amount)
                            #except:

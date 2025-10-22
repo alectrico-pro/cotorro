@@ -639,10 +639,20 @@ async def on_fetch(request, env):
         console.log("En webhook")
 
         request_json = await request.json()
+
         console.log( f"request_json {request_json}")
 
         #Atiende los llamados VoIP de Whatsapp ---
         value = request_json.entry[0].changes[0].value
+        wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
+
+        reply = (
+                "Bienvenido a la plataforma  alectrico® exo! \n"
+        )
+        await send_reply( env, wa_id, reply )
+
+        request_json = await request.json()
+
 
         console.log( f"hasattr messages    {hasattr(value, 'messages')} " )
         console.log( f"hasattr contacts    {hasattr(value, 'contacts')} " )

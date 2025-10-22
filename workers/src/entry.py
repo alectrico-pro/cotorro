@@ -2426,11 +2426,13 @@ async def send_msg( env, wa_id, msg):
 
 #sujeto a eror de reenganche en waba
 async def send_reply( env, wa_id, reply, cliente=True):
+
+        bearer = await get_bearer(env, cliente)
  
         uri     = f"https://graph.facebook.com/v23.0/{env.CLIENT_PHONE_NUMBER_ID}/messages"
         headers = {
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {await get_bearer(env, cliente)}"
+                "Authorization": f"Bearer {bearer}"
         }
         body = {
                     "messaging_product" :  "whatsapp",

@@ -386,7 +386,7 @@ async def listar_electricistas( env):
 
   lista = []
 
-  for key in env.NOMINA.list( prefix = "activo:" )
+  for key in env.NOMINA.list( prefix = "activo:" ):
    lista.append(f"{key.nombre} {key.fono}\n")
   reply = (
     "ELECTRICISTAS ACTIVOS*\n"

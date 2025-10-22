@@ -72,7 +72,7 @@ id_generator = count(start=1)  # Starts from 1, increments by default
 
 
 
-async def get_bearer(cliente = False )
+async def get_bearer(cliente = False ):
   if cliente:
     return await env.META.get('COTORRO_EXO_USER_TOKEN')
   else:

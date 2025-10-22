@@ -2433,7 +2433,7 @@ async def send_reply( env, wa_id, reply, cliente=False):
         #earer = await get_bearer(env, cliente)
 
         #bearer = await env.META.get('AE_REPAIR_USER_TOKEN')
-        bearer, phone_id = await get_bearer_and_phone(env, False)
+        bearer, phone_id = await get_bearer_and_phone(env, True)
 
         console.log(f"bearer {bearer}")
         console.log(f"phone_id {phone_id}")

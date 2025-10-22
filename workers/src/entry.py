@@ -76,11 +76,11 @@ async def get_bearer_and_phone(env, cliente = False ):
   if cliente:
     console.log("usando el user token de cliente")
     bearer   = await env.META.get('AE_REPAIR_USER_TOKEN')
-    phone_id = env.PHONE_ID
+    phone_id = env.PHONE_NUMBER_ID
   else:
     console.log("usando el user token de colaborador")
     bearer   = await env.META.get('COTORRO_EXO_USER_TOKEN')
-    phone_id = env.CLIENT_PHONE_ID
+    phone_id = env.CLIENT_PHONE_NUMBER_ID
   return bearer, phone_id
 
 

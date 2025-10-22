@@ -72,13 +72,16 @@ id_generator = count(start=1)  # Starts from 1, increments by default
 
 
 
-async def get_bearer(env, cliente = False ):
+async def get_bearer_phone(env, cliente = False ):
   if cliente:
     console.log("usando el user token de cliente")
-    return await env.META.get('AE_REPAIR_USER_TOKEN')
+    bearer   = await env.META.get('AE_REPAIR_USER_TOKEN')
+    phone_id = env.PHONE_ID
   else:
     console.log("usando el user token de colaborador")
-    return await env.META.get('COTORRO_EXO_USER_TOKEN')
+    bearer   = await env.META.get('COTORRO_EXO_USER_TOKEN')
+    phone_id = env.CLIENT_PHONE_ID
+  return bearer, phone_id
 
 
 
@@ -404,7 +407,6 @@ async def listar_electricistas( env, wa_id):
          token = await env.NOMINA.get( key.name )
          token_dict = json.loads(token)
          nombre  = token_dict['nombre']
-         console.log(f"nombre {nombre}")
          fono    = token_dict['fono']
          await send_reply( env, wa_id, nombre )
          lista.append(f"{nombre} {fono}\n")
@@ -2432,8 +2434,8 @@ async def send_reply( env, wa_id, reply, cliente=False):
         #earer = await get_bearer(env, cliente)
 
         #bearer = await env.META.get('AE_REPAIR_USER_TOKEN')
-        bearer = await env.META.get('COTORRO_EXO_USER_TOKEN')
-        phone_id = env.PHONE_NUMBER_ID
+        bearer, phone_id = await env.META.get('COTORRO_EXO_USER_TOKEN')
+        #hone_id = env.PHONE_NUMBER_ID
  
         uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
         headers = {

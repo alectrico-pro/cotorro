@@ -72,8 +72,8 @@ id_generator = count(start=1)  # Starts from 1, increments by default
 
 
 
-async def get_bearer_and_phone(env, cliente = False ):
-  if cliente:
+async def get_bearer_and_phone(env, cliente ):
+  if cliente == True:
     console.log("usando el user token de cliente")
     bearer   = await env.META.get('AE_REPAIR_USER_TOKEN')
     phone_id = env.CLIENT_PHONE_NUMBER_ID
@@ -2430,9 +2430,6 @@ async def send_msg( env, wa_id, msg):
 #sujeto a eror de reenganche en waba
 async def send_reply( env, wa_id, reply, cliente=False):
 
-        #earer = await get_bearer(env, cliente)
-
-        #bearer = await env.META.get('AE_REPAIR_USER_TOKEN')
         bearer, phone_id = await get_bearer_and_phone(env, True)
 
         console.log(f"bearer {bearer}")

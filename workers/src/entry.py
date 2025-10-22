@@ -381,28 +381,28 @@ async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descrip
 
 
 
-async def listar_electricistas( env, fono):
+async def listar_electricistas( env, wa_id):
   console.log( "En listar_electricistas")
 
   lista = []
 
   electricistas = await env.NOMINA.list( prefix = "activo:" )
   for token in electricistas.keys:
-                 try:
-                     token = await env.NOMINA.get( key.name )
-                     token_dict = json.loads(token)
-                     nombre  = token_dict['token']['nombre']
-                     fono     = token_dict['token']['fono']
-                     lista.append(f"{nombre} {fono}\n")
-                 except:
-                     pass
+         
+         token = await env.NOMINA.get( key.name )
+         token_dict = json.loads(token)
+         nombre  = token_dict['token']['nombre']
+         console.log(f"nombre {nombre}")
+         fono    = token_dict['token']['fono']
+         await send_reply( env, wa_id, nombre )
+         lista.append(f"{nombre} {fono}\n")
 
   reply = (
     "ELECTRICISTAS ACTIVOS*\n"
     f"{lista}\n"
   )
 
-  await send_reply( env, fono, reply)
+  await send_reply( env, wa_id, reply)
   return f"La lista de electricistas se la sido entregada."
 
 

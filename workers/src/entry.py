@@ -399,7 +399,7 @@ async def listar_electricistas( env, fono):
 
   reply = (
     "ELECTRICISTAS ACTIVOS*\n"
-    f"lista\n"
+    f"{lista}\n"
   )
 
   await send_reply( env, fono, reply)

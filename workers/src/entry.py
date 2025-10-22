@@ -70,6 +70,16 @@ id_generator = count(start=1)  # Starts from 1, increments by default
 #from cryptography.hazmat.primitives.ciphers import algorithms, Cipher, modes
 #from cryptography.hazmat.primitives.serialization import load_pem_private_key
 
+
+
+async def get_bearer(cliente = False )
+  if cliente:
+    return await env.META.get('COTORRO_EXO_USER_TOKEN')
+  else:
+    return await env.META.get('REPAIR_USER_TOKEN')
+
+
+
 def data(request):
     try:
         # Parse the request body
@@ -2420,7 +2430,7 @@ async def send_reply( env, wa_id, reply):
         uri     = f"https://graph.facebook.com/v23.0/{env.CLIENT_PHONE_NUMBER_ID}/messages"
         headers = {
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
+                "Authorization": f"Bearer {await get_bearer( True)}"
         }
         body = {
                     "messaging_product" :  "whatsapp",

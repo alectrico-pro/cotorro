@@ -408,7 +408,6 @@ async def listar_electricistas( env, wa_id):
          token_dict = json.loads(token)
          nombre  = token_dict['nombre']
          fono    = token_dict['fono']
-         await send_reply( env, wa_id, nombre )
          lista.append(f"{nombre} {fono}\n")
 
   reply = (

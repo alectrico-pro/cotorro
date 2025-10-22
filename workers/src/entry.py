@@ -623,13 +623,12 @@ async def on_fetch(request, env):
         #Atiende los llamados VoIP de Whatsapp ---
         value = request_json.entry[0].changes[0].value
         try:
-		wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
-
-		console.log("En webhook_ae")
-		reply = (
-			"Bienvenido a la plataforma alectrico® repair \n"
-		)
-		await send_reply( env, wa_id, reply )
+          wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
+          console.log("En webhook_ae")
+          reply = (
+	   "Bienvenido a la plataforma alectrico® repair \n"
+          )
+          await send_reply( env, wa_id, reply )
         except:
           pass
         return Response( "Procesado", status="200")
@@ -652,14 +651,14 @@ async def on_fetch(request, env):
         #Atiende los llamados VoIP de Whatsapp ---
         value = request_json.entry[0].changes[0].value
         try:
-		wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
-
-		reply = (
-			"Bienvenido a la plataforma  alectrico® exo! \n"
-		)
-		await send_reply( env, wa_id, reply )
+          wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
+          reply = (
+          "Bienvenido a la plataforma  alectrico® exo! \n"
+          )
+          await send_reply( env, wa_id, reply )
         except:
           pass
+
         console.log( f"hasattr messages    {hasattr(value, 'messages')} " )
         console.log( f"hasattr contacts    {hasattr(value, 'contacts')} " )
         console.log( f"hasattr statuses    {hasattr(value, 'statuses')} " )

@@ -641,7 +641,7 @@ async def on_fetch(request, env):
 
 
     elif url.path == "/webhook_cotorro" and method == 'POST': 
-        console.log("En webhook")
+        console.log("En webhook_cotorro")
 
         request_json = await request.json()
 
@@ -655,9 +655,6 @@ async def on_fetch(request, env):
                 "Bienvenido a la plataforma  alectrico® exo! \n"
         )
         await send_reply( env, wa_id, reply )
-
-        request_json = await request.json()
-
 
         console.log( f"hasattr messages    {hasattr(value, 'messages')} " )
         console.log( f"hasattr contacts    {hasattr(value, 'contacts')} " )

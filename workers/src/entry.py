@@ -389,7 +389,7 @@ async def listar_electricistas( env, fono):
   electricistas = await env.NOMINA.list( prefix = "activo:" )
   for token in electricistas.keys:
                  try:
-                     token = await env.FINANCIERO.get( key.name )
+                     token = await env.NOMINA.get( key.name )
                      token_dict = json.loads(token)
                      nombre  = token_dict['token']['nombre']
                      fono     = token_dict['token']['fono']

@@ -1014,7 +1014,6 @@ async def on_fetch(request, env):
                                                           'default': descripcion,
                                                      'description': 'Descripción del problema.'}}},
                                            'required': ['nombre', 'telefono', 'email', 'direccion', 'comuna', 'descripcion' ]
-                              }
                             }
                           ]
                         }

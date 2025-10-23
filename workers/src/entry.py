@@ -847,22 +847,22 @@ async def on_fetch(request, env):
                             await tomar_token(env, wa_id, buy_order )
                             if fono_cliente:
                                console.log(f"fono_cliente {fono_cliente}")
-                               reply = (
+                               #reply = (
+                               #"------------------------------ \n\n"
+                               #f"*Orden*:\t{buy_order}\n\n"
+                               #f"*Cliente Nombre:*\t{nombre_cliente}\n\n"
+
+                               #f"*Fono de su Cliente:*\t{fono_cliente}\n\n"
+                               #"------------------------------ \n\n"
+                               #)
+                               #console.log(f"reply {reply}")
+                               #await send_reply(env, wa_id, reply, False)
+
+
+                               #reply = (
                                "------------------------------ \n\n"
                                f"*Orden*:\t{buy_order}\n\n"
-                               f"*Cliente Nombre:*\t{nombre_cliente}\n\n"
-
-                               f"*Fono de su Cliente:*\t{fono_cliente}\n\n"
-                               "------------------------------ \n\n"
-                               )
-                               console.log(f"reply {reply}")
-                               await send_reply(env, wa_id, reply, False)
-
-
-                               reply = (
-                               "------------------------------ \n\n"
-                               f"*Orden*:\t{buy_order}\n\n"
-                               f"*Fono de su Colaborador:*\t{wa_id}\n\n"
+                               f"*Fono de su Electricista:*\t{wa_id}\n\n"
                                "------------------------------ \n\n"
                                )
                                console.log(f"reply {reply}")
@@ -1939,6 +1939,8 @@ async def say_confirmacion_de_caso( env, wa_id, nombre, nombre_cliente, fono_cli
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
 
+        bearer, phone_id = get_bearer_and_phone( env, False)
+
         body = { "messaging_product" :  "whatsapp",
                 "to"                   :  wa_id,
                 "type"                 :  "template",
@@ -1952,16 +1954,13 @@ async def say_confirmacion_de_caso( env, wa_id, nombre, nombre_cliente, fono_cli
               { "type"             :   "text", "text" : fono_cliente    }
             ] } ] }}
 
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
-        }
+        uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
+
         options = {
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+                 "Authorization": f"Bearer {bearer}",
                  "content-type": "application/json;charset=UTF-8"
                },
         }
@@ -1978,6 +1977,8 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna, buy_order ):
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
 
+        bearer, phone_id = get_bearer_and_phone( env, False)
+        
         body = { "messaging_product" :  "whatsapp",
                 "to"                   :  wa_id,
                 "type"                 :  "template",
@@ -1989,10 +1990,10 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna, buy_order ):
               { "type"             :   "text", "text" : comuna    }
             ] } ] }}
 
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
+        uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
         headers = {
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
+                "Authorization": f"Bearer {bearer}"
         }
         options = {
                "body": json.dumps(body),

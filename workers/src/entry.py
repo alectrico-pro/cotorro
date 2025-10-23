@@ -2160,16 +2160,15 @@ async def say_atender( env, wa_id, taker_fono, nombre, descripcion, comuna, buy_
 
         console.log( f"{body}" )
 
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
-        }
+        bearer, phone_id = get_bearer_and_phone(env, False)
+
+        uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
+        
         options = {
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+                 "Authorization": f"Bearer {bearer}",
                  "content-type": "application/json;charset=UTF-8"
                },
         }
@@ -2275,16 +2274,15 @@ async def say_pagar_visita( env, wa_id, nombre, amount, path_de_pago ):
                      "index"   : "0",
                    "parameters": [ { "type": "text", "text": path_de_pago}]}]}}
 
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
-        }
+        bearer, phone_id = get_bearer_and_phone( env, True)
+
+        uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
+
         options = {
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+                 "Authorization": f"Bearer {bearer}",
                  "content-type": "application/json;charset=UTF-8"
                },
         }
@@ -2327,20 +2325,19 @@ async def say_link_de_pago( env, wa_id, nombre, amount, path_de_pago ):
                      "index"   : "0",
                    "parameters": [ { "type": "text", "text": path_de_pago}]}]}}
 
+        bearer, phone_id = get_bearer_and_phone( env, True)
 
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
-        }
+        uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
+
         options = {
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+                 "Authorization": f"Bearer {bearer}",
                  "content-type": "application/json;charset=UTF-8"
                },
         }
+
         console.log(f"body {body}")
         response = await fetch(uri, to_js(options))
         console.log(f"response {response}")
@@ -2375,17 +2372,15 @@ async def say_link_de_recarga( env, wa_id, nombre, amount, path_de_pago ):
                      "index"   : "0",
                    "parameters": [ { "type": "text", "text": path_de_pago}]}]}}
 
+        bearer, phone_id = get_bearer_and_phone( env, False)
 
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
-        }
+        uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
+
         options = {
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+                 "Authorization": f"Bearer {bearer}",
                  "content-type": "application/json;charset=UTF-8"
                },
         }
@@ -2397,16 +2392,18 @@ async def say_link_de_recarga( env, wa_id, nombre, amount, path_de_pago ):
         return
 
 
-async def send_msg( env, wa_id, msg):
+async def send_msg( env, wa_id, msg, cliente):
         console.log( "En send_msg")
         console.log(f"wa_id {wa_id}")
         console.log( f"msg  {msg}")
 
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
-        }
+        if cliente:
+          bearer, phone_id = get_bearer_and_phone( env, True)
+        else:
+          bearer, phone_id = get_bearer_and_phone( env, False)
+
+        uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
+        
         body = {
                     "messaging_product" :  "whatsapp",
                     "recipient_type"    :  "individual",
@@ -2419,10 +2416,11 @@ async def send_msg( env, wa_id, msg):
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+                 "Authorization": f"Bearer {bearer}",
                  "content-type": "application/json;charset=UTF-8"
                },
         }
+
         response = await fetch(uri, to_js(options))
         console.log(f"response {response}")
         content_type, result = await gather_response(response)

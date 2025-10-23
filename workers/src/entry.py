@@ -1963,8 +1963,10 @@ async def get_saldo( env, wa_id):
             console.log("En get_saldo")
             fono = fix_fono( wa_id )
             pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
-            if len(pagados) > 0:
+            if len(pagados.keys) > 0:
               console.log("Tiene tokens pagados")
+            else: 
+              console.log("No tiene tokens pagados")
             for key in pagados.keys:
                      token = await env.FINANCIERO.get( key.name )
                      token_dict = json.loads(token)
@@ -2018,12 +2020,11 @@ async def difundir_concurso(env):
           
 #Difundi los saldos e instrucciones a los colaboradores
 async def difundir_saldos(env):
-        instruccion_1="*Tomar:* Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos."
-        instruccion_2= "*Recargar:* Presione Recargar para comprar un token."
-        instruccion_3= "*recarga.alectrico.cl:* Visite https://recarga.alectrico.cl para comprar más de un token."
+          instruccion_1="*Tomar:* Presione Tomar para conocer el fono del cliente. Esto funciona internamente y no necesita acceso a datos."
+          instruccion_2= "*Recargar:* Presione Recargar para comprar un token."
+          instruccion_3= "*recarga.alectrico.cl:* Visite https://recarga.alectrico.cl para comprar más de un token."
 
-        console.log("En difundir saldo")
-        try:
+          console.log("En difundir_saldos")
           console.log("En try")
           colaboradores = await env.NOMINA.list(prefix = "activo:")
           if len(colaboradores.keys) > 0:
@@ -2033,14 +2034,11 @@ async def difundir_saldos(env):
                  colaborador_json = await env.NOMINA.get( key.name )
                  colaborador = json.loads( colaborador_json )
                  saldo = await get_saldo( env, wa_id)
+                 console.log(f"saldo {saldo}")
                  nombre = colaborador['nombre']
                  console.log(f"nombre {nombre}")
-                 console.log(f"saldo {saldo}")
                  console.log(f"wa_id {wa_id}")
                  await say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, instruccion_3 )
-        except:
-          pass
-        return
 
 #Difundi un peido a los colaboradores
 async def enviar_saldo(env, wa_id):

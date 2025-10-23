@@ -277,11 +277,10 @@ async def suscribir( env, fono, nombre):
 async def enviar_concurso( env, fono, nombre):
         console.log("En enviar_template say_test_tda_1 -> flow test_TDA_1")
         imagen_url = f"{env.API_URL}/{env.CONCURSO_PATH}"
-        uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
-        }
+
+        bearer, phone_id = await get_bearer_and_phone(env, False)
+
+        uri        = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
         body = {
           "messaging_product": "whatsapp",
           "to": f"{fono}",
@@ -308,11 +307,11 @@ async def enviar_concurso( env, fono, nombre):
            "body": json.dumps(body),
            "method": "POST",
            "headers": {
-             "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+             "Authorization": f"Bearer {bearer}",
              "content-type": "application/json;charset=UTF-8"
            },
         }
-        #--- anota que se envió un cuestionario, porque podría darse como failed
+        #--- anota que se envió un flow cuestionario, porque podría darse como failed
         response = await fetch(uri, to_js(options))
         content_type, result = await gather_response(response)
         console.log(f"result {result}")
@@ -331,11 +330,10 @@ async def enviar_concurso( env, fono, nombre):
 async def enviar_template_say_visita_flow_reserva( request, env, fono):
         console.log("En enviar_template say_visita -> flow reserva")
         imagen_url = f"{env.API_URL}/{env.LOGUITO_PATH}"
-        uri        = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
-        }
+ 
+        bearer, phone_id = await get_bearer_and_phone( env, True)
+
+        uri        = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
         body = {
           "messaging_product": "whatsapp",
           "to": f"{fono}",
@@ -356,7 +354,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
            "body": json.dumps(body),
            "method": "POST",
            "headers": {
-             "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+             "Authorization": f"Bearer {bearer}",
              "content-type": "application/json;charset=UTF-8"
            },
         }

@@ -1073,7 +1073,7 @@ async def on_fetch(request, env):
                                    case 'cuestionario':
                                      console.log("call.name llenar_cuestionario")
                                      #Manda un cuestionario que debe ser llenado
-                                     await enviar_template_flow_reservar( request, env, wa_id, call.arguments.nombre )
+                                     await enviar_template_flow_reservar_a_cliente( request, env, wa_id, call.arguments.nombre )
 
                                      reply = (
                                       f"Se ha envíado un cuestionario \n"

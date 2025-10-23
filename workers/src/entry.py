@@ -691,6 +691,17 @@ async def on_fetch(request, env):
         #Atiende los llamados VoIP de Whatsapp ---
         value = request_json.entry[0].changes[0].value
 
+
+        if hasattr(value, 'messages') == True :
+            console.log("Es un mensaje")
+
+            if hasattr(value.messages[0], "type") and value.messages[0] == "request_welcome":
+               reply = (
+                "Bienvenido a la plataforma alectrico® repair \n"
+               )
+               await send_reply( env, wa_id, reply, False )
+               return Response( "Procesado", status="200")
+
         #try:
         # wa_id = request_json.entry[0].changes[0].value.contacts[0].wa_id
         # console.log("En webhook_ae")
@@ -701,6 +712,8 @@ async def on_fetch(request, env):
         #except:
         #  pass
         return Response( "Procesado", status="200")
+
+
 
     #---------------------- WEBHOOK COTORRO ------------------------------------------------
     elif url.path == "/webhook_cotorro" and method== 'GET':
@@ -788,7 +801,7 @@ async def on_fetch(request, env):
             #No funciona, pero alguna vez funcionó en otros lenguajes de este software
             if hasattr(value.messages[0], "type") and value.messages[0] == "request_welcome":
                reply = (
-                "Bienvenido a la plataforma alectrico® repair \n"
+                "Bienvenido a la plataforma alectrico® exo! \n"
                )
                await send_reply( env, wa_id, reply, False )
                return Response( "Procesado", status="200")

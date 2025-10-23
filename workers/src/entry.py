@@ -396,7 +396,7 @@ async def enviar_template_flow_reservar_a_cliente( request, env, fono, nombre):
               "code": "es"
           },
           "components": [
-           { "type": "body",   "parameters": [ { "type": "text", "text": nombre }},
+           { "type": "body",   "parameters": [ { "type": "text", "text": nombre }]},
            { "type": "header", "parameters": [ { "type": "image",
                 "image": {  "link": f"{imagen_url}" } } ] },
             { "type": "button", "sub_type": "flow",  "index": "0" }

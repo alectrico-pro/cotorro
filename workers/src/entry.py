@@ -728,6 +728,7 @@ async def on_fetch(request, env):
 
             #Cuando alguien escribe un texto en los canales de publico suscritos
             #Se recibe aquí
+            #No funciona, pero alguna vez funcionó en otros lenguajes de este software
             if hasattr(value.messages[0], "type") and value.messages[0] == "request_welcome":
                reply = (
                 "Bienvenido a la plataforma alectrico® repair \n"
@@ -1450,10 +1451,12 @@ async def save_text_message( env, id, fono, buy_order, descripcion, amount ):
     return
 
 
-
+#Guardar status failed
 async def save_status( env, id, status, fono) :
     console.log(f"Guardando status {id} {status}")
-    await env.STATUS.put( str(fono)+':'+ status + ":" + str(id), status, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+    case status:
+     match 'failed':
+       await env.STATUS.put( str(fono)+':'+ status + ":" + str(id), status, { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
     return
 
 
@@ -2447,13 +2450,13 @@ async def send_reply( env, wa_id, reply, cliente=False):
                     "to"                :  wa_id,
                     "type"              :  "text",
                     "text"              :  { "preview_url" : True,
-                        "body" : reply }
+                    "body"              : reply }
         }
         options = {
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+                 "Authorization": f"Bearer {bearer}",
                  "content-type": "application/json;charset=UTF-8"
                },
         }

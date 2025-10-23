@@ -1939,7 +1939,7 @@ async def say_confirmacion_de_caso( env, wa_id, nombre, nombre_cliente, fono_cli
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
 
-        bearer, phone_id = get_bearer_and_phone( env, False)
+        bearer, phone_id = await get_bearer_and_phone( env, False)
 
         body = { "messaging_product" :  "whatsapp",
                 "to"                   :  wa_id,
@@ -1977,7 +1977,7 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna, buy_order ):
         console.log(f"wa_id {wa_id}")
         console.log( f"descripcion  {descripcion}")
 
-        bearer, phone_id = get_bearer_and_phone( env, False)
+        bearer, phone_id = await get_bearer_and_phone( env, False)
         
         body = { "messaging_product" :  "whatsapp",
                 "to"                   :  wa_id,

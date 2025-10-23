@@ -2029,7 +2029,7 @@ async def difundir_saldos(env):
           if len(colaboradores.keys) > 0:
              console.log("Hay colaboradores registrados activos")
              for key in colaboradores.keys:
-                  wa_id = key.name
+                 wa_id = key.name
                  colaborador_json = await env.NOMINA.get( key.name )
                  colaborador = json.loads( colaborador_json )
                  saldo = await get_saldo( env, wa_id)

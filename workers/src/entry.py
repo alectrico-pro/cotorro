@@ -207,7 +207,7 @@ async def activar( env, fono):
           f"{fono} no es de un colaborador inactivo \n"
           "No se pudo activar"
          )
-        await send_reply( env, fono, reply)
+        await send_reply( env, fono, reply, False)
 
 
 async def desactivar( env, fono):
@@ -226,7 +226,7 @@ async def desactivar( env, fono):
          reply = (
           f"{fono} no está activo. No se pudo desactivar"
          )
-        await send_reply( env, fono, reply)
+        await send_reply( env, fono, reply, False)
 
 
 async def desuscribir( env, fono):
@@ -246,7 +246,7 @@ async def desuscribir( env, fono):
           f"{fono} no es de un colaborador inactivo \n"
           "No se pudo desuscribir"
          )
-        await send_reply( env, fono, reply)
+        await send_reply( env, fono, reply, False)
 
 
 
@@ -267,7 +267,7 @@ async def suscribir( env, fono, nombre):
           f"{fono} ya se usa por un colaborador activo \n"
           "No se pudo suscribir"
          )
-        await send_reply( env, fono, reply)
+        await send_reply( env, fono, reply, False)
 
 
 
@@ -388,7 +388,7 @@ async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descrip
   ) 
   buy_order   = str( random.randint(1, 10000))
 
-  await send_reply( env, telefono, reply)
+  await send_reply( env, telefono, reply, True)
   amount = env.PRECIO_VISITA
   await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, telefono, email, direccion, amount)
 
@@ -415,7 +415,7 @@ async def listar_electricistas( env, wa_id):
     f"{lista}\n"
   )
 
-  await send_reply( env, wa_id, reply)
+  await send_reply( env, wa_id, reply, True)
   return f"La lista de electricistas se la sido entregada."
 
 
@@ -641,7 +641,7 @@ async def on_fetch(request, env):
           reply = (
 	   "Bienvenido a la plataforma alectrico® repair \n"
           )
-          await send_reply( env, wa_id, reply )
+          await send_reply( env, wa_id, reply, True )
         except:
           pass
         return Response( "Procesado", status="200")
@@ -668,7 +668,7 @@ async def on_fetch(request, env):
           reply = (
           "Bienvenido a la plataforma  alectrico® exo! \n"
           )
-          await send_reply( env, wa_id, reply )
+          await send_reply( env, wa_id, reply, False )
         except:
           pass
 
@@ -701,7 +701,7 @@ async def on_fetch(request, env):
                                  "------------------------------ \n\n"
                                  )
                                  console.log(f"reply {reply}")
-                                 await send_reply(env, env.FONO_JEFE , reply)
+                                 await send_reply(env, env.FONO_JEFE , reply, False)
                                  #await responder_call( env, call_id, "answer" , sdp , "pre_accept")
                                  await responder_call( env, call_id, "answer" , sdp , "accept")
 
@@ -716,7 +716,7 @@ async def on_fetch(request, env):
                                  "------------------------------ \n\n"
                                  )
                                  console.log(f"reply {reply}")
-                                 await send_reply(env, env.FONO_JEFE , reply)
+                                 await send_reply(env, env.FONO_JEFE , reply, False)
 
 
                                return Response( "Procesado", status="200")
@@ -733,7 +733,7 @@ async def on_fetch(request, env):
                reply = (
                 "Bienvenido a la plataforma alectrico® repair \n"
                )
-               await send_reply( env, wa_id, reply )
+               await send_reply( env, wa_id, reply, False )
                return Response( "Procesado", status="200")
 
 
@@ -786,7 +786,7 @@ async def on_fetch(request, env):
                                "------------------------------ \n\n"
                                )
                                console.log(f"reply {reply}")
-                               await send_reply(env, wa_id, reply)
+                               await send_reply(env, wa_id, reply, True)
 
 
                                reply = (
@@ -796,7 +796,7 @@ async def on_fetch(request, env):
                                "------------------------------ \n\n"
                                )
                                console.log(f"reply {reply}")
-                               await send_reply(env, fono_cliente, reply)
+                               await send_reply(env, fono_cliente, reply, True)
 
                                await say_confirmacion_de_caso( env, wa_id, nombre_colaborador, nombre_cliente, fono_cliente, descripcion, comuna )
 
@@ -889,7 +889,7 @@ async def on_fetch(request, env):
                             "..................... \n "
                             "Escriba *xxx* para terminar \n "
                           )
-                          await send_reply(env, wa_id,  reply )
+                          await send_reply(env, wa_id,  reply, True )
 
                       else : # "Ya hay mensajes iniciales"
                         mensajes = []
@@ -978,7 +978,7 @@ async def on_fetch(request, env):
                             "..................... \n "
                             "Escriba *xxx* para terminar \n "
                             )
-                            await send_reply(env, wa_id,  reply )
+                            await send_reply(env, wa_id,  reply, True )
 
                         if True:
                          try:
@@ -1004,7 +1004,7 @@ async def on_fetch(request, env):
                                         "..................... \n "
                                         "Escriba *xxx* para terminar \n "
                                         )
-                                       await send_reply(env, wa_id,  reply )
+                                       await send_reply(env, wa_id,  reply, True )
 
                                      except:
                                        pass
@@ -1021,7 +1021,7 @@ async def on_fetch(request, env):
                                       "..................... \n "
                                       "Escriba *xxx* para terminar \n "
                                      )
-                                     await send_reply(env, wa_id,  reply )
+                                     await send_reply(env, wa_id,  reply, True )
 
 
 
@@ -1041,7 +1041,7 @@ async def on_fetch(request, env):
                                       "..................... \n "
                                       "Escriba *xxx* para terminar \n "
                                      )
-                                     await send_reply(env, wa_id,  reply )
+                                     await send_reply(env, wa_id,  reply, True)
 
 
                                      if not len( call.arguments.nombre ) > 1:
@@ -1050,7 +1050,7 @@ async def on_fetch(request, env):
                                         "..................... \n "
                                         "Escriba *xxx* para terminar \n "
                                         )
-                                        await send_reply(env, wa_id,  reply )
+                                        await send_reply(env, wa_id,  reply, True )
 
 
                                      if not len( call.arguments.telefono ) > 1:
@@ -1059,7 +1059,7 @@ async def on_fetch(request, env):
                                         "..................... \n "
                                         "Escriba *xxx* para terminar \n "
                                         )
-                                        await send_reply(env, wa_id,  reply )
+                                        await send_reply(env, wa_id,  reply, True )
 
 
                                      if not len( call.arguments.email ) > 1:
@@ -1068,7 +1068,7 @@ async def on_fetch(request, env):
                                         "..................... \n "
                                         "Escriba *xxx* para terminar \n "
                                         )
-                                        await send_reply(env, wa_id,  reply )
+                                        await send_reply(env, wa_id,  reply, True )
 
                                      if not len( call.arguments.direccion ) > 1:
                                         reply = (
@@ -1076,7 +1076,7 @@ async def on_fetch(request, env):
                                         "..................... \n "
                                         "Escriba *xxx* para terminar \n "
                                         )
-                                        await send_reply(env, wa_id,  reply )
+                                        await send_reply(env, wa_id,  reply, True )
 
                                      if not len( call.arguments.comuna ) > 1:
                                         reply = (
@@ -1084,7 +1084,7 @@ async def on_fetch(request, env):
                                         "..................... \n "
                                         "Escriba *xxx* para terminar \n "
                                         )
-                                        await send_reply(env, wa_id,  reply )
+                                        await send_reply(env, wa_id,  reply, True )
 
 
                                      if not len( call.arguments.descripcion ) > 1:
@@ -1093,7 +1093,7 @@ async def on_fetch(request, env):
                                         "..................... \n "
                                         "Escriba *xxx* para terminar \n "
                                         )
-                                        await send_reply(env, wa_id,  reply )
+                                        await send_reply(env, wa_id,  reply, True )
 
 
 
@@ -1117,7 +1117,7 @@ async def on_fetch(request, env):
                                         "..................... \n "
                                         "Escriba *xxx* para terminar \n "
                                         )
-                                        await send_reply(env, wa_id,  reply )
+                                        await send_reply(env, wa_id,  reply, True )
 
                                         await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":user" , mensaje_colaborador )
                                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
@@ -1166,7 +1166,7 @@ async def on_fetch(request, env):
                      "Escriba *No* para terminar \n "
                     )
                     #await send_reply(env, env.FONO_JEFE,  reply )
-                    await send_reply(env, wa_id,  reply )
+                    await send_reply(env, wa_id,  reply, True )
 
                     #await difundir_a_colaboradores(env, buy_order, nombre, descripcion, 'no-indica' , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
                    
@@ -1252,7 +1252,7 @@ async def on_fetch(request, env):
                              "Hubo un error, el cuestionario no es compatible con su celular.  \n"
                              "Solo pida lo que necesita e intentaremos avisar a los electricistas. \n"
                            )
-                           await send_reply(env, wa_id, reply)
+                           await send_reply(env, wa_id, reply, True)
                            fono = fix_fono( wa_id )
                            try:
                              mensaje_reply= json.dumps( { 'role': 'tool', 'content': "Error: El cuestionario no pudo ser entregado porque no es compatible con su celular." })
@@ -1533,7 +1533,7 @@ async def send_voucher( voucher_json, wa_id, env):
    console.log(f"voucher_json {voucher_json}")
    reply = to_markdown( voucher_json )
    console.log(f"reply {reply}")
-   return await send_reply(env, wa_id, reply)
+   return await send_reply(env, wa_id, reply, True)
 
 
 
@@ -1608,7 +1608,7 @@ async def button_reply_processor(request_json, env):
             "------------------------------ \n\n"
         )
         console.log(f"reply {reply}")
-        await send_reply(env, wa_id, reply)
+        await send_reply(env, wa_id, reply, True)
 
 async def concurso_calificador( request_json, env):
         console.log("En concurso_clasificador")
@@ -1679,7 +1679,7 @@ async def concurso_calificador( request_json, env):
             "------------------------------ \n\n"
         )
         console.log(f"reply {reply}")
-        await send_reply(env, wa_id, reply)
+        await send_reply(env, wa_id, reply, True)
         await enviar_saldo( env, wa_id )
 
 #Se le envía un resumen de las respuestas del cuestionario
@@ -1755,7 +1755,7 @@ async def flow_reply_processor(request_json, env):
             "------------------------------ \n\n"
         )
         console.log(f"reply {reply}")
-        await send_reply(env, wa_id, reply)
+        await send_reply(env, wa_id, reply, True)
 
 
         nombre      = flow_data['nombre']
@@ -1808,7 +1808,7 @@ async def flow_reply_processor(request_json, env):
             "------------------------------ \n\n"
         )
         console.log(f"reply {reply}")
-        await send_reply(env, wa_id, reply)
+        await send_reply(env, wa_id, reply, True)
 
         #envío el path de pago de nuevo con un perrito
         #path_de_pago = f"/transbank/?buy_order="+ str(buy_order) +"&amount="+ str(precio_visita) + "&session_id=" + str(wa_id)
@@ -2055,7 +2055,7 @@ async def enviar_saldo(env, wa_id):
                     f"Nota: El saldo demorará un poco en actualizarse si se ha agregado un token recientemente. \n"
                   )
         console.log(f"replay")
-        await send_reply( env, wa_id, reply)
+        await send_reply( env, wa_id, reply, False)
         return
 
 
@@ -2431,9 +2431,9 @@ async def send_msg( env, wa_id, msg):
 
 
 #sujeto a eror de reenganche en waba
-async def send_reply( env, wa_id, reply, cliente=False):
+async def send_reply( env, wa_id, reply, cliente):
 
-        bearer, phone_id = await get_bearer_and_phone(env, True)
+        bearer, phone_id = await get_bearer_and_phone(env, cliente)
 
         console.log(f"bearer {bearer}")
         console.log(f"phone_id {phone_id}")

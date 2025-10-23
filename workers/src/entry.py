@@ -1960,8 +1960,11 @@ async def say_tomar( env, wa_id, nombre, descripcion, comuna, buy_order ):
 #mantinen bien el regenv, stro de tokens
 #anotando pagado:env, o_expirado
 async def get_saldo( env, wa_id):
+            console.log("En get_saldo")
             fono = fix_fono( wa_id )
             pagados = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:")
+            if len(pagados) > 0:
+              console.log("Tiene tokens pagados")
             for key in pagados.keys:
                      token = await env.FINANCIERO.get( key.name )
                      token_dict = json.loads(token)
@@ -2024,17 +2027,17 @@ async def difundir_saldos(env):
           console.log("En try")
           colaboradores = await env.NOMINA.list(prefix = "activo:")
           if len(colaboradores.keys) > 0:
-             console.log("Hay colaboradores registrados")
+             console.log("Hay colaboradores registrados activos")
              for key in colaboradores.keys:
-               wa_id = key.name
-               try:
+                  wa_id = key.name
                  colaborador_json = await env.NOMINA.get( key.name )
                  colaborador = json.loads( colaborador_json )
                  saldo = await get_saldo( env, wa_id)
                  nombre = colaborador['nombre']
+                 console.log(f"nombre {nombre}")
+                 console.log(f"saldo {saldo}")
+                 console.log(f"wa_id {wa_id}")
                  await say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, instruccion_3 )
-               except:
-                 pass
         except:
           pass
         return

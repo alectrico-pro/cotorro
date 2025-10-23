@@ -327,7 +327,7 @@ async def enviar_concurso( env, fono, nombre):
 
 
 #importatnte, envia un formulario
-async def enviar_template_say_visita_flow_reserva( request, env, fono, template_name)
+async def enviar_template_say_visita_flow_reserva( request, env, fono):
         #'say_visita' está idéntica en canal colaborador, whatsapp Colaborador
         #'flow_reservar' es el nombre que tiene en whatsapp Cliente
         console.log("En enviar_template say_visita -> flow reserva")

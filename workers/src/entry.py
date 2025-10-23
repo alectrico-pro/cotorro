@@ -981,37 +981,38 @@ async def on_fetch(request, env):
                                        {      'name': 'enviar_aviso',
                                        'description': 'Avisar a electricistas.',
                                'parameters': { 'type': 'object',
-                                         'properties': {'nombre'  :
+                                         'properties':
+                                                   {'nombre'  :
                                                            {'type': 'string',
                                                        "minLength": 1,
                                                          'default': nombre,
-                                                     'description': "Nombre de la personas que recibirá al electricista"},
-                                                        'telefono':
+                                                     'description': "Nombre de la personas que recibirá al electricista"}},
+                                                    {'telefono':
                                                            {'type': 'string',
                                                        "minLength": 1,
                                                          'default': fono,
-                                                            'description': 'Teléfono de contacto al que debe llamar el electricista.'},
-                                                        'email':
+                                                     'description': 'Teléfono de contacto al que debe llamar el electricista.'}},
+                                                     {  'email':
                                                            {'type': 'string',
                                                        "minLength": 1,
                                                          'default': 'user@alectrico.cl',
-                                                     'description': 'Dirección de correo electróncao para recibir el contrato y cualquier otra documentación.'},
-                                                        'direccion':
+                                                     'description': 'Dirección de correo electróncao para recibir el contrato y cualquier otra documentación.'}},
+                                                     {  'direccion':
                                                            {'type': 'string',
                                                        "minLength": 1,
                                                          'default': 'no-indica',
-                                                          'comuna': 'Dirección del usuario.'},
-                                                        'comuna':
+                                                          'comuna': 'Dirección del usuario.'}},
+
+                                                     {    'comuna':
                                                            {'type': 'string',
                                                        "minLength": 1,
                                                          'default': 'Providencia', 
-                                                          'comuna': 'Comuna hacia donde se debe dirigir el electricista'},
-                                                     'description':
+                                                          'comuna': 'Comuna hacia donde se debe dirigir el electricista'}},
+                                                    { 'description':
                                                            {'type': 'string',
                                                        "minLength": 1,
-                                                     'description': descripcion,
-                                                     'description': 'Descripción del problema.'},
-                                                       },
+                                                          'default': descripcion,
+                                                     'description': 'Descripción del problema.'}}},
                                            'required': ['nombre', 'telefono', 'email', 'direccion', 'comuna', 'descripcion' ]
                               }
                             }

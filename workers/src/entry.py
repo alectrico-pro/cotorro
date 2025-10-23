@@ -1163,7 +1163,7 @@ async def on_fetch(request, env):
                     reply = (
                      f"{result.response} \n"
                      "..................... \n "
-                     "Escriba *No* para terminar \n "
+                     "Escriba *xxx* para terminar \n "
                     )
                     #await send_reply(env, env.FONO_JEFE,  reply )
                     await send_reply(env, wa_id,  reply, True )

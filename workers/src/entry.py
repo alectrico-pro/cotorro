@@ -2042,8 +2042,8 @@ async def difundir_saldos(env):
                  console.log(f"nombre {nombre}")
                  await say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instruccion_2, instruccion_3 )
 
-#Difundi un peido a los colaboradores
-async def enviar_saldo(env, wa_id):
+#Envia saldo a los colaboradores o al Cliente
+async def enviar_saldo(env, wa_id, cliente= False):
         console.log("En enviar saldo")
         colaborador_json = await env.NOMINA.get( "activo:" + str( fix_fono( wa_id)) )
         colaborador = json.loads( colaborador_json )
@@ -2057,7 +2057,7 @@ async def enviar_saldo(env, wa_id):
                     f"Nota: El saldo demorará un poco en actualizarse si se ha agregado un token recientemente. \n"
                   )
         console.log(f"replay")
-        await send_reply( env, wa_id, reply, False)
+        await send_reply( env, wa_id, reply, cliente)
         return
 
 

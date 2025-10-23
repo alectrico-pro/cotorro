@@ -2430,9 +2430,6 @@ async def send_reply( env, wa_id, reply, cliente):
 
         bearer, phone_id = await get_bearer_and_phone(env, cliente)
 
-        console.log(f"bearer {bearer}")
-        console.log(f"phone_id {phone_id}")
- 
         uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
 
         body = {

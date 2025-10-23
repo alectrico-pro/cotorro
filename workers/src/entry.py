@@ -2437,20 +2437,16 @@ async def send_reply( env, wa_id, reply, cliente=False):
 
         console.log(f"bearer {bearer}")
         console.log(f"phone_id {phone_id}")
-
  
         uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
-        headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {bearer}"
-        }
+
         body = {
                     "messaging_product" :  "whatsapp",
                     "recipient_type"    :  "individual",
                     "to"                :  wa_id,
                     "type"              :  "text",
                     "text"              :  { "preview_url" : True,
-                    "body"              : reply }
+                                                     "body": reply }
         }
         options = {
                "body": json.dumps(body),

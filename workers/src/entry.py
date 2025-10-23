@@ -631,7 +631,7 @@ async def on_fetch(request, env):
 
     elif url.path == "/webhook_ae"  and method== 'POST': # corresponde a la ap ae
         request_json = await request.json()
-        console.log( f"request_json {request_json}")
+        #console.log( f"request_json {request_json}")
 
         #Atiende los llamados VoIP de Whatsapp ---
         value = request_json.entry[0].changes[0].value
@@ -659,7 +659,7 @@ async def on_fetch(request, env):
 
         request_json = await request.json()
 
-        console.log( f"request_json {request_json}")
+        #console.log( f"request_json {request_json}")
 
         #Atiende los llamados VoIP de Whatsapp ---
         value = request_json.entry[0].changes[0].value
@@ -1841,7 +1841,7 @@ async def say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instrucci
               { "type"             :   "text", "text" : instruccion_3}
             ] } ] }}
 
-        bearer, phone_id = get_bearer_and_phone( env, False)
+        bearer, phone_id = await get_bearer_and_phone( env, False)
         uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
         options = {
                "body": json.dumps(body),
@@ -2157,7 +2157,7 @@ async def say_atender( env, wa_id, taker_fono, nombre, descripcion, comuna, buy_
 
         console.log( f"{body}" )
 
-        bearer, phone_id = get_bearer_and_phone(env, False)
+        bearer, phone_id = await get_bearer_and_phone(env, False)
 
         uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
         
@@ -2271,7 +2271,7 @@ async def say_pagar_visita( env, wa_id, nombre, amount, path_de_pago ):
                      "index"   : "0",
                    "parameters": [ { "type": "text", "text": path_de_pago}]}]}}
 
-        bearer, phone_id = get_bearer_and_phone( env, True)
+        bearer, phone_id = await get_bearer_and_phone( env, True)
 
         uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
 
@@ -2322,7 +2322,7 @@ async def say_link_de_pago( env, wa_id, nombre, amount, path_de_pago ):
                      "index"   : "0",
                    "parameters": [ { "type": "text", "text": path_de_pago}]}]}}
 
-        bearer, phone_id = get_bearer_and_phone( env, True)
+        bearer, phone_id = await get_bearer_and_phone( env, True)
 
         uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
 
@@ -2369,7 +2369,7 @@ async def say_link_de_recarga( env, wa_id, nombre, amount, path_de_pago ):
                      "index"   : "0",
                    "parameters": [ { "type": "text", "text": path_de_pago}]}]}}
 
-        bearer, phone_id = get_bearer_and_phone( env, False)
+        bearer, phone_id = await get_bearer_and_phone( env, False)
 
         uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
 
@@ -2395,9 +2395,9 @@ async def send_msg( env, wa_id, msg, cliente):
         console.log( f"msg  {msg}")
 
         if cliente:
-          bearer, phone_id = get_bearer_and_phone( env, True)
+          bearer, phone_id = await get_bearer_and_phone( env, True)
         else:
-          bearer, phone_id = get_bearer_and_phone( env, False)
+          bearer, phone_id = await et_bearer_and_phone( env, False)
 
         uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
         

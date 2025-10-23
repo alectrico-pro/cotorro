@@ -1001,14 +1001,16 @@ async def on_fetch(request, env):
                                                        "minLength": 1,
                                                          'default': 'Providencia', 
                                                           'comuna': 'Comuna hacia donde se debe dirigir el electricista'},
-                                                     'description': 'type': 'string',
+                                                     'descripcion': {'type': 'string',
                                                        "minLength": 1,
                                                          'default': descripcion,
-                                                     'description': 'Descripción del problema.'}},
+                                                     'description': 'Descripción del problema.'}
+                                                      },
                                                         'required': ['nombre', 'telefono', 'email', 'direccion', 'comuna', 'descripcion' ]
-                            }
-                          ]
-                        }
+                                             }
+                                         }
+                                      ]
+                                   }
 
 
                         console.log(f"mensajes {mensajes}")

@@ -856,7 +856,7 @@ async def on_fetch(request, env):
                                "------------------------------ \n\n"
                                )
                                console.log(f"reply {reply}")
-                               await send_reply(env, wa_id, reply, True)
+                               await send_reply(env, wa_id, reply, False)
 
 
                                reply = (
@@ -866,7 +866,7 @@ async def on_fetch(request, env):
                                "------------------------------ \n\n"
                                )
                                console.log(f"reply {reply}")
-                               await send_reply(env, fono_cliente, reply, False)
+                               await send_reply(env, fono_cliente, reply, True)
 
                                await say_confirmacion_de_caso( env, wa_id, nombre_colaborador, nombre_cliente, fono_cliente, descripcion, comuna )
 

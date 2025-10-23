@@ -429,7 +429,11 @@ async def on_fetch(request, env):
     if url.path == '/testing_flow':
         console.log(f"Params en /testing_flow {params}")
         return success_mostrar_fono(env,  f"Felicitaciones, el flow ha sido probado con éxito.", 9)
-    
+   
+    elif url.path == '/difundir_saldos':
+       await difundir_saldos(env) 
+       return success_mostrar_fono(env,  f"Saldo Envíando.", 9)
+ 
     elif url.path == '/enviar_concurso':
        await difundir_concurso(env)
        return success_mostrar_fono(env,  f"Concurso difundido.", 9)
@@ -1273,7 +1277,7 @@ async def on_fetch(request, env):
                            #msg = (f"Por favor pague la visita siguiendo el link:\n"
                            #f"link_de_pago: {link_de_pago} {resultado}\n\n")
                            #try:
-                           #  await send_msg(env, wa_id, msg)
+                           #  await send_msg(env, wa_id, msg, True)
                            # except:
                            #  pass
 

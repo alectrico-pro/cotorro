@@ -326,8 +326,58 @@ async def enviar_concurso( env, fono, nombre):
         return Response( 'ok', status="200")
 
 
+#no se usa
+async def enviar_template_say_visita_flow_reservar_a_colaborador( request, env, fono):
+        #'say_visita' está idéntica en canal colaborador, whatsapp Colaborador
+        #'flow_reservar' es el nombre que tiene en whatsapp Cliente
+        console.log("En enviar_template say_visita -> flow reserva")
+        imagen_url = f"{env.API_URL}/{env.LOGUITO_PATH}"
+
+        bearer, phone_id = await get_bearer_and_phone( env, False)
+
+        uri        = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
+        body = {
+          "messaging_product": "whatsapp",
+          "to": f"{fono}",
+          "type": "template",
+          "template": {
+            "name": "say_visita",
+            "language": {
+              "code": "es"
+          },
+          "components": [
+           { "type": "header", "parameters": [ { "type": "image",
+                "image": {  "link": f"{imagen_url}" } } ] },
+            { "type": "button", "sub_type": "flow",  "index": "0" }
+           ]
+          }
+        }
+        options = {
+           "body": json.dumps(body),
+           "method": "POST",
+           "headers": {
+             "Authorization": f"Bearer {bearer}",
+             "content-type": "application/json;charset=UTF-8"
+           },
+        }
+        #--- anota que se envió un cuestionario, porque podría darse como failed
+        #--- anota que se envió un cuestionario, porque podría darse como failed
+        response = await fetch(uri, to_js(options))
+        content_type, result = await gather_response(response)
+        console.log(f"result {result}")
+        result_dict = json.loads( result )
+        id = result_dict['messages'][0]['id']
+        console.log(f"id {id}")
+        try:
+          await env.BUY_ORDER.put( id, 'say_visita -> flow reserva', { 'expirationTtl': env.SEGUNDOS_DE_EXPIRACION } )
+        except:
+          pass
+        #---------------------------------------------------------------------------------------
+        return Response( 'ok', status="200")
+
+
 #importatnte, envia un formulario
-async def enviar_template_say_visita_flow_reserva( request, env, fono):
+async def enviar_template_flow_reservar_a_cliente( request, env, fono, nombre):
         #'say_visita' está idéntica en canal colaborador, whatsapp Colaborador
         #'flow_reservar' es el nombre que tiene en whatsapp Cliente
         console.log("En enviar_template say_visita -> flow reserva")
@@ -346,6 +396,7 @@ async def enviar_template_say_visita_flow_reserva( request, env, fono):
               "code": "es"
           },
           "components": [
+           { "type": "body",   "parameters": [ { "type": "text", "text": nombre }},
            { "type": "header", "parameters": [ { "type": "image",
                 "image": {  "link": f"{imagen_url}" } } ] },
             { "type": "button", "sub_type": "flow",  "index": "0" }
@@ -916,7 +967,13 @@ async def on_fetch(request, env):
                                        {      'name': 'listar_electricistas',
                                        'description': 'Lista los electricistas activos' },
                                        {      'name': 'cuestionario',
-                                       'description': 'Enviar Cuestionario'  },                                       
+                                       'description': 'Enviar Cuestionario',
+                              'parameters': { 'type': 'object',
+                                         'properties': {'nombre'  :
+                                                           {'type': 'string',
+                                                       "minLength": 1,
+                                                         'default': nombre,
+                                                     'description': "Nombre de la persona que llenará el cuestionario." }}}},
 				       {      'name': 'sugerir_electricista',
                                        'description': 'Sugerir Electricista.' },
                                        {      'name': 'enviar_aviso',
@@ -926,7 +983,7 @@ async def on_fetch(request, env):
                                                            {'type': 'string',
                                                        "minLength": 1,
                                                          'default': nombre,
-                                                     'descripcion': "Nombre de la personas que recibirá al electricista"},
+                                                     'description': "Nombre de la personas que recibirá al electricista"},
                                                         'telefono':
                                                            {'type': 'string',
                                                        "minLength": 1,
@@ -947,11 +1004,11 @@ async def on_fetch(request, env):
                                                        "minLength": 1,
                                                          'default': 'Providencia', 
                                                           'comuna': 'Comuna hacia donde se debe dirigir el electricista'},
-                                                     'descripcion':
+                                                     'description':
                                                            {'type': 'string',
                                                        "minLength": 1,
-                                                     'descripcion': descripcion,
-                                                     'descripcion': 'Descripción del problema.'},
+                                                     'description': descripcion,
+                                                     'description': 'Descripción del problema.'},
                                                        },
                                            'required': ['nombre', 'telefono', 'email', 'direccion', 'comuna', 'descripcion' ]
                               }
@@ -1016,9 +1073,7 @@ async def on_fetch(request, env):
                                    case 'cuestionario':
                                      console.log("call.name llenar_cuestionario")
                                      #Manda un cuestionario que debe ser llenado
-                                     #Luego los electricistas pueden ser vistos en una lista por el cliente
-                                     #No implementando, ahora hacce lo mismo que enviar_aviso
-                                     await enviar_template_say_visita_flow_reserva( request, env, wa_id )
+                                     await enviar_template_flow_reservar( request, env, wa_id, call.arguments.nombre )
 
                                      reply = (
                                       f"Se ha envíado un cuestionario \n"
@@ -1026,7 +1081,6 @@ async def on_fetch(request, env):
                                       "Escriba *xxx* para terminar \n "
                                      )
                                      await send_reply(env, wa_id,  reply, True )
-
 
 
                                    case 'enviar_aviso':

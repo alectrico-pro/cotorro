@@ -1841,16 +1841,13 @@ async def say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instrucci
               { "type"             :   "text", "text" : instruccion_3}
             ] } ] }}
 
-        uri     = f"https://graph.facebook.com/v23.0/{env.PHONE_NUMBER_ID}/messages"
-        headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}"
-        }
+        bearer, phone_id = get_bearer_and_phone( env, False)
+        uri     = f"https://graph.facebook.com/v23.0/{phone_id}/messages"
         options = {
                "body": json.dumps(body),
                "method": "POST",
                "headers": {
-                 "Authorization": f"Bearer {await env.META.get('USER_TOKEN')}",
+                 "Authorization": f"Bearer {bearer}",
                  "content-type": "application/json;charset=UTF-8"
                },
         }

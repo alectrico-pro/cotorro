@@ -853,7 +853,7 @@ async def on_fetch(request, env):
                                "------------------------------ \n\n"
                                )
                                console.log(f"reply {reply}")
-                               await send_reply(env, fono_cliente, reply, True)
+                               await send_reply(env, fono_cliente, reply, False)
 
                                await say_confirmacion_de_caso( env, wa_id, nombre_colaborador, nombre_cliente, fono_cliente, descripcion, comuna )
 

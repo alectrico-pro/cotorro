@@ -1070,7 +1070,7 @@ async def on_fetch(request, env):
                                        reply = (
                                         f"¿Podría pagar antes la visita? \n"
                                         "Los electricistas profesionales \n"
-                                        "prefieren el pago antes \n
+                                        "prefieren el pago antes \n"
                                         "..................... \n "
                                         "Escriba *xxx* para terminar \n "
                                         )
@@ -1233,7 +1233,7 @@ async def on_fetch(request, env):
                      "Escriba *xxx* para terminar \n "
                     )
                     #await send_reply(env, env.FONO_JEFE,  reply )
-                    await send_reply(env, wa_id,  reply, True )
+                    await send_reply(env, wa_id,  reply, False )
 
                     #await difundir_a_colaboradores(env, buy_order, nombre, descripcion, 'no-indica' , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
                    

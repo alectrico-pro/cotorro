@@ -1068,7 +1068,9 @@ async def on_fetch(request, env):
                                      try:
                                        await say_pagar_visita( env, wa_id, '\uD83D\uDE01', amount, path_de_pago )
                                        reply = (
-                                        f"Se ha envíado un electricista sugerido \n"
+                                        f"¿Podría pagar antes la visita? \n"
+                                        "Los electricistas profesionales \n"
+                                        "prefieren el pago antes \n
                                         "..................... \n "
                                         "Escriba *xxx* para terminar \n "
                                         )

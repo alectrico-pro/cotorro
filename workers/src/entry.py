@@ -979,8 +979,6 @@ async def on_fetch(request, env):
                          'max_tokens': 502,
                          'messages': mensajes,
                          'tools':    [
-                                       {      'name': 'listar_electricistas',
-                                       'description': 'Lista los electricistas activos' },
                                        {      'name': 'cuestionario',
                                        'description': 'Enviar Cuestionario',
                               'parameters': { 'type': 'object',

@@ -890,6 +890,10 @@ async def on_fetch(request, env):
                fono        = str( fix_fono ( wa_id ))
                nombre      = request_json.entry[0].changes[0].value.contacts[0].profile.name
                match descripcion:
+                    case "/comprar_tokens":
+                      path_de_pago = f"/recargar?fono={fix_fono(wa_id)}&cantidad=1&amount={env.PRECIO_TOKEN}"
+                      await say_link_de_recarga( env, wa_id, '\uD83D\uDE01',  env.PRECIO_TOKEN, path_de_pago )
+                      return Response( "Compra de Tokens", status="200")
                     case "/activar":
                       await activar( env, wa_id )
                       return Response( "Ahora está activo Colaborador", status="200")

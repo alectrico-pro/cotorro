@@ -1042,15 +1042,12 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                'parameters': { 'type': 'object',
                                          'properties': {'nombre': {'type': 'string',
                                                        "minLength": 1,
-                                                         'default': nombre,
                                                      'description': "Nombre de la personas que recibirá al electricista"},
                                                        'telefono': {'type': 'string',
                                                        "minLength": 1,
-                                                         'default': fono,
                                                      'description': 'Teléfono de contacto al que debe llamar el electricista.'},
                                                            'email': {'type': 'string',
                                                        "minLength": 1,
-                                                         'default': 'user@alectrico.cl',
                                                      'description': 'Dirección de correo electróncao para recibir el contrato y cualquier otra documentación.'},
                                                        'direccion': { 'type': 'string',
                                                        "minLength": 1,
@@ -1058,14 +1055,12 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                                           'comuna': 'Dirección del usuario.'},
                                                           'comuna': {'type': 'string',
                                                        "minLength": 1,
-                                                         'default': 'Providencia', 
                                                           'comuna': 'Comuna hacia donde se debe dirigir el electricista'},
                                                      'descripcion': {'type': 'string',
                                                        "minLength": 1,
-                                                         'default': descripcion,
                                                      'description': 'Descripción del problema.'}
                                                       },
-                                                        'required': ['nombre', 'telefono', 'email', 'direccion', 'comuna', 'descripcion' ]
+                                                        'required': ['nombre', 'telefono', 'direccion', 'comuna', 'descripcion' ]
                                              }
                                          }
                                       ]
@@ -1150,6 +1145,7 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                      console.log(f"call direccion {call.arguments.direccion}")
                                      console.log(f"call comuna {call.arguments.comuna}")
                                      console.log(f"call descripcion {call.arguments.descripcion}")
+
                                      reply = (
                                       f"Se intenta enviar aviso a los electricistas \n"
                                       f"{call.arguments.nombre} \n"

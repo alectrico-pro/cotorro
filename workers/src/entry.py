@@ -950,7 +950,7 @@ Te llamas alexo y eres el asistente de la plataforma alectrico, la cual contacta
 
 
 
-                        presentacion_2=""""Te llamas Alec y eres el asistente de la plataforma alectrico® repair la cual contacta a las personas con electricistas a domicilio. Debes comenzar por llenar una Solicitud de Atención con el dato siguiente:
+                        presentacion_2="""Te llamas Alec y eres el asistente de la plataforma alectrico® repair la cual contacta a las personas con electricistas a domicilio. Debes comenzar por llenar una Solicitud de Atención con el dato siguiente:
 En primer lugar
 
 1. Presántate profesionalmente.

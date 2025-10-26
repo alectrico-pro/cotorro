@@ -425,11 +425,12 @@ async def enviar_template_flow_reservar_a_cliente( request, env, fono, nombre):
         #---------------------------------------------------------------------------------------
         return Response( 'ok', status="200")
 #--------------- Funciones llamadas desde LLMs .---------------------
-async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descripcion):
+async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descripcion, orden):
   console.log( "En enviar_aviso")
 
   reply = (
     "*ENVIANDO..*\n"
+    f"orden  {orden} \n"
     f"nombre {nombre}\n"
     f"telefono {telefono}\n"
     f"comuna {comuna}\n"
@@ -437,13 +438,12 @@ async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descrip
     f"email {email}\n"
     f"descripcion {descripcion}\n"
   ) 
-  buy_order   = str( random.randint(1, 10000))
 
   await send_reply( env, telefono, reply, True)
   amount = env.PRECIO_VISITA
-  #await difundir_a_colaboradores(env, buy_order, nombre, (nombre + ' | ' + str(telefono)[0:3] + '.. | ' + descripcion ) , comuna, telefono, email, direccion, amount)
+  await difundir_a_colaboradores(env, orden, nombre, (nombre + ' | ' + str(telefono)[0:3] + '.. | ' + descripcion ) , comuna, telefono, email, direccion, amount)
 
-  return f"La solicitud de servicio NO ha sido envíada a los electricistas."
+  return f"La solicitud de servicio NO ha sido envíada a los electricistas. Orden {orden}"
 
 
 
@@ -1040,7 +1040,10 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                        {      'name': 'enviar_aviso',
                                        'description': 'Avisar a electricistas.',
                                'parameters': { 'type': 'object',
-                                         'properties': {'nombre': {'type': 'string',
+                                         'properties': {   'orden': {'type': 'string',
+                                                     'description': "Número de la orden de servicio",
+                                                         'default': str( random.randint(1, 10000)) }, 
+                                                          'nombre': {'type': 'string',
                                                        "minLength": 1,
                                                      'description': "Nombre de la personas que recibirá al electricista"},
                                                        'telefono': {'type': 'string',
@@ -1139,6 +1142,7 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                      #Avisar a los electricistas
                                      #Los electricistas pagan
                                      console.log("call.name es enviar_aviso")
+                                     console.log(f"call orden {call.orden}")
                                      console.log(f"call nombre {call.arguments.nombre}")
                                      console.log(f"call telefono {call.arguments.telefono}")
                                      console.log(f"call email {call.arguments.email}")
@@ -1213,7 +1217,8 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                                                          call.arguments.email,
                                                                          call.arguments.direccion,
                                                                          call.arguments.comuna,
-                                                                         call.arguments.descripcion)
+                                                                         call.arguments.descripcion,
+                                                                         call.arguments.orden)
 
                                      tool_resultado = json.dumps( { 'role': 'tool', 'content': resultado  } )
                                      await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":tool" , tool_resultado )

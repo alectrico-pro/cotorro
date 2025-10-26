@@ -955,7 +955,7 @@ async def on_fetch(request, env):
 5 Fono: Teléfono de contacto al que debe llamar el electricista, 
 6 email: Dirección de correo electrónico para recibir el contrato y cualquier otra documentación. 
 
-Cuando tengas la ficha completa, debes mostrársela al cliente para que confirme los datos. El usuario podría volver a ingresar los datos si encuentra errores. IMPORTANTE: No llames a la función enviar aviso si no tienes, al menos, el Nombre y la Descripción."""
+Cuando tengas la ficha completa, debes mostrársela al cliente para que confirme los datos. El usuario podría volver a ingresar los datos si encuentra errores. IMPORTANTE: No llames a la función enviar aviso si no tienes, al menos, el Nombre y la Descripción. De ser necesario, pegunta uno por uno los datos. Si el usuario ingresa xxx, debes borrar el chat."""
 
                         mensaje_inicial     = json.dumps( { 'role': 'system', 'content': presentacion } )
                         mensaje_colaborador = json.dumps( { 'role': 'user', 'content': descripcion } )

@@ -916,7 +916,7 @@ async def on_fetch(request, env):
                           if  mensajes:
                             for key in mensajes.keys:
                                  await env.DIALOGO.delete( key.name)
-                          #return Response( "Borrado Dialogo para fono", status="200")
+                          return Response( "Borrado Dialogo para fono", status="200")
 
                     case "Xxx":
                           console.log("Procesando Xxx")
@@ -924,7 +924,7 @@ async def on_fetch(request, env):
                           if  mensajes:
                             for key in mensajes.keys:
                                  await env.DIALOGO.delete( key.name)
-                          #return Response( "Borrado Dialogo para fono", status="200")
+                          return Response( "Borrado Dialogo para fono", status="200")
 
 
 

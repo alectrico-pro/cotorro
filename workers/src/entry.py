@@ -685,7 +685,7 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                         await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":assistant" , mensaje_gerente )
                          except Exception as e:
 
-                        return Response( "Es Colaborador", status="200")
+                      return Response( "Es Colaborador", status="200")
 
                                                                                                                           323,0-1     Final
 

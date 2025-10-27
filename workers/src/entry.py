@@ -384,12 +384,12 @@ async def asistente_sec_ai( env):
       {
 	  "query": "De qué trata esto?",
 	  "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
-	  "rewrite_query": true,
+	  "rewrite_query": True,
 	  "max_num_results": 2,
 	  "ranking_options": {
 	    "score_threshold": 0.3,
 	  },
-	  "stream": false,
+	  "stream": False,
       }))
 
       return response.response

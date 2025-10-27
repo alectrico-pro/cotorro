@@ -579,28 +579,8 @@ Si el usuario ingresa xxx, debes borrar el chat.
                         #  'max_tokens': 502,
                         #  'messages': mensajes ,} )) 
                         #Sin usar las tools todavía
-                        if False:
-                         dico =  {
-                         'max_tokens': 502,
-                         'messages': [ { 'role': 'system', 'content': 'No haga suposiciones sobre los valores, pregunte si es necesita aclararlos.' },
-                                       { 'role': 'user',   'content': descripcion }]}
-                         result = await env.AI.run( await env.I.get('MODELO'), to_js( dico))
-                         mensaje_assistant = json.dumps( { 'role': 'assistant', 'content': result.response  } )
-                         await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":assistant" , mensaje_assistant )
-                         if result and result.response:
-                            mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
-                            await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":assistant" , mensaje_gerente )
-                            reply = (
-                            f"{result.response} \n"
-                            "..................... \n "
-                            "Escriba *xxx* para terminar \n "
-                            )
-                            await send_reply(env, wa_id,  reply, True )
-
-                      if True:
-                         try:
-                          result = await env.AI.run(await env.I.get('MODELO'), to_js (dico_con_tools ) )
-                          if result and hasattr( result, 'tool_calls'):
+                        result = await env.AI.run(await env.I.get('MODELO'), to_js (dico_con_tools ) )
+                        if result and hasattr( result, 'tool_calls'):
                             console.log(f"Tiene tool_calls")
                             for call in result.tool_calls:
                                 match call.name:
@@ -736,8 +716,6 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                         await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":user" , mensaje_colaborador )
                                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
                                         await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":assistant" , mensaje_gerente )
-                         except Exception as e:
-                           console.log(f"Error {e}")
 
                       return Response( "Es Colaborador", status="200")
 

@@ -325,7 +325,44 @@ async def enviar_concurso( env, fono, nombre):
         #---------------------------------------------------------------------------------------
         return Response( 'ok', status="200")
 #-------------------------------------------------  BEGIN AI -----------------------------------------------------
-async def alec_ai( env, wa_id):
+async def canal_colaborador_ai(env):
+                    console.log(f"{wa_id} es colaborador")
+                    buy_order   = str( random.randint(1, 10000))
+                    #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
+
+                    #path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
+                    #try:
+                    # await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
+                    #except:
+                    # pass
+                    result = await env.AI.run(await env.I.get('MODELO'), to_js(
+                    { 'messages': [
+                    { 'role': 'system', 'content': "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlos si antes han comprado tokens." },
+                    { 'role': 'electricista', 'content': descripcion } ],} ) );
+
+                    console.log(f"{result.response}")
+                    reply = (
+                     f"{result.response} \n"
+                     "..................... \n "
+                     "Escriba *xxx* para terminar \n "
+                    )
+                    #await send_reply(env, env.FONO_JEFE,  reply )
+                    await send_reply(env, wa_id,  reply, False )
+
+                    #await difundir_a_colaboradores(env, buy_order, nombre, descripcion, 'no-indica' , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
+
+                    #await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
+
+                    #no puedo difundir_a_colaboradores aquí porque el cliente no ha introducido datos
+                    #envío al cuestionario flow para obtener los datos
+
+                    #await enviar_template_say_visita_flow_reserva( request, env, wa_id )
+                    #await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
+                    return Response( "Ud. es Colaborador", status="200" )
+
+
+
+async def canal_cliente_ai( env, wa_id):
 
 
                    mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }:no_colaborador" )
@@ -1257,44 +1294,15 @@ async def on_fetch(request, env):
 
                if not await es_colaborador(env, wa_id):
                    console.log(f"{wa_id} No es colaborador")
-                   await alec_ai( env, wa_id)
+                   await canal_cliente_ai( env, wa_id)
                    return Response( "Ud. No es Colaborador", status="200" )
 
                else:
-                    console.log(f"{wa_id} es colaborador")
-                    buy_order   = str( random.randint(1, 10000))
-                    #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
+                   console.log(f"{wa_id} es colaborador")
+                   await canal_colaborador_ai(env)
+            
 
-                    #path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
-                    #try:
-                    # await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
-                    #except:
-                    # pass
-                    result = await env.AI.run(await env.I.get('MODELO'), to_js(
-                    { 'messages': [
-                    { 'role': 'system', 'content': "Te llamas Alexander Espinosa y eres Gerente de una empresa que contacta a las personas con electricistas a domicilio. La empresa se llama alectrico Spa y posee una plataforma llamada alectrico repair. Los electricistas suscritos a la plataforma alectrico® repair revisan los avisos de personas con problemas eléctricos y pueden atenderlos si antes han comprado tokens." },
-                    { 'role': 'electricista', 'content': descripcion } ],} ) );
-
-                    console.log(f"{result.response}")
-                    reply = (
-                     f"{result.response} \n"
-                     "..................... \n "
-                     "Escriba *xxx* para terminar \n "
-                    )
-                    #await send_reply(env, env.FONO_JEFE,  reply )
-                    await send_reply(env, wa_id,  reply, False )
-
-                    #await difundir_a_colaboradores(env, buy_order, nombre, descripcion, 'no-indica' , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
-                   
-                    #await difundir_a_colaboradores(env, buy_order, nombre, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
-
-                    #no puedo difundir_a_colaboradores aquí porque el cliente no ha introducido datos
-                    #envío al cuestionario flow para obtener los datos
-             
-                    #await enviar_template_say_visita_flow_reserva( request, env, wa_id )
-                    #await say_jefe(env, f"Hola Jefe, alguien escribió: {body}----{wa_id}" )
-                    return Response( "Ud. es Colaborador", status="200" )
-               
+            #----------------------- LLAMANDO A FUNCIONES AI -----------------------------------   
             #Cuando el usuario responda cuestionarios
             #Llega aquí
             #Los proceso

@@ -324,7 +324,23 @@ async def enviar_concurso( env, fono, nombre):
           pass
         #---------------------------------------------------------------------------------------
         return Response( 'ok', status="200")
+
+
 #-------------------------------------------------  BEGIN AI -----------------------------------------------------
+#
+async def sec_to_markdown()
+      pdf = await env.R2.get("RIC-N04-Conductores-y-Canalizaciones_removed.pdf")
+
+      await env.AI.toMarkdown([
+        {
+          "name": "sec.pdf",
+          "blob": new Blob([await pdf.arrayBuffer()], {
+            "type": "application/octet-stream",
+          }),
+        },
+      ])
+    
+
 async def canal_colaborador_ai(env, descripcion ):
                     console.log(f"{wa_id} es colaborador")
                     buy_order   = str( random.randint(1, 10000))
@@ -507,6 +523,7 @@ Si el usuario ingresa xxx, debes borrar el chat.
                            content = mensaje_dict['content']
                            console.log(f"{role}{content}")
                            mensajes.append( mensaje_dict )
+                        orden = str( random.randint(1, 10000))
 
                         dico_con_tools =  {
                          'max_tokens': 502,
@@ -527,7 +544,7 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                'parameters': { 'type': 'object',
                                          'properties': {   'orden': {'type': 'string',
                                                      'description': "Número de la orden de servicio",
-                                                         'default': str( random.randint(1, 10000)) },
+                                                         'default': orden },
                                                           'nombre': {'type': 'string',
                                                        "minLength": 1,
                                                      'description': "Nombre de la personas que recibirá al electricista"},

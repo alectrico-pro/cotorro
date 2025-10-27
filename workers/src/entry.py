@@ -394,6 +394,13 @@ async def asistente_sec_ai( env):
       }
       ))
 
+      console.log(f"{answer.response}")
+      reply = (
+       f"{answer.response} \n"
+       "..................... \n "
+       "Escriba *xxx* para terminar \n "
+      )
+
       return answer.response
 
 

@@ -1336,7 +1336,7 @@ async def on_fetch(request, env):
                    #   await canal_colaborador_ai(env, wa_id, descripcion)
                    if await get_saldo( env, wa_id):
                      buy_order = str( random.randint(1, 10000))
-                     await tomar_token(env, wa_id, buy_order ):
+                     await tomar_token(env, wa_id, buy_order )
                      await asistente_sec_ai(env, wa_id, descripcion)
                    else: 
                      await canal_colaborador_ai(env, wa_id, descripcion)

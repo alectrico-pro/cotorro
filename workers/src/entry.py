@@ -363,7 +363,7 @@ async def canal_colaborador_ai(env):
 
 #---- atiende a los colaboradores en temas normativos sec
 #WIP
-async def asistente_sec_ai( env)
+async def asistente_sec_ai( env):
 	const answer = await env.AI.autorag("my-autorag").aiSearch({
 	  query: "De qué trata esto?",
 	  model: "@cf/meta/llama-3.3-70b-instruct-fp8-fast",

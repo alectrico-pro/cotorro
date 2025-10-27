@@ -2156,9 +2156,8 @@ async def get_saldo( env, wa_id):
                           token_expirado = f"{fono}:token:pagado:expirado:{orden}"
                           await env.FINANCIERO.put(f"{token_expirado}", token)
 
-                     tokens_validos = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado" )
-                     return len( tokens_validos.keys )
-            return 0
+            tokens_validos = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado" )
+            return len( tokens_validos.keys )
 
 
 async def es_colaborador( env, wa_id):

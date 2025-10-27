@@ -328,7 +328,7 @@ async def enviar_concurso( env, fono, nombre):
 
 #-------------------------------------------------  BEGIN AI -----------------------------------------------------
 #
-async def sec_to_markdown()
+async def sec_to_markdown():
       pdf = await env.R2.get("RIC-N04-Conductores-y-Canalizaciones_removed.pdf")
 
       await env.AI.toMarkdown([

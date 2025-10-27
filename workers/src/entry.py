@@ -341,7 +341,7 @@ async def enviar_concurso( env, fono, nombre):
 #      ])
     
 
-async def canal_colaborador_ai(env, descripcion ):
+async def canal_colaborador_ai(env, wa_id, descripcion ):
                     console.log(f"{wa_id} es colaborador")
                     buy_order   = str( random.randint(1, 10000))
                     #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
@@ -1334,7 +1334,7 @@ async def on_fetch(request, env):
 
                else:
                    console.log(f"{wa_id} es colaborador")
-                   await canal_colaborador_ai(env, descripcion)
+                   await canal_colaborador_ai(env, wa_id, descripcion)
             
 
             #----------------------- LLAMANDO A FUNCIONES AI -----------------------------------   

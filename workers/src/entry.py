@@ -606,7 +606,7 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                       "Escriba *xxx* para terminar \n "
                                      )
                                      await send_reply(env, wa_id,  reply, True)
-                                    if not len( call.arguments.nombre ) > 1:
+                                     if not len( call.arguments.nombre ) > 1:
                                         reply = (
                                         f"Ingrese un nombre \n"
                                         "..................... \n "

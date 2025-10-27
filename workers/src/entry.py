@@ -684,6 +684,7 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
                                         await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":assistant" , mensaje_gerente )
                          except Exception as e:
+                           console.log(f"Error {e}")
 
                       return Response( "Es Colaborador", status="200")
 

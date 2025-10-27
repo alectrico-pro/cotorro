@@ -1341,10 +1341,10 @@ async def on_fetch(request, env):
                else:
                    console.log(f"{wa_id} es colaborador")
                    #   await canal_colaborador_ai(env, wa_id, descripcion)
-                   saldo = await get_saldo( env, wa_id)
-                   reply=( f"Su saldo Actual en tokens que puede usar es de: \n"
-                           f" {saldo}")
-                   await send_reply( env, wa_id, reply, False)
+                   #saldo = await get_saldo( env, wa_id)
+                   #reply=( f"Su saldo Actual en tokens que puede usar es de: \n"
+                   #        f" {saldo}")
+                   #await send_reply( env, wa_id, reply, False)
 
                    if saldo > 0:
                      buy_order = str( random.randint(1, 10000))

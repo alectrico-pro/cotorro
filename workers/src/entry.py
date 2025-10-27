@@ -380,7 +380,7 @@ async def asistente_sec_ai( env):
 
 
 #---- atiende a los clientes de alectrico -- fono  932000849
-async def canal_cliente_ai( env, wa_id, descripcion, nombre):
+async def canal_cliente_ai( env, request, wa_id, descripcion, nombre):
                       fono = fix_fono(wa_id)
                       mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }:no_colaborador" )
                       k = len ( mensajes_anteriores.keys)
@@ -1330,7 +1330,7 @@ async def on_fetch(request, env):
                #chat ai
                if not await es_colaborador(env, wa_id):
                    console.log(f"{wa_id} No es colaborador")
-                   await canal_cliente_ai( env, wa_id, descripcion, nombre)
+                   await canal_cliente_ai( env, request, wa_id, descripcion, nombre)
                    return Response( "Ud. No es Colaborador", status="200" )
 
                else:

@@ -380,27 +380,22 @@ async def canal_colaborador_ai(env, wa_id, descripcion ):
 #---- atiende a los colaboradores en temas normativos sec
 #WIP
 async def asistente_sec_ai( env):
-            
-
-    return Response("Method Not Allowed", status=405)
       answer = await env.AI.autorag("square-cloud-8e93").aiSearch( to_js(
       {
-	  "query": "De qué trata esto?",
-	  "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
-	  "rewrite_query": True,
-	  "max_num_results": 2,
-	  "ranking_options": {
-	    "score_threshold": 0.3,
-      }
-      ))
+      "query": "De qué trata esto?",
+      "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+      "rewrite_query": True,
+      "max_num_results": 2,
+      "ranking_options": {
+      "score_threshold": 0.3  }))
 
       console.log(f"{answer.response}")
       reply = (
-       f"{answer.response} \n"
-       "..................... \n "
-       "Escriba *xxx* para terminar \n "
+      f"{answer.response} \n"
+      "..................... \n "
+     "Escriba *xxx* para terminar \n "
       )
-
+      await send_reply(env, wa_id,  reply, True )
       return answer.response
 
 

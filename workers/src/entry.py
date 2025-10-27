@@ -394,10 +394,11 @@ async def alambrito( env, wa_id, prompt ):
 
       console.log(f"{answer.response}")
       reply = (
-      "*alectrico®* -- Alam Brito ai"
+      "*alectrico®* -- Alam Brito ai\n"
+      ".............................\n"
       f"{answer.response} \n"
       "..................... \n "
-     "Electricista Canchero muere primero\n "
+     "alectrico® exo!\n "
       )
       await send_reply(env, wa_id,  reply, False )
       return answer.response

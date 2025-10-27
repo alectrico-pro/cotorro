@@ -2135,6 +2135,8 @@ async def get_saldo( env, wa_id):
               console.log("Tiene tokens pagados")
             else: 
               console.log("No tiene tokens pagados")
+            return 0
+
             for key in pagados.keys:
                      token = await env.FINANCIERO.get( key.name )
                      token_dict = json.loads(token)
@@ -2146,6 +2148,7 @@ async def get_saldo( env, wa_id):
 
                      tokens_validos = await env.FINANCIERO.list(prefix = f"{fono}:token:pagado:no_expirado" )
                      return len( tokens_validos.keys )
+            return 0
 
 
 async def es_colaborador( env, wa_id):

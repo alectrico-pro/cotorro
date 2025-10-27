@@ -387,6 +387,7 @@ No responderás consultas concretas sobre los pliegos SEC RIC 1 al RIC 6 y el RI
 #---- atiende a los colaboradores en temas normativos sec
 #WIP
 async def alambrito( env, wa_id, prompt ):
+      console.log("Estoy en alambrito")
       answer = await env.AI.autorag("square-cloud-8e93").aiSearch( to_js(
       {
       "query": prompt, "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast", "rewrite_query": True, "max_num_results": 2, "ranking_options": { "score_threshold": 0.3  }}))
@@ -397,7 +398,7 @@ async def alambrito( env, wa_id, prompt ):
       "..................... \n "
      "Escriba *xxx* para terminar \n "
       )
-      await send_reply(env, wa_id,  reply, True )
+      await send_reply(env, wa_id,  reply, False )
       return answer.response
 
 

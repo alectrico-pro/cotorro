@@ -382,12 +382,7 @@ async def canal_colaborador_ai(env, wa_id, descripcion ):
 async def asistente_sec_ai( env):
       answer = await env.AI.autorag("square-cloud-8e93").aiSearch( to_js(
       {
-      "query": "De qué trata esto?",
-      "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
-      "rewrite_query": True,
-      "max_num_results": 2,
-      "ranking_options": {
-      "score_threshold": 0.3  }))
+      "query": "De qué trata esto?", "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast", "rewrite_query": True, "max_num_results": 2, "ranking_options": { "score_threshold": 0.3  }}))
 
       console.log(f"{answer.response}")
       reply = (

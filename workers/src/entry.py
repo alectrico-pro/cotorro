@@ -380,7 +380,7 @@ async def asistente_sec_ai( env):
 
 
 #---- atiende a los clientes de alectrico -- fono  932000849
-async def canal_cliente_ai( env, wa_id):
+async def canal_cliente_ai( env, wa_id, descripcion):
                       fono = fix_fono(wa_id)
                       mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }:no_colaborador" )
                       k = len ( mensajes_anteriores.keys)

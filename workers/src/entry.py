@@ -379,7 +379,7 @@ async def canal_colaborador_ai(env, wa_id, descripcion ):
 
 #---- atiende a los colaboradores en temas normativos sec
 #WIP
-async def asistente_sec_ai( env, wa_id, prompt ):
+async def alambrito( env, wa_id, prompt ):
       answer = await env.AI.autorag("square-cloud-8e93").aiSearch( to_js(
       {
       "query": prompt, "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast", "rewrite_query": True, "max_num_results": 2, "ranking_options": { "score_threshold": 0.3  }}))
@@ -1334,10 +1334,14 @@ async def on_fetch(request, env):
                else:
                    console.log(f"{wa_id} es colaborador")
                    #   await canal_colaborador_ai(env, wa_id, descripcion)
-                   if await get_saldo( env, wa_id):
+                   saldo = await get_saldo( env, wa_id)
+                   reply=( f"saldo {saldo}")
+                   send_reply( env, wa_id, reply)
+
+                   if saldo > 0:
                      buy_order = str( random.randint(1, 10000))
                      await tomar_token(env, wa_id, buy_order )
-                     await asistente_sec_ai(env, wa_id, descripcion)
+                     await alambrito(env, wa_id, descripcion)
                    else: 
                      await canal_colaborador_ai(env, wa_id, descripcion)
             
@@ -1508,6 +1512,7 @@ async def anotar_tokens_pagados_promocionales( env, buy_order, fono, cantidad ):
 #marca como expirados a los tokens que corresponda
 #solo afecta a los tokens del fono proporcionado
 async def tomar_token(env, fono, buy_order ):
+          console.log("En tomar token")
           buy_order_de_pedido_de_token   = str( random.randint(1, 10000))
           await anotar_tokens_pagados_promocionales( env, buy_order_de_pedido_de_token, fono, 5 )
 

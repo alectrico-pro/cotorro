@@ -325,7 +325,7 @@ async def enviar_concurso( env, fono, nombre):
         #---------------------------------------------------------------------------------------
         return Response( 'ok', status="200")
 #-------------------------------------------------  BEGIN AI -----------------------------------------------------
-async def canal_colaborador_ai(env):
+async def canal_colaborador_ai(env, descripcion ):
                     console.log(f"{wa_id} es colaborador")
                     buy_order   = str( random.randint(1, 10000))
                     #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
@@ -1293,15 +1293,15 @@ async def on_fetch(request, env):
                           return Response( "Borrado Dialogo para fono", status="200")
 
 
-
+               #chat
                if not await es_colaborador(env, wa_id):
                    console.log(f"{wa_id} No es colaborador")
-                   await canal_cliente_ai( env, wa_id)
+                   await canal_cliente_ai( env, wa_id, descripcion)
                    return Response( "Ud. No es Colaborador", status="200" )
 
                else:
                    console.log(f"{wa_id} es colaborador")
-                   await canal_colaborador_ai(env)
+                   await canal_colaborador_ai(env, descripcion)
             
 
             #----------------------- LLAMANDO A FUNCIONES AI -----------------------------------   

@@ -364,18 +364,19 @@ async def canal_colaborador_ai(env):
 #---- atiende a los colaboradores en temas normativos sec
 #WIP
 async def asistente_sec_ai( env):
-	const answer = await env.AI.autorag("my-autorag").aiSearch({
-	  query: "De qué trata esto?",
-	  model: "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
-	  rewrite_query: true,
-	  max_num_results: 2,
-	  ranking_options: {
-	    score_threshold: 0.3,
+      answer = await env.AI.autorag("square-cloud-8e93").aiSearch( to_js(
+      {
+	  "query": "De qué trata esto?",
+	  "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+	  "rewrite_query": true,
+	  "max_num_results": 2,
+	  "ranking_options": {
+	    "score_threshold": 0.3,
 	  },
-	  stream: false,
-	})
+	  "stream": false,
+      }))
 
-       return response.response
+      return response.response
 
 
 #---- atiende a los clientes de alectrico -- fono  932000849

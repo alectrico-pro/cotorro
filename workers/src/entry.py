@@ -1336,7 +1336,7 @@ async def on_fetch(request, env):
                    #   await canal_colaborador_ai(env, wa_id, descripcion)
                    saldo = await get_saldo( env, wa_id)
                    reply=( f"saldo {saldo}")
-                   send_reply( env, wa_id, reply)
+                   send_reply( env, wa_id, reply, False)
 
                    if saldo > 0:
                      buy_order = str( random.randint(1, 10000))

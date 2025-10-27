@@ -361,11 +361,27 @@ async def canal_colaborador_ai(env):
                     return Response( "Ud. es Colaborador", status="200" )
 
 
+#---- atiende a los colaboradores en temas normativos sec
+#WIP
+async def asistente_sec_ai( env)
+	const answer = await env.AI.autorag("my-autorag").aiSearch({
+	  query: "De qué trata esto?",
+	  model: "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+	  rewrite_query: true,
+	  max_num_results: 2,
+	  ranking_options: {
+	    score_threshold: 0.3,
+	  },
+	  stream: false,
+	})
 
+       return response.response
+
+
+#---- atiende a los clientes de alectrico -- fono  932000849
 async def canal_cliente_ai( env, wa_id):
 
-
-                   mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }:no_colaborador" )
+                      mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }:no_colaborador" )
                       k = len ( mensajes_anteriores.keys)
                       if k == 0:
                         buy_order   = str( random.randint(1, 10000))

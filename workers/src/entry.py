@@ -624,7 +624,7 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                      #Avisar a los electricistas
                                      #Los electricistas pagan
                                      console.log("call.name es enviar_aviso")
-                                     console.log(f"call orden {call.orden}")
+                                     console.log(f"call orden {call.arguments.orden}")
                                      console.log(f"call nombre {call.arguments.nombre}")
                                      console.log(f"call telefono {call.arguments.telefono}")
                                      console.log(f"call email {call.arguments.email}")

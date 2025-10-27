@@ -380,6 +380,9 @@ async def canal_colaborador_ai(env, wa_id, descripcion ):
 #---- atiende a los colaboradores en temas normativos sec
 #WIP
 async def asistente_sec_ai( env):
+            
+
+    return Response("Method Not Allowed", status=405)
       answer = await env.AI.autorag("square-cloud-8e93").aiSearch( to_js(
       {
 	  "query": "De qué trata esto?",
@@ -388,11 +391,10 @@ async def asistente_sec_ai( env):
 	  "max_num_results": 2,
 	  "ranking_options": {
 	    "score_threshold": 0.3,
-	  },
-	  "stream": False,
-      }))
+      }
+      ))
 
-      return response.response
+      return answer.response
 
 
 #---- atiende a los clientes de alectrico -- fono  932000849

@@ -379,10 +379,10 @@ async def canal_colaborador_ai(env, wa_id, descripcion ):
 
 #---- atiende a los colaboradores en temas normativos sec
 #WIP
-async def asistente_sec_ai( env, wa_id ):
+async def asistente_sec_ai( env, wa_id, prompt ):
       answer = await env.AI.autorag("square-cloud-8e93").aiSearch( to_js(
       {
-      "query": "De qué trata esto?", "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast", "rewrite_query": True, "max_num_results": 2, "ranking_options": { "score_threshold": 0.3  }}))
+      "query": prompt, "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast", "rewrite_query": True, "max_num_results": 2, "ranking_options": { "score_threshold": 0.3  }}))
 
       console.log(f"{answer.response}")
       reply = (
@@ -1334,7 +1334,7 @@ async def on_fetch(request, env):
                else:
                    console.log(f"{wa_id} es colaborador")
                    #   await canal_colaborador_ai(env, wa_id, descripcion)
-                   await asistente_sec_ai(env, wa_id)
+                   await asistente_sec_ai(env, wa_id, descripcion)
             
 
             #----------------------- LLAMANDO A FUNCIONES AI -----------------------------------   

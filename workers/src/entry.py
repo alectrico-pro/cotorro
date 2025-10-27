@@ -684,19 +684,6 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                         mensaje_gerente =  json.dumps( { 'role': 'assistant', 'content': result.response })
                                         await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":assistant" , mensaje_gerente )
                          except Exception as e:
-                           console.log(f"Error {e}")
-                         #envia muchos,no sé por qué
-                        if False and 'tokens' in  mensaje_gerente and False:
-                             buy_order   = str( random.randint(1, 10000))
-                             #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)
-                             path_de_pago = f"/transbank?amount={env.PRECIO_PROCESO}&session_id={wa_id}&buy_order={buy_order}"
-                             try:
-                               await say_link_de_pago( env, wa_id, '\uD83D\uDE01',  env.PRECIO_PROCESO, path_de_pago )
-                             except:
-                               pass
-                             await difundir_a_colaboradores(env, buy_order, nombre, descripcion, 'no-indica' , wa_id, 'user@alectrico.cl', 'no-indica', env.PRECIO_TOKEN)
-
-                             await enviar_template_say_visita_flow_reserva( request, env, wa_id )
 
                         return Response( "Es Colaborador", status="200")
 

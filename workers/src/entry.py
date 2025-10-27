@@ -685,7 +685,7 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                         await env.DIALOGO.put( str(fono) + ":" + "no_colaborador" +  str(datetime.now()) + ":assistant" , mensaje_gerente )
                          except Exception as e:
                            console.log(f"Error {e}")
-                      #envia muchos,no sé por qué
+                         #envia muchos,no sé por qué
                         if False and 'tokens' in  mensaje_gerente and False:
                              buy_order   = str( random.randint(1, 10000))
                              #await save_text_message(env, id, wa_id, buy_order, descripcion, amount)

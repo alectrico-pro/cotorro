@@ -1334,7 +1334,12 @@ async def on_fetch(request, env):
                else:
                    console.log(f"{wa_id} es colaborador")
                    #   await canal_colaborador_ai(env, wa_id, descripcion)
-                   await asistente_sec_ai(env, wa_id, descripcion)
+                   if await get_saldo( env, wa_id):
+                     buy_order = str( random.randint(1, 10000))
+                     await tomar_token(env, wa_id, buy_order ):
+                     await asistente_sec_ai(env, wa_id, descripcion)
+                   else: 
+                     await canal_colaborador_ai(env, wa_id, descripcion)
             
 
             #----------------------- LLAMANDO A FUNCIONES AI -----------------------------------   

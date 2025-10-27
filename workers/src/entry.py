@@ -1334,7 +1334,8 @@ async def on_fetch(request, env):
 
                else:
                    console.log(f"{wa_id} es colaborador")
-                   await canal_colaborador_ai(env, wa_id, descripcion)
+                   #   await canal_colaborador_ai(env, wa_id, descripcion)
+                   await asistente_sec_ai(env)
             
 
             #----------------------- LLAMANDO A FUNCIONES AI -----------------------------------   

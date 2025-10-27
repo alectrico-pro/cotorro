@@ -688,10 +688,6 @@ Si el usuario ingresa xxx, debes borrar el chat.
 
                       return Response( "Es Colaborador", status="200")
 
-                                                                                                                          323,0-1     Final
-
-
-
 
 #-------------------------------------------------- FIN AI --------------------------------------------------------
 

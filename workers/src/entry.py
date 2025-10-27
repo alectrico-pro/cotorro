@@ -524,7 +524,9 @@ Si el usuario ingresa xxx, debes borrar el chat.
                            content = mensaje_dict['content']
                            console.log(f"{role}{content}")
                            mensajes.append( mensaje_dict )
+
                         orden = str( random.randint(1, 10000))
+
 
                         dico_con_tools =  {
                          'max_tokens': 502,
@@ -545,7 +547,7 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                'parameters': { 'type': 'object',
                                          'properties': {   'orden': {'type': 'string',
                                                      'description': "Número de la orden de servicio",
-                                                         'default': 1 },
+                                                         'default': orden },
                                                           'nombre': {'type': 'string',
                                                        "minLength": 1,
                                                      'description': "Nombre de la personas que recibirá al electricista"},

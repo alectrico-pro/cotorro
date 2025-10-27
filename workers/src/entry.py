@@ -839,7 +839,7 @@ async def enviar_aviso( env, nombre, telefono, email, direccion, comuna, descrip
   amount = env.PRECIO_VISITA
   await difundir_a_colaboradores(env, orden, nombre, (nombre + ' | ' + str(telefono)[0:3] + '.. | ' + descripcion ) , comuna, telefono, email, direccion, amount)
 
-  return f"La solicitud de servicio NO ha sido envíada a los electricistas. Orden {orden}"
+  return f"La solicitud de servicio Ha sido envíada a los electricistas. Orden {orden}"
 
 
 

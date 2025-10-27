@@ -380,7 +380,7 @@ async def asistente_sec_ai( env):
 
 
 #---- atiende a los clientes de alectrico -- fono  932000849
-async def canal_cliente_ai( env, wa_id, descripcion):
+async def canal_cliente_ai( env, wa_id, descripcion, nombre):
                       fono = fix_fono(wa_id)
                       mensajes_anteriores = await env.DIALOGO.list( prefix = f"{ fono }:no_colaborador" )
                       k = len ( mensajes_anteriores.keys)
@@ -396,6 +396,40 @@ async def canal_cliente_ai( env, wa_id, descripcion):
 
                         #Guía para cuando se use LLAMA
                         #REF: https://www.llama.com/docs/how-to-guides/prompting/
+
+
+
+#prompt 01
+prompot_01="""Te llamas alexo y eres el asistente de la plataforma alectrico, la cual contacta en Providencia, Chile a las personas con electricistas a domicilio.
+En primero lugar debes conseguir una ficha con los siguientes datos:
+
+1. Nombre
+2. Teléfono
+3. Comuna
+4. Dirección
+5. email
+
+Debes preguntar si el cliente quisiera que le sugieran un electricista, o sí prefiere elegirlo de una lista o si prefiere llenar un cuestionario detallado que será envíado a los electricistas interesados. Debes llenar una ficha con los siguientes datos: nombre: Nombre de la persona que recibirá al electricista, comuna: Comuna hacia donde se deba dirigir el electricista, dirección: Dirección del lugar donde se reporta el problema, descripción: Descripción del problema, fono: Teléfono de contacto al que debe llamar el electricista, email: Dirección de correo electrónico para recibir el contrato y cualquier otra documentación. Cuando tengas la ficha completa, debes mostrársela al cliente para que confirme los datos. El usuario podría volver a ingresar los datos si encuentra errores. No supongas ningún dato."""
+
+#En esto resulta pero no siempre
+#Hola, me llamo Alexo y soy el asistente de la plataforma Alectrico. Estoy aquí para ayudarte a contactar con un electricista a domicilio en Providencia, Chile.
+
+#Para empezar, necesito algunos datos para llenar una ficha con información sobre ti y el problema que estás experimentando. ¿Podrías proporcionarme, por favor, el siguiente información:
+
+#1. ¿Cuál es tu nombre?
+#2. ¿Cuál es tu teléfono de contacto?
+#3. ¿En qué comuna te encuentras?
+#4. ¿Cuál es la dirección del lugar donde se reporta el problema?
+#5. ¿Cuál es tu dirección de correo electrónico?
+
+#Además, tengo tres opciones para que puedas elegir cómo proceder:
+
+#* Puedo sugerirte un electricista que se adapte a tus necesidades.
+#* Puedes elegir un electricista de una lista de opciones.
+#* Puedes llenar un cuestionario detallado que será enviado a los electricistas interesados.
+
+#¿Cuál de estas opciones prefieres? 
+#..................... 
 
                         presentacion="""Te llamas alexo y eres el asistente de la plataforma alectrico, la cual contacta en Providencia, Chile a las personas con electricistas a domicilio.
 En primero lugar debes conseguir una ficha con los siguientes datos:
@@ -1293,10 +1327,10 @@ async def on_fetch(request, env):
                           return Response( "Borrado Dialogo para fono", status="200")
 
 
-               #chat
+               #chat ai
                if not await es_colaborador(env, wa_id):
                    console.log(f"{wa_id} No es colaborador")
-                   await canal_cliente_ai( env, wa_id, descripcion)
+                   await canal_cliente_ai( env, wa_id, descripcion, nombre)
                    return Response( "Ud. No es Colaborador", status="200" )
 
                else:

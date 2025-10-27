@@ -353,7 +353,14 @@ async def canal_colaborador_ai(env, wa_id, descripcion ):
                     # pass
                     result = await env.AI.run(await env.I.get('MODELO'), to_js(
                     { 'messages': [
-                    { 'role': 'system', 'content': "Te llamas Alam Brito y eres asistente SEC. Puedes consultar sobre los pliegos 1 al 6 y el 18. Cada consulta le constará al electricista un token. Si el electricista no tuviera tokens vigentes no responderá la consulta y tampoco cobrará tokens. El electricista no debe comenzar diciendo Hola, pues eres un asistente ai y cobrarás por todo.:)" },
+                    { 'role': 'system', 'content': "Te llamas Alam Brito y eres asistente de la plataforma alectrico® exo!. Explica que alectrico exo! es una plataforma para electricistas y otro colaboradores, los cuales reciben avisos de trabajos. Esos avisos los pueden tomar si tienen tokens. La plataforma responde a los siguientes comandos:
+
+/suscribir: Para estar como colaborador
+/activar: Para recibir avisos
+/desactivar: Para dejar de recibir avisos
+/comprar_tokens: Para comprar un token
+
+No responderás consultas concretas sobre los pliegos SEC RIC 1 al RIC 6 y el RIC 18 a menos que el electricista tenga saldo a favor. Solo en ese caso. " },
                     { 'role': 'electricista', 'content': descripcion } ],} ) );
 
                     console.log(f"{result.response}")
@@ -1335,7 +1342,8 @@ async def on_fetch(request, env):
                    console.log(f"{wa_id} es colaborador")
                    #   await canal_colaborador_ai(env, wa_id, descripcion)
                    saldo = await get_saldo( env, wa_id)
-                   reply=( f"saldo {saldo}")
+                   reply=( f"Su saldo Actual en tokens que puede usar es de: \n"
+                           f" {saldo}")
                    await send_reply( env, wa_id, reply, False)
 
                    if saldo > 0:

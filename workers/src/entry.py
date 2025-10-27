@@ -544,7 +544,7 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                'parameters': { 'type': 'object',
                                          'properties': {   'orden': {'type': 'string',
                                                      'description': "Número de la orden de servicio",
-                                                         'default': orden },
+                                                         'default': 1 },
                                                           'nombre': {'type': 'string',
                                                        "minLength": 1,
                                                      'description': "Nombre de la personas que recibirá al electricista"},

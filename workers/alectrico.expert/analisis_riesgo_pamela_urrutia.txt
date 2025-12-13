@@ -1,0 +1,87 @@
+TRUE
+CLIPS> (run)
+
+-----ALEX: Aléctrico Expert. Análisis Inteligente de Riesgos Eléctricos-------------
+A seguir será presentonces un cuestionario que será usado para inferir cual
+es el tipo de falla presente en una instalación eléctrica.
+Para responder debe digitar una de las alternativas encerradas con estos paréntesis <>
+Se no supiese una respuesta, responda digitando un punto <.>. 
+De esa forma se abrirán posibilidades para que otros  
+se puedan probar otros diagnósticos en paralelo
+
+Digite <porque> para saber la justificación de cada pregunta 
+Para ayuda al responder una pregunta digite <?>
+Presione <f> en cualquier momento para forzar un diagnóstico
+con los hechos disponibles en ese momento
+Presione <p> para abandonar el cuestionario
+
+Presione c para comenzar
+**   c
+
+
+
+
+
+
+
+
+Elija la falla que quiere evaluar <neutro-cortado> o <falla-de-aislamiento> ?
+**   falla-de-aislamiento
+
+La clase de protección contra contactos indirectos es <A> <B> ?
+**   B
+
+El regimen de neutro es <TN> o <TT> ?
+**   TT
+
+Verifique si se ha instalado la puesta a tierra de protección <existente> o <inexistente> ? 
+**   *
+Verifique si se ha instalado la puesta a tierra de protección <existente> o <inexistente> ? 
+**   .
+
+El empalme es <BT> o <AT>> ?
+**   BT
+
+El empalme es <monofasico> o <trifasico> ?
+**   monofasico
+
+Verifique si hay diferencial-doble-polo instalado <existente> o no <inexistente> ? 
+**   existente
+
+Digite la sensibilidad en miliAmperes del diferencial-doble-polo
+unidad de medida: mA    30
+
+Digite la demora de disparo del diferencial en milisegundos
+unidad de medida: ms    30
+
+Cuál es el valor de la tensión de seguridad para su caso
+unidad de medida: V    45
+
+Verifique que el neutro de la instalación eléctrica esté puesto a tierra <existente> <inexistente>
+**   .
+
+ 
+ 
+ ################# 
+ # Eliminado el diagnostico  riesgo-de-contacto-indirecto-a-tension-normal, de acuerdo a los hechos observados y a las reglas de conocimiento basadas en la normativa eléctrica NCh 03/2004. porque se lo cree poco. La creencia es de 10. 
+################# 
+
+
+
+ Evaluación de Riesgos Eléctricos por Contactos Indirectos   
+
+ Situación de Riesgo          Creencia  Justificación del Experto  
+----------------------------------------------------------
+  riesgo-de-contacto-indirecto 50%  porque el diferencial no funcionará porque no hay un retorno hacia la tierra.   
+
+
+
+Inferencias que soportan lo(s) diagnóstico(s) 
+ Inferencia                Valor                  Creencia Justificación
+--------------------------------------------------------
+  tiempo-de-falla          limitado                 100% porque la demora es menor que lo necesario para que produzca ataques al corazón en las personas 
+  definicion               neutro-a-tierra:masas-a-tierra 100% porque se conecta el neutro del transformador de distribución a tierra  y se conectan las masas de los equipos también a tierra, a través de un cable de protección que se pone a tierra o usando un cable que se usa como neutro y tierra. El régimen TT limita la corriente de falla debido a que el circuito de falla se establece a través de la tierra. Esto puede hacer que aparezcan tensiones peligrosas si no se usan diferenciales, los que abrirían el circuito de falla a tiempo para evitar la acumulación de enerǵía y la ocurrencia de tensiones peligrosas. Esto hace que no se puedan usar las protecciones contra sobreintensidades para abrir el circuito de falla debido a que estos necesitan una gran corriente de falla para dispararse. 
+  tension                  normal                   10% porque si no hay tierra entonces la energía se acumulará en las superficies 
+  puesta-a-tierra          inexistente              50% porque no se ha verificado la puesta a tierra de proteccion 
+  puesta-a-tierra          existente                50% porque no se ha verificado la puesta a tierra de proteccion 
+  corriente-de-falla       limitada                 100% porque 30 mA por no más de 30ms es suficiente para evitar ataques al corazón ADEMAS DE porque 30 mA durante no más de 3

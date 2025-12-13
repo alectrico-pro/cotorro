@@ -1,0 +1,24 @@
+#....
+#fono=56981885381
+fono=56981370042
+info="*Petardarzos A Plena Luz Ahora* Este mes, luego de una pausa por el susto de la redada nacional, estos de por La Población Las Casas han reaccionado con mayor cantidad de petardazos mensuales. Son mensajes de terror a la población. Los petardazos de ahora se produjeron en dirección a Claudio Arrau y a la plaza Simón Bolívar. Tal vez insistan todo la tarde y la noche, es sábado. Y los carabineros? Todos bien los 33?. Note que ahora que la *Boca de Droga* ya se conoce por estar cerrada por todos lados y por tanto ser tan segura como el protocolo SSL, los petardarzos no serían tan relevantes para avisar que llegó la droga, pues el suministro podría estar garantizado por la Boca. Es una Boca de Droga Certificada SSL!"
+
+video_url="https://narcos.alectrico.cl/vc/20231220_223905_tp00023.mp4"
+phone_id="847187688483782"
+token=EAAki27THcCIBP6B7uHUOslihc7IqMpYSHuiT56Au0IAP7ifbTumLXNS4PXt260W3sOUquBE0dO8Ql77KqwiI4P70Bbc0XMzD3iQYjWoBcgPKQZBpGQSXsGZBW5dvykyfAUnI2t7D6LGQUICEIeVpf4GuPKssgyEtSgqZAJYzQBAyRh6zkBSXPxypCwIqwZDZD
+curl -X  POST \
+ "https://graph.facebook.com/v22.0/$phone_id/messages" \
+ -H "Authorization: Bearer $token" \
+ -H 'Content-Type: application/json' \
+ --data @/dev/stdin<<EOF
+{ "messaging_product": "whatsapp",
+                   "to": "$fono",
+                   "type": "template",
+                   "template": { "name": "send_video",
+                                 "language": {"code": "en"},
+                    "components": [
+                   { "type": "header",  "parameters": [
+                    { "type" : "video",
+                     "video": { "link": "$video_url" } } ] } ] }  }
+EOF
+

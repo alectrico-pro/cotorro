@@ -1,0 +1,1 @@
+openssl genrsa -des3 -out private.pem 2048

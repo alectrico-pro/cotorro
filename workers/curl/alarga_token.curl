@@ -1,0 +1,19 @@
+#Se debe solicitar un nuevo token en developer.facebook en applicación ae
+#Solo hay que actualizar la página y se tendrá un nuevo token
+#Seleccionar token de acceso de usuario
+#actualizar META_TOKEN_COTORRO en la app
+token_cotorro=EAAMOsdbL40gBPgCC6A9vh5OK5P5bQT2oVOE24UIXuIgFZAkXHo8L1vPT0ZB0sFoHXtVWvzfeRjgxHqpINNYzPTbFbJCutELM7UepAUOLTCrOQZBzwvAMxbB79ZCdimu8TqmmI4cjfdNiFB2WfjHZAfuqVDke2iD7pbx5bZBmZBEbiIy7nMS3g8bC6XZCasjfgZCJf0qPS57gRc9LzWZB852NC3s8IU8BUVcfntjc12Sc6MxnJL6Co2fLqcYECyWAZDZD
+#usar el menu
+#https://developers.facebook.com/tools/debug/accesstoken/?access_token=..v23.0
+cotorro_id=860581905818440
+cotorro_secret=11942570c5a528bfd9a624081ad0d9ee
+api_version=v23.0
+
+
+#Este nuevo token de acceso de larga duración caducará el 3 de octubre de 2025:
+#url = "https://graph.facebook.com/$api_version/oauth/access_token?grant_type=fb_exchange_token&client_id=$ae_id&client_secret=$ae_secret&fb_exchange_token=$token_cotorro"
+
+mensaje="Alx: The Best Oz"
+curl -v -H "Content-Type: application/json" GET  \
+"https://graph.facebook.com/$api_version/oauth/access_token?grant_type=fb_exchange_token&client_id=$cotorro_id&client_secret=$cotorro_secret&fb_exchange_token=$token_cotorro"
+

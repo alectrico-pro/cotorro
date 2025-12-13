@@ -1,0 +1,8 @@
+#get public ssh
+PHONE_NUMBER_ID=150477064807758
+token_cotorro=EAAMOsdbL40gBPmYZBMxy2CuIR4htZBuLki1l8w92a6gZBtb1Veug1uSDn8ThRgeZAbkmZA4QCJfA62UChZBIQrF5ZC5JUHhtts8VwZBWaCtBePqISdR3GyX9es6WOF9Fs9YnkZCU2D13ja22jSj0SY7drNCs5b24EXXAWrExlvvOU7OasHp3KczAQSuVdMa7EuIcSrcSxfwJVn28F
+
+curl -X GET \ 
+  "https://graph.facebook.com/v24.0/$PHONE_NUMBER_ID/whatsapp_business_encryption" \
+  -H "Authorization: Bearer $token_cotorro"
+

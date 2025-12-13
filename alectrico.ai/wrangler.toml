@@ -1,0 +1,70 @@
+#bot alectrico.ai
+name = "alectrico-ai"
+compatibility_date = "2025-08-01"
+compatibility_flags = ["python_workers"]
+main = "src/entry.py"
+workers_dev = true
+
+account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
+#account_id = "d72e4d0a9f2ebe2ec478cfce94501b2a"
+#
+#kv_namespaces = [ { binding = "NOMINA",     id = "e2688fc220714a60bd0aee142c341e28" },
+#                  { binding = "FINANCIERO", id = "21111b7a045f4f8190416bbf08801cc6" }]
+secrets_store_secrets = [
+  { binding = "META", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "AI_GALLEGO_USER_TOKEN" }]
+
+
+[observability.logs]
+enabled = true
+
+#[assets]
+#directory='./public/assets'
+#binding='ASSETS'
+
+
+
+[[routes]]
+pattern = "ai.alectrico.cl"
+custom_domain = true
+
+
+[env.production]
+name   = "alectrico-ai"
+#ccount_id = "d72e4d0a9f2ebe2ec478cfce94501b2a"
+#kv_namespaces = [ { binding = "NOMINA",     id = "e2688fc220714a60bd0aee142c341e28" },
+#                  { binding = "FINANCIERO", id = "21111b7a045f4f8190416bbf08801cc6" }]
+secrets_store_secrets = [
+  { binding = "META", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "AI_GALLEGO_USER_TOKEN" },
+  { binding = "MODELO", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "NX_MODELO_RAG" }
+]
+
+[[ai_bindings]]
+name = "AI"
+service = "ai"
+
+
+
+[env.development]
+name = "alectrico-ai"
+account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
+#kv_namespaces = [ { binding = "NOMINA",     id = "e2688fc220714a60bd0aee142c341e28" },
+#                  { binding = "FINANCIERO", id = "21111b7a045f4f8190416bbf08801cc6" }]
+secrets_store_secrets = [
+  { binding = "META", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "AI_GALLEO_USER_TOKEN" }]
+
+
+
+[vars]
+
+[env.production.vars]
+#Estos datos se encuentran en la configuración api de facebook
+WHATSAPP_BUSINESS_ACCOUNT_ID="220392254484102"
+PHONE_NUMBER_ID="847187688483782"
+API_URL      = "https://images.alectrico.cl/"
+LOGUITO_PATH = 'etherdog.png'
+
+#Esto es un RAG AI, buscar en cloudflare en la sección AI
+NX_RAG       = "solitary_night_02b5"
+
+[env.development.vars]
+

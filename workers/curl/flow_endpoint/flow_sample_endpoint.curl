@@ -1,0 +1,6 @@
+#---- https://developers.facebook.com/docs/whatsapp/flows/guides/implementingyourflowendpoint/?locale=es_ES#python-django-example
+curl -i -H "Content-Type: application/json" -X POST -d '{
+"encrypted_flow_data":"4Wor0bpfvrNqnkH+XQZLn3HnU2Zi7hG\\/UHjISS93Fzn9J7youssaLeXlNUH",
+"encrypted_aes_key":"<ufA0fXD1WzMS4f2aCyr2JI4KtV2X+puen78fLjjt7mI+NqITDCypLOlc2MLc0899ApX5FZI78Yp5ZObEvR\\/3SiOo04aOLAcZ5SGlqcQLL1npaHoTZCBkExjDr0+5F7w+a18hLCByc00nuDoVZvX7qKAYTwDJw==.>",
+"initial_vector":"<G\\/1rq1naEOMR4TJHFvIs\\/Q==.>"
+}' 'https://www.alectrico.cl/testing_flows'

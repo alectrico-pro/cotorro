@@ -1,0 +1,35 @@
+#
+#fono=56981370042
+#ono=56940338057
+#fono=56993951576
+fono=56949107501
+##ono=13462042204
+#ono=5693200849
+nombre="Jorge"
+descripcion="Prueba"
+comuna="Providencia"
+imagen_url="https://images.alectrico.cl/etherdog.png"
+phone_id=150477064807758
+token_cotorro="EAAMOsdbL40gBP26Epp9YcAwJqvZBxWdgy8ckyFXubQdToppPhGpZChhOSwp5pEmj83mkVup5rUQ4Q5IdSrEDOOnEBdWJgCdZAOrcqRovclZAh05FoLFmXuhMTiUSe3ZBXMZBUhiyHP0HkQO3ZAS6JGjo1b3DAfPWikpCEZBNX2zOigo7mlHZAwqu7sf9Q29947HvG2ghoBLm9aBveJpP0xFQUtxXH90UXPiROURHs"
+curl -X  POST \
+ "https://graph.facebook.com/v22.0/$phone_id/messages" \
+ -H "Authorization: Bearer $token_cotorro" \
+ -H 'Content-Type: application/json' \
+ --data @/dev/stdin<<EOF
+{ "messaging_product": "whatsapp",
+                   "to": "$fono",
+                   "type": "template",
+                   "template": { "name": "confirmacion_de_caso",
+                                 "language": {"code": "es"},
+                    "components": [
+                   { "type": "body",
+                     "parameters": [
+                         { "type": "text", "text": "$nombre" },
+                         { "type": "text", "text": "$descripcion" },
+                         { "type": "text", "text": "$comuna" },
+                         { "type": "text", "text": "kk" },
+                         { "type": "text", "text": "kk" }
+                     ]
+                    }]}}
+EOF
+

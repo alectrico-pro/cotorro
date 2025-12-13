@@ -1,0 +1,5 @@
+(clear)
+(load interfaces_alectrico_site.clp)
+(reset)
+(dribble-on "interfaces_alectrico_site.txt")
+(run)

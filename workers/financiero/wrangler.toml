@@ -1,0 +1,164 @@
+name = "financiero"
+compatibility_date = "2025-08-01"
+compatibility_flags = ["python_workers"]
+main = "src/entry.py"
+workers_dev = true
+
+account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
+kv_namespaces = [ { binding = "NOMINA",     id = "e2688fc220714a60bd0aee142c341e28" },
+                  { binding = "FINANCIERO", id = "21111b7a045f4f8190416bbf08801cc6" }]
+secrets_store_secrets = [
+  { binding = "META", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "USER_TOKEN" }
+]
+
+
+
+
+
+[observability.logs]
+enabled = true
+
+[assets]
+directory='./public/assets'
+binding='ASSETS'
+
+account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
+
+
+[[routes]]
+pattern = "recarga.alectrico.cl"
+custom_domain = true
+
+
+[env.production]
+name = "financiero"
+account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
+kv_namespaces = [ { binding = "NOMINA",     id = "e2688fc220714a60bd0aee142c341e28" },
+                  { binding = "FINANCIERO", id = "21111b7a045f4f8190416bbf08801cc6" }]
+secrets_store_secrets = [
+  { binding = "META", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "USER_TOKEN" }
+]
+
+
+
+
+[env.development]
+name = "financiero"
+account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
+kv_namespaces = [ { binding = "NOMINA",     id = "e2688fc220714a60bd0aee142c341e28" },
+                  { binding = "FINANCIERO", id = "21111b7a045f4f8190416bbf08801cc6" }]
+secrets_store_secrets = [
+  { binding = "META", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "USER_TOKEN" }
+]
+
+
+
+
+
+[vars]
+
+VENCIMIENTO_TOKEN_DIAS=180
+PRECIO_VISITA=68000
+PRECIO_TOKEN=3000
+PRECIO_PROCESO=1000
+
+
+TAKEME_IMAGE_PATH='etherdog.png'
+JEFE_IMAGE_PATH='alectricing.jpg'
+
+FONO_JEFE=56981370042
+FONO_COLABORADOR=5699351576
+
+ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
+API_URL = "https://recarga.alectrico.cl" 
+VERIFY_TOKEN = "1"
+GO_TBK_URL="https://recarga.alectrico.cl/transbank"
+LOGUITO_PATH='loguito.jpeg'
+#META_USER_TOKEN="EAAN6V6gyZCSMBPClhLAnayqa8vBkDLXrCQYqCkH5iA3ZCWy42eeH97ZAcwYqvcZB6e2KEfbqaXZBcyS4CP0hJz7RTVwAyc7BFaZA9sXelj0AjMi1nwARvsZAjr6NnHZAJHPnKkDhP5iSk61pIZCh6aoZBCZBlqPTCZBjua1QnEYcNlqFSZAeyHixKYPUffcjSmmmoZCaVH"
+WHATSAPP_BUSINESS_ACCOUNT_ID="107728605282500"
+PHONE_NUMBER_ID="150477064807758"
+
+
+[env.production.vars]
+
+SEGUNDOS_DE_EXPIRACION=6
+VENCIMIENTO_TOKEN_DIAS=180
+
+NOMBRE_COLABORADOR="Juancho"
+FONO_COLABORADOR=56981370042
+
+
+TAKEME_IMAGE_PATH='etherdog.png'
+JEFE_IMAGE_PATH='alex.jpg'
+
+FONO_JEFE=56981370042
+
+
+ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
+PUBLICO_CLIENTE_HTML="932-000-849"
+PUBLICO_COLABORADOR_HTML="932-000-849"
+PUBLICO_CLIENTE=56932000849
+PUBLICO_COLABORADOR=56932000849
+API_URL = "https://recarga.alectrico.cl"
+ASSETS_SERVER_URL="https://alectrica.github.io/pay/assets"
+TLD="alectrico"
+MISION="Misión: Ayudar a progeter la vida y la propiedad"
+VIDEO_URL="https://youtu.be/VRLOySZVRlM"
+#META_USER_TOKEN="EAAN6V6gyZCSMBPClhLAnayqa8vBkDLXrCQYqCkH5iA3ZCWy42eeH97ZAcwYqvcZB6e2KEfbqaXZBcyS4CP0hJz7RTVwAyc7BFaZA9sXelj0AjMi1nwARvsZAjr6NnHZAJHPnKkDhP5iSk61pIZCh6aoZBCZBlqPTCZBjua1QnEYcNlqFSZAeyHixKYPUffcjSmmmoZCaVH"
+WHATSAPP_BUSINESS_ACCOUNT_ID="107728605282500"
+PHONE_NUMBER_ID="150477064807758"
+
+PRECIO_VISITA=68000
+PRECIO_TOKEN=3000
+PRECIO_PROCESO=1000
+
+RETURN_URL="https://recarga.alectrico.cl/return_url"
+GO_TBK_URL="https://recarga.alectrico.cl/transbank"
+WEBPAY_API_KEY="597036225750"
+WEBPAY_SHARED_SECRET="2438ac00992d73fe1c3a0b501e8a90bb"
+TBK_ENDPOINT="https://webpay3g.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions"
+LOGUITO_PATH='loguito.jpeg'
+
+
+
+
+[env.development.vars]
+SEGUNDOS_DE_EXPIRACION=6
+VENCIMIENTO_TOKEN_DIAS=180
+
+NOMBRE_COLABORADOR="Juancho"
+
+
+TAKEME_IMAGE_PATH='etherdog.png'
+JEFE_IMAGE_PATH='alectricing.jpg'
+
+ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
+
+Tarjeta_de_prueba_aprobada="4051 8856 0044 6623"
+FONO_JEFE=56981370042
+FONO_COLABORADOR=5699351576
+LOGUITO_PATH='loguito.jpeg'
+PUBLICO_CLIENTE=56932000849
+PUBLICO_CLIENTE_HTML="932-000-849"
+PUBLICO_COLABORADOR_HTML="932-000-849"
+PUBLICO_COLABORADOR=56932000849
+API_URL = "https://recarga.alectrico.cl"
+ASSETS_SERVER_URL="https://alectrica.github.io/pay/assets"
+TLD="alectrico"
+MISION="Misión: Ayudar a progeter la vida y la propiedad"
+VIDEO_URL="https://youtu.be/VRLOySZVRlM"
+#META_USER_TOKEN="EAAN6V6gyZCSMBPClhLAnayqa8vBkDLXrCQYqCkH5iA3ZCWy42eeH97ZAcwYqvcZB6e2KEfbqaXZBcyS4CP0hJz7RTVwAyc7BFaZA9sXelj0AjMi1nwARvsZAjr6NnHZAJHPnKkDhP5iSk61pIZCh6aoZBCZBlqPTCZBjua1QnEYcNlqFSZAeyHixKYPUffcjSmmmoZCaVH"
+WHATSAPP_BUSINESS_ACCOUNT_ID="107728605282500"
+PHONE_NUMBER_ID="150477064807758"
+
+PRECIO_VISITA=68000
+PRECIO_TOKEN=3000
+PRECIO_PROCESO=1000
+
+
+RETURN_URL="https://recarga.alectrico.cl/return_url"
+GO_TBK_URL="https://recarga.alectrico.cl/transbank"
+WEBPAY_API_KEY="597055555532"
+WEBPAY_SHARED_SECRET="579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C"
+TBK_ENDPOINT="https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions"
+

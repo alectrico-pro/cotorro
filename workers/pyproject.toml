@@ -1,0 +1,12 @@
+#https://pypi.org/project/clipspy/ 
+   [project]
+    name = "Cotorro"
+    version = "0.1.0"
+    description = "Usando clips en un worker de alectrico"
+    requires-python = ">=3.12"
+    dependencies = [
+#       "clipspy==1.0.5"
+    ]
+
+    [dependency-groups]
+    dev = ["workers-py"]

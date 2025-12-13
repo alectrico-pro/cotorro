@@ -1,0 +1,111 @@
+
+Elija la falla que quiere evaluar <neutro-cortado> o <falla-de-aislamiento> ?
+**   neutro-cortado
+
+La clase de protección contra contactos indirectos es <A> <B> ?
+**   B
+
+El regimen de neutro es <TN> o <TT> ?
+**   TT
+
+Verifique si se ha instalado la puesta a tierra de protección <existente> o <inexistente> ? 
+**   inexistente
+
+Verifique que el cable de protección esté conectado a la plomería <conectado> o <no-conectado>
+**   conectado
+
+El empalme es <BT> o <AT>> ?
+**   BT
+
+El empalme es <monofasico> o <trifasico> ?
+**   trifasico
+
+Mida las tensiones de cada fase y verifique no estén más alejadas que un 3 a 4% son <semejantes> o <no-semejantes> ? 
+**   .
+
+Mida si las intensidades de las fases están <desequilibradas> <equilibradas> ?
+**   .
+
+Verifique si hay diferencial-doble-polo instalado <existente> o no <inexistente> ? 
+**   inexistente
+
+Cuál es el valor de la tensión de seguridad para su caso
+unidad de medida: V    50
+
+Verifique que el neutro de la instalación eléctrica esté puesto a tierra <existente> <inexistente>
+**   inexistente
+
+
+
+ Evaluación de Riesgos Eléctricos por Contactos Indirectos   
+
+ Situación de Riesgo          Creencia  Justificación del Experto  
+----------------------------------------------------------
+  No hay diagnóstico      100%  No hay suficientes evidencias                                                    
+
+
+
+Inferencias que soportan lo(s) diagnóstico(s) 
+ Inferencia                Valor                  Creencia Justificación
+--------------------------------------------------------
+  corrimiento-de-neutro    posible                  100% porque al cortarse el neutro, no habrá una forma de equilibrar las energías de las fases 
+  energia                  existente                100% porque al cortarse el neutro, no habrá una forma de equilibrar las energías de las fases 
+  definicion               neutro-a-tierra:masas-a-tierra 100% porque se conecta el neutro del transformador de distribución a tierra  y se conectan las masas de los equipos también a tierra, a través de un cable de protección que se pone a tierra o usando un cable que se usa como neutro y tierra. El régimen TT limita la corriente de falla debido a que el circuito de falla se establece a través de la tierra. Esto puede hacer que aparezcan tensiones peligrosas si no se usan diferenciales, los que abrirían el circuito de falla a tiempo para evitar la acumulación de enerǵía y la ocurrencia de tensiones peligrosas. Esto hace que no se puedan usar las protecciones contra sobreintensidades para abrir el circuito de falla debido a que estos necesitan una gran corriente de falla para dispararse. 
+  tension                  normal                   28% porque si no hay tierra entonces la energía se acumulará en las superficies ADEMAS DE porque las tensiones del transformador son semejantes 
+  tension                  peligrosa                10% porque las tensiones del transformador NO son semejantes 
+  tensiones-de-fases       no-semejantes            50% porque no se han medido las tensiones de cada fase 
+  tensiones-de-fases       semejantes               50% porque no se han medido las tensiones de cada fase 
+  fases                    equilibradas             50% porque no se han medido las corrientes en cada fase 
+  fases                    desequilibradas          50% porque no se han medido las corrientes en cada fase 
+
+
+Hechos que justifican el diagnóstico 
+ Hechos                  Valor                  Creencia Justificación
+--------------------------------------------------------
+  tierra-de-servicio       inexistente              100% porque fue respondido en cuestionario 
+  tension-de-seguridad     50 V                    100% porque fueron ingresadas como medicioness 
+  diferencial-doble-polo   inexistente              100% porque fue respondido en cuestionario 
+  fases-en-empalme         trifasico                100% porque fue respondido en cuestionario 
+  tension-en-empalme       BT                       100% porque fue respondido en cuestionario 
+  conexion-a-plomeria      conectado                100% porque fue respondido en cuestionario 
+  puesta-a-tierra          inexistente              100% porque fue respondido en cuestionario 
+  regimen-neutro           TT                       100% porque fue respondido en cuestionario 
+  clase                    B                        100% porque fue respondido en cuestionario 
+  falla                    neutro-cortado           100% porque fue respondido en cuestionario 
+
+
+Tareas Pendientes que Buscan Compensar los Riesgos de Contacto Indirecto 
+ Tarea                        Creencia Justificación
+--------------------------------------------------------
+Entregue un presupuesto para diferencial-doble-polo porque el regimen de neutro TT usa una puesta a tierra de protección de las masas de los equipos, el que debe ser usado asociado a dispositivos activados por corriente de falla 
+Entregue un presupuesto para puesta-a-tierra porque el regimen de neutro TT usa una puesta a tierra de protección de las masas de los equipos 
+Entregue un presupuesto para medir-las-tensiones-de-cada porque no se han medido las tensiones de cada fase 
+Entregue un presupuesto para medir-las-intensidades-de-cada-fase-en-carga porque no se han medido las corrientes en cada fase 
+Entregue un presupuesto para tierra-de-servicio porque la tierra de servicio es un requisito oligatorio de cualquier instalación eléctrica 
+
+
+Digite uma letra e presione ENTER para concluir esta sesión de trabajo y comenzar otra
+**   p
+
+
+
+-----ALEX:Aléctrico Expert. Diagnóstico Inteligente de Fallas Eléctricas-------------
+A seguir será presentonces un cuestionario que será usado para inferir cual
+es el tipo de falla presente en una instalación eléctrica.
+Para responder debe digitar una de las alternativas encerradas con estos paréntesis <>
+Se no supiese una respuesta, responda digitando un punto <.>. 
+De esa forma se abrirán posibilidades para que otros  
+se puedan probar otros diagnósticos en paralelo
+
+Digite <porque> para saber la justificación de cada pregunta 
+Para ayuda al responder una pregunta digite <?>
+Presione <f> en cualquier momento para forzar un diagnóstico
+con los hechos disponibles en ese momento
+Presione <p> para abandonar el cuestionario
+
+Presione c para comenzar
+**   p
+programa parado
+CLIPS> ls
+ls
+CLIPS> (exit)

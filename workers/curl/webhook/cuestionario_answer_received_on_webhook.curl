@@ -1,0 +1,16 @@
+token_cotorro=EAAN6V6gyZCSMBPClhLAnayqa8vBkDLXrCQYqCkH5iA3ZCWy42eeH97ZAcwYqvcZB6e2KEfbqaXZBcyS4CP0hJz7RTVwAyc7BFaZA9sXelj0AjMi1nwARvsZAjr6NnHZAJHPnKkDhP5iSk61pIZCh6aoZBCZBlqPTCZBjua1QnEYcNlqFSZAeyHixKYPUffcjSmmmoZCaVH
+
+phone_id=150477064807758
+
+#"https://cotorro.alectrico.workers.dev/w"\ solo lee la respuesta del cuestionario
+
+#esto se recibe en webhook cuanso alguien responde un cuestionario de visita
+#el cuestiona de visita se envía al usuario usando el template visita
+#Este curl envía esto a un endopoint que estoy creando que es un bot
+curl -X  POST \
+ "https://go.alectrico.cl/webhook"\
+ -H "Authorization: Bearer $token_cotorro" \
+ -H 'Content-Type: application/json' \
+ --data @/dev/stdin<<EOF
+{"object":"whatsapp_business_account", "entry":[{"id":"107728605282500", "changes":[{"value":{"messaging_product":"whatsapp", "metadata":{"display_phone_number":"56945644889", "phone_number_id":"150477064807758"}, "contacts":[{"profile":{"name":"Isabel R"}, "wa_id":"56981370042"}], "messages":[{"context":{"from":"56945644889", "id":"wamid.HBgLNTY5NDAzMzgwNTcVAgARGBJCRDYwOEMyMEYyNUYwMjQ5MUMA"}, "from":"56940338057", "id":"wamid.HBgLNTY5NDAzMzgwNTcVAgASGCA0Mzg4NTcxNzI4MjE3NkZBMEUyQTg5NkUxRTRFODg1RAA=", "timestamp":"1754445152", "type":"interactive", "interactive":{"type":"nfm_reply", "nfm_reply":{"response_json":"{\"sintomas\":[\"0\"],\"nombre\":\"Icha\",\"apellido\":\"Yuyo\",\"fono\":\"940338057\",\"email\":\"Ilimi\\u0040gmal.com\",\"direccion\":\"Juan davalos 56\",\"descripcion\":\"Corte de luz\",\"fecha\":\"2025-08-09\",\"comuna\":\"Las_Condes\",\"flow_token\":\"unused\"}", "body":"Sent", "name":"flow"}}}]}, "field":"messages"}]}], "controller":"api/v1/santum", "action":"webhook", "santum":{"object":"whatsapp_business_account", "entry":[{"id":"107728605282500", "changes":[{"value":{"messaging_product":"whatsapp", "metadata":{"display_phone_number":"56945644889", "phone_number_id":"150477064807758"}, "contacts":[{"profile":{"name":"Isabel R"}, "wa_id":"56940338057"}], "messages":[{"context":{"from":"56945644889", "id":"wamid.HBgLNTY5NDAzMzgwNTcVAgARGBJCRDYwOEMyMEYyNUYwMjQ5MUMA"}, "from":"56940338057", "id":"wamid.HBgLNTY5NDAzMzgwNTcVAgASGCA0Mzg4NTcxNzI4MjE3NkZBMEUyQTg5NkUxRTRFODg1RAA=", "timestamp":"1754445152", "type":"interactive", "interactive":{"type":"nfm_reply", "nfm_reply":{"response_json":"{\"sintomas\":[\"0\"],\"nombre\":\"Icha\",\"apellido\":\"Yuyo\",\"fono\":\"940338057\",\"email\":\"Ilimi\\u0040gmal.com\",\"direccion\":\"Juan davalos 56\",\"descripcion\":\"Corte de luz\",\"fecha\":\"2025-08-09\",\"comuna\":\"Las_Condes\",\"flow_token\":\"unused\"}", "body":"Sent", "name":"flow"}}}]}, "field":"messages"}]}]}}
+EOF

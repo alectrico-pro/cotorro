@@ -1,0 +1,30 @@
+
+#....
+#fono=56981885381
+fono=56981370042
+info="*Boca de Droga* Cosas que pasan en la *BD* 12:23 (el mismo evento de hace dos días), una persona hablando por teléfono al centro de la plaza, lleva un perro que deja suelto, es un guardia NARCO?. No pude correr hará un mes, en esa plaza, ese perro me olió el trasero. No quiero perros que no conozco que estén sueltos. Es un perro que solo con su peso me puede echar al piso. Dos o tres jóvenes haciendo ejercicios en barras fijas y cerca de un auto gris estacionado en la plaza en la vía Claudio Arrau, el *Taancho* en un auto al otro lado de la plaza. Tres motoqueros haciendo ruído entrando desde Claudio A. yendo por Prat. Auto entrando a la boca yendo a un pasaje y luego devolviéndose. Auto que no entra porque me vé sentado en la acera" 
+
+imagen_url="https://images.alectrico.cl/etherdog.png"
+phone_id="847187688483782"
+token=EAAki27THcCIBP6B7uHUOslihc7IqMpYSHuiT56Au0IAP7ifbTumLXNS4PXt260W3sOUquBE0dO8Ql77KqwiI4P70Bbc0XMzD3iQYjWoBcgPKQZBpGQSXsGZBW5dvykyfAUnI2t7D6LGQUICEIeVpf4GuPKssgyEtSgqZAJYzQBAyRh6zkBSXPxypCwIqwZDZD
+curl -X  POST \
+ "https://graph.facebook.com/v22.0/$phone_id/messages" \
+ -H "Authorization: Bearer $token" \
+ -H 'Content-Type: application/json' \
+ --data @/dev/stdin<<EOF
+{ "messaging_product": "whatsapp",
+                   "to": "$fono",
+                   "type": "template",
+                   "template": { "name": "send_message",
+                                 "language": {"code": "es"},
+                    "components": [
+                   { "type": "body",
+                     "parameters": [
+                         { "type": "text", "parameter_name": "mensaje", "text": "$info" },
+                     ]
+                   },
+                   { "type": "header",  "parameters": [
+                    { "type" : "image",
+                     "image": { "link": "$imagen_url" } } ] } ] }  }
+EOF
+

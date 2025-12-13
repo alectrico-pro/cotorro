@@ -1,0 +1,88 @@
+TRUE
+CLIPS> (run)
+
+-----ALEX: Aléctrico Expert. Análisis Inteligente de Riesgos Eléctricos-------------
+A seguir será presentonces un cuestionario que será usado para inferir cual
+es el tipo de falla presente en una instalación eléctrica.
+Para responder debe digitar una de las alternativas encerradas con estos paréntesis <>
+Se no supiese una respuesta, responda digitando un punto <.>. 
+De esa forma se abrirán posibilidades para que otros  
+se puedan probar otros diagnósticos en paralelo
+
+Digite <porque> para saber la justificación de cada pregunta 
+Para ayuda al responder una pregunta digite <?>
+Presione <f> en cualquier momento para forzar un diagnóstico
+con los hechos disponibles en ese momento
+Presione <p> para abandonar el cuestionario
+
+Presione c para comenzar
+**   c
+
+
+
+
+
+
+
+
+Elija la falla que quiere evaluar <neutro-cortado> o <falla-de-aislamiento> ?
+**   falla_de_aislamiento
+Elija la falla que quiere evaluar <neutro-cortado> o <falla-de-aislamiento> ?
+**   falla_de_aislamiento
+Elija la falla que quiere evaluar <neutro-cortado> o <falla-de-aislamiento> ?
+**   falla-de-aislamiento
+
+La clase de protección contra contactos indirectos es <A> <B> ?
+**   B
+
+El regimen de neutro es <TN> o <TT> ?
+**   TT
+
+Verifique si se ha instalado la puesta a tierra de protección <existente> o <inexistente> ? 
+**   existente
+
+Mida la resistencia del Lazo de Tierra usando una telurómetro de pinza, introduzca el valor en ohm
+unidad de medida: ohm    200
+
+El empalme es <BT> o <AT>> ?
+**   BT
+
+El empalme es <monofasico> o <trifasico> ?
+**   monofasico
+
+Verifique si hay diferencial-doble-polo instalado <existente> o no <inexistente> ? 
+**   existente
+
+Digite la sensibilidad en miliAmperes del diferencial-doble-polo
+unidad de medida: mA    30
+
+Digite la demora de disparo del diferencial en milisegundos
+unidad de medida: ms    30
+
+Cuál es el valor de la tensión de seguridad para su caso
+unidad de medida: V    50
+
+Verifique que el neutro de la instalación eléctrica esté puesto a tierra <existente> <inexistente>
+**   inexistente
+ Dada la sensibilidad del diferencial-doble-polo, se require una Resistencia de circuito de falla menor a --1666- ohm 
+ Rrequerida > Rmedida. Se obtiene que  1666 > 200 ¡Felicitaciones ! 
+
+
+
+ Evaluación de Riesgos Eléctricos por Contactos Indirectos   
+
+ Situación de Riesgo          Creencia  Justificación del Experto  
+----------------------------------------------------------
+  sin-riesgo-de-contacto-indirecto 100%  de acuerdo a los hechos observados y a las reglas de conocimiento basadas en la normativa eléctrica NCh 03/2004. 
+
+
+
+Inferencias que soportan lo(s) diagnóstico(s) 
+ Inferencia                Valor                  Creencia Justificación
+--------------------------------------------------------
+  tiempo-de-falla          limitado                 100% porque la demora es menor que lo necesario para que produzca ataques al corazón en las personas 
+  sensibilidad-diferencial adecuada                 100% porque la resistencia de loop medida es menor que lo que require el voltaje de seguridad dada la sensibilidad del diferencial-doble-polo 
+  resistencia-de-falla     suficiente               100% porque la resistencia de loop medida es menor que lo que require el voltaje de seguridad dada la sensibilidad del diferencial-doble-polo 
+  tension                  segura                   100% porque la resistencia de loop medida es menor que lo que require el voltaje de seguridad dada la sensibilidad del diferencial-doble-polo 
+  resistencia-de-puesta-a-tierra 200                      100% porque se asume igual que la resistencia de loop, con un margen de error a favor. 
+  definicion               neutro-a-tierra:masas-a-tierra 100% porque se conecta el neutro del transformador de distribución a tierra  y se conectan las masas de los equipos también a tierra, a través de un cable de protección que se pone a tierra o usando un cable que se usa como neutro y tierra. El régimen TT limita la corriente de falla debido a que el circuito de falla se establece a través de la tierra. Esto pue

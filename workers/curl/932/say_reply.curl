@@ -1,0 +1,21 @@
+#
+fono="56981370042"
+#fono=56975193944
+#phone_id=122131484313420
+phone_id="120509644476862"
+token_ae="EAAN6V6gyZCSMBPzTxsJU6lke2OJiyyo60aBE3d9d7neI3smvR8OKMp7vFjYvTZBjbq5qYwk1eBWMssHoyd3yr2thXG8CDGOi1w5kjusRv9j4y46SmTMI5ZB6o1krXuduowJhFiBhR2lTZAzM0Ojvq4N6LoZAhYgYSRu2YPzqZAApdZCC6hWDCwZA9B8nuomLOYSTT6mYPCF3m0cPTCZBtFDPaTLGR3FeJbhQtgedNUU5E0RWZCssJbJmuT09mqdwGJQ86F01gFJAlGFnbwFTrt9a3RdV6wepxsml1NNQZDZD"
+reply="Hola"
+
+curl -X  POST \
+ "https://graph.facebook.com/v23.0/$phone_id/messages" \
+ -H "Authorization: Bearer $token_ae" \
+ -H 'Content-Type: application/json' \
+ --data @/dev/stdin<<EOF
+{ "messaging_product": "whatsapp",
+          "recipient": "individual",
+                 "to": "$fono",
+               "type": "text",
+               "text": { "preview_url": "True", "body": "$reply" }
+}
+EOF
+

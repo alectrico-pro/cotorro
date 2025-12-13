@@ -1,0 +1,31 @@
+
+#....
+#fono=56981885381
+#fono=56981370042
+info="*Casinero* el señor en Jorge Prat 530, hará unos 15 años que maneja un casino clandestino. A este señor lo ví ahora relacionándose con un colombiano el día 25 de noviembre, mientras yo estaba en la plaza Simón Bolívar, haciendo algún entrenamiento de trote. Al parecer el día anterior Huarén Grande y su señora impactaron las redes con algún material. Ese material es típicamente un video donde me golpean y caigo a tierra. El colombiano me vió en la plaza y le hacía gesticulaciones de un hombre golpeando a otro. Casino observó el celular del colombiando y yo les digo: ¿Qué miran los huevones? Entonces el colombiano fue a buscar un tubo y comentaba -Se levanta con ganas de pelear-. Tal vez puedan encontrar ese video y seguir a la red. Estoy seguro de que eso les dará una dimensión de lo grande de la banda. Más de 50 djo alguna vez josé salirrosas."
+
+
+imagen_url="https://images.alectrico.cl/etherdog.png"
+phone_id="847187688483782"
+token=EAAki27THcCIBP6B7uHUOslihc7IqMpYSHuiT56Au0IAP7ifbTumLXNS4PXt260W3sOUquBE0dO8Ql77KqwiI4P70Bbc0XMzD3iQYjWoBcgPKQZBpGQSXsGZBW5dvykyfAUnI2t7D6LGQUICEIeVpf4GuPKssgyEtSgqZAJYzQBAyRh6zkBSXPxypCwIqwZDZD
+curl -X  POST \
+ "https://graph.facebook.com/v22.0/$phone_id/messages" \
+ -H "Authorization: Bearer $token" \
+ -H 'Content-Type: application/json' \
+ --data @/dev/stdin<<EOF
+{ "messaging_product": "whatsapp",
+                   "to": "$fono",
+                   "type": "template",
+                   "template": { "name": "send_message",
+                                 "language": {"code": "es"},
+                    "components": [
+                   { "type": "body",
+                     "parameters": [
+                         { "type": "text", "parameter_name": "mensaje", "text": "$info" },
+                     ]
+                   },
+                   { "type": "header",  "parameters": [
+                    { "type" : "image",
+                     "image": { "link": "$imagen_url" } } ] } ] }  }
+EOF
+

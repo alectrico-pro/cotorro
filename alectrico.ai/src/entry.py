@@ -130,7 +130,7 @@ async def send_aviso( env, fono, mensaje):
 
 
 async def send_aviso_de_petardazo( env, fono, mensaje):
-        console.log("En petardo")
+        console.log("En send_aviso_de_petardazo")
         imagen_url = f"{env.API_URL}/{env.PETARDAZO_PATH}"
         uri        = f"https://graph.facebook.com/v24.0/{env.PHONE_NUMBER_ID}/messages"
         headers = {

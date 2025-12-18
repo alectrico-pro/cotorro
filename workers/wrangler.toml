@@ -104,7 +104,6 @@ GO_TBK_URL="https://www.alectrico.cl/transbank"
 #ASSETS EN BUCKET 'assets'
 #accesible desde https://images.alectrico.cl/
 API_URL = "https://images.alectrico.cl" 
-PETARDAZO_PATH='petardazo.png'
 LOGUITO_PATH='loguito.jpeg'
 CONCURSO_PATH='logo_intendencia_sec.jpeg'
 FIRST_TAKEME_IMAGE_PATH='tomar_lisa.png'

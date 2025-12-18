@@ -129,7 +129,7 @@ async def send_aviso( env, fono, mensaje):
         return Response( 'ok', status="200")
 
 
-async def petardo( env, fono, mensaje):
+async def send_aviso_de_petardazo( env, fono, mensaje):
         console.log("En petardo")
         imagen_url = f"{env.API_URL}/{env.PETARDAZO_PATH}"
         uri        = f"https://graph.facebook.com/v24.0/{env.PHONE_NUMBER_ID}/messages"
@@ -264,7 +264,7 @@ async def on_fetch(request, env):
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
                respuesta = await infonas( env, wa_id, descripcion)
                #Solo lo ocupo desde curl
-               #await send_aviso( env, wa_id, respuesta )
+               await send_aviso_de_petardazo( env, wa_id, respuesta )
                return Response( "Procesado", status="200")
             else:
               console.log(f"Es un mensaje y nada más: {value.messages[0]}")

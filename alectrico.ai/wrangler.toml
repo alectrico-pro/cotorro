@@ -62,7 +62,7 @@ WHATSAPP_BUSINESS_ACCOUNT_ID="220392254484102"
 PHONE_NUMBER_ID="847187688483782"
 API_URL      = "https://images.alectrico.cl/"
 LOGUITO_PATH = 'etherdog.png'
-
+PETARDAZO_PATH= 'petardazo.png'
 #Esto es un RAG AI, buscar en cloudflare en la sección AI
 NX_RAG       = "solitary_night_02b5"
 

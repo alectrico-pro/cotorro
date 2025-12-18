@@ -262,7 +262,7 @@ async def on_fetch(request, env):
                descripcion = value.messages[0].text.body
                id          = value.messages[0].id
                wa_id       = request_json.entry[0].changes[0].value.contacts[0].wa_id
-               await send_aviso_de_petardazo( env, wa_id, respuesta )
+               await send_aviso_de_petardazo( env, wa_id, descripcion )
                respuesta = await infonas( env, wa_id, descripcion)
                #Solo lo ocupo desde curl
                return Response( "Procesado", status="200")

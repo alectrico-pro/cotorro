@@ -1021,7 +1021,11 @@ async def on_fetch(request, env):
 
     #---------- FORMULARIO DE JORGITO's MEDICARE ---------
     elif url.path == '/create_from_jorgitos_landing_page' and method== 'POST':
-        console.log(f"Params en /create_from_landing_page {params}")
+        console.log(f"Params en /create_from_jorgitos_landing_page {params}")
+
+        request_json = await request.json()
+
+        console.log(f"request json {request_json}")
 
         body = await request.text()
         buy_order    = str( random.randint(1, 10000))
@@ -1030,6 +1034,10 @@ async def on_fetch(request, env):
         amount       = env.PRECIO_VISITA
         params       = parse_qs( body )
 
+        #fname
+        #phone
+        #email
+        #subject
         name         = params['data[0][]'][1]
         fono         = params['data[1][]'][1]
         email        = params['data[2][]'][1]
@@ -1043,7 +1051,7 @@ async def on_fetch(request, env):
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
 
-
+    #----------  FIN DE ATENCIÓN A JORGITO's MEDICARE -------------------------------
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------
     elif url.path == '/create_from_landing_page' and method== 'POST':
         console.log(f"Params en /create_from_landing_page {params}")

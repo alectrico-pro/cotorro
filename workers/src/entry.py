@@ -1023,9 +1023,9 @@ async def on_fetch(request, env):
     elif url.path == '/create_from_jorgitos_landing_page' and method== 'POST':
         console.log(f"Params en /create_from_jorgitos_landing_page {params}")
 
-        request_json = await request.json()
+        request_text = await request.text()
 
-        console.log(f"request json {request_json}")
+        console.log(f"request text {request_text}")
 
         body = await request.text()
         buy_order    = str( random.randint(1, 10000))

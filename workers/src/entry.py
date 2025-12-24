@@ -1030,18 +1030,12 @@ async def on_fetch(request, env):
         amount       = env.PRECIO_VISITA
         params       = parse_qs( body )
 
-        #fname
-        #phone
-        #email
-        #subject
-        #name         = params['data[0][]'][1]
-        #fono         = params['data[1][]'][1]
-        #email        = params['data[2][]'][1]
-        #descripcion  = params['data[3][]'][1]
-        #comuna       = params['data[4][]'][1]
-        #direccion    = params['data[5][]'][1]
-        #landing_page = params['data[6][]'][1]
-        console.log(f"params {params}")
+        name         = params['fname']
+        fono         = params['phone']
+        email        = params['email']
+        descripcion  = params['subject']
+        comuna       = 'Texas'
+        direccion    = '5945 Bellaire Blvd, Ste F, Houston, TX 77081'
 
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
 

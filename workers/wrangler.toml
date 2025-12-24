@@ -6,21 +6,50 @@ main = "src/entry.py"
 workers_dev = true
 account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
 
-#esto funciona
-[ai]
-binding = "AI"
 
-[observability.logs]
-enabled = true
+PRECIO_VISITA=68000
+PRECIO_TOKEN=5000
+PRECIO_PROCESO=1000
 
-#[assets]
-#directory='./public/assets'
-#binding='ASSETS'
+FONO_JEFE=56981370042
+FONO_COLABORADOR=56981370042
+
+ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
+VERIFY_TOKEN = "1"
+GO_TBK_URL="https://www.alectrico.cl/transbank"
+
+#ASSETS EN BUCKET 'assets'
+#accesible desde https://images.alectrico.cl/
+API_URL = "https://images.alectrico.cl" 
+LOGUITO_PATH='loguito.jpeg'
+CONCURSO_PATH='logo_intendencia_sec.jpeg'
+FIRST_TAKEME_IMAGE_PATH='tomar_lisa.png'
+TAKEME_IMAGE_PATH='etherdog.png'
+JEFE_IMAGE_PATH='alectricing.jpg'
 
 
-#[[ai_bindings]]
-#name = "AI"
-#service = "ai"
+WHATSAPP_BUSINESS_ACCOUNT_ID="107728605282500"
+PHONE_NUMBER_ID="150477064807758"
+SEGUNDOS_DE_EXPIRACION=6
+NOMBRE_COLABORADOR="Juancho"
+
+PUBLICO_CLIENTE_HTML="932-000-849"
+PUBLICO_COLABORADOR_HTML="932-000-849"
+PUBLICO_CLIENTE="https://wa.me/+56932000849"
+PUBLICO_COLABORADOR="https://wa.me/+56932000849"
+ASSETS_SERVER_URL="https://alectrica.github.io/pay/assets"
+TLD="alectrico"
+MISION="Misión: Ayudar a progeter la vida y la propiedad"
+VIDEO_URL="https://youtu.be/VRLOySZVRlM"
+CLIENT_PHONE_NUMBER_ID="120509644476862"
+
+RETURN_URL="https://www.alectrico.cl/return_url"
+WEBPAY_API_KEY="597036225750"
+WEBPAY_SHARED_SECRET="2438ac00992d73fe1c3a0b501e8a90bb"
+TBK_ENDPOINT="https://webpay3g.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions"
+
+
+
 
 [[routes]]
 pattern = "api.alectrico.cl"
@@ -68,48 +97,16 @@ bucket_name='assets'
 #ame = "AI"
 #ervice = "ai"
 
+#esto funciona
+[ai]
+binding = "AI"
 
-[vars]
+[observability.logs]
+enabled = true
 
-PRECIO_VISITA=68000
-PRECIO_TOKEN=5000
-PRECIO_PROCESO=1000
+#[assets]
+#directory='./public/assets'
+#binding='ASSETS'
 
-FONO_JEFE=56981370042
-FONO_COLABORADOR=56981370042
-
-ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
-VERIFY_TOKEN = "1"
-GO_TBK_URL="https://www.alectrico.cl/transbank"
-
-#ASSETS EN BUCKET 'assets'
-#accesible desde https://images.alectrico.cl/
-API_URL = "https://images.alectrico.cl" 
-LOGUITO_PATH='loguito.jpeg'
-CONCURSO_PATH='logo_intendencia_sec.jpeg'
-FIRST_TAKEME_IMAGE_PATH='tomar_lisa.png'
-TAKEME_IMAGE_PATH='etherdog.png'
-JEFE_IMAGE_PATH='alectricing.jpg'
-
-
-WHATSAPP_BUSINESS_ACCOUNT_ID="107728605282500"
-PHONE_NUMBER_ID="150477064807758"
-SEGUNDOS_DE_EXPIRACION=6
-NOMBRE_COLABORADOR="Juancho"
-
-PUBLICO_CLIENTE_HTML="932-000-849"
-PUBLICO_COLABORADOR_HTML="932-000-849"
-PUBLICO_CLIENTE="https://wa.me/+56932000849"
-PUBLICO_COLABORADOR="https://wa.me/+56932000849"
-ASSETS_SERVER_URL="https://alectrica.github.io/pay/assets"
-TLD="alectrico"
-MISION="Misión: Ayudar a progeter la vida y la propiedad"
-VIDEO_URL="https://youtu.be/VRLOySZVRlM"
-CLIENT_PHONE_NUMBER_ID="120509644476862"
-
-RETURN_URL="https://www.alectrico.cl/return_url"
-WEBPAY_API_KEY="597036225750"
-WEBPAY_SHARED_SECRET="2438ac00992d73fe1c3a0b501e8a90bb"
-TBK_ENDPOINT="https://webpay3g.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions"
 
 

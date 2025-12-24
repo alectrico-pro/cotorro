@@ -107,8 +107,6 @@ MISION="Misión: Ayudar a progeter la vida y la propiedad"
 VIDEO_URL="https://youtu.be/VRLOySZVRlM"
 CLIENT_PHONE_NUMBER_ID="120509644476862"
 
-PRECIO_TOKEN=3000
-PRECIO_PROCESO=1000
 RETURN_URL="https://www.alectrico.cl/return_url"
 GO_TBK_URL="https://www.alectrico.cl/transbank"
 WEBPAY_API_KEY="597036225750"

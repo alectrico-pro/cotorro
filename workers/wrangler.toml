@@ -6,7 +6,7 @@ main = "src/entry.py"
 workers_dev = true
 account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
 
-
+[vars]
 PRECIO_VISITA=68000
 PRECIO_TOKEN=5000
 PRECIO_PROCESO=1000

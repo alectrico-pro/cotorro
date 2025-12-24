@@ -6,6 +6,31 @@ main = "src/entry.py"
 workers_dev = true
 account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
 
+#[env.production]
+kv_namespaces = [ { binding = "BUY_ORDER",  id = "7a20ea90007a4f99a6a02e864f358144" }, 
+                  { binding = "FINANCIERO", id = "21111b7a045f4f8190416bbf08801cc6" },
+                  { binding = "NOMINA",     id = 'e2688fc220714a60bd0aee142c341e28'},
+                  { binding = "DICT",       id = '1fa2129e5a9c4151963563df0026a5f5'},
+                  { binding = "STATUS",     id = '803319e9f7a54a7e9d55fcd1ebfa1322'},
+                  { binding = "DIALOGO",    id = '7ff51d1ff6c14315b56fb315d4fc533e'}]
+
+
+secrets_store_secrets = [
+  { binding = "META", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "USER_TOKEN" },
+  { binding = "AI_GALLEGO_USER_TOKEN", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "AI_GALLEGO_USER_TOKEN" }, 
+  { binding = "AE_REPAIR_USER_TOKEN", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "AE_REPAIR_USER_TOKEN" },
+  { binding = "COTORRO_EXO_USER_TOKEN", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "COTORRO_EXO_USER_TOKEN" },
+  { binding = "AI_NUMBER_ID", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "AI_NUMBER_ID" },
+  { binding = "TOKEN_VENCIMIENTO", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "TOKEN_VENCIMIENTO" },
+  { binding = "I", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "MODELO" },
+  { binding = "INDUCCION_ALEXO", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "INDUCCION_ALEXO" }
+
+]
+
+
+
+
+
 [vars]
 PRECIO_VISITA=68000
 PRECIO_TOKEN=5000
@@ -59,39 +84,13 @@ custom_domain = true
 pattern = "repair.alectrico.cl"
 custom_domain = true
 
-
 [[routes]]
 pattern = "www.alectrico.cl"
 custom_domain = true
 
-
-
-#[env.production]
-kv_namespaces = [ { binding = "BUY_ORDER",  id = "7a20ea90007a4f99a6a02e864f358144" }, 
-                  { binding = "FINANCIERO", id = "21111b7a045f4f8190416bbf08801cc6" },
-                  { binding = "NOMINA",     id = 'e2688fc220714a60bd0aee142c341e28'},
-                  { binding = "DICT",       id = '1fa2129e5a9c4151963563df0026a5f5'},
-                  { binding = "STATUS",     id = '803319e9f7a54a7e9d55fcd1ebfa1322'},
-                  { binding = "DIALOGO",    id = '7ff51d1ff6c14315b56fb315d4fc533e'}]
-
-
-secrets_store_secrets = [
-  { binding = "META", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "USER_TOKEN" },
-  { binding = "AI_GALLEGO_USER_TOKEN", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "AI_GALLEGO_USER_TOKEN" }, 
-  { binding = "AE_REPAIR_USER_TOKEN", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "AE_REPAIR_USER_TOKEN" },
-  { binding = "COTORRO_EXO_USER_TOKEN", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "COTORRO_EXO_USER_TOKEN" },
-  { binding = "AI_NUMBER_ID", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "AI_NUMBER_ID" },
-  { binding = "TOKEN_VENCIMIENTO", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "TOKEN_VENCIMIENTO" },
-  { binding = "I", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "MODELO" },
-  { binding = "INDUCCION_ALEXO", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "INDUCCION_ALEXO" }
-
-]
-
-
 [[r2_buckets]]
 binding='MEDIA'
 bucket_name='assets'
-
 
 #[ai_bindings]]
 #ame = "AI"

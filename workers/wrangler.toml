@@ -37,8 +37,7 @@ custom_domain = true
 
 
 
-[env.production]
-name = "cotorro"
+#[env.production]
 kv_namespaces = [ { binding = "BUY_ORDER",  id = "7a20ea90007a4f99a6a02e864f358144" }, 
                   { binding = "FINANCIERO", id = "21111b7a045f4f8190416bbf08801cc6" },
                   { binding = "NOMINA",     id = 'e2688fc220714a60bd0aee142c341e28'},
@@ -83,10 +82,6 @@ ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa062
 VERIFY_TOKEN = "1"
 GO_TBK_URL="https://www.alectrico.cl/transbank"
 
-
-#-.................................. PRODUCTION -----------------------------------------
-[env.production.vars]
-
 #ASSETS EN BUCKET 'assets'
 #accesible desde https://images.alectrico.cl/
 API_URL = "https://images.alectrico.cl" 
@@ -123,47 +118,5 @@ GO_TBK_URL="https://www.alectrico.cl/transbank"
 WEBPAY_API_KEY="597036225750"
 WEBPAY_SHARED_SECRET="2438ac00992d73fe1c3a0b501e8a90bb"
 TBK_ENDPOINT="https://webpay3g.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions"
-#---------------------------------END PRODUCTION ---------------------------------------
 
-[env.development.vars]
-SEGUNDOS_DE_EXPIRACION=6
-NOMBRE_COLABORADOR="Juancho"
-
-FIRST_TAKEME_IMAGE_PATH='tomar_lisa.png'
-TAKEME_IMAGE_PATH='etherdog.png'
-
-JEFE_IMAGE_PATH='alectricing.jpg'
-
-ALEC_SEC_URL="https://wlhttp.sec.cl/rnii/public/licencia/qr?o=4b440313d7f8dfa0629155da8af59613"
-
-Tarjeta_de_prueba_aprobada="4051 8856 0044 6623"
-FONO_JEFE=56981370042
-FONO_COLABORADOR=56981370042
-
-LOGUITO_PATH='loguito.jpeg'
-CONCURSO_PATH='logo_intendencia_sec.jpeg'
-
-PUBLICO_CLIENTE=56932000849
-PUBLICO_CLIENTE_HTML="932-000-849"
-PUBLICO_COLABORADOR_HTML="932-000-849"
-PUBLICO_COLABORADOR=56932000849
-API_URL = "https://www.alectrico.cl"
-ASSETS_SERVER_URL="https://alectrica.github.io/pay/assets"
-TLD="alectrico"
-MISION="Misión: Ayudar a progeter la vida y la propiedad"
-VIDEO_URL="https://youtu.be/VRLOySZVRlM"
-META_USER_TOKEN="AAMOsdbL40gBPmYZBMxy2CuIR4htZBuLki1l8w92a6gZBtb1Veug1uSDn8ThRgeZAbkmZA4QCJfA62UChZBIQrF5ZC5JUHhtts8VwZBWaCtBePqISdR3GyX9es6WOF9Fs9YnkZCU2D13ja22jSj0SY7drNCs5b24EXXAWrExlvvOU7OasHp3KczAQSuVdMa7EuIcSrcSxfwJVn28F"
-WHATSAPP_BUSINESS_ACCOUNT_ID="107728605282500"
-PHONE_NUMBER_ID="150477064807758"
-
-PRECIO_VISITA=68000
-PRECIO_TOKEN=5000
-PRECIO_PROCESO=1000
-
-
-RETURN_URL="https://www.alectrico.cl/return_url"
-GO_TBK_URL="https://www.alectrico.cl/transbank"
-WEBPAY_API_KEY="597055555532"
-WEBPAY_SHARED_SECRET="579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C"
-TBK_ENDPOINT="https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions"
 

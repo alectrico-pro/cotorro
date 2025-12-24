@@ -6,8 +6,9 @@ main = "src/entry.py"
 workers_dev = true
 account_id = "cc28cf159fc984d8f45fd0f4864a8a28"
 
-
-
+#esto funciona
+[ai]
+binding = "AI"
 
 [observability.logs]
 enabled = true
@@ -20,10 +21,6 @@ enabled = true
 #[[ai_bindings]]
 #name = "AI"
 #service = "ai"
-
-
-#[ai]
-#binding = "AI"
 
 [[routes]]
 pattern = "api.alectrico.cl"
@@ -71,17 +68,6 @@ bucket_name='assets'
 #[ai_bindings]]
 #ame = "AI"
 #ervice = "ai"
-
-
-
-[env.development]
-name = "cotorro"
-kv_namespaces = [ { binding = "BUY_ORDER",  id = "7a20ea90007a4f99a6a02e864f358144" },
-                  { binding = "FINANCIERO", id = "21111b7a045f4f8190416bbf08801cc6" },
-                  { binding = "NOMINA", id = 'e2688fc220714a60bd0aee142c341e28'}]
-secrets_store_secrets = [
-  { binding = "META", store_id= '8bd2531eeb4e4cd48560c6e0f45b8db4', secret_name = "USER_TOKEN" }
-]
 
 
 [vars]

@@ -1020,8 +1020,8 @@ async def on_fetch(request, env):
        return success_mostrar_fono(env,  f"Concurso difundido.", 9)
 
     #---------- FORMULARIO DE JORGITO's MEDICARE ---------
-    elif url.path == '/create_from_jorgitos_landing_page':
-        console.log(f"En /create_from_jorgitos_landing_page ")
+    elif url.path == '/create_from_jorgitos_landing_page.json':
+        console.log(f"En /create_from_jorgitos_landing_page.json ")
 
         content_type, params = await gather_response(request)
         buy_order    = str( random.randint(1, 10000))

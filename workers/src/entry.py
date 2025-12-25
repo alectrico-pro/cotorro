@@ -1030,6 +1030,8 @@ async def on_fetch(request, env):
         amount       = env.PRECIO_VISITA
         params       = parse_qs( body )
 
+        console.log(f"params {params}")
+
         name         = params['fname']
         fono         = params['phone']
         email        = params['email']

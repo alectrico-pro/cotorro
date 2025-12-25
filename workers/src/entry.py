@@ -1023,19 +1023,14 @@ async def on_fetch(request, env):
     elif url.path == '/create_from_jorgitos_landing_page':
         console.log(f"En /create_from_jorgitos_landing_page ")
 
-        content_type, result = await gather_response(request)
-        console.log(f"result {result}")
-        result_dict = json.loads( result )
-
+        content_type, params = await gather_response(request)
         buy_order    = str( random.randint(1, 10000))
 
         session_id   = buy_order
         amount       = env.PRECIO_VISITA
         params       = parse_qs( body )
 
-        params = result_dict
         console.log(f"params {params}")
-
 
         name         = params['fname']
         fono         = params['phone']

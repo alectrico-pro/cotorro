@@ -1021,7 +1021,9 @@ async def on_fetch(request, env):
 
     #---------- FORMULARIO DE JORGITO's MEDICARE ---------
     elif (url.path == '/create_from_jorgitos_landing_page.json' or url.path == '/create_from_jorgitos_landing_page') and method == 'OPTIONS':
-        headers =  { "Access-Control-Allow-Origin": "*" }
+        headers =  { "Access-Control-Allow-Origin": "*" ,
+                     'Access-Control-Allow-Headers': "*",
+                     'Access-Control-Allow-Methods': "*"}
         return Response( 'ok', status="200", headers=headers )
 
     elif (url.path == '/create_from_jorgitos_landing_page.json' or url.path == '/create_from_jorgitos_landing_page') and method == 'POST':
@@ -1047,7 +1049,10 @@ async def on_fetch(request, env):
         return await send_aviso( env, env.FONO_JORGITO, descripcion)
         
         #wait derivar_jorgitos(env, fono, descripcion, direccion, buy_order, comuna)
-        headers =  { "Access-Control-Allow-Origin": "*" }
+        headers =  { "Access-Control-Allow-Origin": "*" ,
+                     'Access-Control-Allow-Headers': "*",
+                     'Access-Control-Allow-Methods': "*"}
+
         return Response( 'ok', status="200", headers=headers )
 
     #----------  FIN DE ATENCIÓN A JORGITO's MEDICARE -------------------------------

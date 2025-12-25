@@ -1027,21 +1027,15 @@ async def on_fetch(request, env):
         console.log(f"result {result}")
         result_dict = json.loads( result )
 
-        #body = await request.text()
-        #params       = parse_qs( body )
-
-        #console.log(f"params {params}")
-
-        headers =  { "Access-Control-Allow-Origin": "*" }
-        return Response( 'ok', status="200", headers=headers )
-
         buy_order    = str( random.randint(1, 10000))
 
         session_id   = buy_order
         amount       = env.PRECIO_VISITA
         params       = parse_qs( body )
 
+        params = result_dict
         console.log(f"params {params}")
+
 
         name         = params['fname']
         fono         = params['phone']

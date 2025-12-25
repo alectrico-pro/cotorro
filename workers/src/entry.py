@@ -1025,11 +1025,8 @@ async def on_fetch(request, env):
 
         content_type, query = await gather_response(request)
         console.log(f"query {query}")
-        #url = urlparse(request.url)
         params = parse_qs(query)
         console.log(f"params {params}")
-
-
 
         buy_order    = str( random.randint(1, 10000))
         session_id   = buy_order
@@ -1044,7 +1041,7 @@ async def on_fetch(request, env):
 
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
 
-        await derivar_jefe(env, name, descripcion, direccion, buy_order, comuna)
+        await derivar_jorgito(env, name, descripcion, direccion, buy_order, comuna)
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
 

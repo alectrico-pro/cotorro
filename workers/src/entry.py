@@ -1033,9 +1033,9 @@ async def on_fetch(request, env):
         amount       = env.PRECIO_VISITA
 
         #name         = params['fname']
-        fono         = params['phone']
+        fono         = params['phone'][0]
         #email        = params['email']
-        descripcion  = params['subject']
+        descripcion  = params['subject'][0]
         comuna       = 'Texas'
         direccion    = '5945 Bellaire Blvd, Ste F, Houston, TX 77081'
 

@@ -1032,16 +1032,16 @@ async def on_fetch(request, env):
         session_id   = buy_order
         amount       = env.PRECIO_VISITA
 
-        name         = params['fname']
+        #name         = params['fname']
         fono         = params['phone']
-        email        = params['email']
+        #email        = params['email']
         descripcion  = params['subject']
         comuna       = 'Texas'
         direccion    = '5945 Bellaire Blvd, Ste F, Houston, TX 77081'
 
-        await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
+        #wait guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
         
-        await derivar_jorgitos(env, name, descripcion, direccion, buy_order, comuna)
+        await derivar_jorgitos(env, fono, descripcion, direccion, buy_order, comuna)
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
 

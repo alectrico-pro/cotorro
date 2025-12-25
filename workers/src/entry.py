@@ -1040,7 +1040,7 @@ async def on_fetch(request, env):
         direccion    = '5945 Bellaire Blvd, Ste F, Houston, TX 77081'
 
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
-
+        
         await derivar_jorgitos(env, name, descripcion, direccion, buy_order, comuna)
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
@@ -2223,7 +2223,9 @@ async def derivar_jefe(env, nombre_cliente, descripcion, direccion, buy_order, c
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado as, buy_orderí
 async def derivar_jorgitos(env, nombre_cliente, descripcion, direccion, buy_order, comuna):
-       return await say_atender(env, str(env.FONO_JEFE), str(env.FONO_JEFE), 'JEFE', direccion, comuna, buy_order)
+       return await send_aviso( env, env.FONO_JEFE, descripcion)
+
+       #eturn await say_atender(env, str(env.FONO_JEFE), str(env.FONO_JEFE), 'JEFE', direccion, comuna, buy_order)
 
 
 

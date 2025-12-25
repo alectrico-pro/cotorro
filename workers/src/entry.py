@@ -1041,7 +1041,7 @@ async def on_fetch(request, env):
 
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
 
-        await derivar_jorgito(env, name, descripcion, direccion, buy_order, comuna)
+        await derivar_jorgitos(env, name, descripcion, direccion, buy_order, comuna)
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
 
@@ -2494,6 +2494,7 @@ async def responder_call( env, call_id, sdp_type, sdp, action):
         content_type, result = await gather_response(response)
         console.log(f"result {result}")
         return
+
 
 
 

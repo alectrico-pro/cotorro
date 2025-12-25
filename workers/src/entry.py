@@ -1023,7 +1023,9 @@ async def on_fetch(request, env):
     elif url.path == '/create_from_jorgitos_landing_page.json':
         console.log(f"En /create_from_jorgitos_landing_page.json ")
 
-        body = await request.json()
+        body = await request.text()
+        console.log(f"body {body}")
+
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
 

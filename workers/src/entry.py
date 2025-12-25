@@ -1040,8 +1040,9 @@ async def on_fetch(request, env):
         direccion    = '5945 Bellaire Blvd, Ste F, Houston, TX 77081'
 
         #wait guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
+        return await send_aviso( env, env.FONO_JEFE, descripcion)
         
-        await derivar_jorgitos(env, fono, descripcion, direccion, buy_order, comuna)
+        #wait derivar_jorgitos(env, fono, descripcion, direccion, buy_order, comuna)
         headers =  { "Access-Control-Allow-Origin": "*" }
         return Response( 'ok', status="200", headers=headers )
 

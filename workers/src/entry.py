@@ -1028,7 +1028,6 @@ async def on_fetch(request, env):
 
         session_id   = buy_order
         amount       = env.PRECIO_VISITA
-        params       = parse_qs( body )
 
         console.log(f"params {params}")
 

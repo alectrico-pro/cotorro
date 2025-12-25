@@ -1020,7 +1020,7 @@ async def on_fetch(request, env):
        return success_mostrar_fono(env,  f"Concurso difundido.", 9)
 
     #---------- FORMULARIO DE JORGITO's MEDICARE ---------
-    elif url.path == '/create_from_jorgitos_landing_page.json' and method== 'POST':
+    elif url.path == '/create_from_jorgitos_landing_page.json' and method== 'OPTIONS':
         console.log(f"Params en /create_from_jorgitos_landing_page {params}")
 
         body = await request.text()
@@ -1233,6 +1233,7 @@ async def on_fetch(request, env):
     #elif url.path == "/webhook_ae"  and method== 'POST': # corresponde a la ap ae
     #    request_json = await request.json()
         #console.log( f"request_json {request_json}")
+
 
         #Atiende los llamados VoIP de Whatsapp ---
     #    value = request_json.entry[0].changes[0].value

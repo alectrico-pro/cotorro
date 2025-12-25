@@ -2224,6 +2224,12 @@ async def derivar_jefe(env, nombre_cliente, descripcion, direccion, buy_order, c
 
 
 
+#este aviso podría mejorarse , pero como es una comuniación interna lo he dejado as, buy_orderí
+async def derivar_jorgitos(env, nombre_cliente, descripcion, direccion, buy_order, comuna):
+        return await say_atender(env, str(env.FONO_JEFE), str(env.FONO_JORGITOS), 'JEFE', direccion, comuna, buy_order)
+
+
+
 async def say_confirmacion_de_caso( env, wa_id, nombre, nombre_cliente, fono_cliente, descripcion, comuna ):
         console.log("En say_confirmacion_de_casor")
         console.log(f"wa_id {wa_id}")

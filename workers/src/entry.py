@@ -1020,10 +1020,13 @@ async def on_fetch(request, env):
        return success_mostrar_fono(env,  f"Concurso difundido.", 9)
 
     #---------- FORMULARIO DE JORGITO's MEDICARE ---------
-    elif url.path == '/create_from_jorgitos_landing_page.json' and method== 'OPTIONS':
-        console.log(f"Params en /create_from_jorgitos_landing_page {params}")
+    elif url.path == '/create_from_jorgitos_landing_page.json':
+        console.log(f"En /create_from_jorgitos_landing_page.json ")
 
-        body = await request.text()
+        body = await request.json()
+        headers =  { "Access-Control-Allow-Origin": "*" }
+        return Response( 'ok', status="200", headers=headers )
+
         buy_order    = str( random.randint(1, 10000))
 
         session_id   = buy_order

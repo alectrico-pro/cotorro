@@ -1064,8 +1064,8 @@ async def on_fetch(request, env, ctx):
 
         response = Response( 'ok', status="200", headers=headers )
 
-        ctx.wait_until( guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount ) )
-        ctx.wait_until( derivar_jefe(env, fono, descripcion, direccion, buy_order, comuna) )
+        ctx.waitUntil( guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount ) )
+        ctx.waitUntil( derivar_jefe(env, fono, descripcion, direccion, buy_order, comuna) )
 
         return response
 

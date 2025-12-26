@@ -1057,16 +1057,17 @@ async def on_fetch(request, env, ctx):
         comuna       = 'Texas'
         direccion    = '5945 Bellaire Blvd, Ste F, Houston, TX 77081'
 
-        ctx.waitUntil( await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount ) )
-        ctx.waitUntil( await derivar_jefe(env, fono, descripcion, direccion, buy_order, comuna) )
-
-        # await derivar_jorgito(env, fono, descripcion, direccion, buy_order, comuna)
 
         headers =  { "Access-Control-Allow-Origin": "*" ,
                      'Access-Control-Allow-Headers': "*",
                      'Access-Control-Allow-Methods': "*"}
 
-        return Response( 'ok', status="200", headers=headers )
+        response = Response( 'ok', status="200", headers=headers )
+
+        ctx.wait_until( await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount ) )
+        ctx.wait_until( await derivar_jefe(env, fono, descripcion, direccion, buy_order, comuna) )
+
+        return response
 
     #----------  FIN DE ATENCIÓN A JORGITO's MEDICARE -------------------------------
     #---------- FORMULARIO DEL INGENIERO EN LANDING PAGES, NO ESTÁ EN TODAS ---------

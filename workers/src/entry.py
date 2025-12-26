@@ -1029,7 +1029,7 @@ async def on_fetch(request, env):
     elif (url.path == '/create_from_jorgitos_landing_page.json' or url.path == '/create_from_jorgitos_landing_page') and method == 'POST':
         console.log(f"En /create_from_jorgitos_landing_page.json ")
         pedido = request.json()
-        console.log("request {pedido}")
+        console.log(f"request {pedido}")
         content_type, query = await gather_response(request)
         console.log(f"query {query}")
         params = parse_qs(query)

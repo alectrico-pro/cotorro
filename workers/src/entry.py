@@ -1056,7 +1056,7 @@ async def on_fetch(request, env, ctx):
         direccion    = '5945 Bellaire Blvd, Ste F, Houston, TX 77081'
 
         #ctx.waitUntil( await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount ) )
-        ctx.waitUntil( derivar_jefe(env, fono, descripcion, direccion, buy_order, comuna) )
+        ctx.waitUntil( await derivar_jefe(env, fono, descripcion, direccion, buy_order, comuna) )
 
         # await derivar_jorgito(env, fono, descripcion, direccion, buy_order, comuna)
 

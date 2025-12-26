@@ -2227,7 +2227,7 @@ async def say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instrucci
 
 
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado as, buy_orderí
-async def derivar_jefe(env, nombre_cliente, descripcion, direccion, buy_order, comuna):g
+async def derivar_jefe(env, nombre_cliente, descripcion, direccion, buy_order, comuna):
         return await say_atender(env, str(env.FONO_JEFE), str(env.FONO_JEFE), 'JEFE', descripcion, comuna, buy_order)
 
 

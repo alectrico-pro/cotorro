@@ -1450,6 +1450,17 @@ async def on_fetch(request, env, ctx):
 
                             else:
                                console.log("No se pudo obtener fono de cliente")
+                         else:
+                               conssole.log("Ya fue tomado")
+                               reply = (
+                               "------------------------------ \n\n"
+                               f"Lamentamos informar que la \n"
+                               f"*Orden*:\t{buy_order}\n\n"
+                               f"*Ya ha sido tomada\n\n"
+                               "------------------------------ \n\n"
+                               )
+                               console.log(f"reply {reply}")
+                               await send_reply(env, fono_cliente, reply, True)
                        else:
                             console.log(f"id {id} no tiene buy_order")
                return Response( "No Procesado", status="200")

@@ -1030,6 +1030,7 @@ async def on_fetch(request, env):
         console.log(f"En /create_from_jorgitos_landing_page.json ")
         json = await request.json()
         console.log(f"json {json}")
+        console.log(f"service_id {json.service_id}")
 
         pedido = json.dumps( dict( await request.json()))
         console.log(f"request {pedido}")

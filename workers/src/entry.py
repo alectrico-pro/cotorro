@@ -1028,6 +1028,9 @@ async def on_fetch(request, env):
 
     elif (url.path == '/create_from_jorgitos_landing_page.json' or url.path == '/create_from_jorgitos_landing_page') and method == 'POST':
         console.log(f"En /create_from_jorgitos_landing_page.json ")
+        json = await request.json()
+        console.log(f"json {json}")
+
         pedido = json.dumps( dict( await request.json()))
         console.log(f"request {pedido}")
 

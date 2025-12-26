@@ -1222,7 +1222,8 @@ async def on_fetch(request, env, ctx):
                   )
 
         token_ws, uri = await genera_link_de_pago_tbk( buy_order, amount, env.RETURN_URL, fono, env)
-        await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
+        #await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
+        #difundir_a_colaboradors ya realiza guardar_pedido
         console.log("Estoy en /agendar, antes de difundir_a_colaboradores")
         await difundir_a_colaboradores(env, buy_order, name, descripcion, comuna, fono, email, direccion, env.PRECIO_TOKEN)
         return mostrar_formulario_de_pago(request, env, buy_order, amount, uri, token_ws)

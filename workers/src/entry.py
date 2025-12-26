@@ -1032,8 +1032,8 @@ async def on_fetch(request, env):
         console.log(f"email {params.template_params.email}")
         console.log(f"name {params.template_params.from_name}")
         console.log(f"message {params.template_params.message}")
-        console.log(f"phone {params.phone}")
-        console.log(f"firma {params.to_name}")
+        console.log(f"phone {params.template_params.phone}")
+        console.log(f"firma {params.template_params.to_name}")
 
         buy_order    = str( random.randint(1, 10000))
         session_id   = buy_order

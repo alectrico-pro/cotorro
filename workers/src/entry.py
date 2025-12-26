@@ -1,3 +1,4 @@
+#`pyodide.setDebug(true)`"
 #https://developers.cloudflare.com/pages/tutorials/use-r2-as-static-asset-storage-for-pages/
 #Esto ahorra conexiones simulatneas
 #Están limitdas a solo 6
@@ -1054,8 +1055,8 @@ async def on_fetch(request, env, ctx):
         comuna       = 'Texas'
         direccion    = '5945 Bellaire Blvd, Ste F, Houston, TX 77081'
 
-        ctx.waitUntil(  guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount ) )
-        ctx.waitUntil( derivar_jefe(env, fono, descripcion, direccion, buy_order, comuna) )
+        ctx.waitUntil( await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount ) )
+        ctx.waitUntil( await derivar_jefe(env, fono, descripcion, direccion, buy_order, comuna) )
 
         # await derivar_jorgito(env, fono, descripcion, direccion, buy_order, comuna)
 

@@ -1038,11 +1038,17 @@ async def on_fetch(request, env):
         buy_order    = str( random.randint(1, 10000))
         session_id   = buy_order
         amount       = env.PRECIO_VISITA
-
+     
         name         = params.template_params.from_name
         fono         = params.template_params.phone
         email        = params.template_params.email
         descripcion  = params.template_params.message
+
+        try:
+          date         = params.template_params.date
+        except:
+          descripcion = f"{descripcion}. Solicita cita para la fecha mm/dd/yy {date}."
+
         comuna       = 'Texas'
         direccion    = '5945 Bellaire Blvd, Ste F, Houston, TX 77081'
 

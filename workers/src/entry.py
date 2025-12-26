@@ -1029,27 +1029,24 @@ async def on_fetch(request, env):
     elif (url.path == '/create_from_jorgitos_landing_page.json' or url.path == '/create_from_jorgitos_landing_page') and method == 'POST':
         console.log(f"En /create_from_jorgitos_landing_page.json ")
         params = await request.json()
-        console.log(f"service_id {params.service_id}")
         console.log(f"email {params.template_params.email}")
-
-        content_type, query = await gather_response(request)
-        console.log(f"query {query}")
-        params = parse_qs(query)
-        console.log(f"params {params}")
+        console.log(f"name {params.template_params.from_name}")
+        console.log(f"message {params.template_params.message}")
+        console.log(f"phone {params.phone}")
+        console.log(f"firma {params.to_name}")
 
         buy_order    = str( random.randint(1, 10000))
         session_id   = buy_order
         amount       = env.PRECIO_VISITA
 
-        #name         = params['fname']
-        fono         = params['phone'][0]
-        #email        = params['email']
-        descripcion  = params['subject'][0]
+        name         = params.template_params.from_name
+        fono         = params.template_params.phone
+        email        = params.template_params.email
+        descripcion  = params.template_params.message
         comuna       = 'Texas'
         direccion    = '5945 Bellaire Blvd, Ste F, Houston, TX 77081'
 
-        #wait guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
-        #return await send_aviso( env, env.FONO_JORGITO, descripcion)
+        await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
         
         await derivar_jefe(env, fono, descripcion, direccion, buy_order, comuna)
 

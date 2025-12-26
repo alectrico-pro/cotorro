@@ -1439,7 +1439,7 @@ async def on_fetch(request, env, ctx):
                                reply = (
                                "------------------------------ \n\n"
                                f"*Orden*:\t{buy_order}\n\n"
-                               f"*Fono de su Electricista:*\t{wa_id}\n\n"
+                               f"*Fono de su Profesional:*\t{wa_id}\n\n"
                                "------------------------------ \n\n"
                                )
                                console.log(f"reply {reply}")

@@ -1048,7 +1048,9 @@ async def on_fetch(request, env):
 
         await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
         
-        await derivar_jefe(env, fono, descripcion, direccion, buy_order, comuna)
+        #await derivar_jefe(env, fono, descripcion, direccion, buy_order, comuna)
+
+        await derivar_jorgito(env, fono, descripcion, direccion, buy_order, comuna)
 
         headers =  { "Access-Control-Allow-Origin": "*" ,
                      'Access-Control-Allow-Headers': "*",
@@ -2229,6 +2231,11 @@ async def say_instrucciones( env, wa_id, nombre, saldo, instruccion_1, instrucci
 #este aviso podría mejorarse , pero como es una comuniación interna lo he dejado as, buy_orderí
 async def derivar_jefe(env, nombre_cliente, descripcion, direccion, buy_order, comuna):
         return await say_atender(env, str(env.FONO_JEFE), str(env.FONO_JEFE), 'JEFE', descripcion, comuna, buy_order)
+
+
+#este aviso podría mejorarse , pero como es una comuniación interna lo he dejado as, buy_orderí
+async def derivar_jorgito(env, nombre_cliente, descripcion, direccion, buy_order, comuna):
+        return await say_atender(env, str(env.FONO_JORGITO), str(env.FONO_JORGITO), 'Jorgito', descripcion, comuna, buy_order)
 
 
 

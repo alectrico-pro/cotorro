@@ -638,7 +638,7 @@ Si el usuario ingresa xxx, debes borrar el chat.
                     'parameters': { 'type': 'object','properties': {'nombre':  {'type': 'string', "minLength": 1, 'default': nombre, 'description': "Nombre de la persona que llenará el cuestionario." }}}},
                                        {      'name': 'sugerir_electricista', 'description': 'Sugerir Electricista.' },
                                        {      'name': 'enviar_aviso', 'description': 'Llenar Ficha de Atención.', 'parameters': { 'type': 'object',
-                                         'properties': {   'orden': {'type': 'string', 'default': orden, 'description': "Número de la orden de servicio" },
+                                         'properties': {   
                                                           'nombre': {'type': 'string', 'default': nombre, 'minLength': 1, 'description': "Nombre de la persona que recibirá al electricista"},
                                                         'telefono': {'type': 'string', 'default': wa_id, 'minLength': 1, 'description': 'Teléfono de contacto al que debe llamar el electricista.'},
                                                            'email': {'type': 'string', "minLength": 1, 'description': 'Dirección de correo electrónico para recibir el contrato y cualquier otra documentación.'},
@@ -731,7 +731,6 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                      #Avisar a los electricistas
                                      #Los electricistas pagan
                                      console.log("call.name es enviar_aviso")
-                                     console.log(f"call orden {call.arguments.orden}")
                                      console.log(f"call nombre {call.arguments.nombre}")
                                      console.log(f"call telefono {call.arguments.telefono}")
                                      console.log(f"call email {call.arguments.email}")
@@ -803,9 +802,9 @@ Si el usuario ingresa xxx, debes borrar el chat.
                                                                          call.arguments.direccion,
                                                                          call.arguments.comuna,
                                                                          call.arguments.descripcion,
-                                                                         call.arguments.orden)
+                                                                         orden)
                                      if resultado:
-                                       mensaje = f"La orden {call.arguments.orden} ha sido entregada a los colaboradores. Esta es la descripcion {call.arguments.descripcion}."
+                                       mensaje = f"La orden {orden} ha sido entregada a los colaboradores. Esta es la descripcion {call.arguments.descripcion}."
                                        tool_resultado = json.dumps( { 'role': 'tool', 'content': mensaje  } )
                                        await env.DIALOGO.put( str(fono) + ":no_colaborador" + str(datetime.now()) + ":tool" , tool_resultado )
                                        dico =  {

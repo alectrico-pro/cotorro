@@ -65,6 +65,8 @@ from base64 import b64decode, b64encode
 
 from itertools import count
 
+
+
 id_generator = count(start=1)  # Starts from 1, increments by default
 
 #criyptography es un paquete oficial de pyodide
@@ -1055,7 +1057,7 @@ async def on_fetch(request, env, ctx):
         comuna       = 'Texas'
         direccion    = '5945 Bellaire Blvd, Ste F, Houston, TX 77081'
 
-        #ctx.waitUntil( await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount ) )
+        ctx.waitUntil( await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount ) )
         ctx.waitUntil( await derivar_jefe(env, fono, descripcion, direccion, buy_order, comuna) )
 
         # await derivar_jorgito(env, fono, descripcion, direccion, buy_order, comuna)

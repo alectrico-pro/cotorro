@@ -994,7 +994,7 @@ async def listar_electricistas( env, wa_id):
 
 
 #----------------------------- WORKER ENTRYPOINT --------------------
-async def on_fetch(request, env):
+async def on_fetch(request, env, ctx):
 
     url = urlparse(request.url)
     params = parse_qs(url.query)
@@ -1054,9 +1054,8 @@ async def on_fetch(request, env):
         comuna       = 'Texas'
         direccion    = '5945 Bellaire Blvd, Ste F, Houston, TX 77081'
 
-        await guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount )
-        
-        await derivar_jefe(env, fono, descripcion, direccion, buy_order, comuna)
+        ctx.waitUntil(  guardar_pedido( env, buy_order, fono, name, email, direccion, comuna, descripcion,  amount ) )
+        ctx.waitUntil( derivar_jefe(env, fono, descripcion, direccion, buy_order, comuna) )
 
         # await derivar_jorgito(env, fono, descripcion, direccion, buy_order, comuna)
 

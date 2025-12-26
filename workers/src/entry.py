@@ -1045,9 +1045,11 @@ async def on_fetch(request, env):
         descripcion  = params.template_params.message
 
         try:
-          date         = params.template_params.date
-        except:
+          date        = params.template_params.date
           descripcion = f"{descripcion}. Solicita cita para la fecha mm/dd/yy {date}."
+          console.log(f"date {date}")
+        except:
+          pass
 
         comuna       = 'Texas'
         direccion    = '5945 Bellaire Blvd, Ste F, Houston, TX 77081'
